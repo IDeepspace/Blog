@@ -48,7 +48,7 @@
                     var featureImg = post.img ? post.img : featureImages[Math.abs(hashCode(post.title) % imgCount)];
                     var bgColor = bgColorArr[index % colorCount];
                 %>
-                <div class="col s12 m12" <% if (i > 1) { %>data-aos="zoom-in-up"<% } %>>
+                <div class="col s12 m12" <% if (index > 1) { %>data-aos="zoom-in-up"<% } %>>
                     <div class="post-card" style="background-image: url('<%- featureImg %>')">
                         <div class="post-body">
                             <div class="post-categories">
@@ -69,16 +69,15 @@
                 </div>
                 <% }) %>
                 <% } else { %>
-                <% for (var i = 0; i < page.posts.length; i++) { %>
+                <% page.posts.forEach((post, index) => { %>
                 <%
-                    var post = page.posts[i];
-                    var grid = (i % 3 === 0) ? 's12' : 's12 m12';
-                    var description = (i % 3 === 0) ? strip_html(post.content).substring(0, 120)
+                    var grid = (index % 3 === 0) ? 's12' : 's12 m12';
+                    var description = (index % 3 === 0) ? strip_html(post.content).substring(0, 120)
                             : strip_html(post.content).substring(0, 70);
                     var featureImg = post.img ? post.img : featureImages[Math.abs(hashCode(post.title) % imgCount)];
-                    var bgColor = bgColorArr[i % colorCount];
+                    var bgColor = bgColorArr[index % colorCount];
                 %>
-                <% } %>
+                <% }) %>
                 <% } %>
             </div>
         </div>
