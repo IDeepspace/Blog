@@ -2,7 +2,7 @@
 title: ES6 —— Promise
 author: Deepspace
 top: true
-img: https://github.com/IDeepspace/ImageHosting/raw/master/bg/1.jpg 
+img: ../../ImageHosting/bg/1.jpg 
 tags:
   - ES6
 categories: JavaScript
@@ -16,7 +16,7 @@ urlname: es6-promise
 
 学习一个东西，得先知道它是什么。我们先在浏览器中使用 `console.dir(Promise)` 打印出 `Promise` 对象的所的属性和方法。
 
-![Promise](https://github.com/IDeepspace/ImageHosting/raw/master/JavaScript/promise.png)
+![Promise](../../ImageHosting/JavaScript/promise.png)
 
 从打印结果可以看出，`Promise` 是一个构造函数，它自己本身有 `all`、`reject`、`resolve` 等方法，原型上有 `catch`、`finally`、`then` 等方法。所以 `new` 出来的 `Promise` 对象也就自然拥有 `catch`、`finally`、`then` 这些方法。从上图中可以看到，`then ` 方法返回的是一个新的 `Promise` 实例（注意，不是原来那个 `Promise` 实例）。因此可以采用链式写法，即 `then` 方法后面再调用另一个 `then` 方法。
 
