@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   cssmin = require('gulp-clean-css'),
   imagemin = require('gulp-imagemin'),

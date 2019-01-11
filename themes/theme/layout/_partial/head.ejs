@@ -1,5 +1,5 @@
 <%
-    var title = page.title;
+    let title = page.title;
 
     // tags, categories, about pages title
     if (title == 'tags') {
@@ -25,14 +25,14 @@
     }
 
     // final page title.
-    var pageTitle = title ? title + ' | ' + config.title : config.title;
+    const pageTitle = title ? title + ' | ' + config.title : config.title;
 
     // keywords.
-    var keyWords = config.keywords ? config.keywords : config.title;
+    let keyWords = config.keywords ? config.keywords : config.title;
     keyWords = title ? title  + ', ' + keyWords : keyWords;
 
     // description.
-    var description = null;
+    let description = null;
     if (page.hasOwnProperty('__post') && page.__post) {
         description = strip_html(page.content).substring(0, 120);
     }

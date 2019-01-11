@@ -353,7 +353,7 @@ header .go-back i {
 }
 
 .post-cover {
-    height: 40vh !important;
+    height: 50vh !important;
 }
 
 .bg-cover:after {
@@ -393,8 +393,9 @@ header .go-back i {
     color: #eee;
 }
 
-.bg-cover .post-title {
-    font-size: 1.9rem;
+.bg-cover .post-detail-title {
+    font-size: 2.5rem;
+    font-weight: 700;
 }
 
 @-webkit-keyframes rainbow {

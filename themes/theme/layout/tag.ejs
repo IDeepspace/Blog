@@ -1,17 +1,16 @@
-<!-- <%- partial('_partial/bg-cover') %> -->
-<main class="content" style="margin-top: 100px;">
+<main class="content" style="margin-top: 40px;">
 
     <%- partial('_widget/tag-cloud') %>
 
     <div class="container">
         <%
-        var hashCode = function (str) {
+        const hashCode = function (str) {
             if (!str && str.length === 0) {
                 return 0;
             }
 
-            var hash = 0;
-            for (var i = 0, len = str.length; i < len; i++) {
+            let hash = 0;
+            for (let i = 0, len = str.length; i < len; i++) {
                 hash = ((hash << 5) - hash) + str.charCodeAt(i);
                 hash |= 0;
             }
@@ -23,13 +22,13 @@
             <div class="row tags-posts">
                 <% page.posts.sort('date').reverse().forEach(post => { %>
                 <%
-                    var tagArr = [];
+                    let tagArr = [];
                     if (post.tags && post.tags.length > 0) {
                         post.tags.forEach(tag => {
                             tagArr.push(tag.name);
                         });
                     }
-                    var tags = tagArr.join(', ');
+                    let tags = tagArr.join(', ');
                 %>
                 <div class="article tag-post col s12 m6 l4" data-tags="<%- tags %>" data-aos="fade-up">
                     <div class="card">
@@ -39,16 +38,17 @@
                                 <img src="<%= post.img %>" class="responsive-img" alt="<%- post.title %>">
                                 <% } else { %>
                                 <%
-                                    var len = theme.featureImages.length;
-                                    var num = Math.abs(hashCode(post.title) % len);
-                                    var featureimg = theme.featureImages[num];
+                                    const len = theme.featureImages.length;
+                                    const num = Math.abs(hashCode(post.title) % len);
+                                    const featureimg = theme.featureImages[num];
                                 %>
                                 <img src="<%= featureimg %>" class="responsive-img" alt="<%- post.title %>">
                                 <% } %>
-                                <span class="card-title"><%- post.title %></span>
+                                <span class="card-title tag-post-title"><%- post.title %></span>
                             </div>
                         </a>
                         <div class="card-content article-content">
+                            <!--<div class="summary"><%- strip_html(post.content).substring(0, 80) %>...</div>-->
                             <div class="publish-info">
                                 <span class="publish-date">
                                     <i class="fa fa-clock-o fa-fw icon-date"></i><%= date(post.date, config.date_format) %>

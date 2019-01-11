@@ -1,4 +1,3 @@
-<!-- <%- partial('_partial/bg-cover') %> -->
 <main class="content" style="margin-top: 100px;">
 
     <% if (theme.postCalendar) { %>
@@ -6,32 +5,10 @@
     <% } %>
 
     <%
-    /**
-     * hashCode function.
-     *
-     * @param str str
-     * @returns {number}
-     */
-    var hashCode = function (str) {
-        if (!str && str.length === 0) {
-            return 0;
-        }
-
-        var hash = 0;
-        for (var i = 0, len = str.length; i < len; i++) {
-            hash = ((hash << 5) - hash) + str.charCodeAt(i);
-            hash |= 0;
-        }
-        return hash;
-    };
 
     // init year and month variable.
-    var year = '1970';
-    var month = '1970-01';
-
-    // post feature image.
-    var featureimg = '/medias/featureimages/0.jpg';
-    var featureImages = theme.featureImages;
+    let year = '1970';
+    let month = '1970-01';
     %>
 
     <div id="cd-timeline" class="container">
@@ -64,23 +41,9 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="<%- url_for(post.path) %>">
-                            <div class="card-image">
-                                <% if (post.img) { %>
-                                <img src="<%= post.img %>" class="responsive-img" alt="<%- post.title %>">
-                                <% } else { %>
-                                <%
-                                    var len = featureImages.length;
-                                    var num = Math.abs(hashCode(post.title) % len);
-                                    featureimg = featureImages[num];
-                                %>
-                                <img src="<%= featureimg %>" class="responsive-img" alt="<%- post.title %>">
-                                <% } %>
-                                <span class="card-title"><%- post.title %></span>
-                            </div>
-                        </a>
+                        <a href="<%- url_for(post.path) %>" class="archive-post-title"><%- post.title %></a>
                         <div class="card-content article-content">
-                            <div class="summary"><%- strip_html(post.content).substring(0, 80) %></div>
+                            <!--<div class="summary"><%- strip_html(post.content).substring(0, 80) %>...</div>-->
                             <div class="publish-info">
                                 <span class="publish-date">
                                     <i class="fa fa-clock-o fa-fw icon-date"></i><%= date(post.date, config.date_format) %>

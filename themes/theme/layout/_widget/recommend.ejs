@@ -1,32 +1,32 @@
 <%
     // get all top posts.
-    var topPosts = [];
+    let topPosts = [];
     site.posts.forEach(function (post) {
         if (post.top) {
             topPosts.push(post);
         }
     });
-    var topPostsCount = topPosts.length;
+    let topPostsCount = topPosts.length;
 %>
 
 <% if (topPostsCount > 0) { %>
 <%
-    var hashCode = function (str) {
+    const hashCode = function (str) {
         if (!str && str.length === 0) {
             return 0;
         }
 
-        var hash = 0;
-        for (var i = 0, len = str.length; i < len; i++) {
+        let hash = 0;
+        for (let i = 0, len = str.length; i < len; i++) {
             hash = ((hash << 5) - hash) + str.charCodeAt(i);
             hash |= 0;
         }
         return hash;
     };
 
-    var featureImages = theme.featureImages;
-    var imgCount = featureImages.length;
-    var bgColorArr = [
+    let featureImages = theme.featureImages;
+    let imgCount = featureImages.length;
+    let bgColorArr = [
             'linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)',
             'linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)',
             'linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)',
@@ -34,19 +34,17 @@
             'linear-gradient(to right, #4cbf30 0%, #0f9d58 100%)',
             'linear-gradient(to right, #C644FC 0%, #5856D6 100%)',
             'linear-gradient(to right, #55EFCB 0%, #5BCAFF 100%)'];
-    var colorCount = bgColorArr.length;
+    let colorCount = bgColorArr.length;
 %>
 <div class="container recommend">
     <div class="card">
         <div class="card-content">
 
             <div class="row">
-                <% if (page.posts.length % 2 === 0) { %>
                 <% page.posts.forEach((post, index) => { %>
                 <%
-                    // var post = topPosts[i];
-                    var featureImg = post.img ? post.img : featureImages[Math.abs(hashCode(post.title) % imgCount)];
-                    var bgColor = bgColorArr[index % colorCount];
+                    let featureImg = post.img ? post.img : featureImages[Math.abs(hashCode(post.title) % imgCount)];
+                    let bgColor = bgColorArr[index % colorCount];
                 %>
                 <div class="col s12 m12" <% if (index > 1) { %>data-aos="zoom-in-up"<% } %>>
                     <div class="post-card" style="background-image: url('<%- featureImg %>')">
@@ -68,17 +66,6 @@
                     </div>
                 </div>
                 <% }) %>
-                <% } else { %>
-                <% page.posts.forEach((post, index) => { %>
-                <%
-                    var grid = (index % 3 === 0) ? 's12' : 's12 m12';
-                    var description = (index % 3 === 0) ? strip_html(post.content).substring(0, 120)
-                            : strip_html(post.content).substring(0, 70);
-                    var featureImg = post.img ? post.img : featureImages[Math.abs(hashCode(post.title) % imgCount)];
-                    var bgColor = bgColorArr[index % colorCount];
-                %>
-                <% }) %>
-                <% } %>
             </div>
         </div>
     </div>

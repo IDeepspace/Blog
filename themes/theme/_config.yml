@@ -112,8 +112,8 @@ myGallery:
   enable: true
   data:
     - /medias/featureimages/winter.jpg
-    - /medias/featureimages/1.jpg
-    - /medias/featureimages/2.jpg
+    - /medias/featureimages/saguenayIceFishing.jpg
+    - /medias/featureimages/sun.jpg
 
 # Whether to display post-calender in the `archive` page
 # 设置在归档页面中是否显示'文章日历'控件
