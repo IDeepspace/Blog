@@ -24,10 +24,10 @@ var isCategory = is_category();
             <div class="tag-title center-align"><%= __('postCategoryTitle') %></div>
             <div class="tag-chips">
                 <% if (site.categories && site.categories.length > 0) { %>
-                <% site.categories.map(function(category) { %>
+                <% site.categories.filter(category => category.name !== 'ReadingNotes').map(function(category) { %>
                 <%
                     i++;
-                    var color = i >= colorCount ? colorArr[Math.abs(hashCode(category.name) % colorCount)]
+                    const color = i >= colorCount ? colorArr[Math.abs(hashCode(category.name) % colorCount)]
                             : colorArr[i - 1];
                 %>
                 <a href="<%- url_for(category.path) %>" title="<%- category.name %>: <%- category.length %>">

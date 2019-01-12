@@ -16,24 +16,24 @@
     let radarChart = echarts.init(document.getElementById('category-radar'));
 
     <%
-        var categories = site.categories;
+        const categories = site.categories.filter(category => category.name !== 'ReadingNotes');
 
         // Find the maximum and average values of the post categories.
-        var radarValueArr = [];
+        let radarValueArr = [];
         categories.some(function(category) {
             radarValueArr.push(category.length);
         });
 
-        var max = Math.max.apply(null, radarValueArr) + Math.min.apply(null, radarValueArr);
+        let max = Math.max.apply(null, radarValueArr) + Math.min.apply(null, radarValueArr);
 
         // Calculate the data needed for the radar chart.
-        var indicatorArr = [];
+        let indicatorArr = [];
         categories.map(function(category) {
             indicatorArr.push({'name': category.name, 'max': max});
         });
 
-        var indicatorData = JSON.stringify(indicatorArr);
-        var radarValueData = JSON.stringify(radarValueArr);
+        const indicatorData = JSON.stringify(indicatorArr);
+        const radarValueData = JSON.stringify(radarValueArr);
     %>
 
     let option = {
