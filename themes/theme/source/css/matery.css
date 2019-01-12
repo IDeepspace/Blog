@@ -709,33 +709,6 @@ article .article-tags .chip {
     border-radius: 10px;
 }
 
-.prev-next {
-    margin-left: -0.75rem;
-}
-
-.prev-next .article-badge {
-    min-width: 3rem;
-    margin-top: 7px;
-    padding: 3px 10px 3px 8px;
-    text-align: center;
-    font-size: 1rem;
-    line-height: inherit;
-    position: absolute;
-    box-sizing: border-box;
-    z-index: 200;
-    background-color: #fff;
-    font-weight: 500;
-}
-
-.prev-next .left-badge {
-    border-radius: 0 5px 5px 0;
-}
-
-.prev-next .right-badge {
-    border-radius: 5px 0 0 5px;
-    right: 10px;
-}
-
 .paging .row {
     margin-left: 0;
     margin-right: 0;
