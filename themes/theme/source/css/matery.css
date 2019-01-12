@@ -1573,7 +1573,7 @@ footer .copy-right {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 100px;
+    padding: 2rem;
     margin: 40px 0;
     background-color: white;
     color: #333;
