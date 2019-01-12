@@ -1632,4 +1632,26 @@ footer .copy-right {
      bottom: 0;
      height: 1px;
      background-color: #e5e5e5;
- }
+}
+
+/*相关文章样式*/
+.relate-article-wrapper {
+    padding: 1rem;
+}
+.relate-article-wrapper .relate-article-header {
+    font-weight: 700;
+    font-size: 20px;
+    padding: 1em 0 0 0.5em;
+}
+.relate-post-box {
+    color: #42b983!important;
+    padding: 1em;
+}
+.relate-post {
+    line-height: 30px;
+    font-size: 18px;
+    color: #42b983!important;
+}
+#relate-post-link {
+    color: #42b983!important;
+}

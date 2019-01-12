@@ -1,26 +1,17 @@
-<%
-let result = site.categories.findOne({name: 'ReadingNotes'});
-console.log(page)
-
-%>
-
-<!--<main class="reading-notes-card-container" style="margin-top: 30px;">-->
-    <!--<div>-->
-        <!--<% result.posts.data.forEach(function(post){ %>-->
-            <!--<% if (post) { %>-->
-                <!--<div class="reading-notes-card">-->
-                    <!--&lt;!&ndash;<% if (post.img[0]) { %>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="imgWrap">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img src="<%= post.img %>" alt="" />&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<% } %>&ndash;&gt;-->
-                    <!--<div class="ctnWrap">-->
-                        <!--<a href="<%- url_for(post.path) %>" class="title"><%= post.title %></a>-->
-                        <!--<section class="desc"><%- strip_html(post.content).substring(0, 120) %>......</section>-->
-                        <!--<p class="sub"><%- date(post.date, 'MMM D , YYYY') %></p>-->
-                    <!--</div>-->
-                <!--</div>-->
-        <!--<% }-->
-        <!--})%>-->
-    <!--</div>-->
-<!--</main>-->
+<div class="article" data-aos="fade-up">
+    <%
+        let data = site.categories.findOne({name: page.categories.data[0].name});
+    %>
+    <div class="card relate-article-wrapper">
+        <header class="relate-article-header">相关文章&nbsp;<i class="fa fa-arrow-right"></i></header>
+        <div class="relate-post-box">
+            <% data.posts.data.filter(post => post.title !== page.title).forEach(function(post, index){ %>
+                <% if (post && index < 5) { %>
+                    <div class="relate-post">
+                        <span><%- index+1 %>、</span><a id="relate-post-link" href="<%- url_for(post.path) %>"><%= post.title %></a>
+                    </div>
+                <% }
+            })%>
+        </div>
+    </div>
+</div>

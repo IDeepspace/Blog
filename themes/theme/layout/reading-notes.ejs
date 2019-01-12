@@ -1,17 +1,11 @@
-<%
-let result = site.categories.findOne({name: 'ReadingNotes'})
-%>
-
 <main class="reading-notes-card-container" style="margin-top: 30px;">
+    <%
+        let result = site.categories.findOne({name: 'ReadingNotes'})
+    %>
     <div>
         <% result.posts.data.forEach(function(post){ %>
         <% if (post) { %>
             <div class="reading-notes-card">
-                <!--<% if (post.img[0]) { %>-->
-                    <!--<div class="imgWrap">-->
-                        <!--<img src="<%= post.img %>" alt="" />-->
-                    <!--</div>-->
-                <!--<% } %>-->
                 <div class="ctnWrap">
                     <a href="<%- url_for(post.path) %>" class="title"><%= post.title %></a>
                     <section class="desc"><%- strip_html(post.content).substring(0, 120) %>......</section>
@@ -22,3 +16,7 @@ let result = site.categories.findOne({name: 'ReadingNotes'})
         })%>
     </div>
 </main>
+
+<% if (page.total > 1) { %>
+    <%- partial('_partial/paging') %>
+<% } %>
