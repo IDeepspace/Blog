@@ -12,7 +12,7 @@
     %>
 
     <div id="cd-timeline" class="container">
-        <% page.posts.filter(post => post.categories.data[0].name !== 'ReadingNotes').each(function(post) { %>
+        <% page.posts.each(function(post) { %>
         <div class="cd-timeline-block">
 
             <%# year. %>

@@ -20,7 +20,7 @@
 
         <article>
             <div class="row tags-posts">
-                <% page.posts.filter(post => post.categories.data[0].name !== 'ReadingNotes').sort('date').reverse().forEach(post => { %>
+                <% page.posts.sort('date').reverse().forEach(post => { %>
                 <%
                     let tagArr = [];
                     if (post.tags && post.tags.length > 0) {

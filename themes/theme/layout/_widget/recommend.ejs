@@ -1,7 +1,7 @@
 <%
     // get all top posts.
     let topPosts = [];
-    site.posts.filter(post => post.categories.data[0].name !== 'ReadingNotes').forEach(function (post) {
+    site.posts.forEach(function (post) {
         if (post.top) {
             topPosts.push(post);
         }
@@ -41,7 +41,7 @@
         <div class="card-content">
 
             <div class="row">
-                <% page.posts.filter(post => post.categories.data[0].name !== 'ReadingNotes').forEach((post, index) => { %>
+                <% page.posts.forEach((post, index) => { %>
                 <%
                     let featureImg = post.img ? post.img : featureImages[Math.abs(hashCode(post.title) % imgCount)];
                     let bgColor = bgColorArr[index % colorCount];
