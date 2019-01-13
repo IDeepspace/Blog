@@ -6,7 +6,7 @@ img: ../../ImageHosting/bg/1.jpg
 tags:
   - ES6
 categories: JavaScript
-date: 2018-12-29
+date: 2018-06-29
 urlname: es6-promise
 ---
 

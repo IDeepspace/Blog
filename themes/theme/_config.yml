@@ -114,7 +114,7 @@ postCalendar: true
 # the Gitalk config，default disabled
 # Gitalk 评论模块的配置，默认为不激活
 gitalk:
-  enable: false
+  enable: true
   owner: IDeepspace
   repo: IDeepspace.github.io
   oauth:
@@ -142,7 +142,7 @@ disqus:
 # Livere comment configuration, the default is not activated
 # Livere 来必力评论模块的配置，默认为不激活
 livere:
-  enable: true
+  enable: false
   uid: MTAyMC8zODY5My8xNTIyMQ==
 
 # Whether to display fork me on github icon and link, default true, You can change it to your repo address
