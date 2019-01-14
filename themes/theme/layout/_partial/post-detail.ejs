@@ -52,7 +52,9 @@
         </div>
     </div>
 
-    <%- partial('_partial/related-articles') %>
+    <% if (page.categories && page.categories.length >= 1) { %>
+        <%- partial('_partial/related-articles') %>
+    <% } %>
 
     <% if (theme.gitalk && theme.gitalk.enable) { %>
         <%- partial('_partial/gitalk') %>

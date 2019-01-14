@@ -2,9 +2,7 @@
     // get all top posts.
     let topPosts = [];
     site.posts.forEach(function (post) {
-        if (post.top) {
-            topPosts.push(post);
-        }
+       topPosts.push(post);
     });
     let topPostsCount = topPosts.length;
 %>
