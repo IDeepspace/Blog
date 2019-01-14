@@ -1,3 +1,46 @@
+---
+title: Hexo博客－性能优化之静态文件压缩
+author: Deepspace
+top: true
+img: ../../ImageHosting/bg/night.jpg 
+tags:
+  - Hexo
+categories: Hexo
+date: 2016-10-12
+urlname: hexo-performance-optimization
+---
+
+## Hexo博客－性能优化之静态文件压缩
+
+### 使用Gulp优化Hexo
+
+#### 1.安装依赖
+
+```shell
+$ npm install gulp gulp-uglify gulp-clean-css gulp-htmlmin gulp-htmlclean gulp-imagemin gulp-concat --save-dev
+```
+
+如果安装的依赖和已经存在的依赖有冲突 , 可在 `package.json` 中添加以下开发依赖 :
+
+```shell
+"devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlclean": "^2.7.15",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-uglify": "^3.0.0"
+}
+```
+
+#### 2.创建 gulpfile.js
+
+在 `hexo blog` 的根目录文件夹下创建 `gulpfile.js` :
+
+写入以下内容 :
+
+```javascript
 let gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   cssmin = require('gulp-clean-css'),
@@ -79,3 +122,31 @@ gulp.task('build', [
   'fancybox:css',
   'minify-html'
 ]);
+```
+
+#### 2.执行优化命令
+
+```shell
+$ hexo clean
+$ hexo g
+$ gulp build
+$ hexo d
+```
+
+连续执行4个命令太麻烦， 可以直接在根目录下的 `package.json` 文件中生成写入 `scripts` :
+
+```shell
+"scripts": {
+  "build": "hexo clean && hexo g && gulp build && hexo deploy"
+  }
+```
+
+然后执行命令 :
+
+```shell
+$ npm run build
+```
+
+以前都是使用 `hexo clean`  ,  `hexo g`  , `hexo d` 来自动更新博文，虽然命令不长，还是不如上面一条命令来的直接 !
+
+至此，可以得到一个 `html` 、`css` 、`js` 、`image` 都更优化的 `/public  `文件夹，我用评测工具测试了一下博客打开速度, 确实快了不少 !
