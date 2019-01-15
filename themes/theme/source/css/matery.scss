@@ -577,16 +577,19 @@ header .go-back i {
 
 .home {
     margin-top: 20px;
-    .card-content .post-card .post-info {
-        display: block;
-        text-align: right;
-        .category-name-of-home {
-            color: rgb(245, 74, 66);
+    .card-content .post-card {
+        .post-info {
+            display: block;
+            text-align: right;
+            .category-name-of-home {
+                color: rgb(245, 74, 66);
+            }
         }
         .article-tag .chip {
             color: white !important;
         }
     }
+
 }
 
 .notice {

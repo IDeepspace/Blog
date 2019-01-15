@@ -1,8 +1,6 @@
 ---
 title: Redux 基础知识
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/8.jpg 
 tags:
   - Redux
   - React

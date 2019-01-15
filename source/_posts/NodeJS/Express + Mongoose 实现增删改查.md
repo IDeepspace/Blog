@@ -1,8 +1,6 @@
 ---
 title: Express + Mongoose 实现增删改查
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/7.jpg 
 tags:
   - Express
   - Mongoose

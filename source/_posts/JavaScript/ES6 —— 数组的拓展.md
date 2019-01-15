@@ -1,8 +1,6 @@
 ---
 title: ES6 —— 数组的拓展
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/3.jpg 
 tags:
   - ES6
 categories: JavaScript

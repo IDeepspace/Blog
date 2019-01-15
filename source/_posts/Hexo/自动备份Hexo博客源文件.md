@@ -1,8 +1,6 @@
 ---
 title: 如何自动备份Hexo博客源文件
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/mountain.jpg 
 tags:
   - Hexo
 categories: Hexo

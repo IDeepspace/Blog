@@ -1,8 +1,6 @@
 ---
 title: ES6 —— let 和 const
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/1.jpg 
 tags:
   - ES6
 categories: JavaScript

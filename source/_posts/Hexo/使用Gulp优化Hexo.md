@@ -1,8 +1,6 @@
 ---
 title: Hexo博客－性能优化之静态文件压缩
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/night.jpg 
 tags:
   - Hexo
 categories: Hexo

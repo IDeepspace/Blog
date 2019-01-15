@@ -1,8 +1,6 @@
 ---
 title: JavaScript 中的对象拷贝
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/10.jpg 
 tags:
   - 对象拷贝
 categories: JavaScript

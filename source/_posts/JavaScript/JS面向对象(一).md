@@ -1,8 +1,6 @@
 ---
 title: JS 面向对象(一)
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/6.jpg 
 tags:
   - JavaScript
 categories: JavaScript

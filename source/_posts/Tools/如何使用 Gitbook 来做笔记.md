@@ -1,8 +1,6 @@
 ---
 title: 如何使用 Gitbook 来做笔记?
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/6.jpg 
 tags:
   - Gitbook
 categories: Tool

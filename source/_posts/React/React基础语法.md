@@ -1,8 +1,6 @@
 ---
 title: React 基础知识
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/3.jpg 
 tags:
   - React
 categories: React

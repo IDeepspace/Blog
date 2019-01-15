@@ -1,8 +1,6 @@
 ---
 title: ES6 —— Promise
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/1.jpg 
 tags:
   - ES6
 categories: JavaScript

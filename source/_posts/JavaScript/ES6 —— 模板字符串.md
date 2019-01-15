@@ -1,8 +1,6 @@
 ---
 title: ES6 —— 模板字符串
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/5.jpg
 tags:
   - ES6
 categories: JavaScript

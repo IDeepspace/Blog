@@ -1,8 +1,6 @@
 ---
 title: Hexo+Github 搭建博客教程
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/earth.jpg 
 tags:
   - Hexo
 categories: Hexo

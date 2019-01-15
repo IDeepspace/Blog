@@ -1,8 +1,6 @@
 ---
 title: ES6 —— 箭头函数 Arrow Functions
 author: Deepspace
-top: true
-img: ../../ImageHosting/bg/0.jpg 
 tags:
   - ES6
 categories: JavaScript
