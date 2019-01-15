@@ -554,7 +554,6 @@ header .go-back i {
 }
 
 .home .post-card .post-title {
-    height: 48px;
     margin-top: 10px;
     margin-bottom: 5px;
     color: black;
@@ -777,6 +776,9 @@ article .article-tags .chip {
         padding: 25px 15px 30px 18px;
         margin-bottom: 20px;
     }
+    .home .post-card .post-title {
+        font-size: 22px;
+    }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {
@@ -788,11 +790,17 @@ article .article-tags .chip {
         padding: 25px 30px 30px 32px;
         margin-bottom: 20px;
     }
+    .home .post-card .post-title {
+        font-size: 24px;
+    }
 }
 
 @media only screen and (min-width: 993px) {
     #artDetail .article-card-content {
         padding: 0 50px 20px 50px;
+    }
+    .home .post-card .post-title {
+        font-size: 28px;
     }
 }
 
