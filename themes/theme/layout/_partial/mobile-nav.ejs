@@ -1,11 +1,11 @@
 <div class="side-nav" id="mobile-nav">
 
     <div class="mobile-head bg-color">
-        <!--
-        <% if (theme.logo !== undefined && theme.logo.length > 0) { %>
-        <img src="<%= theme.logo %>" class="logo-img circle responsive-img">
+        <% if (theme.logo) { %>
+            <img src="<%= theme.logo %>" class="logo-img hide-on-small-only">
+        <% } else { %>
+            <span />
         <% } %>
-         -->
         <div class="logo-name"><%- config.title %></div>
         <div class="logo-desc">
             <% if (config.description && config.description.length > 0) { %>
