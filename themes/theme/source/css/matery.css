@@ -530,7 +530,7 @@ header .go-back i {
 }
 
 .home .post-card img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
     cursor: pointer;
 }
@@ -540,6 +540,12 @@ header .go-back i {
     margin: 0 auto;
     padding: 1.8rem 1.25rem;
     z-index: 2;
+}
+
+.home .post-card .post-body .home-post-brief img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .home .post-card .post-categories {

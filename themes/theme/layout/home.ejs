@@ -57,9 +57,9 @@
                                 </span>
                                 <span class=""><i class="fa fa-clock-o fa-fw"></i><%- date(page.date, 'YYYY-MM-DD') %></span>
                             </div>
-                            <p class="post-description">
+                            <div class="home-post-brief">
                                 <%- post.excerpt %>
-                            </p>
+                            </div>
                             <div class="article-tag">
                                 <% post.tags.each(function(tag) { %>
                                     <a href="<%- url_for(tag.path) %>" target="_blank">
