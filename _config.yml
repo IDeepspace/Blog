@@ -56,7 +56,7 @@ prism_plugin:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 7
+  per_page: 8
   order_by: -date
 archive_generator:
   per_page: 12

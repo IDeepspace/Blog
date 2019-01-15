@@ -2,80 +2,66 @@
 
     <%- partial('_widget/category-cloud') %>
 
-    <%
-    const hashCode = function (str) {
-        if (!str && str.length === 0) {
-            return 0;
-        }
-
-        let hash = 0;
-        for (let i = 0, len = str.length; i < len; i++) {
-            hash = ((hash << 5) - hash) + str.charCodeAt(i);
-            hash |= 0;
-        }
-        return hash;
-    };
-    %>
-
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
-            <% page.posts.sort('date').reverse().forEach(post => { %>
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="<%- url_for(post.path) %>">
-                        <div class="card-image tag-image">
-                            <% if (post.img) { %>
-                            <img src="<%= post.img %>" class="responsive-img" alt="<%- post.title %>">
-                            <% } else { %>
-                            <%
-                                const len = theme.featureImages.length;
-                                const num = Math.abs(hashCode(post.title) % len);
-                                const featureimg = theme.featureImages[num];
-                            %>
-                            <img src="<%= featureimg %>" class="responsive-img" alt="<%- post.title %>">
+    <div class="container">
+        <div class="card timeline-wrapper">
+            <div class="timeline">
+                <span class="archive-move-on"></span>
+                <span class="archive-page-counter">
+                    <% if(!is_archive()){ %>
+                        <span>当前位于 <%- page.current%>/<%- page.total -%> 页</span>
+                    <% }else{ %>
+                        <span>Wow! 一共有 <%- site.posts.length %> 篇文章</span>
+                    <% } %>
+                </span>
+                <%
+                const getPostYear = psg => psg.date.year();
+                let prevYear = getPostYear(page.posts.data[0]), nowYear = null;
+                %>
+                <% if(!is_archive()){ %>
+                    <div class="collection-title">
+                        <h2>
+                            <% if(is_category()) { %>
+                                <span>分类 : <%- page.category %></span>
+                            <% }else if(is_tag()){ %>
+                                <span>标签 : <%- page.tag %></span>
                             <% } %>
-                            <span class="card-title"><%- post.title %></span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <!--<div class="summary"><%- strip_html(post.content).substring(0, 70) %>...</div>-->
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i><%= date(post.date, config.date_format) %>
-                            </span>
-                            <span class="publish-author">
-                                <% if (post.categories && post.categories.length > 0) { %>
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                <% post.categories.forEach(category => { %>
-                                <a href="<%- url_for(category.path) %>" class="post-category" target="_blank">
-                                    <%- category.name %>
-                                </a>
-                                <% }); %>
-                                <% } else if (post.author && post.author.length > 0) { %>
-                                <i class="fa fa-user fa-fw"></i>
-                                <%- post.author %>
-                                <% } else { %>
-                                <i class="fa fa-user fa-fw"></i>
-                                <%- config.author %>
-                                <% } %>
-                            </span>
-                        </div>
+                        </h2>
                     </div>
-
-                    <% if (post.tags && post.tags.length) { %>
-                    <div class="card-action article-tags">
-                        <% post.tags.forEach(tag => { %>
-                        <a href="<%- url_for(tag.path) %>" target="_blank">
-                            <span class="chip bg-color"><%= tag.name %></span>
-                        </a>
-                        <% }); %>
+                <% } else { %>
+                    <div class="collection-title">
+                        <h2>
+                            <span><%- prevYear %></span>
+                        </h2>
+                    </div>
+                <% } %>
+                <% for(let psg of page.posts.data){ %>
+                    <%
+                        nowYear = getPostYear(psg);
+                    if(nowYear !== prevYear){
+                        prevYear = nowYear;
+                    %>
+                    <div class="collection-title">
+                        <h2>
+                            <span><%- nowYear %></span>
+                        </h2>
                     </div>
                     <% } %>
-                </div>
+                    <article class="posts-collapse">
+                        <header>
+                            <h2>
+                                <a href="<%- url_for(psg.path) %>">
+                                    <span><%- psg.title %></span>
+                                </a>
+                            </h2>
+                            <div class="post-meta">
+                                <%- psg.date.format("MM-DD") %>
+                            </div>
+                        </header>
+                    </article>
+                <% } %>
             </div>
-            <% }); %>
         </div>
-    </article>
+    </div>
 </main>
 
 <% if (page.total > 1) { %>
