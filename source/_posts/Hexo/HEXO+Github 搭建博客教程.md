@@ -10,7 +10,7 @@ date: 2016-10-12
 urlname: create-blog-site-with-hexo
 ---
 
-## Hexo+Github 搭建博客教程
+<!-- ## Hexo+Github 搭建博客教程 -->
 
 >  github 有一个非常强大的功能 —— **GitHub Page**
 
@@ -31,7 +31,7 @@ GitHub Pages 有以下几个优点：
 要想搭建漂亮的 blog，还需要模板系统，官方推荐的是 jekyll，但是配置稍复杂，我们使用另一个选择 —— [hexo](https://hexo.io/)，一个简单地、轻量地、基于 Node 的一个静态博客框架。
 
 下面介绍下如何使用 hexo + github pages 搭建个人博客 。
-
+<!-- more -->
 ### 一. 安装GIt
 
 #### 1. for windows :

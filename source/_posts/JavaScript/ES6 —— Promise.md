@@ -10,7 +10,7 @@ date: 2018-06-29
 urlname: es6-promise
 ---
 
-### 一、Promise 是什么？
+<!-- ### 一、Promise 是什么？ -->
 
 阮一峰老师的 [ES6 Promise](<http://es6.ruanyifeng.com/#docs/promise>) 文章里，把 `Promise` 介绍地很详细。这里再整理一下，加深理解。
 
@@ -21,6 +21,7 @@ urlname: es6-promise
 从打印结果可以看出，`Promise` 是一个构造函数，它自己本身有 `all`、`reject`、`resolve` 等方法，原型上有 `catch`、`finally`、`then` 等方法。所以 `new` 出来的 `Promise` 对象也就自然拥有 `catch`、`finally`、`then` 这些方法。从上图中可以看到，`then ` 方法返回的是一个新的 `Promise` 实例（注意，不是原来那个 `Promise` 实例）。因此可以采用链式写法，即 `then` 方法后面再调用另一个 `then` 方法。
 
 `Promise` 的中文意思是承诺，这种**"承诺将来会执行"**的对象在 `JavaScript` 中称为 ` Promise` 对象。简单说就是一个容器，里面保存着某个未来才会执行的事件（通常是一个异步操作）的结果。
+<!-- more -->
 
 > `Promise `对象有以下两个特点。
 >

@@ -9,8 +9,7 @@ categories: React
 date: 2017-08-12
 urlname: react-high-order-component
 ---
-
-## React 高阶组件
+<!-- ## React 高阶组件 -->
 
 高阶组件 `（HOC）` 是 `react` 中对组件逻辑进行重用的高级技术。高阶组件本身并不是 React API，它只是一种模式，这种模式是由 react 自身的组合性质产生的。
 
@@ -19,8 +18,6 @@ urlname: react-high-order-component
 ```jsx
 const NewComponent = higherOrderComponent(OldComponent);
 ```
-
-<!-- more -->
 
 ### 一、定义高阶组件
 
@@ -39,7 +36,7 @@ export default WrappedComponent => {
   return NewComponent;
 };
 ```
-
+<!-- more -->
 看起来这个高级组件什么用都没有，它就是简单的构建了一个新的组件类 `NewComponent` ，然后把传进入去的 `WrappedComponent` 渲染出来。但是我们可以给 `NewCompoent` 做一些数据启动工作：
 
 ```jsx

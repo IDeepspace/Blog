@@ -13,13 +13,12 @@ urlname: javascript-copy-object
 <!-- ## JavaScript 中的对象拷贝-->
 
 > 翻译自：原文链接：[copying-objects-in-javascript](https://smalldata.tech/blog/2018/11/01/copying-objects-in-javascript)
-
 ### 前言
 
 这篇文章我们将会说说  `Javascript`  中对象拷贝的几种方式，我们会仔细探究深拷贝（`deep coping`）和浅拷贝（`shallow coping`）。
 
 在文章开始之前，先提一下一些基础知识：在 `Javascript`  中，对象只是指向内存中某个位置的指针。这些指针是可变的，也就是说，它们可以重新被赋值。因此，如果我们单单简单地复制这个指针，**那就可能造成有两个指针指向内存中的同一块地址的结果。**
-
+<!-- more -->
 ```javascript
 var foo = {
   a: 'abc'

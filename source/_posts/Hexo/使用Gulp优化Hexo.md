@@ -10,7 +10,7 @@ date: 2016-10-12
 urlname: hexo-performance-optimization
 ---
 
-## Hexo博客－性能优化之静态文件压缩
+<!-- ## Hexo博客－性能优化之静态文件压缩 -->
 
 ### 使用Gulp优化Hexo
 
@@ -33,7 +33,7 @@ $ npm install gulp gulp-uglify gulp-clean-css gulp-htmlmin gulp-htmlclean gulp-i
     "gulp-uglify": "^3.0.0"
 }
 ```
-
+<!-- more -->
 #### 2.创建 gulpfile.js
 
 在 `hexo blog` 的根目录文件夹下创建 `gulpfile.js` :

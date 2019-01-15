@@ -20,8 +20,6 @@ tags:
 - `Docker Compose`
 - `WordPress` 和 `MySql5.7` (运行在 Docker 容器中)
 
-<!-- more -->
-
 ### 一、安装 Docker
 
 #### 1、卸载旧版本（重装的新系统可跳过）
@@ -38,7 +36,7 @@ $ sudo yum remove docker \
                   docker-engine-selinux \
                   docker-engine
 ```
-
+<!-- more -->
 #### 2、安装 Docker 所需要的包
 
 ```shell

@@ -11,7 +11,7 @@ date: 2017-10-12
 urlname: redux-basic
 ---
 
-## Redux 基础知识
+<!-- ## Redux 基础知识 -->
 
 核心思想：
 
