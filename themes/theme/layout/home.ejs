@@ -1,13 +1,13 @@
 <%
     // get all top posts.
-    let topPosts = [];
+    let totalPosts = [];
     site.posts.forEach(function (post) {
-       topPosts.push(post);
+        totalPosts.push(post);
     });
-    let topPostsCount = topPosts.length;
+    let postsCount = totalPosts.length;
 %>
 
-<% if (topPostsCount > 0) { %>
+<% if (postsCount > 0) { %>
 <%
     const hashCode = function (str) {
         if (!str && str.length === 0) {
