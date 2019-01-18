@@ -115,7 +115,7 @@ gitalk:
 # the Gitment config，default disabled
 # Gitment 评论模块的配置，默认为不激活
 gitment:
-  enable: true
+  enable: false
   owner: IDeepspace
   repo: IDeepspace.github.io
   oauth:
@@ -131,7 +131,7 @@ disqus:
 # Livere comment configuration, the default is not activated
 # Livere 来必力评论模块的配置，默认为不激活
 livere:
-  enable: false
+  enable: true
   uid: MTAyMC8zODY5My8xNTIyMQ==
 
 # Whether to display fork me on github icon and link, default true, You can change it to your repo address
