@@ -71,7 +71,7 @@ urlname: vscode-plugins-and-configurations
         ]
     },
     "vetur.format.defaultFormatter.js": "vscode-typescript",
-    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "vetur.format.defaultFormatter.html": "prettyhtml",
     "vetur.format.defaultFormatterOptions": {
         "wrap_attributes": "force-aligned",
         "js-beautify-html": {
