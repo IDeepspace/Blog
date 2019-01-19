@@ -158,75 +158,75 @@ urlname: vscode-plugins-and-configurations
 
 ```json
 {
-    "workbench.startupEditor": "newUntitledFile",
-    "terminal.external.osxExec": "iTerm.app",
-    "explorer.confirmDelete": false,
-    "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
-    "terminal.integrated.fontSize": 14,
-    "editor.fontSize": 14,
-    "editor.fontWeight": "500",
-    "editor.fontFamily": "Source Code Pro, 'Courier New', monospace",
-    "editor.formatOnSave": true,
-    "editor.multiCursorModifier": "ctrlCmd",
-    "editor.formatOnPaste": true,
-    "window.zoomLevel": 0,
-    "emmet.includeLanguages": {
-        "vue-html": "html",
-        "javascript": "javascriptreact"
+  "workbench.startupEditor": "newUntitledFile",
+  "terminal.external.osxExec": "iTerm.app",
+  "explorer.confirmDelete": false,
+  "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
+  "terminal.integrated.fontSize": 14,
+  "editor.fontSize": 14,
+  "editor.fontWeight": "500",
+  "editor.fontFamily": "Source Code Pro, 'Courier New', monospace",
+  "editor.formatOnSave": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.formatOnPaste": true,
+  "window.zoomLevel": 0,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": ["css", "html", "less"]
+  },
+  "explorer.confirmDragAndDrop": false,
+  "files.associations": {
+    "*.vue": "vue"
+  },
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "files.autoSave": "onFocusChange",
+  "eslint.options": {
+    "plugins": ["html"]
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "vue",
+    {
+      "language": "vue",
+      "autoFix": true
     },
-    "emmet.syntaxProfiles": {
-        "vue-html": "html",
-        "vue": [
-            "css",
-            "html",
-            "less"
-        ]
+    {
+      "language": "html",
+      "autoFix": true
     },
-    "explorer.confirmDragAndDrop": false,
-    "files.trimFinalNewlines": true,
-    "files.associations": {
-        "*.vue": "vue"
+    {
+      "language": "javascript",
+      "autoFix": true
+    }
+  ],
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatterOptions": {
+    "wrap_attributes": "force-aligned",
+    "js-beautify-html": {
+      "wrap_attributes": "force-expand-multiline"
     },
-    "files.insertFinalNewline": true,
-    "files.autoSave": "onFocusChange",
-    "prettier.disableLanguages": [],
-    "prettier.semi": true,
-    "prettier.singleQuote": true,
-    "prettier.jsxSingleQuote": true,
-    "prettier.trailingComma": "all",
-    "eslint.options": {
-        "plugins": [
-            "html"
-        ]
-    },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "html",
-        "vue",
-        {
-            "language": "html",
-            "autoFix": true
-        },
-        {
-            "language": "vue",
-            "autoFix": true
-        }
-    ],
-    "vetur.format.defaultFormatter.js": "vscode-typescript",
-    "vetur.format.defaultFormatter.html": "js-beautify-html",
-    "vetur.format.defaultFormatterOptions": {
-        "wrap_attributes": "force-aligned",
-        "js-beautify-html": {
-            "wrap_attributes": "force-expand-multiline"
-        },
-        "prettyhtml": {
-            "printWidth": 100,
-            "singleQuote": true,
-            "wrapAttributes": false,
-            "sortAttributes": false
-        }
-    },
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": true
+    "prettyhtml": {
+      "printWidth": 100,
+      "singleQuote": true,
+      "wrapAttributes": false,
+      "sortAttributes": false
+    }
+  },
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "javascript.format.insertSpaceAfterCommaDelimiter": false,
+  "prettier.disableLanguages": [],
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.trailingComma": "all"
 }
 ```
