@@ -208,7 +208,7 @@ urlname: vscode-plugins-and-configurations
             "autoFix": true
         }
     ],
-    "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "vetur.format.defaultFormatter.js": "prettier",
     "vetur.format.defaultFormatter.html": "js-beautify-html",
     "vetur.format.defaultFormatterOptions": {
         "wrap_attributes": "force-aligned",
