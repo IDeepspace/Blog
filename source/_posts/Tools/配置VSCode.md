@@ -87,11 +87,6 @@ urlname: vscode-plugins-and-configurations
 }
 ```
 
-配置的过程中遇到一个问题：`VScode` 快捷键格式化 `vue` 文件后，会自动把单引号转为双引号。
-
-- 原因：`vetur` 使用的默认格式化方式是 `prettier`
-- 解决办法：将 `"vetur.format.defaultFormatter.ts": "prettier"` 改为： `"vetur.format.defaultFormatter.js": "vscode-typescript"`
-
 ##### 2、 vue 文件的 ESLint
 
 安装插件：`ESLint` ，`ESLint` 不是安装后就可以用的，还需要其他的一些环境和配置：
