@@ -222,7 +222,7 @@ urlname: vscode-plugins-and-configurations
     }
   },
   "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
-  "javascript.format.insertSpaceAfterCommaDelimiter": false,
+  "javascript.format.insertSpaceAfterCommaDelimiter": true,
   "prettier.disableLanguages": [],
   "prettier.semi": true,
   "prettier.singleQuote": true,
