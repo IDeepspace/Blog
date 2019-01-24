@@ -162,6 +162,10 @@ new Vue({
   - `el：'#app'`：意思是将所有视图放在 `id` 值为 `app` 这个 `dom` 元素中，也就是项目根目录下的 `index.html` 中的那个 `div` : `<div id="app"></div>`；
   - `components: { App }`：意思是将上面引入的 `App.vue` 文件的内容将以 `<App/>` 这样的标签写进 `<div id="app"></div>` 中；
 
+在开始的时候，我们并没有介绍说 **`Vue` 使用的是虚拟 `DOM`** ，那么，从这里我们看出，`Vue` 使用的也是虚拟 `DOM` (和`React`是一样的)。
+
+> 这里对**虚拟 `DOM`** 作下简单介绍：当我们修改应用程序时，不会对 ` DOM` 进行更改，而是创建以 `JavaScript` 数据结构形式存在的 `DOM` 副本，然后插到文档当中。无论何时进行任何更改，都将对 `JavaScript` 数据结构进行更改，并将后者与原始数据结构进行比较（`diff`算法），然后将最终更改更新为真实 `DOM`。我们都知道 `DOM` 是非常重的，所以**虚拟 `DOM`** 是非常省性能的。
+
 #### 2、App.vue
 
 通过入口文件中做的事情，我们其实已经知道 `App.vue` 的作用了：**单页面应用的主组件**。所有页面都是在 `App.vue` 下通过路由进行切换的。所以，我们可以理解为所有的路由（`route`）也是 ` App.vue` 的子组件。我们看看代码：
@@ -275,7 +279,7 @@ export default new Router({
           component: demo,
         },
         {
-          path: 'project',
+          path: '/project',
           component: project,
         },
       ],
