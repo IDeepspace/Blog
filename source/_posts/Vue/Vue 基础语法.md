@@ -759,5 +759,5 @@ export default {
 
 ![vue-todolist](../../ImageHosting/Vue/vue-todolist.png)
 
-代码可参考：https://github.com/IDeepspace/vue-todolist
+> 代码可参考：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-todolist
 
