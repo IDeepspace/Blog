@@ -535,7 +535,110 @@ export default {
 
 打开浏览器，可以看到这样也实现了兄弟组件之间的通讯。
 
-### 三、总结
+### 三、全局模式
+
+这里的全局模式指的是**创建全局变量和全局方法，让其他组件之间共享数据存储的模式**。我们看看怎么操作：
+
+先创建一个 `store.js` ，在这个 `JS` 文件里创建全局的变量和方法：
+
+```javascript
+const store = {
+  state: { numbers: [1, 2, 3] },
+  addNumber(newNumber) {
+    this.state.numbers.push(newNumber);
+  },
+};
+
+export default store;
+```
+
+在 `store` 的 `state` 中存放了一个 `numbers` 数组和一个 `addNumber` 方法。接下来我们创建两个组件：
+
+-  `NumberDisplay ` 组件：用来显示来自 `store` 的 `numbers` 数组
+- `NumberSubmit` 组件：允许用户向数据数组中添加一个新的数字
+
+创建 `NumberDisplay ` 组件：
+
+```html
+<template>
+  <div>
+    <h2>{{ storeState.numbers }}</h2>
+  </div>
+</template>
+
+<script>
+import store from './store';
+
+export default {
+  name: 'NumberDisplay',
+  data() {
+    return {
+      storeState: store.state,
+    };
+  },
+};
+</script>
+```
+
+创建 `NumberSubmit` 组件：
+
+```html
+<template>
+  <div class='form'>
+    <input v-model='numberInput' type='number'>
+    <button @click='addNumber(numberInput)'>Add new number</button>
+  </div>
+</template>
+
+<script>
+import store from './store';
+
+export default {
+  name: 'NumberSubmit',
+  data() {
+    return {
+      numberInput: 0,
+    };
+  },
+  methods: {
+    addNumber(numberInput) {
+      store.addNumber(Number(numberInput));
+    },
+  },
+};
+</script>
+```
+
+接着在 `GlobalMode.vue` 中引用刚才创建的组件：
+
+```html
+<template>
+  <div>
+    <NumberDisplay/>
+    <NumberSubmit/>
+  </div>
+</template>
+
+<script>
+import NumberDisplay from '../components/pass-data-3/NumberDisplay';
+import NumberSubmit from '../components/pass-data-3/NumberSubmit';
+
+export default {
+  name: 'GlobalMode',
+  components: { NumberDisplay, NumberSubmit },
+};
+</script>
+```
+
+效果如下：
+
+![全局模式](../../ImageHosting/Vue/vue-pass-data-5.gif)
+
+可以看到，我们使用这种方式也可以实现组件间的通讯。
+
+
+
+### 四、总结
 
 最后，我们画个图总结一下 `Vue` 组件间的通讯：
 
