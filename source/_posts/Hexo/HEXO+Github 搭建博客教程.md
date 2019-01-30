@@ -113,7 +113,7 @@ $ hexo init
 
 会生成如下图所示的文件结构 :
 
-![xhexo-folder](./../../ImageHosting/Hexo/hexo-folder.png)
+![xhexo-folder](./https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Hexo/hexo-folder.png)
 
 下面对文件目录做个简单介绍 :
 
@@ -188,7 +188,7 @@ $ hexo s
 
 会看到 :
 
-![hexo-init-theme](./../../ImageHosting/Hexo/hexo-init-theme.png)
+![hexo-init-theme](./https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Hexo/hexo-init-theme.png)
 
 
 

@@ -75,7 +75,7 @@ $ npm run dev
 
 项目默认会在 8080 端口启动，如果端口有占用，会自动调整端口。打开浏览器输入：`http://localhost:8080`，会看到构建的项目的主页：
 
-![vue-init-project](../../ImageHosting/Vue/vue-init-project.png)
+![vue-init-project](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-init-project.png)
 
 #### 4、目录结构
 
@@ -298,4 +298,4 @@ export default new Router({
 
 ### 三、总结
 
-![vue-core-structure](../../ImageHosting/Vue/vue-core-structure.png)
+![vue-core-structure](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-core-structure.png)

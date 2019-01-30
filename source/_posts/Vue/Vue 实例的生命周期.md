@@ -57,7 +57,7 @@ Vue.component('button-counter', {
 
 **生命周期图示：**
 
-![lifecycle](../../ImageHosting/Vue/vue-lifecycle.png)
+![lifecycle](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-lifecycle.png)
 
 图中，红色矩形框代表着在生命周期对应阶段的钩子函数。
 
