@@ -165,7 +165,7 @@ urlname: vscode-plugins-and-configurations
   "terminal.integrated.fontSize": 14,
   "editor.fontSize": 14,
   "editor.fontWeight": "500",
-  "editor.fontFamily": "Source Code Pro, 'Courier New', monospace",
+  "editor.fontFamily": "Source Code Pro for Powerline, 'Courier New', monospace",
   "editor.formatOnSave": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.formatOnPaste": true,
@@ -208,7 +208,8 @@ urlname: vscode-plugins-and-configurations
     }
   ],
   "vetur.format.defaultFormatter.js": "vscode-typescript",
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.css": "prettier",
   "vetur.format.defaultFormatterOptions": {
     "wrap_attributes": "force-aligned",
     "js-beautify-html": {
@@ -227,6 +228,8 @@ urlname: vscode-plugins-and-configurations
   "prettier.semi": true,
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
-  "prettier.trailingComma": "all"
+  "prettier.trailingComma": "all",
+  "workbench.colorTheme": "Material Theme",
+  "workbench.iconTheme": "eq-material-theme-icons"
 }
 ```
