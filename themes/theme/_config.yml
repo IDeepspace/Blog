@@ -14,7 +14,7 @@ menu:
     url: /archives
     icon: fa-archive
   读书:
-    url: http://readings.togoblog.cn/
+    url: https://readings.togoblog.cn/
     icon: fa-book
   关于:
     url: /about
