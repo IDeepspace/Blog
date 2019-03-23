@@ -185,9 +185,7 @@ urlname: vscode-plugins-and-configurations
   "files.trimFinalNewlines": true,
   "files.insertFinalNewline": true,
   "files.autoSave": "onFocusChange",
-  "eslint.options": {
-    "plugins": ["html"]
-  },
+  "eslint.options": {},
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
     "javascript",
@@ -230,6 +228,6 @@ urlname: vscode-plugins-and-configurations
   "prettier.jsxSingleQuote": true,
   "prettier.trailingComma": "all",
   "workbench.colorTheme": "Material Theme",
-  "workbench.iconTheme": "eq-material-theme-icons"
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }
 ```
