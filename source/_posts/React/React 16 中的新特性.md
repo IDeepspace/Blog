@@ -389,9 +389,214 @@ export default App;
 
 
 ### 五、新的生命周期
-。。。。。。
+
+#### 旧的生命周期
+
+我们先看看 `React 16` 之前的生命周期图：
+
+![Reactv15生命周期图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react15-lifecycle.png)
+
+如上图所示，可以把组件的生命周期大致分为三个阶段：
+
+- 挂载阶段 (Mount)
+- 更新阶段 (Update)
+- 卸载阶段 (Unmount)
+
+##### 挂载阶段
+
+**constructor()**
+
+```
+挂载之前调用一次，可以初始化state
+```
+
+**getDefaultProps()**
+
+```
+设置默认的props，也可以用dufaultProps设置组件的默认属性。
+```
+
+**getInitialState()**
+
+```
+初始化state，可以直接在constructor中定义this.state
+```
+
+**componentWillMount()**
+
+```
+组件将要挂载，在render之前调用，以后组件更新不调用，整个生命周期只调用一次，此时可以修改state
+```
+
+**render()**
+
+```
+react最重要的步骤，创建虚拟dom，进行diff算法，更新dom树都在此进行
+```
+
+**componentDidMount()**
+
+```
+组件挂载完成后立即调用，只调用一次
+```
+
+
+
+##### 更新阶段
+
+**componentWillReceivePorps(nextProps)**
+
+```
+组件挂载时不调用，组件接受新的props时调用
+```
+
+**shouldComponentUpdate(nextProps, nextState)**
+
+```
+组件接收到新的props或者state时调用，return true就会更新dom（使用diff算法更新），return false能阻止更新（不调用render）
+```
+
+**componentWillUpdata(nextProps, nextState)**
+
+```
+组件挂载时不调用，只有在组件将要更新时才调用，此时可以修改state
+```
+
+**render()**
+
+```
+react最重要的步骤，创建虚拟dom，进行diff算法，更新dom树都在此进行
+```
+
+**componentDidUpdate()**
+
+```
+组件挂载时不调用，组件更新完成后调用
+```
+
+
+
+##### 卸载阶段
+
+**componentWillUnmount()**
+
+```
+组件渲染之后调用，只调用一次
+```
+
+
+
+#### 新的生命周期
+
+再来看下 `React v16.4` 的生命周期图：
+
+![Reactv16.4生命周期图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/reactv16.4-lifecycle.jpg)
+
+`React16` 废弃的三个生命周期函数：
+
+- componentWillMount
+- componentWillReceiveProps
+- componentWillUpdate
+
+> 目前在 React 16 版本中，官方并未完全删除这三个函数，而且新增了UNSAFE_componentWillMount，UNSAFE_componentWillReceiveProps，UNSAFE_componentWillUpdate三个函数，计划在 React 17 的版本中移除掉这三个函数，目的是为了做向下兼容，为什么会移除这三个生命周期函数呢？为了避免篇幅过长，后面我会总结下再发一篇文章，这里先不做讨论，只了解如何使用新的生命周期函数。
+
+新增加了两个新的生命周期函数
+
+- static getDerivedStateFromProps
+- getSnapshotBeforeUpdate
+
+##### getDerivedStateFromProps
+
+> - static getDerivedStateFromProps(nextProps, prevState)，它是一个静态方法，所以不能再这个函数里面使用 this；
+> - 这个函数有两个参数： props 和 state，分别指接收到的新参数和当前的 state 对象；
+> - 该函数会返回一个对象用来更新当前的 state 对象，如果不需要更新状态可以返回 null 来表明不需要更新任何状态；
+> - 该函数会在挂载时，接收到新的 props，调用了 setState 和 forceUpdate 时被调用，简单点说就是：getDerivedStateFromProps 无论是在挂载阶段还是更新阶段，也无论是什么引起的更新，统统都会被调用，在首次渲染的时候也会被触发 (注意：v16.3 中，setState 时、forceUpdate 时不会执行这个方法，v16.4 修复了这个问题)。
+> - 和 componentWillReceiveProps 不同，**componentWillReceiveProps 只在父组件引起的更新时才会触发。**
+
+
+
+一个简单的例子：
+
+```jsx
+import React, { Component } from 'react';
+
+class A extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: this.props.name,
+      counter: 0,
+    };
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('Running A.componentWillReceiveProps()');
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('Being called');
+    if (nextProps.name !== prevState.name) {
+      console.log('Running A.getDerivedStateFromProps()');
+      return {
+        name: nextProps.name,
+      };
+    }
+    return null;
+  }
+
+  handleClick = () => {
+    let { counter } = this.state;
+    this.setState({
+      counter: counter++,
+    });
+  };
+
+  render() {
+    console.log('A.render()');
+    return (
+      <div>
+        <div>Hello {this.state.name}</div>
+        <button onClick={this.handleClick}>{this.state.counter}</button>
+      </div>
+    );
+  }
+}
+
+class B extends Component {
+  constructor() {
+    super();
+    this.state = { counter: 0 };
+  }
+
+  render() {
+    return <A name='World' />;
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        counter: this.state.counter + 1,
+      });
+    }, 1000);
+  }
+}
+
+export default B;
+```
+
+`getDerivedStateFromProps ` 是用来替代 `componentWillReceiveProps` 的，应对 `state` 需要关联 `props` 变化的场景。它的作用就是让组件根据父组件传来的 `props`，判断是否需要更新自己的 `state` 。
+
+> 将 `getDerivedStateFromProps` 设计成静态函数，用来取代被废除的几个生命周期函数，目的就是强制开发者在 `render` 之前只做无副作用的操作，而且能做的操作局限在根据 `props` 和 `state` 决定新的 `state`。
+
+一般使用场景如下：
+
+1. 无条件的根据 `props` 更新 `state`
+2. 当 `props` 和 `state` 的不匹配情况更新 `state`
+
+##### getSnapshotBeforeUpdate
+
+> getSnapshotBeforeUpdate(prevProps, prevState) 会在组件更新之前获取一个 snapshot，并可以将计算得的值或从 DOM 得到的信息传递到 componentDidUpdate(prevProps, prevState, snapshot) 函数的第三个参数，常常用于 scroll 位置定位等场景。
 
 
 
 > 本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
-
