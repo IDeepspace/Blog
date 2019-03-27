@@ -390,3 +390,8 @@ export default App;
 
 ### 五、新的生命周期
 。。。。。。
+
+
+
+> 本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
+
