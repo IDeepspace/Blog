@@ -459,7 +459,9 @@ react 最重要的步骤，创建虚拟 dom，进行 diff 算法，更新 dom �
 **shouldComponentUpdate(nextProps, nextState)**
 
 ```
-组件接收到新的 props 或者 state 时调用，return true 就会更新 dom（使用diff算法更新），return false 能阻止更新（不调用render）
+组件接收到新的 props 或者 state 时调用，在初始化时或者使用 forceUpdate 时不被执行。return true 就会更新 dom（使用diff算法更新），return false 能阻止更新（不调用render）。
+
+可以在你确认不需要更新组件时使用，提升性能。
 ```
 
 **componentWillUpdata(nextProps, nextState)**
