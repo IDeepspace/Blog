@@ -263,7 +263,7 @@ function App() {
 
 而对于对话框，从用户的感知角度来说，它应该是一个独立的组件。
 
-但是现在 `Dialog` 被包在其他组件中，那就要用 `CSS` 的 `position` 属性控制 `Dialog` 位置了，就要求从 `Dialog` 往上一直到 `body` ，没有其他 `postion` 是 `relative` 的元素的干扰，显然这是比较麻烦的。同时， `Dialog` 的样式也会与其它组件混在一起。
+但是现在 `Dialog` 被包在其他组件中，那就要用 `CSS` 的 `position` 属性控制 `Dialog` 位置了，就要求从 `Dialog` 往上一直到 `body` ，没有其他 `position` 是 `relative` 的元素的干扰，显然这是比较麻烦的。同时， `Dialog` 的样式也会与其它组件混在一起。
 
 解决这个问题，我们可以在 `React` 组件树的最顶层创建一个专属于 `Dialog` 的元素，然后通过 `Redux` 或者其他什么通讯方式给这个 `Dialog` 发送信号，来控制 `Dialog` 显示或者不显示。但是这样又会造成 "杀鸡焉用牛刀" 的问题：我们只是为了一个 `Dialog` 却引入了 `Redux` 。
 
@@ -681,7 +681,7 @@ export default B;
 ```
 顾名思义，保存状态快照用的。
 
-它会在组件即将挂载时调用，注意，是即将挂载。它甚至调用的比 render 还晚，由此可见 render 并没有完成挂载操作，而是进行构建抽象UI的工作。getSnapshotBeforeUpdate 执行完就会立即调用 componentDidUpdate 生命周期钩子。
+它会在组件即将挂载时调用，注意，是即将挂载。它甚至调用的比 render 还晚，由此可见 render 并没有完成挂载操作，而是进行构建抽象 UI 的工作。getSnapshotBeforeUpdate 执行完就会立即调用 componentDidUpdate 生命周期钩子。
 
 它是做什么用的呢？有一些状态，比如网页滚动位置，不需要它持久化，只需要在组件更新以后能够恢复原来的位置即可。
 
