@@ -104,14 +104,14 @@ headAndTail(1, 2, 3, 4, 5);
 
 #### 四.箭头函数的特性
 
-##### 1、typeof 运算符和普通的函数一样
+##### 1、`typeof` 运算符和普通的函数一样
 
 ```javascript
 let commFunc = () => {};
 console.log(typeof commFunc);
 ```
 
-输出为`function`。
+输出为 `function`。
 
 ```javascript
 let arrowFunc = () => {};
@@ -119,9 +119,9 @@ console.log(typeof arrowFunc);
 ```
 
 输出也为`function`。
-从此可以看出箭头函数的类型和普通的函数一样都为`function`。
+从此可以看出箭头函数的类型和普通的函数一样都为 `function`。
 
-##### 2、`instanceof`也返回`true`，表明是 Function 的实例
+##### 2、`instanceof ` 也返回  `true`，表明是 `Function` 的实例
 
 ```javascript
 let func = () => {};
@@ -130,9 +130,9 @@ console.log(func instanceof Function);
 
 输出为`true`，由此可以看出箭头函数也是 Function 的实例
 
-##### 3、`this`的指向
+##### 3、`this ` 的指向
 
-普通函数与箭头函数有个微小的不同点。 **箭头函数没有自己的 this 值** ，其 this 值是通过继承其它传入对象而获得的, 通常来说是上一级外部函数的 `this` 的指向 。
+普通函数与箭头函数有个微小的不同点。 **箭头函数没有自己的 this 值** ，其 `this`  值是通过继承其它传入对象而获得的, 通常来说是上一级外部函数的 `this` 的指向 。
 
 ```javascript
 function f() {
