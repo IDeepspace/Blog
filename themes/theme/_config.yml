@@ -58,6 +58,12 @@ myProjects:
       url: https://github.com/IDeepspace/hexo-theme-md
       desc: hexo 主题
 
+    deui:
+      icon: fa-codiepie
+      iconBackground: 'linear-gradient(to bottom right, #66BB6A 0%, #81C784 100%)'
+      url: https://deui.togoblog.cn
+      desc: React UI 组件库
+
 # config my skills informations in about page.
 # If you don't want to display this `My Skills` content, you can deactivate or delete this configuration.
 # 在“关于”页面配置"我的技能"信息，如果你不需要这些信息则可以将其设置为不激活或者将其删除.
@@ -150,4 +156,4 @@ featureImages:
   - /medias/featureimages/winter.jpg
 
 postBackgroundImage:
-  - /medias/featureimages/winter.jpg
+  - /medias/featureimages/FinWhale.jpg
