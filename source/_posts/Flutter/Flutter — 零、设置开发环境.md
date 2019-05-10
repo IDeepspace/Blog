@@ -28,6 +28,7 @@ tags:
 #### 1、获取 Flutter SDK
 
 - 将 `Flutter` 项目克隆到本地：
+<!-- more -->
 
 >  在电脑上存放文件的时候，我有严重的"洁癖"。之前在用 `Windows` 的时候，有时候因为不小心把软件安装错盘符，卸载也有残余，我甚至会去重装系统，然后再花上整夜的时间设置各项环境和安装软件。
 >
@@ -39,7 +40,7 @@ $ mkdir Development
 $ cd Development/ 
 $ git clone -b beta https://github.com/flutter/flutter.git
 ```
-<!-- more -->
+
 - 将 `Flutter` 添加到本地环境变量：
 
 ```bash
@@ -211,7 +212,7 @@ Xcode couldn't find any iOS App Development provisioning profiles matching 'com.
 
 接下来我们重新执行 `flutter run` 运行，中间会要求输入密码，能够正常运行了，也支持热加载调试。
 
-
+![Flutter Demo](https://github.com/IDeepspace/ImageHosting/raw/master/Flutter/flutter-start-demo.gif)
 
 ### 四、Flutter版本更新
 
