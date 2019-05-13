@@ -610,7 +610,7 @@ print(my_tesla.get_descriptive_name())
 2016 Tesla Model S
 ```
 
-创建子类时，父类必须包含在当前文件中，且位于子类前面。定义子类时，必须在括号内指定父类的名称。方法 `__init__()` 接受创建 `Car`  实例所需要的信息。
+定义子类时，必须在括号内指定父类的名称。方法 `__init__()` 接受创建 `Car`  实例所需要的信息。
 
 `super()` 是一个特殊的函数，帮助 `Python` 将父类和子类关联起来。这行代码让 `Python` 调用 `ElectricCar` 的父类的方法 `__init__() ` ，让 `ElectricCar` 实例包含父类的所有属性。父类也称为**超类**(`superclass`)，名称 `super` 因此而得名。
 
