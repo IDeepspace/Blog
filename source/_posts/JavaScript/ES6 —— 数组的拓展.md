@@ -198,11 +198,11 @@ console.log(cct6); // ['a', 7, 'c']
 
 #### 六 . entries()，keys() 和 values()
 
-##### 1.`entries()` 方法返回一个新的**Array Iterator**对象，该对象包含数组中每个索引的键/值对 。
+1.`entries()` 方法返回一个新的 `Array Iterator` 对象，该对象包含数组中每个索引的键/值对 。
 
-##### 2.`keys()`方法返回一个新的 Array 迭代器，它包含数组中每个索引的键。
+2.`keys()`方法返回一个新的 `Array` 迭代器，它包含数组中每个索引的键。
 
-##### 3.**values()** 方法返回一个新的 **Array Iterator** 对象，该对象包含数组每个索引的值。
+3.`values()` 方法返回一个新的 `Array Iterator` 对象，该对象包含数组每个索引的值。
 
 ```javascript
 for (let index of ['a', 'b'].keys()) {
@@ -305,7 +305,7 @@ const contains = (() =>
 contains(['foo', 'bar'], 'baz'); // => false
 ```
 
-另外，Map 和 Set 数据结构有一个`has`方法，需要注意与`includes`区分。
+另外，`Map` 和 `Set` 数据结构有一个`has`方法，需要注意与`includes`区分。
 
-- Map 结构的`has`方法，是用来查找键名的，比如`Map.prototype.has(key)`、`WeakMap.prototype.has(key)`、`Reflect.has(target, propertyKey)`。
-- Set 结构的`has`方法，是用来查找值的，比如`Set.prototype.has(value)`、`WeakSet.prototype.has(value)`。
+- `Map` 结构的`has`方法，是用来查找键名的，比如`Map.prototype.has(key)`、`WeakMap.prototype.has(key)`、`Reflect.has(target, propertyKey)`。
+- `Set` 结构的`has`方法，是用来查找值的，比如`Set.prototype.has(value)`、`WeakSet.prototype.has(value)`。
