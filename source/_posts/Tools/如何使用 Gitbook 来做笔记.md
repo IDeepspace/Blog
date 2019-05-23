@@ -81,7 +81,7 @@ $ npm init
 
 ```json
 "scripts": {
- "start": "gitbook serve ./content ./gh-pages",
+ "start": "gitbook serve ./content",
  "build": "gitbook build ./content ./gh-pages",
  "deploy": "node ./scripts/deploy-gh-pages.js",
  "publish": "npm run build && npm run deploy",

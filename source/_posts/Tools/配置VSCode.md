@@ -20,7 +20,6 @@ urlname: vscode-plugins-and-configurations
 - Markdown All in One
 - Material Theme
 - Path Intellisense
-- Prettier - Code formatter
 - React Standard Style code snippets
 - Vetur
 ```
@@ -138,23 +137,7 @@ urlname: vscode-plugins-and-configurations
 
 
 
-#### 四、代码格式化
-
-安装插件 `prettier` , 配置如下（可根据项目遵循的规则自行配置）：
-
-```json
-{
-    "prettier.disableLanguages": [],
-    "prettier.semi": true,
-    "prettier.singleQuote": true,
-    "prettier.jsxSingleQuote": true,
-    "prettier.trailingComma": "all"
-}
-```
-
-
-
-#### 五、用户自定义配置文件
+#### 四、用户自定义配置文件
 
 ```json
 {
@@ -176,7 +159,11 @@ urlname: vscode-plugins-and-configurations
   },
   "emmet.syntaxProfiles": {
     "vue-html": "html",
-    "vue": ["css", "html", "less"]
+    "vue": [
+      "css",
+      "html",
+      "less"
+    ]
   },
   "explorer.confirmDragAndDrop": false,
   "files.associations": {
@@ -185,8 +172,9 @@ urlname: vscode-plugins-and-configurations
   "files.trimFinalNewlines": true,
   "files.insertFinalNewline": true,
   "files.autoSave": "onFocusChange",
-  "eslint.options": {},
-  "eslint.autoFixOnSave": true,
+  "eslint.options": {
+    // "plugins": ["html"]
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -222,12 +210,12 @@ urlname: vscode-plugins-and-configurations
   },
   "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
   "javascript.format.insertSpaceAfterCommaDelimiter": true,
-  "prettier.disableLanguages": [],
-  "prettier.semi": true,
-  "prettier.singleQuote": true,
-  "prettier.jsxSingleQuote": true,
-  "prettier.trailingComma": "all",
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.suggestSelection": "first",
+  "eslint.alwaysShowStatus": true,
   "workbench.colorTheme": "Material Theme",
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "eslint.autoFixOnSave": true
 }
 ```
