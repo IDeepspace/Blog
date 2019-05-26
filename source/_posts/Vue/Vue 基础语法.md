@@ -1,6 +1,6 @@
 ---
 title: Vue 基础语法
-author: Deepspace
+author: Hazelnut Latte
 categories: Vue
 tag:
   - vue 

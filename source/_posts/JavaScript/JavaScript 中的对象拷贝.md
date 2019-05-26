@@ -1,6 +1,6 @@
 ---
 title: JavaScript 中的对象拷贝
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - 对象拷贝
 categories: JavaScript

@@ -1,6 +1,6 @@
 ---
 title: Vue 实例的生命周期
-author: Deepspace
+author: Hazelnut Latte
 categories: Vue
 tag:
   - vue

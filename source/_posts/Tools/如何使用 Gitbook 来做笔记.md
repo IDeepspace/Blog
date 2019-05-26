@@ -1,6 +1,6 @@
 ---
 title: 如何使用 Gitbook 来做笔记?
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - Gitbook
 categories: Tool

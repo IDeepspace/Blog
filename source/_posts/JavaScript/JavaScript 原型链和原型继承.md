@@ -1,6 +1,6 @@
 ---
 title: JavaScript 原型链和原型继承
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - ES6
 categories: JavaScript

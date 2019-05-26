@@ -1,6 +1,6 @@
 ---
 title: React 16 中的新特性
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - React
   - Portals

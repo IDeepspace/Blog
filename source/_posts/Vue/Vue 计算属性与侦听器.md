@@ -1,6 +1,6 @@
 ---
 title: Vue 计算属性与侦听器
-author: Deepspace
+author: Hazelnut Latte
 categories: Vue
 tag:
   - vue

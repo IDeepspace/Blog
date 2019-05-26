@@ -1,6 +1,6 @@
 ---
 title: ES6 —— 箭头函数 Arrow Functions
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - ES6
 categories: JavaScript

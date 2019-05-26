@@ -1,6 +1,6 @@
 ---
 title: linux — 让 scp 始终覆盖或创建目录
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - Linux
 categories: Linux

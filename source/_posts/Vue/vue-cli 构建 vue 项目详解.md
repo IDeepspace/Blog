@@ -1,6 +1,6 @@
 ---
 title: vue-cli 构建 vue 项目详解
-author: Deepspace
+author: Hazelnut Latte
 categories: Vue
 tag:
   - vue

@@ -1,6 +1,6 @@
 ---
 title: ES6 —— let 和 const
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - ES6
 categories: JavaScript

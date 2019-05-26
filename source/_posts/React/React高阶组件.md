@@ -1,6 +1,6 @@
 ---
 title: React 高阶组件
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - React
 categories: React

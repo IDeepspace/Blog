@@ -1,6 +1,6 @@
 ---
 title: Hexo+Github 搭建博客教程
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - Hexo
 categories: Hexo

@@ -1,6 +1,6 @@
 ---
 title: ES6 —— 模板字符串
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - ES6
 categories: JavaScript

@@ -1,6 +1,6 @@
 ---
 title: 如何使用 Docker-Compose 部署 WordPress
-author: Deepspace
+author: Hazelnut Latte
 categories: Docker
 date: 2018-05-12
 urlname: docker-wordpress

@@ -1,6 +1,6 @@
 ---
 title: 一些比较有用的 JS 技巧
-author: Deepspace
+author: Hazelnut Latte
 tags:
   - JavaScript
 categories: JavaScript

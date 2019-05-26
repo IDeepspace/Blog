@@ -1,6 +1,6 @@
 ---
 title: Vue 组件间的通讯
-author: Deepspace
+author: Hazelnut Latte
 categories: Vue
 tag:
   - vue
