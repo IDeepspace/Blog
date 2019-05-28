@@ -4,7 +4,7 @@ author: Hazelnut Latte
 tags:
   - Express
   - Mongoose
-categories: JavaScript
+categories: NodeJS
 date: 2017-03-12
 urlname: Express-Mongoose
 ---
