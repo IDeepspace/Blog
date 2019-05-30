@@ -58,7 +58,7 @@ class DataProvider extends Component {
 
 
 
-#### 高阶组价
+#### 高阶组件
 
 参考：<https://togoblog.cn/react-high-order-component/>
 
