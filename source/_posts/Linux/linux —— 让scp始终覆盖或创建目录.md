@@ -9,7 +9,7 @@ urlname: linux-scp-cover-completely
 ---
 
 
-前端时间在搭建前端项目的基础设施时，遇到这样一个问题：在 `pipline` 上将前端项目 `build` 之后的文件夹拷贝到 `aws` 上，我使用 `scp` 命令将目录从一个远程服务器复制到另一个远程服务器上的新目录，命令如下：
+前段时间在搭建前端项目的基础设施时，遇到这样一个问题：在 `pipline` 上将前端项目 `build` 之后的文件夹拷贝到 `aws` 上，我使用 `scp` 命令将目录从一个远程服务器复制到另一个远程服务器上的新目录，命令如下：
 
 ```shell
 $ scp -r server1:dir1 server2:dir2
