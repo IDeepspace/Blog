@@ -143,5 +143,125 @@ setImmediate(() => {
 - 当 `event loop` 到达某个阶段时，将执行该阶段的任务队列，直到队列清空或执行的回调达到系统上限后，才会转入下一个阶段；
 - 当所有阶段被顺序执行一次后，称 `event loop` 完成了一个 `tick`。
 
+看个 `demo` :
+
+```javascript
+const fs = require('fs')
+
+fs.readFile('test.txt', () => {
+  console.log('readFile')
+  setTimeout(() => {
+    console.log('timeout')
+  }, 0)
+  setImmediate(() => {
+    console.log('immediate')
+  })
+})
+```
+
+结果：
+
+```
+readFile
+immediate
+timeout
+```
 
 
+
+### 四、Node.js 与浏览器的 Event Loop 差异
+
+现在我们回到文章开头提到的问题，为什么 `Node.js` 与浏览器的 `Event Loop` 差异在什么地方呢？
+
+**回顾一下：**
+
+浏览器环境下，`microtask` 的任务队列是每个 `macrotask ` 执行完之后执行。
+
+![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/eventLoop-browser-2.png)
+
+而在 `Node.js` 中，`microtask` 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 `microtask` 队列的任务。
+
+![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg)
+
+文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将2个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，调用栈空闲，任务队列开始执行：
+
+![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
+
+- 首先进入 `timers` 阶段，执行 `timer1` 的回调函数，打印 `timer1`，并将 `promise1.then` 回调放入`microtask` 队列，同样的步骤执行 `timer2` ，打印 `timer2`；
+
+- 至此，`timer` 阶段执行结束，`event loop` 进入下一个阶段之前，执行 `microtask` 队列的所有任务，依次打印 `promise1`、`promise2`。
+
+**对比浏览器端的处理过程：**
+
+![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/browser-event-loop-excute-animate.gif)
+
+
+
+### 五、process.nextTick和setImmediate
+
+除了 `setTimeout` 和 `setInterval` 这两个方法，`Node.js` 还提供了另外两个与 **任务队列** 有关的方法：[process.nextTick](http://nodejs.org/docs/latest/api/process.html#process_process_nexttick_callback) 和 [setImmediate](http://nodejs.org/docs/latest/api/timers.html#timers_setimmediate_callback_arg)。它们可以帮助我们加深对 **任务队列** 的理解。
+
+`process.nextTick()` 会在各个事件阶段之间执行，一旦执行，要直到 `nextTick` 队列被清空，才会进入到下一个事件阶段，所以如果递归调用 `process.nextTick()`，会导致出现 `I/O starving` （饥饿）的问题。
+
+比如下面例子的 `readFile` 已经完成，但它的回调一直无法执行：
+
+```javascript
+const fs = require('fs')
+const starttime = Date.now()
+let endtime
+
+fs.readFile('text.txt', () => {
+  endtime = Date.now()
+  console.log('finish reading time: ', endtime - starttime)
+})
+
+let index = 0
+
+function handler () {
+  if (index++ >= 1000) return
+  console.log(`nextTick ${index}`)
+  process.nextTick(handler)
+  // console.log(`setImmediate ${index}`)
+  // setImmediate(handler)
+}
+
+handler()
+```
+
+`process.nextTick()` 的运行结果：
+
+```shell
+nextTick 1
+nextTick 2
+......
+nextTick 999
+nextTick 1000
+finish reading time: 170
+```
+
+替换成 `setImmediate()`，运行结果：
+
+```shell
+setImmediate 1
+setImmediate 2
+finish reading time: 80
+......
+setImmediate 999
+setImmediate 1000
+```
+
+这是因为嵌套调用的 `setImmediate()` 回调，被排到了下一次 `event loop` 才执行，所以不会出现阻塞。
+
+
+
+### 六、总结
+
+1. Node.js 的事件循环分为6个阶段；
+
+2. 浏览器和Node 环境下，`microtask` 任务队列的执行时机不同
+
+   - `Node.js` 中，`microtask` 在事件循环的各个阶段之间执行
+
+   - 浏览器端，`microtask` 在事件循环的 `macrotask` 执行完之后执行
+
+3. 递归的调用 `process.nextTick()` 会导致 `I/O starving` ，官方推荐使用 `setImmediate()`
