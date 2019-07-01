@@ -54,7 +54,7 @@ promise2
 
 简单的讲：
 
-- Node.js 的 `event loop` 是基于 `libuv` 实现，而浏览器的 `event loop` 则在 `HTML5` 的规范中定义。
+- `Node.js` 的 `event loop` 是基于 `libuv` 实现，而浏览器的 `event loop` 则在 `HTML5` 的规范中定义。
 - `libuv` 已经对 `event loop` 作出了实现，而 `HTML5` 规范中只是定义了浏览器中 `event loop` 的模型，具体实现留给了浏览器厂商。
 
 > 对于上面的代码在 `Node` 环境中执行结果的原因，我会在下文解释。
@@ -71,8 +71,8 @@ promise2
 
 - **Application/Modules（JS）**：这部分就是所有的 `JavaScript` 代码：我们的应用程序、`Node.js` 核心模块、任何 `npm install` 的模块，以及你写的所有模块代码等等，我们花费的主要精力都在这部分。
 - **C/C++ Bindings**：`Node.js` 中用了很多 `C/C++` 的代码和库，它们的性能很好。但是这三种不同的语言是怎么相互调用的呢？`Bindings` 就在这里发挥了作用。`Bindings` 是一些胶水代码，能够把不同语言绑定在一起，使其能够互相沟通调用。
-- **Addons**：`Binding` 仅桥接 `Node.js` 核心库的一些依赖，`zlib`、`OpenSSL`、`c-ares`、`http-parser ` 等。如果你想在应用程序中包含其他第三方或者自己的 `C/C++` 库的话，需要自己完成这部分胶水代码。那我们自己写的这部分胶水代码就称为 `Addon`。可以把 `Binding` 和 `Addons` 视为连接` JavaScript` 代码和 `C/C++` 代码的桥梁。
-- [**V8**](https://developers.google.com/v8/)：Google 开源的高性能 `JavaScript` 引擎，以 `C++` 实现。这也是集成在 `Chrome` 中的 `JS` 引擎。`V8` 将你写的 `JavaScript` 代码编译为机器码（所以它超级快）然后执行。
+- **Addons**：`Binding` 仅桥接 `Node.js` 核心库的一些依赖，`zlib`、`OpenSSL`、`c-ares`、`http-parser ` 等。如果你想在应用程序中包含其他第三方或者自己的 `C/C++` 库的话，需要自己完成这部分胶水代码。那我们自己写的这部分胶水代码就称为 `Addon`。可以把 `Binding` 和 `Addons` 视为连接 ` JavaScript`  代码和 `C/C++` 代码的桥梁。
+- [**V8**](https://developers.google.com/v8/)：`Google` 开源的高性能 `JavaScript` 引擎，以 `C++` 实现。这也是集成在 `Chrome` 中的 `JS` 引擎。`V8` 将你写的 `JavaScript` 代码编译为机器码（所以它超级快）然后执行。
 
 - [**libuv**](https://github.com/libuv/libuv)：提供异步功能的 `C` 库。它在运行时负责一个事件循环（`Event Loop`）、一个线程池、文件系统 `I/O`、`DNS` 相关和网络 `I/O`，以及一些其他重要功能。
 - [**其他 C/C++ 组件和库**](https://nodejs.org/en/docs/meta/topics/dependencies/)：如 [c-ares](http://c-ares.haxx.se/)、[crypto (OpenSSL)](https://www.openssl.org/)、[http-parser](https://github.com/nodejs/http-parser) 以及 [zlib](http://zlib.net/)。这些依赖提供了对系统底层功能的访问，包括网络、压缩、加密等。
@@ -103,7 +103,7 @@ promise2
 
 `timers`  是事件循环的第一个阶段，`Node` 会去检查有无已过期的 `timer`，如果有则把它的回调压入 `timer` 的任务队列中等待执行。
 
-事实上，`Node` 并不能保证 `timer` 在预设时间到了就会立即执行，因为 `Node` 对 `timer` 的过期检查不一定靠谱，因为它会受机器上其它运行程序影响，或者那个时间点主线程不空闲。比如下面的代码，`setTimeout()` 和 `setImmediate()` 的执行顺序是不确定的。
+事实上，`Node` 并不能保证 `timer` 在预设时间到了就会立即执行，因为 `Node` 对 `timer` 的过期检查不一定靠谱，它会受机器上其它运行程序影响，或者那个时间点主线程不空闲。比如下面的代码，`setTimeout()` 和 `setImmediate()` 的执行顺序是不确定的。
 
 ```javascript
 setTimeout(() => {
@@ -187,7 +187,7 @@ timeout
 
 ![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
 
-- 首先进入 `timers` 阶段，执行 `timer1` 的回调函数，打印 `timer1`，并将 `promise1.then` 回调放入`microtask` 队列，同样的步骤执行 `timer2` ，打印 `timer2`；
+- 首先进入 `timers` 阶段，执行 `timer1` 的回调函数，打印 `timer1`，并将 `promise1.then` 回调放入 `microtask` 队列，同样的步骤执行 `timer2` ，打印 `timer2`；
 
 - 至此，`timer` 阶段执行结束，`event loop` 进入下一个阶段之前，执行 `microtask` 队列的所有任务，依次打印 `promise1`、`promise2`。
 
@@ -256,7 +256,7 @@ setImmediate 1000
 
 ### 六、总结
 
-1. Node.js 的事件循环分为6个阶段；
+1. `Node.js` 的事件循环分为6个阶段；
 
 2. 浏览器和Node 环境下，`microtask` 任务队列的执行时机不同
 
