@@ -179,11 +179,11 @@ timeout
 
 ![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/eventLoop-browser-2.png)
 
-而在 `Node.js` 中，`microtask` 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 `microtask` 队列的任务。
+而在 `Node.js` 中，**`microtask` 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 `microtask` 队列的任务。**
 
 ![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg)
 
-文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将2个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，调用栈空闲，任务队列开始执行：
+文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将2个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，执行栈空闲，任务队列开始执行：
 
 ![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
 
