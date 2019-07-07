@@ -16,6 +16,9 @@ menu:
   # 读书:
   #   url: https://readings.togoblog.cn/
   #   icon: fa-book
+  Node.JS教程: 
+    url: https://togoblog.cn/nodejs-brochure/
+    icon: fa-sticky-note
   关于:
     url: /about
     icon: fa-user-circle-o
