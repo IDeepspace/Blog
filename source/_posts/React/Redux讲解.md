@@ -1,6 +1,6 @@
 ---
 title: Redux 基础知识
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - Redux
   - React

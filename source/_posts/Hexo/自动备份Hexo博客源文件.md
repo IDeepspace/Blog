@@ -1,6 +1,6 @@
 ---
 title: 如何自动备份Hexo博客源文件
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - Hexo
 categories: Hexo

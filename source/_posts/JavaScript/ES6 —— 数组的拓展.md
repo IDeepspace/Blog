@@ -1,6 +1,6 @@
 ---
 title: ES6 —— 数组的拓展
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - ES6
 categories: JavaScript

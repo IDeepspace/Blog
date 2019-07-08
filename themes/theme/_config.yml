@@ -18,7 +18,7 @@ menu:
   #   icon: fa-book
   Node.JS教程: 
     url: https://togoblog.cn/nodejs-brochure/
-    icon: fa-sticky-note
+    icon: fa-book
   关于:
     url: /about
     icon: fa-user-circle-o

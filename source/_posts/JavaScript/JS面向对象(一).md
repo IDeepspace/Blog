@@ -1,6 +1,6 @@
 ---
 title: JS 面向对象(一)
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - JavaScript
 categories: JavaScript

@@ -1,6 +1,6 @@
 ---
 title: Flutter — 零、设置开发环境
-author: Hazelnut Latte
+author: Deepspace
 categories: Flutter
 date: 2019-05-09
 urlname: flutter-development-environment-configuration

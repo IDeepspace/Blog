@@ -1,6 +1,6 @@
 ---
 title: React 组件间的通讯
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - React
   - React 组件通讯

@@ -1,6 +1,6 @@
 ---
 title: React 基础知识
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - React
 categories: React

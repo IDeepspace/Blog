@@ -1,6 +1,6 @@
 ---
 title: ES6 —— Set 和 Map 的数据结构
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - ES6
 categories: JavaScript

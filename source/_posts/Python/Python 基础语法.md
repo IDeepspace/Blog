@@ -1,6 +1,6 @@
 ---
 title: Python 基础语法
-author: Hazelnut Latte
+author: Deepspace
 categories: Python
 date: 2019-05-12
 urlname: python-basic

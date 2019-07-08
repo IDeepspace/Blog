@@ -1,6 +1,6 @@
 ---
 title: Linux 常用命令
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - Linux
 categories: Linux

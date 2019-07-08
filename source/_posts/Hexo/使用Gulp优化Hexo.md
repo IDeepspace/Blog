@@ -1,6 +1,6 @@
 ---
 title: Hexo博客－性能优化之静态文件压缩
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - Hexo
 categories: Hexo

@@ -1,6 +1,6 @@
 ---
 title: VSCode插件及配置
-author: Hazelnut Latte
+author: Deepspace
 categories: Tool
 date: 2019-01-16
 urlname: vscode-plugins-and-configurations

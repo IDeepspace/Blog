@@ -1,6 +1,6 @@
 ---
 title: ES6 —— Promise
-author: Hazelnut Latte
+author: Deepspace
 tags:
   - ES6
 categories: JavaScript
