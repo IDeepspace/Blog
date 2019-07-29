@@ -16,7 +16,10 @@ menu:
   # 读书:
   #   url: https://readings.togoblog.cn/
   #   icon: fa-book
-  Node.JS教程: 
+  DeUI:
+    url: https://deui.togoblog.cn/
+    icon: fa-bullseye
+  Node.JS: 
     url: https://togoblog.cn/nodejs-brochure/
     icon: fa-book
   关于:
