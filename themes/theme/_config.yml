@@ -13,13 +13,13 @@ menu:
   归档:
     url: /archives
     icon: fa-archive
-  # 读书:
-  #   url: https://readings.togoblog.cn/
-  #   icon: fa-book
+  读书:
+    url: https://readings.togoblog.cn/
+    icon: fa-book
   DeUI:
     url: https://deui.togoblog.cn/
     icon: fa-bullseye
-  Node.JS: 
+  Node.JS:
     url: https://node.togoblog.cn/
     icon: fa-book
   关于:
@@ -141,7 +141,7 @@ gitment:
 # Disqus评论模块的配置，默认为不激活
 disqus:
   enable: true
-  shortname: IIDeepspace
+  shortname: Deepspace
 
 # Livere comment configuration, the default is not activated
 # Livere 来必力评论模块的配置，默认为不激活
