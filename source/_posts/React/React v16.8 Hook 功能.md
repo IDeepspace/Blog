@@ -9,8 +9,6 @@ date: 2019-04-20
 urlname: react-hook
 ---
 
-## React v16.8 Hook 功能
-
 `Hook` 是 `React v16.8` 的新增特性。它可以让你在不创建 `class`  式组件的情况下使用 `state` 以及其他的 `React` 特性。
 
 ### 一、 `React Hook` 出现的背景
