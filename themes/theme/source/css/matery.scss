@@ -929,13 +929,15 @@ article .article-tags .chip {
         margin-bottom: 20px;
     }
     .home .post-card .post-title {
-        font-size: 21px;
+        font-size: 1.5rem;
+        margin-bottom: 8px;
     }
     h2 {
         font-size: 1.4rem;
     }
     h3 {
         font-size: 1.3rem;
+        margin: 10px;
     }
     h4 {
         font-size: 1.2rem;
@@ -945,6 +947,13 @@ article .article-tags .chip {
     }
     h6 {
         font-size: 1.1rem;
+    }
+    .bg-cover .post-detail-title {
+        font-size: 2.0rem;
+        font-weight: 700;
+    }
+    .home .card-content .post-card .post-info {
+        margin-top: 10px;
     }
 }
 
