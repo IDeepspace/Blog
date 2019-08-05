@@ -93,8 +93,14 @@ mySkills:
       percent: 85%
     React:
       background: 'linear-gradient(to right, #181698 0%, #81C784 100%)'
+      percent: 95%
+    Vue:
+      background: 'linear-gradient(to right, #181698 0%, #81C784 100%)'
       percent: 90%
     Ruby:
+      background: 'linear-gradient(to right, #2196F3 0%, #81C784 100%)'
+      percent: 80%
+    Python:
       background: 'linear-gradient(to right, #2196F3 0%, #81C784 100%)'
       percent: 80%
     程序设计:
