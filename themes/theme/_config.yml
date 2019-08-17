@@ -16,9 +16,6 @@ menu:
   读书:
     url: https://readings.togoblog.cn/
     icon: fa-book
-  DeUI:
-    url: https://deui.togoblog.cn/
-    icon: fa-bullseye
   Node.JS:
     url: https://node.togoblog.cn/
     icon: fa-book
