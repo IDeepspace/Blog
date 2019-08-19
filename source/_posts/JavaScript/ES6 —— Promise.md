@@ -8,6 +8,7 @@ date: 2018-06-29
 urlname: es6-promise
 ---
 
+### 一、介绍 
 <!-- ### 一、Promise 是什么？ -->
 
 阮一峰老师的 [ES6 Promise](<http://es6.ruanyifeng.com/#docs/promise>) 文章里，把 `Promise` 介绍地很详细。这里再整理一下，加深理解。
