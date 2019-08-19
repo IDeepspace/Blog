@@ -89,7 +89,7 @@ runAsync().then(
     // success
     console.log(`成功拿到${data}`);
     //后面可以用传过来的数据做些其他操作
-    //......
+    // ......
   },
   function(error) {
     // failure
@@ -98,7 +98,7 @@ runAsync().then(
 );
 ```
 
-`Promise` 实例生成以后，可以用 `then` 方法分别指定 `resolved ` 状态和 `rejected` 状态的回调函数。`Promise`实例的状态变为 `resolved` 或 `rejected`，就会触发`then`方法绑定的回调函数。
+`Promise` 实例生成以后，可以用 `then` 方法分别指定 `resolved ` 状态和 `rejected` 状态的回调函数。`Promise`实例的状态变为 `resolved` 或 `rejected`，就会触发 `then ` 方法绑定的回调函数。
 
 ```javascript
 promise.then(function(value) {
@@ -108,7 +108,7 @@ promise.then(function(value) {
 });
 ```
 
-`then `方法可以接受两个回调函数作为参数。第一个回调函数是`Promise`对象的状态变为`resolved`时调用，第二个回调函数是`Promise`对象的状态变为`rejected`时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受`Promise`对象传出的值作为参数。
+`then ` 方法可以接受两个回调函数作为参数。第一个回调函数是 `Promise` 对象的状态变为 `resolved` 时调用，第二个回调函数是 `Promise` 对象的状态变为 `rejected` 时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受 `Promise` 对象传出的值作为参数。
 
 结论：所以这个时候我们就会发现：原来 `then` 里面的函数和我们平时的回调函数一个意思，能够在 `runAsync` 这个异步任务执行完成之后被执行。
 
@@ -220,7 +220,7 @@ runAsync()
 
 #### 4、Promise.all()
 
-`Promise.all ` 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+`Promise.all ` 方法用于将多个 `Promise` 实例，包装成一个新的 `Promise` 实例。
 
 ```javascript
 const p = Promise.all([p1, p2, p3]);
@@ -282,7 +282,7 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function(results) {
 
 #### 5、Promise.race()
 
-`race` 是竞赛、赛跑的意思。它的用法也就是它的字面意思：**谁跑的快，就以谁为准，执行回调**。其实再看看`Promise.all` 方法，和 `race` 方法恰恰相反。还是用 `Promise.all` 的例子，但是把 `runAsync1` 的方法 `timeout` 时间调成 1000ms。 
+`race` 是竞赛、赛跑的意思。它的用法也就是它的字面意思：**谁跑的快，就以谁为准，执行回调**。其实再看看`Promise.all` 方法，和 `race` 方法恰恰相反。还是用 `Promise.all` 的例子，但是把 `runAsync1` 的方法 `timeout` 时间调成 `1000ms`。 
 
 ```javascript
 Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function(results) {
@@ -303,7 +303,7 @@ Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function(results) {
 
 ### 三、红绿灯问题
 
-题目：红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 Promse 实现）
+题目：红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 `Promse` 实现）
 
 三个亮灯函数已经存在：
 
@@ -319,7 +319,7 @@ function yellow(){
 }
 ```
 
-利用 then 和递归实现：
+利用 `then` 和递归实现：
 
 ```javascript
 function red() {
