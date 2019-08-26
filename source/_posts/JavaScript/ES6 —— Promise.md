@@ -332,7 +332,7 @@ function yellow() {
   console.log('yellow');
 }
 
-var light = function(timmer, color) {
+const light = function(timmer, color) {
   return new Promise(function(resolve, reject) {
     setTimeout(function() {
       color();
@@ -341,7 +341,7 @@ var light = function(timmer, color) {
   });
 };
 
-var step = function() {
+const step = function() {
   Promise.resolve()
     .then(function() {
       return light(3000, red);
