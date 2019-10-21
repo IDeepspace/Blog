@@ -127,8 +127,8 @@ gitalk:
   oauth:
     clientId: bd7c216feffa5a9b08d7
     clientSecret: 8250adf6bdd5444ba2bfae20f1ac87ab51fb9bb7
-  admin: ['IDeepspace']
-  distractionFreeMode: true,
+  admin: IDeepspace
+  distractionFreeMode: false,
 
 # the Gitment config，default disabled
 # Gitment 评论模块的配置，默认为不激活
