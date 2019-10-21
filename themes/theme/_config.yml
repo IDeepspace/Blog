@@ -127,8 +127,7 @@ gitalk:
   oauth:
     clientId: f2bbf2ef85068890400f
     clientSecret: 3b63b7b80643a9e7037d4e480335dadf246db2a8
-  admin: IDeepspace
-  id: 'window.location.pathname'
+  admin: 'IDeepspace'
   distractionFreeMode: true,
 
 # the Gitment config，default disabled
