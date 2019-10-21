@@ -123,7 +123,7 @@ postCalendar: true
 gitalk:
   enable: true
   owner: IDeepspace
-  repo: https://github.com/IDeepspace/IDeepspace.github.io
+  repo: IDeepspace.github.io
   oauth:
     clientId: f2bbf2ef85068890400f
     clientSecret: 3b63b7b80643a9e7037d4e480335dadf246db2a8
