@@ -121,14 +121,13 @@ postCalendar: true
 # the Gitalk config，default disabled
 # Gitalk 评论模块的配置，默认为不激活
 gitalk:
-  enable: false
+  enable: true
   owner: IDeepspace
   repo: IDeepspace.github.io
   oauth:
     clientId: f2bbf2ef85068890400f
     clientSecret: 3b63b7b80643a9e7037d4e480335dadf246db2a8
-  admin:
-    - IDeepspace
+  admin: IDeepspace
 
 # the Gitment config，default disabled
 # Gitment 评论模块的配置，默认为不激活
