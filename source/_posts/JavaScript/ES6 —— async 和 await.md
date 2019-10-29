@@ -19,30 +19,44 @@ const fs = require('fs');
 
 const readFile = function (fileName) {
   return new Promise(function (resolve, reject) {
-    fs.readFile(fileName, function(error, data) {
+    fs.readFile(fileName, function (error, data) {
       if (error) return reject(error);
       resolve(data);
     });
   });
 };
 
-const gen = function* () {
-  const f1 = yield readFile('/etc/fstab');
-  const f2 = yield readFile('/etc/shells');
-  console.log(f1.toString());
-  console.log(f2.toString());
-};
+function* ascReadFile() {
+  yield readFile('./a.txt');
+  yield readFile('./b.txt');
+  yield readFile('./c.txt');
+}
+
+let g = ascReadFile();
+g.next().value.then(data => {
+  console.log(data.toString());
+  return g.next().value;
+}).then(data => {
+  console.log(data.toString());
+  return g.next().value;
+}).then(data => {
+  console.log(data.toString());
+});
 ```
 
 上面代码的函数 `gen` 可以写成 `async` 函数：
 
 ```javascript
 const asyncReadFile = async function () {
-  const f1 = await readFile('/etc/fstab');
-  const f2 = await readFile('/etc/shells');
+  const f1 = await readFile('./a.txt');
+  const f2 = await readFile('./b.txt');
+  const f3 = await readFile('./c.txt');
   console.log(f1.toString());
   console.log(f2.toString());
+  console.log(f3.toString());
 };
+
+asyncReadFile();
 ```
 
 比较一下就会发现，`async` 函数就是将 `Generator` 函数的星号（`*`）替换成 `async`，将 `yield` 替换成 `await`。比起星号和 `yield`，`async` 和 `await`，语义上更清楚了。
