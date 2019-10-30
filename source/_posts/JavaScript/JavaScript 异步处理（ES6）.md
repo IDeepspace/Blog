@@ -4,7 +4,7 @@ author: Deepspace
 tags:
   - 异步
 categories: JavaScript
-date: 2019-09-29
+date: 2019-10-29
 urlname: javascript-async
 ---
 
