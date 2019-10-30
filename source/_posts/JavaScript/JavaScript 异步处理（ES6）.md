@@ -101,6 +101,7 @@ function runAsync() {
     setTimeout(function() {
       console.log('执行完成');
       resolve('数据');
+      // reject('数据');
     }, 2000);
   });
   return p;
@@ -136,6 +137,8 @@ promise.then(function(value) {
 这里我们就可以清楚的知道 `Promise` 的作用了：**异步执行的流程中，把原来的回调写法（执行代码和处理结果的代码）分离出来，在异步操作执行完后，用链式调用的方式执行回调函数。**
 
 下面我们再具体看看 `Promise` 相比于回调嵌套的写法的好处。
+
+
 
 #### 2、回调嵌套与Promise
 
@@ -194,9 +197,13 @@ request(url)
 
 使用 `Promise` 的好处就非常明显了。
 
+
+
 #### 3、catch 方法
 
-`Promise` 对象也拥有 `catch` 方法。它的用途是什么呢？其实它和 `then` 方法的第二个参数是一样的，用来指定`reject` 的回调，和写在 `then` 里第二个参数里面的效果是一样。用法如下：
+`Promise` 对象也拥有 `catch` 方法。它的用途是什么呢？其实它和 `then` 方法的第二个参数是一样的，用来指定`reject` 的回调，和写在 `then` 里第二个参数里面的效果是一样。
+
+用法如下：
 
 ```javascript
 runAsync()
@@ -210,16 +217,20 @@ runAsync()
 });
 ```
 
-`catch` 还有另外一个作用：在执行 `resolve` 的回调（也就是上面 `then` 中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会程序报错卡死，而是会进到这个 `catch` 方法中，看个例子：
+**`catch` 还有另外一个作用：在执行 `resolve` 的回调（也就是上面 `then` 中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会程序报错卡死，而是会进到这个 `catch` 方法中，而 `then` 里面的第二个函数捕获不到。**
+
+看个例子：
 
 ```javascript
 runAsync()
-  .then(function(data) {
+  .then(function (data) {
     console.log('resolved');
     console.log(data);
     console.log(somedata); //此处的somedata未定义
+  }, function (err) {
+    console.log(`then 里面第二个参数捕获不到错误${err}`);
   })
-  .catch(function(error) {
+  .catch(function (error) {
     console.log('rejected');
     console.log(error);
   });
@@ -232,6 +243,8 @@ runAsync()
 ```
 
 在 `resolve` 的回调中，`somedata` 这个变量是没有被定义的。如果我们不用 `catch`，代码运行到这里就直接报错了，不往下运行了。但是在这里，会得到这样的结果。也就是说，程序执行到 `catch` 方法里面去了，而且把错误原因传到了 `error` 参数中。即便是有错误的代码也不会报错了，这与 `try/catch` 语句有相同的功能。**所以，如果想捕获错误，就可以使用 `catch` 方法。**
+
+
 
 #### 4、Promise.all()
 
@@ -293,6 +306,71 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 
 `Promise.all` 方法有一个非常常用的应用场景：打开网页时，预先加载需要用到的各种资源如图片及各种静态文件，所有的都加载完后，再进行页面的初始化。
 
+那如果 `Promise.all` 方法里面包含的几个异步操作，有一个出现错误了会发生什么呢？我们把 `runAsync1` 中的 `resolve` 改成 `reject` ：
+
+```javascript
+function runAsync1() {
+  const p = new Promise(function (resolve, reject) {
+    //Do some Async
+    setTimeout(function () {
+      console.log('执行完成1');
+      // 改成了 reject
+      reject('数据1');
+    }, 2000);
+  });
+  return p;
+}
+
+Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
+  console.log('results' + results);
+});
+```
+
+程序会报错，也没有走进 `then` 方法里的第一个参数中：
+
+```
+执行完成3
+执行完成1
+(node:25251) UnhandledPromiseRejectionWarning: 数据1
+(node:25251) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:25251) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+执行完成2
+```
+
+加上 `then` 第二个参数：
+
+```javascript
+Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
+  console.log('results' + results);
+}, function (error) {
+  console.log('error' + error);
+});
+
+// 执行完成3
+// 执行完成1
+// error数据1
+// 执行完成2
+```
+
+所以，当 `Promise.all()` 中的异步请求有错误时，是不会走到 `then` 方法中指定 `resolved` 状态的函数中的，我们需要加上指定 `rejected` 状态的函数或者 `catch` 方法：
+
+```javascript
+Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
+  console.log('results' + results);
+}).catch((err) => {
+  console.log('catch' + err);
+});
+
+// 执行完成3
+// 执行完成1
+// catch数据1
+// 执行完成2
+```
+
+**也就是说：`Promise.all()` 中的异步请求只要有一个被 `rejected` ，`Promise.all([runAsync1(), runAsync2(), runAsync3()])` 的状态就会变成 ` rejected` 。**
+
+
+
 #### 5、Promise.race()
 
 `race` 是竞赛、赛跑的意思。它的用法也就是它的字面意思：**谁跑的快，就以谁为准，执行回调**。其实再看看`Promise.all` 方法，和 `race` 方法恰恰相反。还是用 `Promise.all` 的例子，但是把 `runAsync1` 的方法 `timeout` 时间调成 `1000ms`。
@@ -308,13 +386,65 @@ Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function(results) {
 // 执行完成3
 ```
 
-这三个异步操作同样是并行执行的。结果很可以猜到，1秒后 `runAsync1` 已经执行完了，此时 `then` 里面的方法就会立即执行了。但是，在 `then` 里面的回调函数开始执行时，`runAsync2()` 和 `runAsync3()` 并没有停止，仍然继续执行。所以再过1秒后，输出了他们结束的标志。这个点需要注意。
+这三个异步操作同样是并行执行的。结果很可以猜到，`1` 秒后 `runAsync1` 已经执行完了，此时 `then` 里面的方法就会立即执行了。但是，在 `then` 里面的回调函数开始执行时，`runAsync2()` 和 `runAsync3()` 并没有停止，仍然继续执行。所以再过 `1` 秒后，输出了他们结束的标志。这个点需要注意。
+
+同样的，如果 `promise.race` 中的异步操作也有一个出现错误会发生什么呢？
+
+```javascript
+function runAsync1() {
+  const p = new Promise(function (resolve, reject) {
+    //Do some Async
+    setTimeout(function () {
+      console.log('执行完成1');
+      reject('数据1');
+    }, 1000);
+  });
+  return p;
+}
+
+function runAsync2() {
+  const p = new Promise(function (resolve, reject) {
+    //Do some Async
+    setTimeout(function () {
+      console.log('执行完成2');
+      resolve('数据2');
+    }, 2000);
+  });
+  return p;
+}
+
+function runAsync3() {
+  const p = new Promise(function (resolve, reject) {
+    //Do some Async
+    setTimeout(function () {
+      console.log('执行完成3');
+      resolve('数据3');
+    }, 2000);
+  });
+  return p;
+}
+
+Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
+  console.log(results);
+}).catch((error) => {
+  console.log(error);
+});
+
+// 执行完成1
+// 数据1
+// 执行完成2
+// 执行完成3
+```
+
+**也就是说：`Promise.race()` 中的异步请求谁率先改变状态，`Promise.race([runAsync1(), runAsync2(), runAsync3()])` 的状态就跟着改变，并传给 `Promise.race` 的回调函数中。**
 
 上面的这些方法就是 `Promise` 比较常用的几个方法了。
 
+
+
 ### 三、红绿灯问题
 
-题目：红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 `Promse` 实现）
+题目：红灯3秒亮一次，绿灯1秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 `Promse` 实现）
 
 三个亮灯函数已经存在：
 
