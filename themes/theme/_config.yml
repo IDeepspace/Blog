@@ -121,7 +121,7 @@ postCalendar: true
 # the Gitalk config，default disabled
 # Gitalk 评论模块的配置，默认为不激活
 gitalk:
-  enable: false
+  enable: true
   owner: IDeepspace
   repo: IDeepspace.github.io
   oauth:
