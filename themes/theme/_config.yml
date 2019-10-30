@@ -127,7 +127,7 @@ gitalk:
   oauth:
     clientId: bd7c216feffa5a9b08d7
     clientSecret: 8250adf6bdd5444ba2bfae20f1ac87ab51fb9bb7
-  admin: ['IDeepspace']
+  admin: 'IDeepspace'
   distractionFreeMode: false,
 
 # the Gitment config，default disabled
