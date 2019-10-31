@@ -122,12 +122,12 @@ postCalendar: true
 # Gitalk 评论模块的配置，默认为不激活
 gitalk:
   enable: true
-  owner: 'IDeepspace'
-  repo: 'IDeepspace.github.io'
+  owner: IDeepspace
+  repo: IDeepspace.github.io
   oauth:
-    clientId: 'bd7c216feffa5a9b08d7'
-    clientSecret: '8250adf6bdd5444ba2bfae20f1ac87ab51fb9bb7'
-  admin: ['IDeepspace']
+    clientId: 656cbb0b7fc4a29a9644
+    clientSecret: 23d68d004c4728f9420dd1959b9c505fd48f36cc
+  admin: IDeepspace
   distractionFreeMode: false,
 
 # the Gitment config，default disabled
@@ -137,8 +137,8 @@ gitment:
   owner: IDeepspace
   repo: IDeepspace.github.io
   oauth:
-    clientId: 0e2b076d15baa03becc1
-    clientSecret: a3f6ea54e2ca4323ccaf8649896d820bcd5932cd
+    clientId: 656cbb0b7fc4a29a9644
+    clientSecret: 23d68d004c4728f9420dd1959b9c505fd48f36cc
 
 # disqus config, default disabled
 # Disqus评论模块的配置，默认为不激活
