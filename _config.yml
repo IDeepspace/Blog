@@ -4,7 +4,7 @@
 
 # Site
 title: Deepspace
-subtitle: Deepspace
+subtitle: 我叫陈星星
 description: 凡事预 ？立 ：废
 keywords: Deepspace
 author: Deepspace
@@ -85,7 +85,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: theme
+theme: hexo-theme-next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
