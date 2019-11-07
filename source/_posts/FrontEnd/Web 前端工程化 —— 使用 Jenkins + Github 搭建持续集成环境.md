@@ -10,5 +10,4 @@ tags:
   - Github
 ---
 
-## Web 工程化（三）—— 使用 Jenkins + Github 搭建持续集成环境
 

@@ -1,6 +1,8 @@
 ---
-title: about
+title: About
 date: 2018-10-05 16:33:28
 type: "about"
-layout: "about"
+layout: "About"
 ---
+
+## 关于我
