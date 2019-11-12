@@ -5,7 +5,7 @@ tags:
   - ES6
 categories: JavaScript
 date: 2017-02-11
-urlname: array-like-objects
+urlname: array-like-object
 ---
 
 ## JavaScript 中的类数组对象（array-like objects）
