@@ -444,8 +444,8 @@ arr.includes(searchElement, fromIndex);
 
 ```javascript
 [1, 2, 3].includes(2); // true
-[(1, 2, 3)].includes(4); // false
-[(1, 2, NaN)].includes(NaN); // true
+[1, 2, 3].includes(4); // false
+[1, 2, NaN].includes(NaN); // true
 ```
 
 `includes()` 方法的第二个参数表示搜索的起始位置，默认为 `0`。如果第二个参数为负数，则表示倒数的位置，如果这时它大于数组长度（比如第二个参数为 `-4`，但数组长度为 `3`），则会重置为从 `0` 开始。
