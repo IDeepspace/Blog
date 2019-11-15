@@ -136,9 +136,8 @@ tags:
 
 - `Staging` 环境：和 `Production` 环境的配置基本保持一致，用于部署比较稳定的代码版本，有时候用于测试应用程序的某一功能是否稳定。同时，`Staging` 环境也会和其他上下游的系统做集成测试，其他上下游系统的 `Staging` 环境的数据和功能也依赖于我们的 `Staging` 环境。所以，需要保证我们的 `Staging` 环境的应用程序也总是正常工作的。
 
-- `Production` 环境
+- `Production` 环境：生产（产品）环境，直接面向于用户。应用程序在 `Staging` 环境中运行正常，没有 `bug`，可以手动部署到生产环境中。
 
-  生产（产品）环境，直接面向于用户。应用程序在 `Staging` 环境中运行正常，没有 `bug`，可以手动部署到生产环境中。
 
 ![Continuous-Delivery](https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/Continuous-Delivery.png)
 
