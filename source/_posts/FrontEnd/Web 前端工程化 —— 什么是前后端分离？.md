@@ -78,7 +78,9 @@ tags:
 
 这里贴上淘宝前端团队提出的中途岛 （`Midway Framework`）架构图：
 
-![Midway Framework](https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/taobao-midway-framework.png)
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/taobao-midway-framework.png" alt="Midway Framework" style="zoom: 67%;" />
+
+<p align="center">(图片来自网络)</p>
 
 不同的需求，架构也需要做不同程度的相应的调整。
 
