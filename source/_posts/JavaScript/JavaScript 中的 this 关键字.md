@@ -553,7 +553,7 @@ const o = {
 };
 
 o.f1();
-// Window
+// Object
 // Object
 ```
 
