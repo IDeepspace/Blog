@@ -553,13 +553,15 @@ const o = {
 };
 
 o.f1();
-// Object
+// Window
 // Object
 ```
 
 在第二层改用一个指向外层 `this` 的变量。
 
-同时，`JavaScript` 提供了严格模式，也可以硬性避免这种问题。严格模式下，函数内部的 `this` 指向 `undefined`：
+同时，`JavaScript` 提供了严格模式，也可以硬性避免这种问题。
+
+严格模式下，当函数内部的 `this` 指向全局的 `window` 时，会将 `this` 指向转为 `undefined`：
 
 ```javascript
 function a() {
@@ -575,7 +577,7 @@ function a() {
 }
 
 a();
-// Object
+// Window
 // undefined
 ```
 
