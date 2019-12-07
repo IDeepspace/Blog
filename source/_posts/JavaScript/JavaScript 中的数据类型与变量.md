@@ -375,7 +375,7 @@ var o = new Object();
 - 基本类型的比较是**值**的比较，而引用类型的比较是**内存中地址**的比较；
 - 基本类型的变量是存放在**栈区**的，而引用类型的值是**同时保存在栈内存和堆内存**中的对象。
 
-> 关于 `JavaScript` 的内存管理，可以详见：
+> 关于 `JavaScript` 的内存管理，可以详见：http://togoblog.cn/javascript-memory-management
 
 
 
