@@ -1,5 +1,5 @@
 ---
-title: JavaScript 的内存管理
+title: JavaScript 的内存管理（一）
 author: Deepspace
 tags:
   - 内存管理
@@ -8,7 +8,7 @@ date: 2019-12-06
 urlname: javascript-memory-management
 ---
 
-<!-- ## JavaScript 的内存管理 -->
+<!-- ## JavaScript 的内存管理（一） -->
 
 ### 一、内存
 
