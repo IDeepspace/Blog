@@ -14,7 +14,7 @@ var person2 = { name: 'Deepspace' };
 var person3 = { name: '陈鑫' };
 ```
 
-
+<img src="https://lh4.googleusercontent.com/scM7BZuUCpCOEJFh24K_3m0yN_jr13sPmA9eqVC4jSkwDMyxH_bjtEqJ7ZivoSTC7hCslcSoPnHgR1htcsD8E8DRT6MtP3gXfACjLlzZ01dLY7KOYglVs45-QlTEfhjne3GwirNk9ug" alt="img" style="zoom:50%;" />
 
 ### 变量提升
 

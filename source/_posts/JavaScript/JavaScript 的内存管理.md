@@ -84,9 +84,21 @@ function fun() {
 
 - 栈
 
-  -  当 `CPU` 指向 `for` 关键字定义的程序被处理后存储在内存代码区的程序指令，就会在内存数据区开辟空间存储局部变量 `i`，具体点就是数据区动态存储区的栈区。
+  - 当 `CPU` 指向 `for` 关键字定义的程序被处理后存储在内存代码区的程序指令，就会在内存数据区开辟空间存储局部变量 `i`，具体点就是数据区动态存储区的栈区。
+
   - 当 `for` 循环程序执行结束的时候，变量 `i` 就会被销毁，释放栈区空间。
+
   - 从这里可以看出栈区数据的生命周期很短，在这个过程中，静态存储区存放的全局变量 `S` 的值经过多次加法赋值运算已经发生了变化，只要整体 `Javascript` 程序不退出它就会一直存在。讲到这里， 你应该会更加深刻理解局部变量和全局变量了，全局变量的生存状态依赖于整个 `Javascript` 程序，局部变量的存在依赖于局部一个程序段，比如一个函数中的局部变量，`if` 语句中的局部变量，`for` 循环结构程序中的局部变量。
+
+  - 示意图：
+
+    ```javascript
+    var name = '陈星星';
+    var age = 18;
+    var city = 'Wuhan';
+    ```
+
+    <img src="https://github.com/IDeepspace/ImageHosting/raw/master/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
 
 - 堆
 
@@ -105,8 +117,18 @@ function fun() {
     ```
 
     `null` 是一个空值，空指针，一般用于释放堆区数据。`arr` 原本指向堆区的数组数据，但是你重新给 `arr` 赋值为空指针，不再指向 `arr` 数组，那么该数组占据的内存空间就会被释放。
-
-
+    
+  - 示意图：
+  
+    ```javascript
+    var person1 = { name: '陈星星' };
+    var person2 = { name: 'Deepspace' };
+    var person3 = { name: '陈鑫' };
+    ```
+  
+    <img src="https://github.com/IDeepspace/ImageHosting/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
+  
+    
 
 看下面的示例代码，比较基本类型数据与引用类型的数据有什么区别。
 
@@ -145,4 +167,6 @@ fun();
 
 
 
-> 原文出自：http://www.yanhuangxueyuan.com/Javascript/memory.html
+### 参考
+
+- http://www.yanhuangxueyuan.com/Javascript/memory.html
