@@ -331,7 +331,7 @@ console.log(s1); // Symbol(foo)
 console.log(s2); // Symbol(bar)
 console.log(s3); // Symbol()
 console.log(s4); // Symbol()
-console.log(s3 == s4); // false
+console.log(s1 == s2); // false
 console.log(s3 === s4); // false
 
 console.log(s1.toString()); // "Symbol(foo)"
@@ -350,7 +350,7 @@ console.log(s2.toString()); // "Symbol(bar)"
 var o = new Object();
 ```
 
-在 `ECMAScript` 中，`Object` 类型是所有它的实例的基础。换句话说， `Object` 类型所具有的任何属性和方法也同样存在于更具体的对象中。
+在 `ECMAScript` 中，`Object` 类型是所有其它的实例的基础。换句话说， `Object` 类型所具有的任何属性和方法也同样存在于更具体的对象中。
 
 `Object` 的每个实例都具有下列属性和方法：
 
