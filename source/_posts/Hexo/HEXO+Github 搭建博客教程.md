@@ -188,7 +188,7 @@ $ hexo s
 
 会看到 :
 
-![hexo-init-theme](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Hexo/hexo-init-theme.png)
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Hexo/hexo-init-theme.png" alt="hexo-init-theme" style="zoom:50%;" />
 
 
 

@@ -57,7 +57,9 @@ Vue.component('button-counter', {
 
 **生命周期图示：**
 
-![lifecycle](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-lifecycle.png)
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-lifecycle.png" alt="lifecycle" style="zoom: 50%;" />
+
+<p align="center">(图片来自网络)</p>
 
 图中，红色矩形框代表着在生命周期对应阶段的钩子函数。
 
@@ -590,7 +592,7 @@ button {
 
 结论：
 
-- 组件的初始化（mounted之前）分开进行，挂载是从上到下依次进行
+- 组件的初始化（`mounted` 之前）分开进行，挂载是从上到下依次进行
 - 当没有数据关联时，兄弟组件之间的更新和销毁是互不关联的
 
  

@@ -27,7 +27,6 @@ tags:
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/Contiunous-Integration.png" alt="Contiunous-Integration" style="zoom:50%;" />
 
 <p align="center">(图片来自网络)</p>
-
 #### 持续集成的优势
 
 - 提高开发人员的工作效率
@@ -144,7 +143,6 @@ tags:
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/Continuous-Delivery.png" alt="Continuous-Delivery" style="zoom: 50%;" />
 
 <p align="center">(图片来自网络)</p>
-
 ### 三、持续部署
 
 持续部署（`Continuous Deployment`）是持续交付的下一步，是指能够自动提供持续交付管道中的应用程序版本给最终用户使用。
@@ -154,7 +152,6 @@ tags:
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/Continuous-Deploy.png" alt="Continuous-Deploy" style="zoom:50%;" />
 
 <p align="center">(图片来自网络)</p>
-
 #### 和持续交付的关系
 
 有时候，持续交付也与持续部署混淆。持续部署意味着所有的变更都会被自动部署到生产环境中。持续交付意味着所有的变更都可以被部署到生产环境中，但是出于业务考虑，可以选择不部署。如果要实施持续部署，必须先实施持续交付。

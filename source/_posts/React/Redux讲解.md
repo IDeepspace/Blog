@@ -133,6 +133,8 @@ console.log(store.getState()); //当前值为121+2=123
 
 ![Redux工作流](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg)
 
+<p align="center">(图片来自网络)</p>
+
 ### 四、代码组织目录结构
 
 下面对目录结构进行划分

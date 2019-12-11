@@ -34,7 +34,7 @@ npm start
 
 执行完上述命令之后，你可以直接打开 http://localhost:3000，即可以看到你 `React APP` 的运行效果：
 
-![create-react-app](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/create-react-app.png)
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/create-react-app.png" alt="create-react-app" style="zoom: 33%;" />
 
 **目录结构：**
 
