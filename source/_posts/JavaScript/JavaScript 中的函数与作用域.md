@@ -22,7 +22,7 @@ var username = 'JavaScript';
 
 上面的代码会正常输出 `undefined` 而不是报错 `Uncaught ReferenceError: a is not defined`。就是因为声明提升（`declaration hoisting`）。
 
-那为什么输出的是 `undefined` 而不是 `JavaScript` 呢？**因为 `JavaScript` 只有变量的声明会提升，初始化的不会。**
+那为什么输出的是 `undefined` 而不是 `JavaScript` 呢？**因为 `JavaScript` 只有变量的声明会提升，初始化不会。**
 
 再看段代码：
 
@@ -171,17 +171,17 @@ else {
 但是不同的浏览器里可能有不同的效果：
 
 ```javascript
-// 在Chrome里: 
-// 'foo' 变量名被提升，但是 typeof foo 为 undefined
-// 
-// 在Firefox里:
-// 'foo' 变量名被提升. 但是 typeof foo 为 undefined
-//
-// 在Edge里:
-// 'foo' 变量名未被提升. 而且 typeof foo 为 undefined
-// 
-// 在Safari里:
-// 'foo' 变量名被提升. 而且 typeof foo 为 function
+在Chrome里:
+'foo' 变量名被提升，但是 typeof foo 为 undefined
+
+在Firefox里:
+'foo' 变量名被提升. 但是 typeof foo 为 undefined
+
+在Edge里:
+'foo' 变量名未被提升. 而且 typeof foo 为 undefined
+
+在Safari里:
+'foo' 变量名被提升. 而且 typeof foo 为 function
 ```
 
 所以对于函数的声明提升，我们需要**谨慎使用**。
@@ -344,6 +344,7 @@ function test() {
     return 1;
   };
 }
+
 test(); // 要先执行这个函数
 console.log(variable); // 未定义直接赋值的变量
 console.log(inVariable2);  // ReferenceError: inVariable2 is not defined
@@ -467,7 +468,7 @@ c(); // Hello Closure!
 
 3. 在 `A` 中返回 `B`（确切地讲，在 `A` 中返回 `B` 的引用）；
 
-4. 执行 `A()`，把 `A` 的返回结果赋值给变量 `c` （此时 `c` 指向 `B` 的引用）；
+4. 把 `A` 的返回结果赋值给变量 `c` （此时 `c` 指向 `B` 的引用）；
 
 5. 执行 `c()` 。
 
