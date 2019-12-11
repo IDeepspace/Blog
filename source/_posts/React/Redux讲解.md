@@ -134,7 +134,6 @@ console.log(store.getState()); //当前值为121+2=123
 ![Redux工作流](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg)
 
 <p align="center">(图片来自网络)</p>
-
 ### 四、代码组织目录结构
 
 下面对目录结构进行划分
@@ -653,3 +652,9 @@ const mapDispatchToProps = {
 所以，最终的目录结构就变成下面这个样子（你也可以把 `store.js` 放在单独的 `store` 文件夹里面）：
 
 ![目录结构](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-folder-structure.png)
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

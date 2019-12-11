@@ -81,7 +81,6 @@ tags:
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/taobao-midway-framework.png" alt="Midway Framework" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
-
 不同的需求，架构也需要做不同程度的相应的调整。
 
 
@@ -90,7 +89,7 @@ tags:
 
 不管是瀑布模式的前后端分离，还是敏捷模式下的前后端分离，都需要从业务逻辑出发，从业务的角度来说，`Web`  应用的前后端是一个整体，它们无法独立运行。于是，我们的开发模式（也可以说是交互形式）就变成了下面这样：
 
-![前后端交互](https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/fe-be-alternate.jpg)
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/fe-be-alternate.jpg" alt="前后端交互" style="zoom:50%;" />
 
 图中的 `API` 文档，可以是一个模拟后端接口的 `JSON API`，也可以是文档编写的 `API` 。在这个过程中，前后端需要根据业务逻辑需要展示的内容，一起细致化接口的每个字段名，直至接口确认完毕，当各种开发完成时，需要在测试环境进行集成。如果遇到 `API` 变更，我们需要重复这个过程。
 
@@ -132,3 +131,6 @@ tags:
 
 
 
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

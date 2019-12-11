@@ -158,3 +158,9 @@ To https://github.com/IDeepspace/HEXO-BLOG.git
 ```
 
 这样子，每次更新博文并 `deploy` 到服务器上之后，备份就自动启动并完成备份啦 !
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

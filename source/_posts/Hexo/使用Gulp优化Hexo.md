@@ -148,3 +148,9 @@ $ npm run build
 以前都是使用 `hexo clean`  ,  `hexo g`  , `hexo d` 来自动更新博文，虽然命令不长，还是不如上面一条命令来的直接 !
 
 至此，可以得到一个 `html` 、`css` 、`js` 、`image` 都更优化的 `/public  `文件夹，我用评测工具测试了一下博客打开速度, 确实快了不少 !
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

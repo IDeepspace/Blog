@@ -332,3 +332,9 @@ console.log(person.prototype);
 ```
 
 输出为 `undefined`。由此可以看出箭头函数没有原型 。
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

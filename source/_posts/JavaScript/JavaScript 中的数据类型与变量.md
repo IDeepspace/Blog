@@ -429,3 +429,8 @@ console.log(typeof func); // "function"
 - 赋值
   - 赋值就是变量在分配空间之后的某个时间里，对变量的值进行的刷新操作（操作存储空间内的数据）。
 
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

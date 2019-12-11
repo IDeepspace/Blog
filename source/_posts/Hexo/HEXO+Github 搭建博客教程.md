@@ -229,3 +229,9 @@ $ hexo clean && hexo g && hexo d
 然后输入自己的 `Github` 用户名和密码即可
 
 6. 在浏览器中输入  https://IDeepspace.github.io/ 便可以打开自己的博客啦 !
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

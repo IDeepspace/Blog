@@ -237,4 +237,8 @@ function deepClone(obj) {
 
 就个人来说，我很期待可以随便使用结构克隆的那一天，让对象拷贝不再令人头疼。
 
-[JAVASCRIPT ](https://www.zcfy.cc/article/tag/JavaScript)[算法 ](https://www.zcfy.cc/article/tag/%E7%AE%97%E6%B3%95)[浏览器 ](https://www.zcfy.cc/article/tag/%E6%B5%8F%E8%A7%88%E5%99%A8)[API ](https://www.zcfy.cc/article/tag/API)[HTML](https://www.zcfy.cc/article/tag/HTML)
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

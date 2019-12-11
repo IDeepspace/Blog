@@ -397,7 +397,6 @@ export default App;
 ![Reactv15生命周期图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react15-lifecycle.png)
 
 <p align="center">(图片来自网络)</p>
-
 如上图所示，可以把组件的生命周期大致分为三个阶段：
 
 - 挂载阶段 (Mount)
@@ -525,7 +524,6 @@ render(
 ![Reactv16.4生命周期图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/reactv16.4-lifecycle.jpg)
 
 <p align="center">(图片来自网络)</p>
-
 `React16` 废弃的三个生命周期函数：
 
 - componentWillMount
@@ -699,3 +697,9 @@ getSnapshotBeforeUpdate 生命周期钩子返回的值会被 componentDidUpdate 
 
 
 > 本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

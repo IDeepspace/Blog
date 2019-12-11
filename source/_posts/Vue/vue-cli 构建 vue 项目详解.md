@@ -299,3 +299,9 @@ export default new Router({
 ### 三、总结
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-core-structure.png" alt="vue-core-structure" style="zoom:50%;" />
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

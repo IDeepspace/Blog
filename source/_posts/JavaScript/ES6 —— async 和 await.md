@@ -374,3 +374,9 @@ const makeRequest = async () => {
 - `async/await` 与 `Promise` 一样，是非阻塞的。
 - `async/await` 使得异步代码看起来像同步代码，这正是它的魔力所在。
 - `async/await` 相比于 `Promise` ，更加有优势。
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

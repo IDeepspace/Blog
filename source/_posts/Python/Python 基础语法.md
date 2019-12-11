@@ -709,3 +709,9 @@ my_tesla.battery.describe_battery()
 ```
 
 我们定义了一个名为 `Battery` 的新类。在 `ElectricCar` 类中，添加了一个名为 `self.battery` 的属性。这行代码让 `Python` 创建一个新的 `Battery` 实例(由于没有指定尺寸，因此为默认值70)，并将实例存储在属性 `self.battery` 中，每当方法 `__init__()` 被调用时，都将执行该操作；因此现在每个 `ElectricCar` 实例都包含一个自动创建的 `Battery` 实例。
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

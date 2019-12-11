@@ -170,3 +170,9 @@ let str = '(name) => `Hello ${name}!`';
 let func = eval.call(null, str);
 func('Jack'); // "Hello Jack!"
 ```
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

@@ -148,3 +148,9 @@ export default InputWithUserName;
 ```
 
 只要改一下包装的高阶组件就可以达到需要的效果。而且我们并没有改动 `InputWithUserName` 组件内部的任何逻辑，也没有改动 `Index` 的任何逻辑，只是改动了中间的高阶组件函数。
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

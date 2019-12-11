@@ -645,3 +645,9 @@ export default {
 ![Vue组件间的通讯](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-in-components.png)
 
 > 本节内容代码地址：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-component-communication
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

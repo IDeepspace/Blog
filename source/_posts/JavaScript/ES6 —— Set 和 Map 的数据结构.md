@@ -91,3 +91,9 @@ map.get(['a']); // undefined
 实例属性和方法：`size`、`set`、`get`、`has`、`delete`、`clear`
 
 遍历方法：`keys()`、`values()`、`entries()`、`forEach()`
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/
