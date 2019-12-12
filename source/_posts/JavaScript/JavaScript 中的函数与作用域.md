@@ -507,7 +507,54 @@ c(); // 3
 
 这个就是闭包的作用：**当需要一个模块中定义这样一个变量，并且希望这个变量一直保存在内存中但又不会污染全局的变量的时候，我们就可以用闭包来定义这个模块。**
 
-下面我们看一个闭包的常见应用场景：
+我们经常用闭包做这样的事情：**是封装对象的私有属性和私有方法。**
+
+```javascript
+function Person(name) {
+  var _age;
+
+  function setAge(num) {
+    _age = num;
+  }
+
+  function getAge() {
+    return _age;
+  }
+  return {
+    name: name,
+    setAge: setAge,
+    getAge: getAge
+  };
+}
+
+var p1 = new Person('陈星星');
+p1.setAge(18);
+console.log(p1.getAge()); // 18
+```
+
+函数 `Person` 的内部变量 `age`，通过闭包 `getAge` 和 `setAge`，变成了返回对象 `p1` 的私有变量。
+
+注意，外层函数每次运行，都会生成一个新的闭包，而这个闭包又会保留外层函数的内部变量，所以内存消耗很大。因此不能滥用闭包，否则会造成网页的性能问题。
+
+函数执行完后，函数内的局部变量没有释放，占用内存时间会变长，容易造成内存泄漏。所以，我们也需要将引用设置成 `null` 来回收闭包：
+
+```javascript
+function fn1() {
+  var arr = new Array(1000);
+  function fn2() {
+    console.log(arr.length);
+  }
+  return fn2;
+}
+var f = fn1(); // 已经产生闭包
+f(); // 1000
+
+f = null; // 回收闭包
+```
+
+
+
+**再看一个闭包的常见应用场景：**
 
 有一个组件，这个组件的功能是：可以初始化一个容器，可以给这个容器添加子容器，也可以移除一个容器。
 
@@ -562,6 +609,41 @@ window.jView = obj;
 `obj` 是在函数 `f` 中定义的一个对象，这个对象中定义了一系列方法。
 
 执行 `window.jView = obj` 就是在 `window` 全局对象定义了一个变量 `jView`，并将这个变量指向 `obj` 对象，也就是说全局变量 `jView` 引用了 `obj` 。而 `obj` 对象中的函数又引用了 `f` 中的变量 `viewport` ，因此 `f` 中的 `viewport` 不会被回收，会一直保存到内存中，所以这种写法满足闭包的条件。 
+
+最后，为了检验自己是否理解了闭包，看看下面两道题（如果你不清楚 `this`，请看这里：https://togoblog.cn/javascript-this/）：
+
+```javascript
+var name = 'The Window';
+
+var object = {
+  name: 'My Object',
+
+  getNameFunc: function () {
+    return function () {
+      return this.name;
+    };
+  }
+};
+
+console.log(object.getNameFunc()()); // undefined
+```
+
+```javascript
+var name = 'The Window';
+
+var object = {
+  name: 'My Object',
+
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name;
+    };
+  }
+};
+
+console.log(object.getNameFunc()()); // 'My Object'
+```
 
 
 
