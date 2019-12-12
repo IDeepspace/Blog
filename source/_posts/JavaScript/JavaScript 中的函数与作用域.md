@@ -625,7 +625,7 @@ var object = {
   }
 };
 
-console.log(object.getNameFunc()()); // undefined
+console.log(object.getNameFunc()()); // 'The Window' (浏览器环境下)
 ```
 
 ```javascript
