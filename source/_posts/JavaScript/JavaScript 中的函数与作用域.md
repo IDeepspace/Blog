@@ -536,22 +536,6 @@ console.log(p1.getAge()); // 18
 
 注意，外层函数每次运行，都会生成一个新的闭包，而这个闭包又会保留外层函数的内部变量，所以内存消耗很大。因此不能滥用闭包，否则会造成网页的性能问题。
 
-函数执行完后，函数内的局部变量没有释放，占用内存时间会变长，容易造成内存泄漏。所以，我们也需要将引用设置成 `null` 来回收闭包：
-
-```javascript
-function fn1() {
-  var arr = new Array(1000);
-  function fn2() {
-    console.log(arr.length);
-  }
-  return fn2;
-}
-var f = fn1(); // 已经产生闭包
-f(); // 1000
-
-f = null; // 回收闭包
-```
-
 
 
 **再看一个闭包的常见应用场景：**
@@ -608,7 +592,29 @@ window.jView = obj;
 
 `obj` 是在函数 `f` 中定义的一个对象，这个对象中定义了一系列方法。
 
-执行 `window.jView = obj` 就是在 `window` 全局对象定义了一个变量 `jView`，并将这个变量指向 `obj` 对象，也就是说全局变量 `jView` 引用了 `obj` 。而 `obj` 对象中的函数又引用了 `f` 中的变量 `viewport` ，因此 `f` 中的 `viewport` 不会被回收，会一直保存到内存中，所以这种写法满足闭包的条件。 
+执行 `window.jView = obj` 就是在 `window` 全局对象定义了一个变量 `jView`，并将这个变量指向 `obj` 对象，也就是说全局变量 `jView` 引用了 `obj` 。而 `obj` 对象中的函数又引用了 `f` 中的变量 `viewport` ，因此 `f` 中的 `viewport` 不会被回收，会一直保存到内存中，所以这种写法满足闭包的条件。
+
+
+
+#### 3、闭包的回收
+
+函数执行完后，函数内的局部变量没有释放，占用内存时间会变长，容易造成内存泄漏。所以，我们也需要将引用设置成 `null` 来回收闭包：
+
+```javascript
+function fn1() {
+  var arr = new Array(1000);
+  function fn2() {
+    console.log(arr.length);
+  }
+  return fn2;
+}
+var f = fn1(); // 已经产生闭包
+f(); // 1000
+
+f = null; // 回收闭包
+```
+
+ 
 
 最后，为了检验自己是否理解了闭包，看看下面两道题（如果你不清楚 `this`，请看这里：https://togoblog.cn/javascript-this/）：
 
