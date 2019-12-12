@@ -167,11 +167,6 @@ fun();
 
 
 
-### 参考
-
-- http://www.yanhuangxueyuan.com/Javascript/memory.html
-
-
 
 <br>
 
