@@ -376,7 +376,7 @@ function getUsername() {
   innerFunc();
 }
 
-getUsername();
+getUsername(); // 陈星星
 console.log(username); // ReferenceError: username is not defined
 ```
 

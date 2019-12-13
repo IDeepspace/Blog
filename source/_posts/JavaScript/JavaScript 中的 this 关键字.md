@@ -194,7 +194,7 @@ person.sayBye();
 
 #### 1、默认绑定
 
-**当一个函数没有明确的调用对象的时候，也就是单纯作为独立函数调用的时候，将对函数的 `this` 使用默认绑定,绑定到全局的 `window` 对象。**
+**当一个函数没有明确的调用对象的时候，也就是单纯作为独立函数调用的时候，将对函数的 `this` 使用默认绑定，绑定到全局的 `window` 对象。**
 
 ```javascript
 function defaultBind() {
@@ -278,7 +278,7 @@ var obj = {
 obj.box(); // true
 ```
 
-结果依旧是 `true`。这里其实用到了隐式绑定，下面我们看看。
+结果依旧是 `true`。这里其实用到了默认绑定，下面我们看看。
 
 
 
@@ -322,7 +322,7 @@ obj.sayHi(); // Deepspace
 
 `sayHi` 函数依旧打印的是 `Deepspace` 。也就是说：**`sayHi` 函数并不会因为它是被定义在 `obj` 对象的内部还是外部而有任何区别。** `this` 还是可以访问到 `obj` 对象中的 `name` 属性。
 
-我们在看个例子：
+我们再看个例子：
 
 ```javascript
 const obj = {
@@ -446,7 +446,7 @@ const greet = function () {
 };
 
 hello.call(obj); // Deepspace
-greet();
+greet(); // Deepspace
 ```
 
 在 `hello.call(obj)` 的外边在包一层函数就可以了，这种方式叫做**硬绑定**。
@@ -456,7 +456,19 @@ greet();
 也可以把 `bind` 方法来简化这种写法：
 
 ```javascript
-const regard = hello.bind(obj); // 使用 bind 硬绑定
+const obj = {
+  name: 'Deepspace',
+  sayHi: function () {
+    console.log(this.name);
+  }
+};
+
+var name = 'globe name';
+const hello = obj.sayHi;
+
+hello(); // globe name
+
+const regard = hello.bind(obj); // 使用 bind 绑定
 regard(); // Deepspace
 ```
 
@@ -467,12 +479,19 @@ regard(); // Deepspace
 `apply` 方法的作用与 `call` 方法类似，也是改变 `this` 指向，然后再调用该函数。**唯一的区别就是，它接收一个数组作为函数执行时的参数。**看个例子：
 
 ```javascript
-function f(x, y) {
-  console.log(x + y);
+function getAge(gap) {
+  var y = new Date().getFullYear();
+  return y - this.birth - gap;
 }
 
-f.call(null, 1, 1); // 2
-f.apply(null, [1, 1]); // 2
+var chenxingxing = {
+  name: '陈星星',
+  birth: 1995,
+  age: getAge
+};
+
+console.log(chenxingxing.age(1)); // 23
+console.log(getAge.apply(chenxingxing, [1])); // 23, this 指向 chenxingxing, 参数为空
 ```
 
 
