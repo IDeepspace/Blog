@@ -697,6 +697,19 @@ const b = {
   }
 };
 
+var name = 'The Window';
+
+var object = {
+  name: 'My Object',
+
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name;
+    };
+  }
+};
+
 const c = b.detail;
 b.a = a;
 const e = b.hello();
@@ -705,6 +718,7 @@ c(); // 小红
 b.a(); // 小黄
 d(b.detail); // 小红
 e(); // 小红
+object.getNameFunc()(); // 'My Object'
 ```
 
 
