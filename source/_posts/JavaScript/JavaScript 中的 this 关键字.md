@@ -278,7 +278,7 @@ var obj = {
 obj.box(); // true
 ```
 
-结果依旧是 `true`。这里其实用到了默认绑定，下面我们看看。
+结果依旧是 `true`，这里其实也用到了默认绑定。
 
 
 
@@ -720,15 +720,15 @@ const b = {
   }
 };
 
-var name = 'The Window';
+var nickname = 'The Window';
 
 var object = {
-  name: 'My Object',
+  nickname: 'My Object',
 
   getNameFunc: function () {
     var that = this;
     return function () {
-      return that.name;
+      return that.nickname;
     };
   }
 };
@@ -741,6 +741,9 @@ c(); // 小红
 b.a(); // 小黄
 d(b.detail); // 小红
 e(); // 小红
+
+const f = object.getNameFunc;
+f()(); // The Window
 object.getNameFunc()(); // 'My Object'
 ```
 
