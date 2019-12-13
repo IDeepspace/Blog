@@ -545,60 +545,70 @@ console.log(a2.m); // 99
 看个函数：
 
 ```javascript
-const o = {
+var o = {
   f1: function () {
     console.log(this);
-    const f2 = function () {
+    function temp() {
       console.log(this);
-    }();
+    }
+    return temp;
   }
 };
 
-o.f1();
-// Object
+var c = o.f1();
+
+c();
+// Object: { f1: ƒ }
 // Window
 ```
 
 上面的函数包含了两层 `this` ，第一层指向对象 `o` ，第二层指向 `Window`。实际上的执行代码是：
 
 ```javascript
-const temp = function () {
+function temp() {
   console.log(this);
-};
+}
 
-const o = {
+var o = {
   f1: function () {
     console.log(this);
-    const f2 = temp();
+    return temp;
   }
 };
 
-o.f1();
+var c = o.f1();
+
+c();
+// Object: { f1: ƒ }
+// window
 ```
 
 很容易弄混淆。所以我们常用的做法是：
 
 ```javascript
-const o = {
+var o = {
   f1: function () {
     console.log(this);
     const that = this;
-    const f2 = function () {
+    function temp() {
       console.log(that);
-    }();
+    }
+    return temp;
   }
 };
 
-o.f1();
-// Object
-// Object
+var c = o.f1();
+
+c();
+// Object: { f1: ƒ }
+// Object: { f1: ƒ }
 ```
 
 在第二层改用一个指向外层 `this` 的变量。
 
 同时，`JavaScript` 提供了严格模式，也可以硬性避免这种问题。
 
-严格模式下，当函数内部的 `this` 指向全局的 `window` 时，会将 `this` 指向转为 `undefined`：
+严格模式下，当函数内部的 `this` 指向全局的 `Window` 时，会将 `this` 指向转为 `undefined`：
 
 ```javascript
 function a() {
@@ -665,7 +675,20 @@ o.f();
 
 #### 3、避免回调函数中的 `this`
 
-回调函数中的 `this` 往往会改变指向，最好避免使用。
+回调函数中的 `this` 往往会改变指向，最好避免使用。例如：
+
+```javascript
+var o = new Object();
+
+o.f = function () {
+  console.log(this === o);
+};
+
+// jQuery 的写法
+$('#button').on('click', o.f); // false
+```
+
+上面代码中，点击按钮以后，控制台会显示 `false` 。原因是此时 `this` 不再指向 `o` 对象，而是指向按钮的 `DOM` 对象，因为 `f` 方法是在按钮对象的环境中被调用的。
 
 
 
