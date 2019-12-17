@@ -235,7 +235,7 @@ box(); // Deepspace
 > ```javascript
 > let a = 1;
 > const f = function () {
->   return 1;
+>     return 1;
 > };
 > 
 > console.log(window.a); // undefined
