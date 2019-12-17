@@ -580,7 +580,7 @@ var c = o.f1();
 
 c();
 // Object: { f1: ƒ }
-// window
+// Window
 ```
 
 很容易弄混淆。所以我们常用的做法是：
@@ -635,19 +635,21 @@ a();
 数组的 `map ` 和 `foreach` 方法，允许提供一个函数作为参数。这个函数内部不应该使用 `this`。
 
 ```javascript
+var v = 'global v';
+
 const o = {
   v: 'hello',
   p: ['a1', 'a2'],
   f: function f() {
     this.p.forEach(function (item) {
-      console.log(this.v + ' ' + item);
+      console.log(this.v + ' ----- ' + item);
     });
   }
 };
 
 o.f();
-// undefined a1
-// undefined a2
+// global v ----- a1
+// global v ----- a2
 ```
 
 上面代码中，`foreach` 方法的回调函数中的 `this`，其实是指向 `window` 对象，因此取不到 `o.v` 的值。原因跟上一段的多层 `this` 是一样的，就是内层的 `this` 不指向外部，而指向顶层对象。
@@ -655,13 +657,15 @@ o.f();
 解决这个问题的一种方法，就是前面提到的，使用中间变量固定 `this`：
 
 ```javascript
+var v = 'global v';
+
 const o = {
   v: 'hello',
   p: ['a1', 'a2'],
   f: function f() {
     const that = this;
     this.p.forEach(function (item) {
-      console.log(that.v + ' ' + item);
+      console.log(that.v + ' ---- ' + item);
     });
   }
 };
@@ -736,6 +740,7 @@ var object = {
 const c = b.detail;
 b.a = a;
 const e = b.hello();
+
 a(); // 小红
 c(); // 小红
 b.a(); // 小黄
