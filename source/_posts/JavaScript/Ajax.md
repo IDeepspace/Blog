@@ -60,7 +60,7 @@ urlname: javascript-ajax
 
 ### 三、XMLHttpRequest 对象
 
-浏览器为我们提供了 `XMLHttpRequest` 对象（低版本 IE 使用 `ActiveXObject` 对象），允许使用 `JavaScript` 发出 `HTTP` 请求。
+浏览器为我们提供了 `XMLHttpRequest` 对象（低版本 `IE` 使用 `ActiveXObject` 对象），允许使用 `JavaScript` 发出 `HTTP` 请求。
 
 尽管名称中带有 `XML` 一词，但它可以对任何数据进行操作，而不仅限于 `XML` 格式。我们也可以上传/下载文件等操作。
 
@@ -218,7 +218,6 @@ try {
   } else {
     console.log(xhr.responseText);
   }
-  console.log('Done');
 } catch (err) { // instead of onerror
   console.log('Request failed');
 }
