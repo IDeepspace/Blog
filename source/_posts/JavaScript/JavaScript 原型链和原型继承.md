@@ -186,7 +186,7 @@ Person.prototype.constructor = Person
 
 可以看到，使用原生来写原型继承实在是太麻烦了，于是 ES6 添加了一个语法糖—— `class`，新的 `class`写法只是让对象原型的写法更加清晰、更像“面向对象”编程的语法而已。
 
-我们把上面的例子改写成 ES6 `class` 的形式：
+我们把上面的例子改写成 `ES6 class` 的形式：
 
 ```
 // Animal 类
