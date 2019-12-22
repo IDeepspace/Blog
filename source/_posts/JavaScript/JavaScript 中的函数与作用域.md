@@ -655,7 +655,45 @@ console.log(object.getNameFunc()()); // 'My Object'
 
 ### 九、块级作用域
 
-`ES5` 中没有块级作用域，这部分内容请参考：https://togoblog.cn/es6-let-const/
+`ES5` 中没有块级作用域，匿名函数可以用来模仿块级作用域。
+
+```javascript
+function outputNumbers(count) {
+  (function () {
+    for (var i = 0; i < count; i++) {
+      console.log(i); // 0 1 2 3
+    }
+  })();
+  console.log(i); // ReferenceError: i is not defined
+}
+
+outputNumbers(5);
+```
+
+在 `for` 循环外部插入了一个块级作用域。在匿名函数中定义的任何变量，都会在执行结束时被销毁。因此，变量 `i` 只能在循环中使用，使用后即被销毁。 
+
+而在匿名函数中能够访问变量 `count`，是因为这个匿名函数是一个闭包，它能够访问包含作用域中的所有变量。
+
+这种技术经常在全局作用域中被用在函数外部，从而限制向全局作用域中添加过多的变量和函数。
+
+```javascript
+(function () {
+  var now = new Date();
+  if (now.getMonth() === 0 && now.getDate() === 1) {
+    console.log('Happy new year!');
+  } else {
+    console.log('Happy!');
+  }
+})();
+```
+
+把上面这段代码放在全局作用域中，可以用来确定哪一天是 `1` 月 `1` 日;如果到了这一天，就会打印一条祝贺新年的消息。其中的变量 `now` 现在是匿名函数中的局部变量，不必在全局作用域中创建它。
+
+
+
+### 十、ES6 块级作用域
+
+这部分内容请参考：https://togoblog.cn/es6-let-const/
 
 
 

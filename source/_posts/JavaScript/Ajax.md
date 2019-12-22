@@ -237,7 +237,6 @@ try {
 
 - `Fetch` ：`fetch` 不是 `ajax` 的进一步封装，而是原生 `JavaScript`，没有使用 `XMLHttpRequest` 对象，是基于 `promise` 设计的，参数有点像 `jQuery ajax`。https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 
-
 <br>
 
 > 转载文章请给作者署名：https://togoblog.cn/
