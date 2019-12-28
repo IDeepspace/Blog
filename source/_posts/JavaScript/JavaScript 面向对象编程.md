@@ -1,14 +1,14 @@
 ---
-title: JavaScript 面向对象编程
+title: JavaScript 面向对象编程（一）—— 创建对象
 author: Deepspace
 tags:
   - 面向对象编程
 categories: JavaScript
 date: 2018-07-03
-urlname: javascript-object-oriented-programming
+urlname: javascript-object-oriented-programming-1
 ---
 
-<!-- ## JavaScript 面向对象编程 -->
+<!-- ## JavaScript 面向对象编程（一）---- 创建对象 -->
 
 ### 一、万物皆对象
 
