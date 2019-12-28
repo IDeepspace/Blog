@@ -129,6 +129,7 @@ console.log(person2);
 > 对象上都有一个 `constructor` 属性，该属性可以用来标识对象类型（在下面会讲到）。
 
 - 对象无法识别，所有实例都指向一个原型；无法通过 `constructor` 识别对象，因为都是来自 `Object` ；
+- 只有开发者可以知道这个类型，通过函数名来识别；
 - 每个对象都是通过工厂创建的全新的对象。比如：每次通过 `createPerson` 创建对象的时候，所有的 `sayName` 方法都是一样的，但是却存储了多次，浪费资源。
 
 ```javascript
@@ -157,8 +158,6 @@ console.log(person2.constructor); // [Function: Object]
 
 
 ### 四、构造函数模式
-
-在 `JavaScript` 的开发中，经常会听说和使用的一个词语叫做**构造函数**，这里的构造函数就是出自构造函数模式这一种设计模式。
 
 **构造函数是用来创建特定的类型的对象的。**比如 `JavaScript` 原生提供的 `Object`、`Array` 等，都是构造函数模式创建的原生构造函数，在运行时会自动出现在执行环境中。
 
@@ -335,7 +334,7 @@ console.log(person1.sayName === person2.sayName); // true
 
 #### 1、prototype
 
-每个函数都有一个 `prototype` 属性：
+每个函数都有一个 `prototype` 属性（只有函数有）：
 
 ```javascript
 function Person() {
@@ -592,6 +591,8 @@ friend.sayName(); // TypeError: friend.sayName is not a function
 ```
 
 为什么会这样呢？
+
+需要知道，**`JavaScript` 创建一个对象时是先建立原型关系，而后执行构造函数。**
 
 前面我们介绍 `prototype` 的时候提到过，`prototype` 指向的是原型，而不是构造函数。而把原型修改为另外一个对象就等于切断了构造函数与最初原型之间的联系。因为 `person1` 指向的原型中不包含 `name` 和 `sayName`，所以会报错。如下图所示：
 
