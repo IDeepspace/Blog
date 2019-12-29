@@ -199,7 +199,7 @@ person2.sayName(); // 24
 
 由构造函数创建的对象称为这个构造函数的实例。
 
- 在实例上会存在一个 `constructor` 属性，这个属性指向创造它的构造函数（证明自己从哪里来）。**也就是说 `constructor` 属性返回创建实例对象的构造函数的引用。** 
+在实例上会存在一个 `constructor` 属性，这个属性指向创造它的构造函数（证明自己从哪里来）。**也就是说 `constructor` 属性返回创建实例对象的构造函数的引用。** 
 
 所以，我们可以通过 `constructor` 属性来识别对象的类别：
 
@@ -258,7 +258,7 @@ console.log(person2 instanceof Person);  // true
 
 创建的对象既是 `Person` 的实例，同时也是 `Object` 的实例（因为所有对象均继承自 `Object` ，这个我们待会讨论）。
 
-**构造函数模式**最大的优点就是可以通过 `contructor` 或者 `instanceof` 可以识别对象实例的类别（即它的构造函数）解决了工厂模式不能识别对象类型的问题。
+**构造函数模式**最大的优点就是可以通过 `contructor` 或者 `instanceof` 可以识别对象实例的类别（即它的构造函数），解决了工厂模式不能识别对象类型的问题。
 
 
 
@@ -287,7 +287,7 @@ window.sayName(); // 23
 
 #### 4、缺点
 
-通过构造函数模式创建对象，每次创建实例时，每个方法都要被创建一次。比如上面的例子中， 多个实例的 `sayName` 方法都是实现一样的效果，但是却存储了很多次（两个对象实例的 `sayName` 方法是不同的，因为存放的地址不同）。
+通过构造函数模式创建对象，每次创建实例对象时，每个方法都要被创建一次。比如上面的例子中， 多个实例的 `sayName` 方法都是实现一样的效果，但是却存储了很多次（两个对象实例的 `sayName` 方法是不同的，因为存放的地址不同）。
 
 ```javascript
 function Person(name, age) {
@@ -304,7 +304,7 @@ const person2 = new Person('chenxingxing', 24);
 console.log(person1.sayName === person2.sayName); // false
 ```
 
-为了解决这个问题，我们把函数定义转移到构造函数外部：
+为了解决这个问题，我们可以把函数定义转移到构造函数外部，在构造函数里引用即可：
 
 ```javascript
 function Person(name, age) {
@@ -375,13 +375,13 @@ person2.sayName(); // Deepspace
 console.log(person1.sayName === person2.sayName); // true
 ```
 
-将 `sayName()` 方法和所有属性直接添加到了 `Person` 的 `prototype` 属性中，这些属性和方法是由所有实例共享。也就是说 `person1` 和 `person2` 访问的都是同一组属性和同一个 `sayName()` 函数（内存地址一样）。
+将 `sayName()` 方法和所有属性直接添加到了 `Person` 的 `prototype` 属性中，这些属性和方法将由所有实例共享。也就是说 `person1` 和 `person2` 访问的都是同一组属性和同一个 `sayName()` 函数（内存地址一样）。
 
 
 
 #### 2、实例的属性和方法
 
-如果我们在实例中添加了一个属性，并且**该属性是实例原型已有的一个属性**，这个时候新添加的属性会屏蔽掉原型中的那个属性：
+如果我们在实例中添加了一个属性，并且**该属性是实例的原型上已经有的一个属性**，这个时候新添加的属性会屏蔽掉原型上的那个属性：
 
 ```javascript
 function Person() {
@@ -463,7 +463,7 @@ console.log(person1.hasOwnProperty('name')); // false 恢复访问原型属性
 
 #### 3、缺点
 
-由于原型模式中，所有的属性和方法都是共享的，因为**不能传递初始化参数，所有实例默认情况下都将取得相同的属性值。**这会在某些情况下带来一些不便。
+由于原型模式中，所有的属性和方法都是共享的，因为**不能传递初始化参数，所有实例默认情况下都将取得相同的属性值，**会在某些情况下带来一些不便，这是其中的一个缺点。
 
 原型模式的这种共享对于函数（引用类型）来说非常合适，对于那些属性值是**基本数据类型的属性**来说，也说得过去。但是对于那些**属性值是引用类型的属性**来说，就会出现问题了：
 
@@ -536,7 +536,9 @@ const person1 = new Person();
 
 console.log(person1.name); // Deepspace
 console.log(person1.age); // 23
-console.log(person1.constructor); // 这里打印的是 object,它的 constructor 不指向 Person 对象了
+console.log(person1.constructor); 
+// 这里打印的是 object,它的 constructor 不指向构造函数 Person 了
+
 console.log(person1.constructor === Person); // false
 ```
 
@@ -733,7 +735,7 @@ person2.sayName(); // chenxingxing
 
 需要知道，**`JavaScript` 创建一个对象时是先建立原型关系，而后执行构造函数。**
 
-构造函数的 `prototype` 属性本来是指向了实例的原型，执行 `const person1 = new Person('Deepspace');` 的时候，`person1` 首先会指向最开始的原型，使用字面量方式直接覆盖原型，只是将一个新的值赋值给 `Person.prototype`，并不会更改原型的值，`person1` 依然是指向了以前的原型，之前的原型是没有 `getName` 方法的，所以 `person1.sayName();` 就报错了！
+构造函数的 `prototype` 属性本来是指向了实例的原型，执行 `const person1 = new Person('Deepspace');` 的时候，`person1` 首先会指向最开始的原型，使用字面量方式覆盖原型时，只是将一个新的值赋值给 `Person.prototype`，并不会更改原型的值，`person1` 依然是指向了以前的原型，之前的原型是没有 `getName` 方法的，所以 `person1.sayName();` 就报错了！
 
 后来执行 `const person2 = new Person('chenxingxing');` 的时候，再修改 `Person.prototype`，只会使得以后 `new` 的对象指向这个新的字面量值，已经 `new` 的不会再发生改变，所以 `person2.sayName();` 不会报错。
 
