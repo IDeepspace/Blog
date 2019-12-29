@@ -699,7 +699,7 @@ person1.sayName(); // Deepspace
 对于采用这种模式创建的对象，还可以使 用 `instanceof` 操作符确定它的类型：
 
 ```javascript
-console.log(person1 instanceof Object);  // true
+console.log(person1 instanceof Person);  // true
 ```
 
 
