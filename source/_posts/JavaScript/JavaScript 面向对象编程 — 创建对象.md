@@ -878,3 +878,9 @@ console.log(person1.name); // chenxingxing
 2. 不使用 `new` 操作符调用构造函数
 
 稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型。它非常适合在某些安全执行环境下使用。
+
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/
