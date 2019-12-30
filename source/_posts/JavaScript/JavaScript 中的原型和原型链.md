@@ -244,8 +244,8 @@ Person.prototype.name = 'Deepspace';
 const person = new Person();
 
 person.age = 23;
-console.log(person.age); // 23
-console.log(person.name); // Deepspace
+console.log(person.age); // 实例上的属性 23
+console.log(person.name); // 原型上的属性 Deepspace
 ```
 
 如果我们在实例中添加了一个属性，并且**该属性是实例的原型上已经有的一个属性**，这个时候新添加的属性会屏蔽掉原型上的那个属性：
@@ -344,3 +344,8 @@ obj.name = 'Deepspace';
 console.log(obj.valueOf());
 ```
 
+
+
+<br>
+
+> 转载文章请给作者署名：https://togoblog.cn/

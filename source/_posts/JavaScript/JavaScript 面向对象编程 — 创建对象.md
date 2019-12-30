@@ -12,11 +12,27 @@ urlname: javascript-object-oriented-programming-1
 
 ### 一、万物皆对象
 
-`JavaScript` 的所有数据（非基本类型数据）都可以看成对象，所以我们常说 `JavaScript` 中万物皆对象（虽然并不完全正确）。
+`JavaScript` 的所有数据类型都可以看成对象，所以我们常说 `JavaScript` 中万物皆对象。
 
 在 `JavaScript` 中，对象是一个泛化的概念，任何值都可以转换为对象，以对象的方式进行使用。如数字对象、布尔值对象、字符串对象、函数对象、数组对象等等，它们都继承 `Object` 类型对象。同时，`JavaScript` 也允许自定义对象。
 
+```javascript
+const num = new Number(1);
+console.log(typeof num); // object
+
+const str = new String('hello');
+console.log(typeof str); // object
+
+const d = new Array();
+console.log(typeof d); // object
+
+const obj = new Object();
+console.log(typeof obj); // object
+```
+
 **面向对象（`Object-Oriented，OO`）的语言有一个标志，那就是它们都有类的概念。通过类可以创建任意多个具有相同属性和方法的对象。**但 `JavaScript` 的面向对象编程和大多数其他语言（如 `Java`）都不太一样。在 `ECMAScript6` 规范之前，**`JavaScript` 中没有类的概念，仅允许通过构造函数来模拟类，通过原型实现继承。**
+
+> 你可以先阅读 [《 `JavaScript` 中的原型和原型链》](https://togoblog.cn/javascript-prototypes-and-prototype-chains/)，便于理解本篇内容。
 
 本篇文章将分别介绍基于 `ES5` 和 `ES6` 的 `JavaScript` 面向对象编程。
 
@@ -126,10 +142,10 @@ console.log(person2);
 
 **工厂模式虽然解决了创建多个相似对象的问题**，但也有一些缺点：
 
-> 对象上都有一个 `constructor` 属性，该属性可以用来标识对象类型（在下面会讲到）。
+> 对象上都有一个 `constructor` 属性，该属性可以用来标识对象类型。
 
 - 对象无法识别，所有实例都指向一个原型；无法通过 `constructor` 识别对象，因为都是来自 `Object` ；
-- 只有开发者可以知道这个类型，通过函数名来识别；
+- 只有开发者可以知道这个类型 —— 通过函数名来识别；
 - 每个对象都是通过工厂创建的全新的对象。比如：每次通过 `createPerson` 创建对象的时候，所有的 `sayName` 方法都是一样的，但是却存储了多次，浪费资源。
 
 ```javascript
@@ -197,9 +213,9 @@ person2.sayName(); // 24
 
 **什么是实例？**
 
-由构造函数创建的对象称为这个构造函数的实例。
+由构造函数创建的对象称为这个构造函数的实例，我们也经常叫作实例对象。
 
-在实例上会存在一个 `constructor` 属性，这个属性指向创造它的构造函数（证明自己从哪里来）。**也就是说 `constructor` 属性返回创建实例对象的构造函数的引用。** 
+在实例对象上会存在一个 `constructor` 属性，这个属性指向创造它的构造函数（证明自己从哪里来）。**也就是说 `constructor` 属性返回创建实例对象的构造函数的引用。** 
 
 所以，我们可以通过 `constructor` 属性来识别对象的类别：
 
@@ -349,7 +365,7 @@ console.log(person1.name); // Deepspace
 console.log(person2.name); // Deepspace
 ```
 
-当创建函数时，`JavaScript` 会为这个函数自动添加 `prototype(原型)` 属性。这个属性是一个指针，指向另外一个对象，这个对象是**调用构造函数而创建的实例的原型，我们称之为原型对象。**这里一定要在脑海里面记住，`prototype` 指向的是原型，而不是构造函数，就是上面这个例子中的 `person1` 和 `person2` 的原型。
+当创建函数时，`JavaScript` 会为这个函数自动添加 `prototype` 属性。这个属性是一个指针，指向另外一个对象，这个对象是**调用构造函数而创建的实例的原型，我们称之为原型对象。**这里一定要在脑海里面记住，`prototype` 指向的是原型，而不是构造函数，就是上面这个例子中的 `person1` 和 `person2` 的原型。
 
 原型对象的所有属性和方法，都可以被构造函数的实例使用（继承）。
 
@@ -498,7 +514,7 @@ console.log(person2.friends); // [ 'xiaoming', 'daming' ]
 
 #### 4、封装性优化
 
-在上面的代码里，通过 `prototype` 添加属性和方式时，代码的**封装性很差**，我们可以**重写原型**来优化：
+在上面的代码里，通过 `prototype` 添加属性和方法时，代码的**封装性很差**，我们可以**重写原型**来优化：
 
 ```javascript
 function Person() {
@@ -737,7 +753,7 @@ person2.sayName(); // chenxingxing
 
 构造函数的 `prototype` 属性本来是指向了实例的原型，执行 `const person1 = new Person('Deepspace');` 的时候，`person1` 首先会指向最开始的原型，使用字面量方式覆盖原型时，只是将一个新的值赋值给 `Person.prototype`，并不会更改原型的值，`person1` 依然是指向了以前的原型，之前的原型是没有 `getName` 方法的，所以 `person1.sayName();` 就报错了！
 
-后来执行 `const person2 = new Person('chenxingxing');` 的时候，再修改 `Person.prototype`，只会使得以后 `new` 的对象指向这个新的字面量值，已经 `new` 的不会再发生改变，所以 `person2.sayName();` 不会报错。
+后来执行 `const person2 = new Person('chenxingxing');` 的时候，再修改 `Person.prototype`，只会使得以后 `new` 的对象指向这个新的字面量值，已经实例化的对象的不会再发生改变，所以 `person2.sayName();` 不会报错。
 
 可以简化成下面的例子来理解：
 
