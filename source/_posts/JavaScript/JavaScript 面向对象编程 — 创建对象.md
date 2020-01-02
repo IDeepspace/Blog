@@ -881,6 +881,97 @@ console.log(person1.name); // chenxingxing
 
 
 
+### 十、Object.create
+
+`Object.create` 是 `ECMAScript 5` 新增的一个静态方法，用来创建一个实例对象。
+
+该方法可以指定对象的原型和对象特性。
+
+具体用法如下：
+
+```javascript
+Object.create(prototype, descriptors)
+```
+
+参数说明如下：
+
+- `prototype`：必须参数，指定原型对象，可以为 `null`（也就是说可以使用现有的对象来提供新创建的对象的 `__proto__`）；
+- `descriptors`：可选参数，包含一个或多个属性描述符的 `JavaScript` 对象。属性描述符包含数据特性和访问器特性，其中数据特性说明如下：
+  - `value`：指定属性值；
+  - `writable`：默认为 `false`，设置属性值是否可写；
+  - `enumerable`：默认为 `false`，设置属性是否可枚举（`for/in`）；
+  - `configurable`：默认为 `false`，设置是否可修改属性特性和删除属性。
+
+访问器特性包含两个方法，简单说明如下：
+
+- `set()`：设置属性值；
+- `get()`：返回属性值。
+
+一般我们只关注 `prototype` 参性就好。
+
+```javascript
+// 现有对象
+const person = {
+  isHuman: false,
+  printIntroduction: function () {
+    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+  }
+};
+
+// 使用 Object.create 创建新对象
+const me = Object.create(person);
+
+console.log(me.__proto__ === person); // true
+
+me.name = 'Deepspace'; // name 属性被设置在新对象 me 上，而不是现有对象 person 上
+me.isHuman = true; // 继承的属性可以被重写
+
+me.printIntroduction(); // My name is Deepspace. Am I human? true
+
+console.log(Object.getPrototypeOf(me)); // person {}
+```
+
+`Object.getPrototypeOf()` 函数可获取对象的原型。
+
+如果这个参数是 `null`，那新对象就彻彻底底是个空对象，没有继承 `Object.prototype` 上的任何属性和方法：
+
+```javascript
+const a = Object.create(null);
+console.dir(a); // {}
+console.log(a.__proto__); // undefined
+console.log(a.__proto__ === Object.prototype); // false
+console.log(a instanceof Object); // false 没有继承 Object.prototype 上的任何属性和方法，所以原型链上不会出现 Object
+console.log(Object.getPrototypeOf(a));  // null
+```
+
+如果要获取对象的属性描述符，可以使用 `Object.getOwnPropertyDescriptor()` 函数查看：
+
+```javascript
+const o = { a: 1 };
+o.b = 2;
+o.f = function () {
+  console.log(3);
+};
+//a、b、c 皆为数据属性
+
+console.log(Object.getOwnPropertyDescriptor(o, 'a'));
+// { value: 1, writable: true, enumerable: true, configurable: true }
+
+console.log(Object.getOwnPropertyDescriptor(o, 'b'));
+// { value: 2, writable: true, enumerable: true, configurable: true }
+
+console.log(Object.getOwnPropertyDescriptor(o, 'f'));
+/* {
+  value: [Function],
+    writable: true,
+      enumerable: true,
+        configurable: true
+} */
+```
+
+
+
 <br>
 
 > 转载文章请给作者署名：https://togoblog.cn/
+
