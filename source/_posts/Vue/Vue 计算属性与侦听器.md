@@ -411,9 +411,3 @@ export default {
 > 注：本节内容的 `demo` 均来自 [混元霹雳手](https://juejin.im/post/58d8806bac502e0058d778a1)，感谢作者！
 
 > 本节内容代码：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-computed-watch
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

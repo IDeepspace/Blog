@@ -442,9 +442,3 @@ console.log(tom.height);
 console.log(tom.getFamilyName());
 console.log(Son.hello());
 ```
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

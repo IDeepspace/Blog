@@ -585,9 +585,3 @@ arr.flatMap(function callback(currentValue[, index[, array]]) {
 
 
 > 参考: http://es6.ruanyifeng.com/#docs/array
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

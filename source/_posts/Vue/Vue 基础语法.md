@@ -760,9 +760,3 @@ export default {
 ![vue-todolist](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-todolist.png)
 
 > 代码可参考：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-todolist
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

@@ -651,10 +651,4 @@ const mapDispatchToProps = {
 
 所以，最终的目录结构就变成下面这个样子（你也可以把 `store.js` 放在单独的 `store` 文件夹里面）：
 
-![目录结构](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-folder-structure.png)
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />

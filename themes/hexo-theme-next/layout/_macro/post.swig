@@ -236,7 +236,7 @@
       {%- endif %}
 
       {%- if theme.creative_commons.license and theme.creative_commons.post %}
-        {{ partial('_partials/post/my-post-copyright.swig') }}
+        {{ partial('_partials/post/post-copyright.swig') }}
       {%- endif %}
 
       <footer class="post-footer">

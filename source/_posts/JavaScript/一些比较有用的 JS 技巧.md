@@ -109,8 +109,3 @@ console.log(urlParams.toString()); // "?post=1234&action=edit"
 console.log(urlParams.append('active', '1')); // "?post=1234&action=edit&active=1"
 ```
 
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

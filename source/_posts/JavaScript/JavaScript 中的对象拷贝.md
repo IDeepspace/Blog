@@ -236,9 +236,3 @@ function deepClone(obj) {
 ```
 
 就个人来说，我很期待可以随便使用结构克隆的那一天，让对象拷贝不再令人头疼。
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

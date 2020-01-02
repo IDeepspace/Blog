@@ -26,9 +26,3 @@ $ scp -prq server1:dir1/. server2:dir2/
 ```
 
 在文件目录后面加个点 `.`，将复制该目录的内容，而不是目录本身。
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

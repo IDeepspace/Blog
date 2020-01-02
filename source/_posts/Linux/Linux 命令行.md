@@ -208,9 +208,3 @@ find: data1.js: No such file or directory
 #### 22、top — Top processes
 
 `top` 命令会默认按照 `CPU` 的占用情况，显示占用量较大的进程。
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

@@ -111,9 +111,3 @@ console.log(Array.from(arrayLike)); // ["name", "age", "sex"]
 // 4. apply
 console.log(Array.prototype.concat.apply([], arrayLike)); // ["name", "age", "sex"] 
 ```
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

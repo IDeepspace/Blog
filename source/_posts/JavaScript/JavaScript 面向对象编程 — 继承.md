@@ -559,9 +559,3 @@ instance2.sayAge(); // 27
 因此，还能够正常使用 `instanceof` 和 `isPrototypeOf()`。
 
 开发人员普遍认为寄生组合式继承是引用类型最理想的继承方式。
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

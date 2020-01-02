@@ -699,7 +699,3 @@ getSnapshotBeforeUpdate 生命周期钩子返回的值会被 componentDidUpdate 
 > 本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
 
 
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

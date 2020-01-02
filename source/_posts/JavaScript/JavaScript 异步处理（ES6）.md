@@ -1179,9 +1179,3 @@ async function foo(things) {
 所以，在文档的 `When Not To Use It` 中，`Eslint` 也提到，如果需要有顺序地执行，我们是可以禁止掉该规则的：
 
 > In many cases the iterations of a loop are not actually independent of each-other. For example, the output of one iteration might be used as the input to another. Or, loops may be used to retry asynchronous operations that were unsuccessful. Or, loops may be used to prevent your code from sending an excessive amount of requests in parallel. In such cases it makes sense to use `await` within a loop and it is recommended to disable the rule via a standard ESLint disable comment.
-
-
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/

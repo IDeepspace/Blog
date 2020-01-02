@@ -200,7 +200,6 @@ timeout
 
 <p align="center">(图片来自网络)</p>
 
-
 ### 五、process.nextTick和setImmediate
 
 除了 `setTimeout` 和 `setInterval` 这两个方法，`Node.js` 还提供了另外两个与 **任务队列** 有关的方法：[process.nextTick](http://nodejs.org/docs/latest/api/process.html#process_process_nexttick_callback) 和 [setImmediate](http://nodejs.org/docs/latest/api/timers.html#timers_setimmediate_callback_arg)。它们可以帮助我们加深对 **任务队列** 的理解。
@@ -271,7 +270,3 @@ setImmediate 1000
 3. 递归的调用 `process.nextTick()` 会导致 `I/O starving` ，官方推荐使用 `setImmediate()`
 
 
-
-<br>
-
-> 转载文章请给作者署名：https://togoblog.cn/
