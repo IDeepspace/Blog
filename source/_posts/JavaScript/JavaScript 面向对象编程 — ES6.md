@@ -40,7 +40,7 @@ urlname: javascript-object-oriented-programming-3
 
 #### 1、语法
 
-先看看 `ES5` 中，我们常用的使用**构造函数和原型的组合模式**创建对象：
+在 `ES5` 中，我们经常使用**构造函数和原型的组合模式**创建对象：
 
 ```javascript
 // es5 创建一个对象
@@ -223,8 +223,6 @@ sayName(); // Hello Deepspace
 
 
 
-
-
 ### 四、类的实例
 
 生成类的实例的写法，与 `ES5` 完全一样，使用 `new` 命令。前面说过，如果忘记加上 `new`，像函数那样调用 `Class`，将会报错。
@@ -282,6 +280,8 @@ delete person1.sayName;
 person1.sayName(); // Deepspace
 ```
 
+使用 `delete` 操作符可以让实例恢复访问类上的属性。
+
 
 
 #### 2、实例共享原型对象
@@ -323,26 +323,283 @@ person2.sayHello(); // Hello
 
 ```javascript
 class Person {
-  constructor(name) {
-    this.name = name;
-  }
+  name = 'Deepspace';
+  // constructor() {
+  //   this.name = 'Deepspace';
+  // }
 
   sayName() {
     console.log(this.name);
   }
 }
 
-const person = new Person('Deepspace');
+const person = new Person();
 person.sayName(); // Deepspace
+```
+
+这种写法比以前更清晰，但是缺点在于不能够传递参数了。
+
+
+
+### 五、静态属性/静态方法
+
+类相当于实例的原型，所有在类中定义的方法，都会被实例继承。
+
+如果在一个方法前，加上 `static` 关键字，就表示该方法是**属于类的，而不是属于类创建的对象或者是实例，只能通过类来调用**，这就称为“静态方法”。
+
+```javascript
+class Person {
+  static classMethod() {
+    console.log('hello');
+  }
+}
+
+Person.classMethod(); // 'hello'
+
+const person = new Person();
+person.classMethod(); // TypeError: person.classMethod is not a function
+```
+
+#### 1、静态方法中的 this
+
+因此，如果静态方法包含 `this` 关键字，这个 `this` 指的是类，而不是实例：
+
+```javascript
+class Foo {
+  static bar() {
+    this.baz();
+  }
+  static baz() {
+    console.log('hello');
+  }
+  baz() {
+    console.log('world');
+  }
+}
+
+Foo.bar(); // hello
+```
+
+因为 `this` 指向了类，而不是实例，所以 `bar` 方法内只能访问到类中的静态方法，这里的 `this.baz();` 相当于 `Foo.baz();` 。从上面的例子中也可以看出**静态方法可以与非静态方法重名。**
+
+
+
+#### 2、子类可以继承父类的静态方法
+
+父类的静态方法，可以被子类继承。
+
+```javascript
+class Foo {
+  static classMethod() {
+    console.log('hello');
+  }
+}
+
+class Bar extends Foo {
+}
+
+Bar.classMethod(); // 'hello'
+```
+
+静态方法也是可以从 `super` 对象上调用的。
+
+```javascript
+class Foo {
+  static classMethod() {
+    return 'hello';
+  }
+}
+
+class Bar extends Foo {
+  static classMethod() {
+    return `${super.classMethod()}, too`;
+  }
+}
+
+console.log(Bar.classMethod()); // 'hello, too'
+```
+
+
+
+#### 3、静态属性
+
+静态属性指的是 `Class` 本身的属性，即 `Class.propName`，而不是定义在实例对象（`this`）上的属性。
+
+**`ES6` 中， `static` 只能用在方法上，`es6` 目前只支持静态方法不支持静态属性。**但是下面的写法是可以支持的：
+
+```javascript
+class Point {
+  constructor() {
+    this.x = 0;
+  }
+}
+
+Point.y = 2;
+const p = new Point();
+
+console.log(p.x); // 0
+console.log(p.y); // undefined ,类属性而不是而不是实例的属性，因此实例调用打印是 undefined
+```
+
+只不过写起来没那么好看。现在有一个[提案](https://github.com/tc39/proposal-class-fields)提供了类的静态属性：在实例属性的前面，加上 `static` 关键字：
+
+```javascript
+// 老写法
+class Foo {
+  // ...
+}
+Foo.prop = 1;
+
+// 新写法
+class Foo {
+  static prop = 1;
+}
+```
+
+新写法是显式声明，而不是赋值处理，语义更好。
+
+
+
+### 六、私有属性/私有方法
+
+**私有方法和私有属性指的是只能在类的内部访问的方法和属性，外部不能访问。**这是一个非常常见需求，有利于代码的封装。但比较可惜的是 `ES6` 不提供，只能通过变通方法模拟实现。
+
+有一个比较鸡肋的方式（自己骗自己）是在方法前面加下划线，在命名上加以区分（因为有其它语言的私有方法是这样写的），表示这是一个只限于内部使用的私有方法。
+
+```javascript
+class Point {
+  constructor() {
+    this.x = 0;
+  }
+  // 自己骗自己这是私有方法，就看大家遵不遵守了
+  _fun() {
+    console.log('pravite');
+  }
+}
+
+const point = new Point();
+point._fun(); // pravite
+```
+
+在类的外部，还是可以调用到这个方法。
+
+还有另外一种可以满足功能的方式是：将私有方法放在类的外边（因为类内部的所有方法都是对外可见的），利用 `call` 指向，但是最终只导出类，而不导出方法，这样就无法在类的外部调用到这个方法了。
+
+```javascript
+// 私有方法 不导出别人也用不了
+function praviteFun() { }
+
+// 只把class 导出
+export default class Point {
+  constructor() {
+    this.x = 0
+  }
+  // 私有方法
+  fun() {
+    praviteFun.call(this)
+  }
+}
 ```
 
 
 
 
 
+### 七、继承
+
+#### 1、父类和子类
+
+`ES6` 语法中，继承通过 `extends` 关键字来实现。
+
+**通过下面的代码来演示这几个效果：**
+
+- 子类中可以使用父类中的属性；
+- 子类中可以调用父类中的方法；
+- 子类中可以扩展自己的属性和方法。
+
+```javascript
+class Father {
+  constructor() {
+    this.gender = 'male';
+  }
+  getFamilyName() {
+    console.log('The family name is Chen');
+  }
+}
+
+class Son extends Father {
+  constructor() {
+    super();
+    this.height = 160;
+  }
+  getSchoolName() {
+    console.log('NO.2 Middle School');
+  }
+}
+
+const tom = new Son();
+console.log(tom.gender); // male
+console.log(tom.height); // 160
+tom.getFamilyName(); // The family name is Chen
+tom.getSchoolName(); // NO.2 Middle School
+```
 
 
-### 五、仅仅是语法糖
+
+#### 2、super 调用父类方法
+
+使用类继承的过程中，理解 `super()` 的作用是非常必要的。
+
+**`super` 是什么？**
+
+可以这样简单的认为： `super` 代表父类。主要有两个用途：
+
+- 使用 `super()` 呼叫父类的 `constructor()`
+- 使用 `super.functionName()` 调用父类中的 `static` 方法
+
+**`super()` 的作用：**
+
+子类必须在 `constructor` 方法中调用 `super` 方法，否则新建实例时会报错。这是因为子类没有自己的 `this` 对象，而是继承父类的 `this` 对象，然后对其进行加工。如果不调用 `super` 方法，子类就得不到 `this` 对象。
+
+`ES6` 的继承机制实质是先创造父类的实例对象 `this`（所以必须先调用 `super` 方法），然后再用子类的构造函数修改 `this`。
+
+```javascript
+class Father {
+  constructor(familyName) {
+    this.familyName = familyName;
+  }
+
+  getFamilyName() {
+    return `The family name is ${this.familyName}`;
+  }
+  static sayHello() {
+    return 'hello';
+  }
+}
+
+class Son extends Father {
+  constructor(familyName, height) {
+    super(familyName);
+    this.height = height; // 没有上一行的 super() ，这里的 this 就不让用
+  }
+
+  getSchool() {
+    return 'NO.2 Middle School!';
+  }
+  static hello() {
+    return super.sayHello(); // 调用父类的静态方法
+  }
+}
+
+const tom = new Son('Chen', 180);
+console.log(tom.height); // 180
+console.log(tom.getFamilyName()); // The family name is Chen
+console.log(Son.hello()); // hello
+```
+
+
+
+### 八、仅仅是语法糖
 
 虽然 `ES6` 中增加了类的概念，但它仅仅只是一个语法糖。为什么这么说呢？
 
@@ -475,170 +732,8 @@ console.log(Object.getOwnPropertyNames(Person.prototype)); // [ 'constructor', '
 
 
 
-### 六、静态属性/静态方法
-
-类相当于实例的原型，所有在类中定义的方法，都会被实例继承。
-
-如果在一个方法前，加上 `static` 关键字，就表示该方法**不会被实例继承，而是直接通过类来调用**，这就称为“静态方法”。
-
-```javascript
-class Person {
-  static classMethod() {
-    console.log('hello');
-  }
-}
-
-Person.classMethod(); // 'hello'
-
-const person = new Person();
-person.classMethod(); // TypeError: person.classMethod is not a function
-```
-
-#### 1、静态方法中的 this
-
-因此，如果静态方法包含 `this` 关键字，这个 `this` 指的是类，而不是实例：
-
-```javascript
-class Foo {
-  static bar() {
-    this.baz();
-  }
-  static baz() {
-    console.log('hello');
-  }
-  baz() {
-    console.log('world');
-  }
-}
-
-Foo.bar(); // hello
-```
-
-因为 `this` 指向了类，而不是实例，所以 `bar` 方法内只能访问到类中的静态方法，这里的 `this.baz();` 相当于 `Foo.baz();` 。从上面的例子中也可以看出**静态方法可以与非静态方法重名。**
 
 
-
-#### 2、子类可以继承父类的静态方法
-
-父类的静态方法，可以被子类继承。
-
-```javascript
-class Foo {
-  static classMethod() {
-    console.log('hello');
-  }
-}
-
-class Bar extends Foo {
-}
-
-Bar.classMethod(); // 'hello'
-```
-
-静态方法也是可以从 `super` 对象上调用的。
-
-```javascript
-class Foo {
-  static classMethod() {
-    return 'hello';
-  }
-}
-
-class Bar extends Foo {
-  static classMethod() {
-    return `${super.classMethod()}, too`;
-  }
-}
-
-console.log(Bar.classMethod()); // 'hello, too'
-```
-
-
-
-#### 3、静态属性
-
-静态属性指的是 `Class` 本身的属性，即 `Class.propName`，而不是定义在实例对象（`this`）上的属性。
-
-`ES6` 中， `static` 只能用在方法，`es6` 目前只支持静态方法不支持静态属性。但是下面的写法是可以支持的：
-
-```javascript
-class Point {
-  constructor() {
-    this.x = 0;
-  }
-}
-
-Point.y = 2;
-const p = new Point();
-
-console.log(p.x); // 0
-console.log(p.y); // undefined ,类属性而不是而不是实例的属性，因此实例调用打印是 undefined
-```
-
-只不过写起来没那么好看。现在有一个[提案](https://github.com/tc39/proposal-class-fields)提供了类的静态属性：在实例属性的前面，加上 `static` 关键字：
-
-```javascript
-// 老写法
-class Foo {
-  // ...
-}
-Foo.prop = 1;
-
-// 新写法
-class Foo {
-  static prop = 1;
-}
-```
-
-新写法是显式声明，而不是赋值处理，语义更好。
-
-
-
-### 七、私有属性/私有方法
-
-**私有方法和私有属性指的是只能在类的内部访问的方法和属性，外部不能访问。**这是一个非常常见需求，有利于代码的封装。但比较可惜的是 `ES6` 不提供，只能通过变通方法模拟实现。
-
-有一个比较鸡肋的方式（自己骗自己）是在方法前面加下划线，在命名上加以区分（因为有其它语言的私有方法是这样写的），表示这是一个只限于内部使用的私有方法。
-
-```javascript
-class Point {
-  constructor() {
-    this.x = 0;
-  }
-  // 自己骗自己这是私有方法，就看大家遵不遵守了
-  _fun() {
-    console.log('pravite');
-  }
-}
-
-const point = new Point();
-point._fun(); // pravite
-```
-
-在类的外部，还是可以调用到这个方法。
-
-还有另外一种可以满足功能的方式是：将私有方法放在类的外边（因为类内部的所有方法都是对外可见的），利用 `call` 指向，但是最终只导出类，而不导出方法，这样就无法在类的外部调用到这个方法了。
-
-```javascript
-// 私有方法 不导出别人也用不了
-function praviteFun() { }
-
-// 只把class 导出
-export default class Point {
-  constructor() {
-    this.x = 0
-  }
-  // 私有方法
-  fun() {
-    praviteFun.call(this)
-  }
-}
-```
-
-
-
-
-
-### 八、总结
+### 九、总结
 
 通过上面的讲述，`ES6` 中的 "类" 并不是那么地完美，依旧有很多地方需要完善。但是这不影响我们去用类去组织我们的代码，让代码的复用性变得更好、更易维护。
