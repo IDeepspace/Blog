@@ -503,8 +503,6 @@ export default class Point {
 
 
 
-
-
 ### 七、继承
 
 #### 1、父类和子类
@@ -729,8 +727,6 @@ Person.prototype.toString = function () {
 console.log(Object.keys(Person.prototype)); // [ 'toString' ]
 console.log(Object.getOwnPropertyNames(Person.prototype)); // [ 'constructor', 'toString' ]
 ```
-
-
 
 
 
