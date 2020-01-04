@@ -9,7 +9,7 @@ date: 2018-07-03
 urlname: javascript-object-oriented-programming-2
 ---
 
-## JavaScript 面向对象编程（二）— 继承
+<!-- ## JavaScript 面向对象编程（二）— 继承 -->
 
 > 阅读本文之前，你可以先阅读下面这两篇文章：
 >
