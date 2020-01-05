@@ -317,7 +317,7 @@ fn0().fn1().d().c();
 1. `typeof` 运算符和普通的函数一样
 
 ```javascript
-let commFunc = () => {};
+let commFunc = function () { };
 console.log(typeof commFunc);
 ```
 
