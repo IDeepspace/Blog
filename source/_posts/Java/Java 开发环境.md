@@ -23,7 +23,7 @@ urlname: java-set-environment
 
 1. 浏览到 [Java SE Downloads](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ，以显示最新版 `JDK` 的下载页面；
 
-2. 同意您想要下载的版本的许可条款；
+2. 同意你想要下载的版本的许可条款；
 
 3. 选择与你的操作系统和芯片架构匹配的下载。
 
@@ -39,7 +39,7 @@ urlname: java-set-environment
 
 **安装**
 
-安装比较简单，一路点击下一步就可以了。
+安装比较简单，一路点击**下一步**就可以了。
 
 安装完成后，可以通过在终端命令行以下执行命令，找到 `JDK` 的安装位置：
 
@@ -176,7 +176,6 @@ $ tar zxvf ./jdk-8u231-linux-x64.tar.gz  -C /usr/lib/jvm
 
 ```bash
 export JAVA_HOME=/usr/lib/jvm/jdk-8u231-linux-x64
-export JRE_HOME=${JAVA_HOME}/jre
 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 export PATH=$JAVA_HOME/bin:$PATH
 ```
