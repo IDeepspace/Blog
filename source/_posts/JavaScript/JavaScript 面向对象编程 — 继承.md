@@ -35,7 +35,7 @@ urlname: javascript-object-oriented-programming-2
 
 那么，假如我们让原型对象等于另一个类型的实例，结果会怎么样呢？显然，此时的原型对象将包含一个指向另一个原型的指针（`__proto__`）；相应地，另一个原型中也包含着一个指向另一个构造函数的指针（`constructor`）。假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓原型链的基本概念。
 
-![原型链示意图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype5.png)
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
 
 图中蓝色的线条就是原型链。
 
@@ -204,7 +204,7 @@ console.log(instance2.colors); // [ 'red', 'blue', 'green', 'black' ]
 
 当 `SubType` 通过原型链继承了 `SuperType` 之后，`SubType.prototype` （原型）就变成了 `SuperType` 的一个实例，因此它（原型）也拥有了一个它自己的 `colors` 属性 —— 就跟专门创建了一个 `SubType.prototype.colors` 属性一样。
 
-这样，`SubType` 的所有实例都会共享这一个 `colors` 属性。而我们对 `instance1.colors` 的修改也会在 `instance2.colors` 反映出来，因为 `colors` 属性指向的是同一块存储区域
+这样，`SubType` 的所有实例都会共享这一个 `colors` 属性。而我们对 `instance1.colors` 的修改也会在 `instance2.colors` 反映出来，因为 `colors` 属性指向的是同一块存储区域。
 
 
 
@@ -455,6 +455,8 @@ SubType.prototype.constructor = SubType;
 SubType.prototype.sayAge = function () {
   console.log(this.age);
 };
+
+const instance1 = new SubType('Deepspace', 29); // 调用SubType构造函数
 ```
 
 但是组合继承也是有自己的缺点的：**会调用两次超类型构造函数。**
@@ -505,7 +507,7 @@ instance2.sayName(); // chenxingxing
 instance2.sayAge(); // 27
 ```
 
-最后我们封装一下这个继承方法：
+为什么不直接把 `SuperType.prototype` 赋值给 `SubType.prototype` 呢？因为这样会造成引用类型互相影响的问题，所以这里需要创建一个新对象来赋值。最后我们封装一下这个继承方法：
 
 ```javascript
 function object(o) {

@@ -142,7 +142,7 @@ console.log(person2);
 
 **工厂模式虽然解决了创建多个相似对象的问题**，但也有一些缺点：
 
-> 对象上都有一个 `constructor` 属性，该属性可以用来标识对象类型。
+> 对象上都有一个 `constructor` 属性，该属性可以用来标识对象类型（构造函数）。
 
 - 对象无法识别，所有实例都指向一个原型；无法通过 `constructor` 识别对象，因为都是来自 `Object` ；
 - 只有开发者可以知道这个类型 —— 通过函数名来识别；
@@ -175,7 +175,7 @@ console.log(person2.constructor); // [Function: Object]
 
 ### 四、构造函数模式
 
-**构造函数是用来创建特定的类型的对象的。**比如 `JavaScript` 原生提供的 `Object`、`Array` 等，都是构造函数模式创建的原生构造函数，在运行时会自动出现在执行环境中。
+**构造函数是用来创建特定类型的对象的。**比如 `JavaScript` 原生提供的 `Object`、`Array` 等，都是构造函数模式创建的原生构造函数，在运行时会自动出现在执行环境中。
 
 我们也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。
 
@@ -727,7 +727,7 @@ console.log(person1 instanceof Person);  // true
 **不能用在构造函数中初始化原型的时候，用对象字面量的方式来重写原型。**看下面的代码：
 
 ```javascript
-function Person(name, age, job) {
+function Person(name) {
   this.name = name;
   if (typeof this.sayName !== 'function') {
     Person.prototype = {
@@ -770,7 +770,7 @@ console.log(obj); // { name: 'chenxingxing' }
 如果非要用用字面量方式写代码，可以像下面这样：
 
 ```javascript
-function Person(name, age, job) {
+function Person(name) {
   this.name = name;
   if (typeof this.sayName !== 'function') {
     Person.prototype = {
