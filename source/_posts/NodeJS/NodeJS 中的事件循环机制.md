@@ -6,7 +6,10 @@ tags:
 categories: NodeJS
 date: 2019-05-29
 urlname: event-loop-in-nodejs
+
 ---
+
+
 
 ### 一、与浏览器中事件循环机制的差异
 
@@ -137,8 +140,6 @@ setImmediate(() => {
 
 `setImmediate()` 的回调会被加入 `check` 队列中， 从 `event loop` 的阶段图可以知道，`check` 阶段的执行顺序在 `poll` 阶段之后。
 
-
-
 **小结一下：**
 
 - `event loop` 的每个阶段都有一个任务队列；
@@ -160,7 +161,6 @@ fs.readFile('test.txt', () => {
   })
 })
 ```
-
 结果：
 
 ```
@@ -200,6 +200,7 @@ timeout
 ![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/browser-event-loop-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
+
 
 
 ### 五、process.nextTick和setImmediate
@@ -270,5 +271,4 @@ setImmediate 1000
    - 浏览器端，`microtask` 在事件循环的 `macrotask` 执行完之后执行
 
 3. 递归的调用 `process.nextTick()` 会导致 `I/O starving` ，官方推荐使用 `setImmediate()`
-
 
