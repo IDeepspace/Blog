@@ -96,15 +96,21 @@ promise2
 
 每个阶段的作用如下:
 
-- `timers` 阶段：这个阶段执行 `timer` (包括 `setTimeout`、`setInterval`) 的回调；
+1. `timers` 阶段：这个阶段执行 `timer` (包括 `setTimeout`、`setInterval`) 的回调；
 
-- `I/O callbacks` 阶段：执行 `I/O`（例如文件、网络）的回调；
-- `idle, prepare` 阶段：队列的移动，仅 `node` 内部使用；
-- `poll` 阶段：最重要的阶段，获取新的 `I/O` 事件, 适当的条件下 `node` 将阻塞在这里；
-- `check` 阶段：执行 `setImmediate()` 的 `callback`；
-- `close callbacks` 阶段：执行 `close` 事件的 `callback`，例如 `socket.on("close",func)`
+2. `I/O callbacks` 阶段：执行 `I/O`（例如文件、网络）的回调；
+
+3. `idle, prepare` 阶段：队列的移动，仅 `node` 内部使用；
+
+4. `poll` 阶段：最重要的阶段，获取新的 `I/O` 事件, 适当的条件下 `node` 将阻塞在这里；
+
+5. `check` 阶段：执行 `setImmediate()` 的 `callback`；
+
+6. `close callbacks` 阶段：执行 `close` 事件的 `callback`，例如 `socket.on("close",func)`
 
 我们重点看 `timers`、`poll`、`check ` 这3个阶段就好，因为日常开发中的绝大部分异步任务都是在这3个阶段处理的。
+
+
 
 #### 1、timers 阶段
 
@@ -139,6 +145,8 @@ setImmediate(() => {
 2. 若没有预设的 `setImmediate()`，`event loop` 将阻塞在该阶段等待。
 
 注意一个细节，没有 `setImmediate()` 会导致 `event loop` 阻塞在 `poll` 阶段，这样之前设置的 `timer` 岂不是执行不了了？所以呢，在 `poll` 阶段 `event loop` 会有一个检查机制，检查 `timer` 队列是否为空，如果 `timer` 队列非空，`event loop` 就开始下一轮事件循环，即重新进入到 `timer` 阶段。
+
+
 
 #### 3、check 阶段
 
