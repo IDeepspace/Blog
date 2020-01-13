@@ -267,6 +267,7 @@ public class Test3 extends Test {
 - `final`
 
 - `abstract`
+- `transient`
 
 - `synchronized` 和 `volatile`
 
@@ -399,14 +400,14 @@ public class StaticMethod {
 
 静态代码块指 `Java` 类中的 `static{ }` 代码块，主要用于初始化类，为类的静态变量赋初始值。
 
-`Java` 虚拟机在加载类时执行静态代码块，所以很多时候会将一些只需要进行一次的初始化操作都放在 `static` 代码块中进行，提升程序性能。
+`Java` 虚拟机在加载类时执行静态代码块，所以很多时候会将一些**只需要进行一次的初始化操作**都放在 `static` 代码块中进行，提升程序性能。
 
 静态代码块的特点如下：
 
 - 静态代码块类似于一个方法，但它不可以存在于任何方法体中；
 - 静态代码块可以置于类中的任何地方，并且类中可以有多个静态初始化块；
-- 如果类中包含多个静态代码块，则 `Java` 虚拟机将按它们在类中出现的顺序依次执行它们，每个静态代码块只会被执行一次；
-- 静态代码块与静态方法一样，不能直接访问类的实例变量和实例方法，而需要通过类的实例对象来访问。
+- 如果类中包含多个静态代码块，则 `Java` 虚拟机将按它们在类中出现的顺序依次执行它们，每个静态代码块**只会被执行一次**；
+- **静态代码块与静态方法一样，不能直接访问类的实例变量和实例方法，而需要通过类的实例对象来访问。**
 
 ```java
 package packageOne;
@@ -581,9 +582,148 @@ class SubClass extends SuperClass {    // compile error
 
 #### 3、abstract
 
+##### 1）抽象类和抽象方法
+
+`abstract` 修饰符可以用来修饰方法和类。被 `abstract` 修饰的方法称为**抽象方法**，修饰的类称为**抽象类**。
+
+抽象方法是一种特殊的方法：它只有声明，而没有具体的实现，该方法的的具体实现**由子类提供**。抽象方法的声明格式为：
+
+```java
+abstract void fun();
+```
+
+抽象方法必须用 `abstract` 关键字进行修饰。
+
+如果一个类含有抽象方法，则称这个类为**抽象类**，抽象类必须在类前用 `abstract` 关键字修饰。
+
+> 在《 `Java` 编程思想》一书中，将抽象类定义为 **包含抽象方法的类**，但是后面发现如果一个类不包含抽象方法，只是用 `abstract` 修饰的话也是抽象类。也就是说抽象类不一定必须含有抽象方法。这个问题其实并不冲突，如果一个抽象类不包含任何抽象方法，为何还要设计为抽象类？所以抽象类这个概念（包含抽象方法的类）是没有问题。
+
+由于抽象类中含有无具体实现的方法（抽象方法），所以**不能用抽象类创建对象**。
+
+因此，抽象类就是为了继承而存在的。如果定义了一个抽象类，却不去继承它，那么等于白白创建了这个抽象类，因为不能用它来做任何事情。
 
 
-#### 4、synchronized 和 volatile
+
+##### 2）什么时候要用到抽象类
+
+对于一个父类，如果它的某个方法在类中实现出来没有任何意义，必须根据子类的实际需求来进行不同的实现，那么就可以将这个方法声明为 `abstract` 方法，此时这个类也就成为 `abstract` 类了。
+
+包含抽象方法的类称为抽象类，但并不意味着抽象类中只能有抽象方法，它和普通类一样，同样可以拥有成员变量和普通的成员方法。
 
 
+
+##### 3）抽象类和普通类的区别
+
+- 抽象方法必须为 `public` 或者 `protected`（因为如果为 `private`，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为 `public`；
+- 抽象方法不能被 `final` （不能被继承）和 `static` 修饰（因为 `static` 修饰的方法是静态方法，可以直接被类所调用；而 `abstract` 修饰的方法为抽象方法，即无方法体的方法，不能够被直接调用，需要在子类或实现类中去编写完整的方法处理逻辑后才能使用）；
+- 抽象类不能用来创建对象；
+- 如果一个类继承于一个抽象类，则子类必须实现父类全部的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为 `abstract` 类；
+- 在其他方面，抽象类和普通的类并没有区别。
+
+
+
+##### 4）抽象类和接口的区别
+
+- 抽象类是对一种事物的抽象，即对类抽象，包括属性、行为；而接口是类的局部（行为）的抽象，即方法的抽象；
+- 从设计层面讲，抽象类作为很多子类的父类，它是一种**模板式设计**；而接口是一种行为规范，它是一种**辐射式设计**。
+  - 模板式设计：如果子类的公共部分需要改动，则只需要改动父类（模板）就可以了，不需要对各个子类进行改动；
+  - 辐射式设计：如果接口进行了变更，则所有实现这个接口的类都必须进行相应的改动。
+
+
+
+#### 4、transient
+
+`transient` 意为短暂的，瞬时的。在序列化对象的时候使用。
+
+简单介绍一下对象的序列化：
+
+序列化就是把 `Java` 对象转换为字节序列的过程，反序列化就是把字节序列恢复为 `Java` 对象的过程。
+
+对象的序列化主要有两种用途：
+
+- 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中（持久化对象）；
+- 网络上传送对象的字节序列（网络传输对象）。
+
+一个对象想要能够被序列化，那么它的类就需要实现了 `Serilizable` 接口或者 `Serilizable` 的子接口。
+
+但是在实际开发过程中，我们常常会遇到这样的问题：这个类的有些属性需要序列化，而其他属性不需要被序列化。举个例子，用户会有一些敏感信息（如银行卡号、密码等），为了安全起见，不希望在网络操作（主要涉及到序列化操作、本地序列化缓存等）中被传输，怎么办呢？
+
+我们可以在这些敏感信息对应的属性前加上 `transient` 关键字，这样，这个属性就不会被序列化到指定的目的地中。看下面的例子：
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+// class TransientTest
+public class TransientTest {
+
+  public static void main(String[] args) {
+
+    User user = new User();
+    user.setUsername("Deepspace");
+    user.setPassword("123456");
+
+    System.out.println("read before Serializable: ");
+    System.out.println("username: " + user.getUsername());
+    System.err.println("password: " + user.getPassword());
+
+    try {
+      ObjectOutputStream os = new ObjectOutputStream(
+              new FileOutputStream("/Users/cxin/Desktop/user.txt"));
+      os.writeObject(user); // 将 User 对象写进文件
+      os.flush();
+      os.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      ObjectInputStream is = new ObjectInputStream(new FileInputStream("/Users/cxin/Desktop/user.txt"));
+      user = (User) is.readObject(); // 从流中读取 User 的数据
+      is.close();
+
+      System.out.println("read after Serializable: ");
+      System.out.println("username: " + user.getUsername());
+      System.err.println("password: " + user.getPassword());
+
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+}
+
+// class User
+import java.io.Serializable;
+
+class User implements Serializable {
+  private static final long serialVersionUID = 12345678909876543L;
+
+  private String username;
+  private transient String password;
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+}
+```
+
+
+
+#### 5、synchronized 和 volatile
+
+`synchronized` 和 `volatile` 修饰符用于多线程编程的时候，后面会单独写一篇文章来讲解。
 
