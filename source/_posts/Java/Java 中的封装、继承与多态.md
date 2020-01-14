@@ -10,11 +10,7 @@ date: 2017-06-29
 urlname: java-encapsulation-inheritance-polymorphism
 ---
 
-## Java 中的封装、继承与多态
-
 在前面的[《`Java` — 面向对象的编程语言》](https://togoblog.cn/java-oop-language/)里，介绍了面向对象的三大特征：封装、继承、多态，主要是概念上的讲解，本篇文章将从代码出发，看看 `Java` 中的封装、继承与多态。
-
-
 
 ### 一、封装
 
@@ -270,7 +266,6 @@ class Student {
     System.out.println("睡觉");
   }
 }
-
 ```
 
 分别定义了 `Teacher` 类和 `Student` 类，吃饭和睡觉是学生和老师共有的行为，但是却写了两遍；并且，如果需要给 `Teacher` 类和 `Student` 类再添加一个 `walk` 的行为，则需要给两个类都分别添加，没有一点的复用性可言，随着逻辑变得复杂，代码的可维护性也会变差。
@@ -295,7 +290,6 @@ public class Person {
     System.out.println("睡觉");
   }
 }
-
 ```
 
 然后让 `Student` 类和 `Teacher` 类都继承 `Person` 类：
@@ -320,7 +314,6 @@ public class Main {
     t.sleep(); // 睡觉
   }
 }
-
 ```
 
 这里要注意：父类中通过 `private` 修饰的变量和方法不会被继承，也就是说不能在子类中直接操作父类通过 `private` 修饰的变量以及方法。
@@ -350,7 +343,6 @@ public class Main {
 class SubDemo extends Demo {} // ok
 
 class SubDemo extends Demo1,Demo2 … // error
-
 ```
 
 但是 `Java` 支持多层继承：
@@ -359,7 +351,6 @@ class SubDemo extends Demo1,Demo2 … // error
 class A {}
 class B extends A {}
 class C extends B {}
-
 ```
 
 
@@ -399,7 +390,6 @@ public class ExtendsDemo {
     System.out.println(s.num4); // 90
   }
 }
-
 ```
 
 所以，在子类方法中访问一个变量的查找顺序是：
@@ -428,7 +418,6 @@ public class Dog extends Animal {
     dog.printWhoIAm(); // Animal
   }
 }
-
 ```
 
 当 `dog` 调用 `printWhoIAm()` 方法时，其实希望的是输出 `dog`，而不是 `Animal`。要实现输出 `Dog`，该怎么办？
@@ -457,7 +446,6 @@ public class Dog extends Animal {
     System.out.println("Dog");
   }
 }
-
 ```
 
 > `@Override` 是伪代码,表示重写(当然不写也可以)，不过写上有如下好处：
@@ -498,7 +486,6 @@ public class App {
     System.out.println(dog.getName("hello"));
   }
 }
-
 ```
 
 可以看到，在 `App` 这个类中，当我们给 `getName` 传递参数时，执行的是 `Animal` 中的方法，而非 `Dog` 中的 `getName` 方法。也就是说如果参数不一致最后执行的可能就不是重写的那个方法。
@@ -534,7 +521,6 @@ public class Dog extends Animal {
     System.out.println("Dog");
   }
 }
-
 ```
 
 `super` 代表父类存储空间的标识，可以理解为父类引用，可以操作父类的成员。
@@ -563,7 +549,6 @@ public class Cat extends Animal {
     return "我是" + super.name + "，我的名字叫" + this.name;
   }
 }
-
 ```
 
 
@@ -654,7 +639,6 @@ public class Main {
     System.out.println(stu1.getSex()); // Male
   }
 }
-
 ```
 
 从上面的代码可以看出，使用 `super` 直接调用父类中的构造函数，可以使书写代码更简洁方便。
@@ -695,7 +679,6 @@ public class ExtendsDemo {
     Son s2 = new Son("孩子");
   }
 }
-
 ```
 
 运行结果为：
@@ -706,7 +689,6 @@ Son 的无参构造方法
 ------------
 Father 的无参构造方法
 Son 的带参构造方法
-
 ```
 
 如果父类没有无参构造方法，那么子类的构造方法会出现什么现象呢？直接报错了，父类无法完成初始化。**也就是说子类中一定要有一个去访问了父类的构造方法，否则父类数据就没有初始化。**
@@ -748,7 +730,6 @@ class Son extends Father {
     System.out.println("Son 的带参构造方法-1");
   }
 }
-
 ```
 
 这里要注意：**调用父类构造函数调用代码必须放在子类构造函数中的第一行**！目的是在初始化当前对象时，先保证了父类对象先初始化，防止异常。
@@ -850,7 +831,6 @@ public class Student {
     System.out.println("姓名：" + name); // 姓名：张三
   }
 }
-
 ```
 
 **注意：**
@@ -873,7 +853,6 @@ public interface USB{
     String name = "USB";
     public String getName();
 }
-
 ```
 
 接口没有构造方法，不能被实例化。
@@ -882,7 +861,6 @@ public interface USB{
 public interface USB {
   USB() {} // error
 }
-
 ```
 
 访问权限修饰符可以为 `public` 也可以不写。接口中的方法不能设置成 `private` ，这样会导致使用该接口的类不能够实现该方法。
@@ -900,7 +878,6 @@ public interface StudentInterface extends PeopleInterface {
   int age = 25;  // 常量 age 重写父接口中的 age 常量
   void getInfo();  // 方法 getInfo() 重写父接口中的 getInfo() 方法
 }
-
 ```
 
 #### 多态
