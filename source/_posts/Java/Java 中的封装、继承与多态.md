@@ -1,3 +1,15 @@
+---
+title: Java 中的封装、继承与多态
+author: Deepspace
+tags:
+  - 封装
+  - 继承
+  - 多态
+categories: Java
+date: 2017-06-29
+urlname: java-encapsulation-inheritance-polymorphism
+---
+
 ## Java 中的封装、继承与多态
 
 在前面的[《`Java` — 面向对象的编程语言》](https://togoblog.cn/java-oop-language/)里，介绍了面向对象的三大特征：封装、继承、多态，主要是概念上的讲解，本篇文章将从代码出发，看看 `Java` 中的封装、继承与多态。
@@ -9,7 +21,7 @@
 在编程时，把数据（属性）和有关属性的一些操作（方法）绑定在一起，形成一个不可分开的集合（类），这个过程就是封装（`Encapsulation`）。
 
 封装时，我们需要隐藏对象的属性和实现细节，仅对外公开接口，并控制在程序中属性的读和写的**访问级别**。
-
+<!-- more -->
 一般情况下，我们会把所有的属性都**私有化**，对每个属性提供 `getter` （读） 和 `setter`（写） 方法，供外界使用：
 
 ```java

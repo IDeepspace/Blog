@@ -33,7 +33,7 @@ urlname: java-modifiers
 - `private`
 - `public`
 - `protected`
-
+<!-- more -->
 下面是四种访问修饰符的访问权限表：
 
 | `Access Modifiers`                                    | `private` | `no modifier` | `protected` | `public` |
