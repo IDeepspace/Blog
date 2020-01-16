@@ -74,7 +74,9 @@ public class Person {
 
   public static void main(String[] args) {
     Person person = new Person();
-    System.out.println("姓名: " + person.name + ". 年龄: " + person.age); // 姓名: null. 年龄: 0
+    person.name = "陈星星";
+    person.age = 1;
+    System.out.println("姓名: " + person.name + ". 年龄: " + person.age); // 姓名: 陈星星. 年龄: 1
   }
 }
 ```
