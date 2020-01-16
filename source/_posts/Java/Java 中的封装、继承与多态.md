@@ -12,6 +12,8 @@ urlname: java-encapsulation-inheritance-polymorphism
 
 在前面的[《`Java` — 面向对象的编程语言》](https://togoblog.cn/java-oop-language/)里，介绍了面向对象的三大特征：封装、继承、多态，主要是概念上的讲解，本篇文章将从代码出发，看看 `Java` 中的封装、继承与多态。
 
+
+
 ### 一、封装
 
 在编程时，把数据（属性）和有关属性的一些操作（方法）绑定在一起，形成一个不可分开的集合（类），这个过程就是封装（`Encapsulation`）。
@@ -842,45 +844,458 @@ public class Student {
 
 ### 三、多态
 
-#### 1、接口 
+#### 1、抽象类和抽象方法
 
-接口是一系列方法的声明，是一些方法特征的集合，**一个接口只有方法的特征没有方法的实现**，因此这些方法可以在不同的地方被不同的类实现，而这些实现可以具有不同的行为（功能）。接口可以被理解为一种特殊的类。
+被 `abstract` 修饰的方法称为**抽象方法**，修饰的类称为**抽象类**。
 
-定义方式与类基本相同，不过接口定义使用的关键字是 `interface`：
+抽象方法是一种特殊的方法：它只有声明，而没有具体的实现，该方法的的具体实现**由子类提供**。抽象方法的声明格式为：
 
 ```java
-public interface USB{
-    String name = "USB";
-    public String getName();
+abstract void fun();
+```
+
+抽象方法必须用 `abstract` 关键字进行修饰。
+
+如果一个类含有抽象方法，则称这个类为**抽象类**，抽象类必须在类前用 `abstract` 关键字修饰。
+
+> 在《 `Java` 编程思想》一书中，将抽象类定义为 **包含抽象方法的类**，但是后面发现如果一个类不包含抽象方法，只是用 `abstract` 修饰的话也是抽象类。也就是说抽象类不一定必须含有抽象方法。这个问题其实并不冲突，如果一个抽象类不包含任何抽象方法，为何还要设计为抽象类？所以抽象类这个概念（包含抽象方法的类）是没有问题。
+
+由于抽象类中含有无具体实现的方法（抽象方法），所以**不能用抽象类创建对象**。
+
+因此，抽象类就是为了继承而存在的。如果定义了一个抽象类，却不去继承它，那么等于白白创建了这个抽象类，因为不能用它来做任何事情。
+
+
+
+**什么时候要用到抽象类？**
+
+对于一个父类，如果它的某个方法在类中实现出来没有任何意义，**必须根据子类的实际需求来进行不同的实现**，那么就可以将这个方法声明为 `abstract` 方法，此时这个类也就成为 `abstract` 类了。
+
+包含抽象方法的类称为抽象类，但并不意味着抽象类中只能有抽象方法，它和普通类一样，**同样可以拥有成员变量和普通的成员方法。**
+
+看个完整的例子：
+
+```java
+abstract class Person {
+  private String name;
+  private int age;
+
+  public Person(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public int getAge() {
+    return this.age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  public abstract String getInfo(); // 抽象方法，父类实现没有意义，所以把父类变成了抽象类
+};
+
+class Student extends Person {
+  private String school;
+
+  public Student(String name, int age, String school) {
+    super(name, age);    // 指定要调用抽象类中有两个参数的构造方法
+    this.school = school;
+  }
+
+  public String getInfo() {
+    return "姓名：" + super.getName() + "；年龄：" + super.getAge() + "；学校：" + this.getSchool();
+  }
+
+  public String getSchool() {
+    return school;
+  }
+
+  public void setSchool(String school) {
+    this.school = school;
+  }
+};
+
+public class Main {
+  public static void main(String[] args) {
+    Student stu = new Student("张三", 30, "清华大学");
+    System.out.println(stu.getInfo());
+  }
 }
 ```
 
-接口没有构造方法，不能被实例化。
+
+
+#### 2、接口 
+
+接口是一种引用类型，和类很相似。接口是功能的集合，同样可看作是一种数据类型，是比抽象类更为抽象的 **”类”**。
+
+**1）接口的定义**
+
+与定义类的 `class` 关键字不同，定义接口时需要使用 `interface` 关键字。定义接口所在的文件格式仍为 `.java` 文件，编译后仍然会产生 `.class` 文件。这点可以让我们将接口看做是一种**只包含了功能声明的特殊类**。
+
+**接口只描述所应该具备的方法，并没有具体实现，具体的实现由接口的实现类（相当于接口的子类）来完成。**这样将功能的定义与实现分离，优化了程序设计。
+
+一个简单的接口：
 
 ```java
 public interface USB {
-  USB() {} // error
+  String name = "USB";
+
+  public String getName();
 }
 ```
 
-访问权限修饰符可以为 `public` 也可以不写。接口中的方法不能设置成 `private` ，这样会导致使用该接口的类不能够实现该方法。
+
+
+**2）接口和类的区别**
+
+但是，接口中的声明的变量和方法做了许多限制，这点和类大不相同：
+
+- 具有 `public` 访问控制符的接口，允许任何类使用；没有指定 `public` 的接口，其访问将局限于所属的包；
+- 接口中无法定义普通的成员变量，接口中声明的变量其实**都是常量**，接口中的变量声明，将隐式地声明为 `public`、`static` 和 `final`，即常量，所以接口中定义的变量**必须初始化**；
+- 接口中声明的方法，将**隐式地声明为公有的（`public`）和抽象的（`abstract`）**；
+- 接口中的方法不能设置成 `private` ，这样会导致使用该接口的类不能够实现该方法；
+- 接口没有构造方法，不能被实例化；
+
+```java
+public interface MyInterface {
+  String name;    // 不合法，变量 name 必须初始化
+  int age = 20;    // 合法，等同于 public static final int age = 20;
+
+  MyInterface() {
+  }
+
+  void getInfo();    // 方法声明，等同于 public abstract void getInfo();
+}
+```
+
+
+
+**3）接口的实现**
+
+接口无法被实例化，但是可以被实现。一个实现接口的类，**必须实现接口内所描述的所有方法**，**否则该类就必须声明为抽象类。**
+
+实现接口使用 `implements` 关键字：
+
+```java
+public interface IMath {
+  int sum();    // 完成两个数的相加
+
+  int maxNum(int a, int b);    // 获取较大的数
+}
+
+public class MathClass implements IMath {
+  private int num1;    // 第 1 个操作数
+  private int num2;    // 第 2 个操作数
+
+  public MathClass(int num1, int num2) {
+    // 构造方法
+    this.num1 = num1;
+    this.num2 = num2;
+  }
+
+  // 实现接口中的求和方法
+  public int sum() {
+    return num1 + num2;
+  }
+
+  // 实现接口中的获取较大数的方法
+  public int maxNum(int a, int b) {
+    if (a >= b) {
+      return a;
+    } else {
+      return b;
+    }
+  }
+}
+
+public class NumTest {
+  public static void main(String[] args) {
+    // 创建实现类的对象
+    MathClass calc = new MathClass(100, 300);
+    System.out.println("100 和 300 相加结果是：" + calc.sum()); // 100 和 300 相加结果是：400
+    System.out.println("100 比较 300，哪个大：" + calc.maxNum(100, 300)); // 100 比较 300，哪个大：300
+  }
+}
+```
 
 一个接口不能够实现另一个接口，但它可以继承多个其他接口。子接口可以对父接口的方法和常量进行重写。例如：
 
 ```java
-public interface PeopleInterface {
-  int age = 23;
-  void getInfo();
+public interface A {
+  void printA();
 }
 
-public interface StudentInterface extends PeopleInterface {
-  // 接口 StudentInterface 继承接口 PeopleInterface
-  int age = 25;  // 常量 age 重写父接口中的 age 常量
-  void getInfo();  // 方法 getInfo() 重写父接口中的 getInfo() 方法
+public interface B {
+  void printB();
+}
+
+public interface C extends A, B {
+  void printC();
+}
+
+class X implements C {
+  public void printA() {
+    System.out.println("A、Hello World!!!");
+  }
+
+  public void printB() {
+    System.out.println("B、Hello Java");
+  }
+
+  public void printC() {
+    System.out.println("C、Hello OOP");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    X x = new X();
+    x.printA(); // A、Hello World!!!
+    x.printB(); // B、Hello Java
+    x.printC(); // C、Hello OOP
+  }
 }
 ```
 
-#### 多态
 
-简单点说就是 **"一个接口，多种实现"**，不同类对同一操作体现出不同效果。
+
+**接口的默认实现**
+
+为了解决[【菱形问题（ `diamond problem` ）】](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem)，从 `JDK1.8` 开始，接口的方法可以有默认实现了。
+
+什么是菱形问题呢？
+
+假设我们有一个父接口 `A`，子接口 `B` 和 `C` 都重写了 `A` 中的方法 `test()`。此时又有一个 `D` 接口，同时继承了 `B` 和 `C`，那么当 `D` 调用 `test()` 时，继承的是哪个父接口的方法呢？如果没有给出进一步的说明，编译器是无法给出答案的。如图所示：
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:80%;" />
+
+```java
+public interface InterfaceA {
+  default String getName() {
+    return "a";
+  }
+}
+```
+
+使用 `default` 修饰符，可以实现接口。这样就解决了菱形问题。
+
+
+
+**"多继承接口"**
+
+一个类也可以同时实现多个接口。并且使用 default 修饰符，也可以解决菱形问题：
+
+```java
+public interface InterfaceA {
+  default String getName() {
+    return "a";
+  }
+}
+
+public interface InterfaceB {
+  default String getName() {
+    return "b";
+  }
+}
+
+public class ImpClass implements InterfaceA, InterfaceB {
+  public static void main(String[] args) {
+    ImpClass c = new ImpClass();
+    System.out.println(c.getName()); // ab
+    System.out.println(((InterfaceA) c).getName()); // ab
+    System.out.println(((InterfaceB) c).getName()); // ab
+  }
+
+  @Override
+  public String getName() {
+    // 必须提供自己的实现
+    return InterfaceA.super.getName() + InterfaceB.super.getName();
+  }
+}
+```
+
+
+
+#### 3、多态
+
+简单点说，多态就是某一个事物，在不同时刻表现出来的不同状态。比如：水在不同环境下的状态不同（液体，固体，气态）。
+
+`Java` 中的多态分为两种：
+
+- 编译时多态（又称静态多态）
+- 运行时多态（又称动态多态）
+
+重载（`overload` ，发生在一个类中，方法名必须相同，参数不同）就是**编译时多态**的一个例子，编译时多态在编译时就已经确定，运行时运行的时候调用的是确定的方法。
+
+而我们通常所说的多态指的都是**运行时多态**，也就是编译时不确定究竟调用哪个具体方法，一直到运行时才能确定。这也是为什么有时候多态方法又被称为**延迟方法**的原因。
+
+**怎么理解运行时才能确定呢？**
+
+程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，**即一个引用变量到底会指向哪个类的实例对象，该引用变量发出的方法调用到底是哪个类中实现的方法，必须在由程序运行期间才能决定。**
+
+因此，在程序运行时才确定具体的类，这样我们就不用修改源程序代码，就可以让引用变量绑定到各种不同的类实现上，从而导致该引用调用的具体方法随之改变，即**不修改程序代码就可以改变程序运行时所绑定的具体代码，让程序可以选择多个运行状态，这就是多态性。**
+
+**那怎么做到让一个方法在不同类中可以动态的具有有不同的表现行为呢？**
+
+我们可以这么做：子类 `Child` 继承父类 `Father`，编写一个指向子类的父类类型引用，该引用既可以处理父类 `Father` 对象，也可以处理子类 `Child` 对象，当相同的消息发送给子类或者父类对象时，该对象就会根据自己所属的引用而执行不同的行为。**即相同的消息使得不同的类做出不同的响应。**
+
+所以，综合起来，多态存在的三个必要条件就是：
+
+- 继承
+- 重写
+- 父类引用指向子类对象（向上转型）
+
+实现多态有两种方式：
+
+- 基于继承实现的多态
+- 基于接口实现的多态
+
+
+
+**基于继承实现的多态**
+
+看个例子：
+
+```java
+class Animal {
+  static int age = 20;
+  int num = 10;
+
+  public static void eat() {
+    System.out.println("动物吃饭");
+  }
+
+  public void sleep() {
+    System.out.println("动物在睡觉");
+  }
+
+  public void run() {
+    System.out.println("动物在奔跑");
+  }
+}
+
+class Cat extends Animal {
+  static int age = 90;
+  int num = 80;
+  String name = "tomCat";
+
+  public static void eat() {
+    System.out.println("猫吃饭");
+  }
+
+  @Override
+  public void sleep() {
+    System.out.println("猫在睡觉");
+  }
+
+  public void catchMouse() {
+    System.out.println("猫在抓老鼠");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal miao = new Cat(); // 向上转型：父类引用指向子类对象
+    miao.sleep(); // 猫在睡觉
+
+    miao.run(); // 动物在奔跑
+    
+    miao.eat(); // 动物吃饭
+
+//    miao.catchMouse(); // 不能调用 catchMouse
+//    System.out.println(miao.name); // 不能获取 name 属性
+    System.out.println(miao.num); // 10
+    System.out.println(miao.age); // 20
+  }
+}
+```
+
+上面的代码中，`Cat` 类继承了 `Animal`， 并且重写了非静态方法 `sleep`，同时 `Cat` 内部也实现了 `eat` 方法和 `catchMouse` 方法。
+
+可以看到 `miao` 这个对象可以调用子类中的 `sleep` 方法和父类中的 `run` 方法，但是调用 `eat` 方法时，执行的是父类中的 `eat` 方法，因为用 `static` 关键字修饰的方法和变量都是属于类自己本身的，即使子类和父类中都有同样的 `static` 方法和变量，他们是没有任何关系的，是相互独立的，不存在多态性。
+
+而当我们去调用子类中特有的属性和方法时，会发生报错，这个就是多态的缺点，即：**即多态后不能使用子类特有的属性和方法**。为什么呢？
+
+因为我们声明的 `miao` 是 `Animal` 类型，到了运行时期，`miao` 调用 `catchMouse` 方法时，`Animal` 中没有这个方法，所以就会编译不通过，`eat` 方法和 `sleep` 方法是存在的，所以不会报错。对于成员变量也是一样的道理。
+
+如果我们想要使用子类中特有的属性和方法该怎么办呢？答案是**强制类型转换**。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    Animal miao = new Cat();
+    miao.sleep(); // 猫在睡觉
+
+    miao.eat(); // 动物吃饭
+    miao.run(); // 动物在奔跑
+
+    // 强制类型转换
+    Cat mew = (Cat)miao;
+    mew.catchMouse(); // 猫在抓老鼠
+    System.out.println(mew.name); // tomCat
+    
+    System.out.println(miao.num); // 10
+    System.out.println(miao.age); // 20
+  }
+}
+```
+
+
+
+**基于接口实现的继承**
+
+接口的灵活性就在于**"规定一个类必须做什么，而不管你如何做"**。我们可以定义一个接口类型的引用变量来引用实现接口的类的实例，当这个引用调用方法时，它会根据实际引用的类的实例来判断具体调用哪个方法。看下面的例子：
+
+```java
+interface Animal {
+  public void eat();
+
+  public void walk();
+}
+
+class Cat implements Animal {
+  public void eat() {
+    System.out.println("猫在吃！！");
+  }
+
+  public void walk() {
+    System.out.println("猫在走！！");
+  }
+}
+
+public class Dog implements Animal {
+  public void eat() {
+    System.out.println("狗在吃！！");
+  }
+
+  public void walk() {
+    System.out.println("狗在走！！");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    // 向上转型
+    Animal d = new Dog(); // 接口的引用类型变量(d)指向了接口实现类的对象(Dog)。
+    d.eat(); // 狗在吃！！
+    d.walk(); // 狗在走！！
+
+    Animal c = new Cat();
+    c.eat(); // 猫在吃！！
+    c.eat(); // 猫在吃！！
+  }
+}
+```
+
+充分体现了 **"一个接口，多个实现"** 的特点。
 
