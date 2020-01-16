@@ -381,7 +381,7 @@ class Son extends Father {
     int num = 40;
     System.out.println(num); // 40
     System.out.println(num2); // 20
-    // 找不到符号，报错
+    // 找不到，报错
     //System.out.println(num3);
   }
 }
@@ -391,6 +391,7 @@ public class ExtendsDemo {
     // 创建对象
     Son s = new Son();
     s.show();
+    System.out.println(s.num); // 30
     System.out.println(s.num4); // 90
   }
 }
@@ -424,7 +425,7 @@ public class Dog extends Animal {
 }
 ```
 
-当 `dog` 调用 `printWhoIAm()` 方法时，其实希望的是输出 `dog`，而不是 `Animal`。要实现输出 `Dog`，该怎么办？
+继承时，当 `dog` 调用 `printWhoIAm()` 方法时，其实希望的是输出 `dog`，而不是 `Animal`。要实现输出 `Dog`，该怎么办？
 
 想到了重载，可是重载要求被重载的方法具有不同的形参列表，所以这个方法行不通。
 
@@ -492,7 +493,7 @@ public class App {
 }
 ```
 
-可以看到，在 `App` 这个类中，当我们给 `getName` 传递参数时，执行的是 `Animal` 中的方法，而非 `Dog` 中的 `getName` 方法。也就是说如果参数不一致最后执行的可能就不是重写的那个方法。
+可以看到，在 `App` 这个类中，当我们给 `getName` 传递参数时，执行的是 `Animal` 中的方法，而非 `Dog` 中的 `getName` 方法。也就是说如果参数不一致最后执行的就不是重写的那个方法。
 
 重写时也**不可以将父类公开的方法或变量改成私有**（如将 `public` 改成 `private` ），否则也会报错。也就是说重写的时候，方法的访问控制权限不能比父类更严格。
 
