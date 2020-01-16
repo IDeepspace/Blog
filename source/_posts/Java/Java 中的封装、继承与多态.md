@@ -227,9 +227,9 @@ public class Person {
   }
 
   public static void main(String[] args) {
-    Person person1 = new Person("陈星星", 1);
+    Person person1 = new Person("陈星星", 1); // 哇哇哇....
+    Person person2 = new Person("Deepspace", 1, "software engineer"); // 哇哇哇....
 
-    Person person2 = new Person("Deepspace", 1, "software engineer");
     System.out.println("姓名: " + person1.name + ". 年龄: " + person1.age); // 姓名: 陈星星. 年龄: 1
     System.out.println("姓名: " + person1.name + ". 年龄: " + person1.age + ". 职业: " + person2.job); // 姓名: 陈星星. 年龄: 1. 职业: software engineer
   }
@@ -248,7 +248,7 @@ public class Person {
 
 我们先看看没有继承的时候，会怎样写代码。
 
-以学生类和老师类为例，学生和老师都会吃饭喝、睡觉，如果没有继承，代码是这样的：
+以学生类和老师类为例，学生和老师都会吃饭、睡觉，如果没有继承，代码是这样的：
 
 ```java
 class Teacher {
@@ -272,7 +272,7 @@ class Student {
 }
 ```
 
-分别定义了 `Teacher` 类和 `Student` 类，吃饭和睡觉是学生和老师共有的行为，但是却写了两遍；并且，如果需要给 `Teacher` 类和 `Student` 类再添加一个 `walk` 的行为，则需要给两个类都分别添加，没有一点的复用性可言，随着逻辑变得复杂，代码的可维护性也会变差。
+分别定义了 `Teacher` 类和 `Student` 类，吃饭和睡觉是学生和老师共有的行为，但是却写了两遍；并且，如果需要给 `Teacher` 类和 `Student` 类再添加一个 `walk` 方法，则需要给两个类都分别添加，没有一点的复用性可言，随着逻辑变得复杂，代码的可维护性也会变差。
 
 有了继承，上面的问题就很好解决了。
 
