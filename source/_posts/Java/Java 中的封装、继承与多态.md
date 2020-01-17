@@ -1076,13 +1076,13 @@ public class Main {
 
 **接口的默认实现**
 
-为了解决[【菱形问题（ `diamond problem` ）】](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem)，从 `JDK1.8` 开始，接口的方法可以有默认实现了。
+从 `JDK1.8` 开始，接口的方法可以有默认实现了。简单说，默认方法就是接口可以有实现方法，而且不需要实现类去实现其方法。
 
-什么是菱形问题呢？
+为什么要有这个新特性呢？
 
-假设我们有一个父接口 `A`，子接口 `B` 和 `C` 都重写了 `A` 中的方法 `test()`。此时又有一个 `D` 接口，同时继承了 `B` 和 `C`，那么当 `D` 调用 `test()` 时，继承的是哪个父接口的方法呢？如果没有给出进一步的说明，编译器是无法给出答案的。如图所示：
+当我们需要修改接口时候，需要修改全部实现该接口的类，没办法在修改的同时不影响已有的实现，所以就引进了默认方法。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:80%;" />
+这样子类对于该方法就不需要强制来实现，可以选择使用默认的实现，也可以重写自己的实现。当为接口扩展方法时，只需要提供该方法的默认实现即可，至于对应的实现类可以重写也可以使用默认的实现，这样所有的实现类就不会报语法错误了。
 
 ```java
 public interface InterfaceA {
@@ -1092,22 +1092,22 @@ public interface InterfaceA {
 }
 ```
 
-使用 `default` 修饰符，可以实现接口。这样就解决了菱形问题。
+使用 `default` 修饰符，可以实现接口。接口的默认实现也使得接口的功能跟抽象类更为接近。
 
 
 
 **"多继承接口"**
 
-一个类也可以同时实现多个接口。并且使用 default 修饰符，也可以解决菱形问题：
+虽然 `Java` 不支持多继承，但是一个类也可以同时实现多个接口。如下面的例子：
 
 ```java
-public interface InterfaceA {
+interface InterfaceA {
   default String getName() {
     return "a";
   }
 }
 
-public interface InterfaceB {
+interface InterfaceB {
   default String getName() {
     return "b";
   }
@@ -1123,11 +1123,62 @@ public class ImpClass implements InterfaceA, InterfaceB {
 
   @Override
   public String getName() {
-    // 必须提供自己的实现
+    //必须提供自己的实现
     return InterfaceA.super.getName() + InterfaceB.super.getName();
   }
 }
 ```
+
+
+
+**菱形问题**
+
+`Java` 语言中一个类只能继承一个父类，但是一个类可以实现多个接口。这样就造成了**菱形问题**。
+
+什么是[【菱形问题（ `diamond problem` ）】](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem)呢？
+
+假设我们有一个父接口 `A`，子接口 `B` 和 `C` 都重写了 `A` 中的方法 `test()`。此时又有一个 `D` 接口，同时继承了 `B` 和 `C`，那么当 `D` 调用 `test()` 时，继承的是哪个父接口的方法呢？如果没有给出进一步的说明，编译器是无法给出答案的。如图所示：
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:80%;" />
+
+为了解决这个问题，实现类必须**显示地指定要使用的方法**，当然也重写共享方法并提供自己的实现。
+
+```java
+interface InterfaceA {
+  default String getName() {
+    return "a";
+  }
+}
+
+interface InterfaceB extends InterfaceA {
+  default String getName() {
+    return "b";
+  }
+}
+
+interface InterfaceC extends InterfaceA {
+  default String getName() {
+    return "c";
+  }
+}
+
+public class ImpClass implements InterfaceB, InterfaceC {
+  public static void main(String[] args) {
+    ImpClass c = new ImpClass();
+    System.out.println(c.getName()); // bc
+    System.out.println(((InterfaceA) c).getName()); // bc
+    System.out.println(((InterfaceB) c).getName()); // bc
+  }
+
+  @Override
+  public String getName() {
+    //必须显示地指定要使用的方法
+    return InterfaceB.super.getName() + InterfaceC.super.getName();
+  }
+}
+```
+
+`Java 8` 中引入了一种新的语法 `X.super.method()`，其中 `X` 是你希望调用的 `method` 方法所在的父接口。
 
 
 
