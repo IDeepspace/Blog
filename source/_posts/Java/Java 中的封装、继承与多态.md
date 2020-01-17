@@ -1033,7 +1033,7 @@ public class NumTest {
 }
 ```
 
-一个接口不能够实现另一个接口，但它可以继承多个其他接口。子接口可以对父接口的方法和常量进行重写。例如：
+一个接口不能够实现另一个接口，但它可以**继承多个其他接口**。子接口可以对父接口的方法和常量进行重写。例如：
 
 ```java
 public interface A {
@@ -1098,7 +1098,7 @@ public interface InterfaceA {
 
 **"多继承接口"**
 
-虽然 `Java` 不支持多继承，但是一个类也可以同时实现多个接口。如下面的例子：
+虽然 `Java` 不支持多继承，但是一个类也可以同时实现多个接口。我么先看下面的例子：
 
 ```java
 interface InterfaceA {
@@ -1128,6 +1128,8 @@ public class ImpClass implements InterfaceA, InterfaceB {
   }
 }
 ```
+
+使用接口可以实现 "多继承" 。但是这样会造成**菱形问题**，这也是 `Java` 没有提供多继承的原因。
 
 
 
