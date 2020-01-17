@@ -1339,6 +1339,10 @@ public class Dog implements Animal {
   public void walk() {
     System.out.println("狗在走！！");
   }
+  
+  public void sleep() {
+    System.out.println("狗睡觉！！");
+  }
 }
 
 public class Main {
@@ -1347,6 +1351,7 @@ public class Main {
     Animal d = new Dog(); // 接口的引用类型变量(d)指向了接口实现类的对象(Dog)。
     d.eat(); // 狗在吃！！
     d.walk(); // 狗在走！！
+    // d.sleep(); // error
 
     Animal c = new Cat();
     c.eat(); // 猫在吃！！
