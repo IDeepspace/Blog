@@ -450,7 +450,7 @@ font:
   headings:
     external: true
     family:
-    size: 1.5
+    size: 2.0
 
   # Font settings for posts (.post-body).
   posts:
