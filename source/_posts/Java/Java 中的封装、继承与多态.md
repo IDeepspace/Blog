@@ -1226,65 +1226,98 @@ public class ImpClass implements InterfaceB, InterfaceC {
 
 ```java
 class Animal {
-  static int age = 20;
-  int num = 10;
+  private String name = "Animal";
 
-  public static void eat() {
-    System.out.println("动物吃饭");
+  public static void barking() {
+    System.out.println("Animal 正在睡觉...");
+  }
+
+  public void eat() {
+    System.out.println(name + "正在吃东西...");
+    sleep();
   }
 
   public void sleep() {
-    System.out.println("动物在睡觉");
+    System.out.println(name + "正在睡觉...");
   }
 
   public void run() {
-    System.out.println("动物在奔跑");
+    System.out.println(name + "正在奔跑...");
   }
 }
 
 class Cat extends Animal {
-  static int age = 90;
-  int num = 80;
-  String name = "tomCat";
+  private String name = "Cat";
 
-  public static void eat() {
-    System.out.println("猫吃饭");
+  public static void barking() {
+    System.out.println("Cat 正在睡觉...");
   }
 
+  // 重载
+  public void eat(String name) {
+    System.out.println(name + "吃完了");
+    sleep();
+  }
+
+  // 重写
   @Override
   public void sleep() {
-    System.out.println("猫在睡觉");
+    System.out.println(name + "正在睡觉");
   }
 
   public void catchMouse() {
-    System.out.println("猫在抓老鼠");
+    System.out.println("抓老鼠");
   }
 }
 
 public class Main {
   public static void main(String[] args) {
-    Animal miao = new Cat(); // 向上转型：父类引用指向子类对象
-    miao.sleep(); // 猫在睡觉
+    Animal miao = new Cat();
+    miao.eat();
 
-    miao.run(); // 动物在奔跑
-    
-    miao.eat(); // 动物吃饭
+    miao.barking();
 
-//    miao.catchMouse(); // 不能调用 catchMouse
-//    System.out.println(miao.name); // 不能获取 name 属性
-    System.out.println(miao.num); // 10
-    System.out.println(miao.age); // 20
+    miao.run();
+
+//    animal.catchMouse(); // 不能调用 catchMouse
   }
 }
 ```
 
-上面的代码中，`Cat` 类继承了 `Animal`， 并且重写了非静态方法 `sleep`，同时 `Cat` 内部也实现了 `eat` 方法和 `catchMouse` 方法。
+分析下上面的代码：
 
-可以看到 `miao` 这个对象可以调用子类中的 `sleep` 方法和父类中的 `run` 方法，但是调用 `eat` 方法时，执行的是父类中的 `eat` 方法，因为用 `static` 关键字修饰的方法和变量都是属于类自己本身的，即使子类和父类中都有同样的 `static` 方法和变量，他们是没有任何关系的，是相互独立的，不存在多态性。
+- `Animal` 类中有 `eat`、`sleep`、`run` 三个普通方法和一个静态方法 `barking` ；
+
+- `Cat` 类继承了 `Animal`， 重载了 `eat` 方法，重写了非静态方法 `sleep`，同时 `Cat` 内部也实现了一个 `catchMouse` 方法，也有一个静态方法 `barking`（静态方法不会被重写，因为用 `static` 关键字修饰的方法和变量都是属于类自己本身的，即使子类和父类中都有同样的 `static` 方法和变量，他们是没有任何关系的，是相互独立的，不存在多态性）；
+
+打印结果为：
+
+```
+Animal正在吃东西...
+Cat正在睡觉
+Animal 正在睡觉...
+Animal正在奔跑...
+```
+
+看了输出结果，这里就会有疑问了：打印的第一句应该好理解，为什么打印的第二句不是 `Animal` 的方法，而是 `Cat` 中的方法呢？
+
+- 首先我们需要知道：在向上转型中，一个父类的引用是可以指向多种子类对象的；在运行时，对于同一个消息，它的行为表现是由实际的**被引用的对象的类型（`Cat`）（而不是引用变量的类型（Animal））**来决定；
+
+- 在 `Cat` 类中，重载了`eat` 方法，重写了父类 `Animal` 的 `sleep` 方法。重载之后的 `eat(String name)` 方法和父类 `Animal` 的 `eat()` 方法不是同一个方法，因此，在向上转型时会**丢失**；
+
+- 而 `Cat` 子类重写了 `sleep` 方法，在向上转型的时候是不会丢失的，并且因为指定对对象的引用类型是 `Cat` ，所以 `Animal` 类在调用 `eat()` 方法的时候，先是调用类中 `eat()` 方法，然后再调用子类中的 `sleep()` 方法。
+
+**结论：**
+
+所以，当父类引用指向子类方法时，只能调用那些父类中存在的方法，如果子类中对该方法进行了重写，那么在运行时就会动态调用子类中的方法，这就是多态的体现。
+
+**多态的缺点：**
 
 而当我们去调用子类中特有的属性和方法时，会发生报错，这个就是多态的缺点，即：**即多态后不能使用子类特有的属性和方法**。为什么呢？
 
-因为我们声明的 `miao` 是 `Animal` 类型，到了运行时期，`miao` 调用 `catchMouse` 方法时，`Animal` 中没有这个方法，所以就会编译不通过，`eat` 方法和 `sleep` 方法是存在的，所以不会报错。对于成员变量也是一样的道理。
+因为我们声明的 `miao` 是 `Animal` 类型，到了运行时期，`miao` 调用 `catchMouse` 方法时，`Animal` 中没有这个方法，所以就会编译不通过，`eat` 方法和 `sleep` 方法是存在的，所以不会报错。对于成员变量也是一样的道理。这其实就是**向上转型的特点**。
+
+> 当父类的引用指向子类对象时，就发生了向上转型，即把子类类型对象转成了父类类型。向上转型的好处是隐藏了子类类型，提高了代码的扩展性。但向上转型也有弊端，只能使用子类和父类共有的特性，而无法使用子类特有功能。
 
 如果我们想要使用子类中特有的属性和方法该怎么办呢？答案是**强制类型转换**。
 
@@ -1292,18 +1325,14 @@ public class Main {
 public class Main {
   public static void main(String[] args) {
     Animal miao = new Cat();
-    miao.sleep(); // 猫在睡觉
+    miao.eat();
 
-    miao.eat(); // 动物吃饭
-    miao.run(); // 动物在奔跑
+    miao.barking();
 
-    // 强制类型转换
-    Cat mew = (Cat)miao;
-    mew.catchMouse(); // 猫在抓老鼠
-    System.out.println(mew.name); // tomCat
-    
-    System.out.println(miao.num); // 10
-    System.out.println(miao.age); // 20
+    miao.run();
+
+    Cat mew = (Cat)miao; // 强制类型转换
+    mew.catchMouse(); // 抓老鼠
   }
 }
 ```
@@ -1361,4 +1390,74 @@ public class Main {
 ```
 
 充分体现了 **"一个接口，多个实现"** 的特点。
+
+
+
+#### 4、经典例子
+
+检验自己是否掌握了多态，看看下面的例子吧：
+
+```java
+class A {
+  public String show(D obj) {
+    return "A and D";
+  }
+
+  public String show(A obj) {
+    return "A and A";
+  }
+}
+
+class B extends A {
+  public String show(B obj) {
+    return "B and B";
+  }
+
+  public String show(A obj) {
+    return "B and A";
+  }
+}
+
+class C extends B {
+
+}
+
+class D extends B {
+
+}
+
+public class Main {
+  public static void main(String[] args) {
+    A a1 = new A();
+    A a2 = new B();
+    B b = new B();
+    C c = new C();
+    D d = new D();
+
+    System.out.println(a1.show(b)); // 1 
+    System.out.println(a1.show(c)); // 2 
+    System.out.println(a1.show(d)); // 3 
+    System.out.println(a2.show(b)); // 4 
+    System.out.println(a2.show(c)); // 5 
+    System.out.println(a2.show(d)); // 6 
+    System.out.println(b.show(b)); // 7 
+    System.out.println(b.show(c)); // 8 
+    System.out.println(b.show(d)); // 9 
+  }
+}
+```
+
+输出结果是：
+
+```java
+A and A 
+A and A 
+A and D 
+B and A 
+B and A 
+A and D 
+B and B 
+B and B 
+A and D
+```
 
