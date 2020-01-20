@@ -1229,7 +1229,7 @@ class Animal {
   private String name = "Animal";
 
   public static void barking() {
-    System.out.println("Animal 正在睡觉...");
+    System.out.println("Animal正在叫...");
   }
 
   public void eat() {
@@ -1250,7 +1250,7 @@ class Cat extends Animal {
   private String name = "Cat";
 
   public static void barking() {
-    System.out.println("Cat 正在睡觉...");
+    System.out.println("Cat正在叫...");
   }
 
   // 重载
@@ -1295,7 +1295,7 @@ public class Main {
 ```
 Animal正在吃东西...
 Cat正在睡觉
-Animal 正在睡觉...
+Animal正在叫...
 Animal正在奔跑...
 ```
 
