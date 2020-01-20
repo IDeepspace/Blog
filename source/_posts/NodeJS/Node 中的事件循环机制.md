@@ -17,20 +17,20 @@ urlname: event-loop-in-nodejs
 
 ```javascript
 setTimeout(() => {
-    console.log('timer1')
+  console.log('timer1');
 
-    Promise.resolve().then(function () {
-        console.log('promise1')
-    })
-}, 0)
+  Promise.resolve().then(function () {
+    console.log('promise1');
+  });
+}, 0);
 
 setTimeout(() => {
-    console.log('timer2')
+  console.log('timer2');
 
-    Promise.resolve().then(function () {
-        console.log('promise2')
-    })
-}, 0)
+  Promise.resolve().then(function () {
+    console.log('promise2');
+  });
+}, 0);
 ```
 
 <!-- more -->
@@ -122,12 +122,12 @@ promise2
 
 ```javascript
 setTimeout(() => {
-  console.log('timeout')
-}, 0)
+  console.log('timeout');
+}, 0);
 
 setImmediate(() => {
-  console.log('immediate')
-})
+  console.log('immediate');
+});
 ```
 
 但是把它们放到一个 `I/O` 回调里面，就一定是 `setImmediate()` 先执行，因为 `poll` 阶段后面就是 `check` 阶段。
@@ -163,17 +163,17 @@ setImmediate(() => {
 看个 `demo` :
 
 ```javascript
-const fs = require('fs')
+const fs = require('fs');
 
 fs.readFile('test.txt', () => {
-  console.log('readFile')
+  console.log('readFile');
   setTimeout(() => {
-    console.log('timeout')
-  }, 0)
+    console.log('timeout');
+  }, 0);
   setImmediate(() => {
-    console.log('immediate')
-  })
-})
+    console.log('immediate');
+  });
+});
 ```
 
 结果：
@@ -228,26 +228,26 @@ timeout
 比如下面例子的 `readFile` 已经完成，但它的回调一直无法执行：
 
 ```javascript
-const fs = require('fs')
-const starttime = Date.now()
-let endtime
+const fs = require('fs');
+const starttime = Date.now();
+let endtime;
 
 fs.readFile('text.txt', () => {
-  endtime = Date.now()
-  console.log('finish reading time: ', endtime - starttime)
-})
+  endtime = Date.now();
+  console.log('finish reading time: ', endtime - starttime);
+});
 
-let index = 0
+let index = 0;
 
-function handler () {
-  if (index++ >= 1000) return
-  console.log(`nextTick ${index}`)
-  process.nextTick(handler)
+function handler() {
+  if (index++ >= 1000) return;
+  console.log(`nextTick ${index}`);
+  process.nextTick(handler);
   // console.log(`setImmediate ${index}`)
   // setImmediate(handler)
 }
 
-handler()
+handler();
 ```
 
 `process.nextTick()` 的运行结果：
@@ -270,7 +270,6 @@ finish reading time: 80
 ......
 setImmediate 999
 setImmediate 1000
-
 ```
 
 这是因为嵌套调用的 `setImmediate()` 回调，被排到了下一次 `event loop` 才执行，所以不会出现阻塞。
