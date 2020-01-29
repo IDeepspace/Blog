@@ -3,6 +3,8 @@ title: Java 中的 String、StringBuffer、StringBuilder
 author: Deepspace
 tags:
   - String
+  - StringBuffer
+  - StringBuilder
   - Java
 categories: Java
 date: 2017-06-29
@@ -31,11 +33,13 @@ String str = "Deepspace";
 String str = new String("Deepspace");
 ```
 
+> 这两种创建的方式是有区别的，这里先暂时不讲，等我们熟悉了 String 对象的操作之后，再来看它们的区别。
+
 
 
 ### 二、String 对象的不可变性
 
-从我们知道 `String` 对象的那一刻起，我想大家都知道了 `String` 对象是不可变的。那它不可变是怎么做到的呢？`Java` 这么做能带来哪些好处？
+我们都知道了 `String` 对象是不可变的。那它不可变是怎么做到的呢？`Java` 这么做能带来哪些好处？
 
 #### 1、为什么不可变？
 
@@ -64,7 +68,7 @@ public final class String
 从上面的源码可以分析出：
 
 -  `String` 类是被 `final` 修饰的，也即意味着 `String` 类不能被继承，并且它的成员方法都默认为 `final` 方法，这是 `String` 对象不可变的第一点；
-- `String` 类其实是通过 `char` 数组来保存字符串的，其值也是使用 `private final` 来声明的，我们知道对于一个被 `final` 修饰符修饰的基本数据类型的变量，其值一旦被初始化之后就不能再更改了，这是 `String` 对象不可变的第二点。
+- `String` 类其实是通过 `char` 数组来保存字符串的，也是使用 `private final` 来声明的，我们知道对于一个被 `final` 修饰符修饰的基本数据类型的变量，其值一旦被初始化之后就不能再更改了，这是 `String` 对象不可变的第二点。
 
 
 
@@ -76,7 +80,7 @@ public final class String
 
 - 可以实现字符串常量池；
 
-  我们知道，字符串的分配，和其他的对象分配一样，会耗费时间与内存空间，作为最基础的数据类型，如果大量频繁的创建字符串，会极大程度地影响程序的性能。所以，`JVM` 为了提高性能和减少内存开销，在实例化字符串常量的时候进行了一些优化，优化思想是这样的：
+  我们知道，字符串的分配，和其他的对象分配一样，会耗费时间与内存空间；作为最基础的数据类型，如果大量且频繁地创建字符串，会极大程度地影响程序的性能。所以，`JVM` 为了提高性能和减少内存开销，在实例化字符串常量的时候进行了一些优化，优化思想是这样的：
 
   为字符串开辟一个字符串常量池，类似于缓存区；创建字符串常量时，首先检查字符串常量池是否存在该字符串；如果存在该字符串，就返回引用实例，如果不存在，则实例化该字符串并放入池中。
 
@@ -168,7 +172,7 @@ System.out.println(str1.equals(str3)); // false
 
 **`equalsIgnoreCase()` 方法**
 
-`equalsIgnoreCase()` 方法的作用和语法与 `equals()` 方法完全相同，唯一不同的是 `equalsIgnoreCase()` 比较时不区分大小写。当比较两个字符串时，它会认为 `A-Z` 和 `a-z` 是一样的。
+`equalsIgnoreCase()` 方法的作用和语法与 `equals()` 方法完全相同，唯一不同的是 `equalsIgnoreCase()` 在比较时不区分大小写。当比较两个字符串时，它会认为 `A-Z` 和 `a-z` 是一样的。
 
 ```java
 String str1 = "abc";
@@ -246,7 +250,7 @@ System.out.println(string.length()); // 23
 
 #### 3、更改字符串中字符的大小写
 
-`toUpperCase` 方法 和 `toLowerCase` 方法用用于更改字符串中字符的大小写。
+`toUpperCase` 方法 和 `toLowerCase` 方法用于转换字符串中字符的大小写。
 
 ```java
 String string = "This is a Random String";
@@ -324,6 +328,21 @@ public class Main {
     }
   }
 }
+```
+
+输出结果为：
+
+```
+所有颜色为：
+Red
+Black
+White
+Yellow
+Blue
+前三个颜色为：
+Red
+Black
+White,Yellow,Blue
 ```
 
 
@@ -673,7 +692,8 @@ public class Main {
 
 ### 五、StringBuilder
 
-在很多情况下，字符串拼接操作不需要线程安全，所以 `StringBuilder` 登场了。`StringBuilder` 是 `JDK1.5` 发布的，它和 `StringBuffer` 本质上没什么区别，就是去掉了保证线程安全的那部分，减少了开销。所以，如果没有线程安全的要求下，优先使用 `StringBuilder` 。
+在很多情况下，字符串拼接操作不需要线程安全，所以 `StringBuilder` 登场了。`StringBuilder` 是在 `JDK1.5` 中发布的，它和 `StringBuffer` 本质上没什么区别，就是去掉了保证线程安全的那部分，减少了开销。所以，在没有线程安全的需求下，优先使用 `StringBuilder` 。
 
 在方法的使用上面，`StringBuilder` 和 `StringBuffer` 是一样的，这里就不再重复。
 
+关于线程安全，会在后面讲到。
