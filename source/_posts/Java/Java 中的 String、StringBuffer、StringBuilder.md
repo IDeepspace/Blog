@@ -467,7 +467,213 @@ public class Main {
 
 ###四、StringBuffer
 
+通过前面的内容，我们知道了 `String` 对象**不可变**的特性，这在一些情况下会带来不便，如拼接字符串时候会产生很多无用的中间对象，如果频繁的进行这样的操作对性能有所影响。
+
+所以，`Java` 提供了两个可变字符串类 `StringBuffer` 和 `StringBuilder`，中文翻译为 **"字符串缓冲区"**。
+
+`StringBuffer` 就是为了解决大量拼接字符串时产生很多中间对象的问题而提供的一个类。使用 `StringBuffer` 类时，每次都会对 `StringBuffer` 对象本身进行操作，而不是生成新的对象并改变对象引用。
+
+每个 `StringBuffer` 类的对象都能够存储指定容量的字符串，如果字符串的长度超过了 `StringBuffer` 类对象的容量，则该对象的容量会**自动扩大**。
+
+#### 1、创建 StringBuffer 类
+
+`StringBuffer` 类提供了 `3` 个构造方法来创建一个字符串：
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    // 定义一个空的字符串缓冲区，含有16个字符的容量
+    StringBuffer str1 = new StringBuffer();
+
+    // 定义一个含有10个字符容量的字符串缓冲区
+    StringBuffer str2 = new StringBuffer(10);
+
+    // 定义一个含有(16+4)的字符串缓冲区，"Java"为4个字符
+    StringBuffer str3 = new StringBuffer("Java");
+    /*
+     *输出字符串的容量大小
+     *capacity() 方法返回字符串的容量大小
+     */
+    System.out.println(str1.capacity());  // 输出 16
+    System.out.println(str2.capacity());  // 输出 10
+    System.out.println(str3.capacity());  // 输出 20
+  }
+}
+```
+
+`capacity()` 方法返回 `StringBuffer` 对象字符串的容量大小。
+
+
+
+#### 2、追加字符
+
+使用 `append()` 方法用于向原有 `StringBuffer` 对象中追加字符串。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    String str = "study";
+    str.concat("tonight");
+    System.out.println(str); // study
+
+    StringBuffer strB = new StringBuffer("study");
+    strB.append("tonight");
+    strB.append("!");
+    System.out.println(strB); // studytonight!
+  }
+}
+```
+
+也可以使用链式调用的方式来书写：
+
+```java
+strB.append("tonight").append("!");
+```
+
+
+
+#### 3、替换字符
+
+`setCharAt()` 方法用于在字符串的指定索引位置替换一个字符。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    StringBuffer sb = new StringBuffer("hello");
+    sb.setCharAt(1, 'E');
+    System.out.println(sb);    // hEllo
+    sb.setCharAt(0, 'H');
+    System.out.println(sb);    // HEllo
+    sb.setCharAt(2, 'p');
+    System.out.println(sb);    // HEplo
+  }
+}
+```
+
+也可以使用 `replace()` 方法来替换：
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    StringBuffer sb = new StringBuffer("hello java");
+    sb.replace(1, 5, "tttt");
+    System.out.println(sb); // htttt java
+  }
+}
+```
+
+
+
+#### 4、反转字符串
+
+`reverse()` 方法用于将字符串序列用其反转的形式取代。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    StringBuffer sb = new StringBuffer("java");
+    sb.reverse();
+    System.out.println(sb); // avaj
+  }
+}
+```
+
+
+
+#### 5、删除字符串
+
+`StringBuffer` 类提供了 `deleteCharAt()` 和 `delete()` 两个删除字符串的方法。
+
+`deleteCharAt()` 方法的作用是删除指定位置的字符，然后将剩余的内容形成一个新的字符串：
+
+```java
+StringBuffer sb = new StringBuffer("She");
+sb.deleteCharAt(2);
+System.out.println(sb); // Sh
+```
+
+
+
+`delete()` 方法用于删除指定区域以内的所有字符，语法是：
+
+```java
+new StringBuffer().delete(int start,int end);
+```
+
+`start` 表示要删除字符的起始索引值（包括索引值所对应的字符），`end` 表示要删除字符串的结束索引值（不包括索引值所对应的字符）。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    StringBuffer sb = new StringBuffer("hello java");
+    sb.delete(2, 5);
+    System.out.println(sb); // he java
+    sb.delete(2, 5);
+    System.out.println(sb); // heva
+  }
+}
+```
+
+
+
+#### 6、插入数据
+
+`insert()` 方法用于将数据插入 `StringBuffer` 对象中。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    StringBuffer sb = new StringBuffer("hello java");
+    sb.insert(3, "1234");
+    System.out.println(sb); // hel1234lo java
+  }
+}
+```
+
+
+
+#### 7、截取数据
+
+`substring()` 方法可以截取 `StringBuffer` 对象，返回值不在是缓冲区本身，而是一个新的**字符串**。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    StringBuffer sb = new StringBuffer("hello java");
+    String sb1;
+    sb1 = sb.substring(1, 3);
+    System.out.println(sb); // hello java
+    System.out.println(sb1); // el
+  }
+}
+```
+
+
+
+#### 8、StringBuffer 与 String 的相互转化
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    String s1 = "java";
+    System.out.println("String  " + s1); // String  java
+
+    // 将string转成StringBuffer
+    StringBuffer s2 = new StringBuffer(s1);
+    System.out.println("StringBuffer " + s1); // StringBuffer java
+
+    // 将StringBuffer转成String
+    String s3 = s2.toString();
+    System.out.println("String " + s3); // String java
+  }
+}
+```
+
 
 
 ### 五、StringBuilder
+
+在很多情况下，字符串拼接操作不需要线程安全，所以 `StringBuilder` 登场了。`StringBuilder` 是 `JDK1.5` 发布的，它和 `StringBuffer` 本质上没什么区别，就是去掉了保证线程安全的那部分，减少了开销。所以，如果没有线程安全的要求下，优先使用 `StringBuilder` 。
+
+在方法的使用上面，`StringBuilder` 和 `StringBuffer` 是一样的，这里就不再重复。
 
