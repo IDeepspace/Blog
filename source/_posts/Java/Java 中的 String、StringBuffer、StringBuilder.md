@@ -35,7 +35,7 @@ String str = new String("Deepspace");
 
 > 这两种创建的方式是有区别的，这里先暂时不讲，等我们熟悉了 String 对象的操作之后，再来看它们的区别。
 
-
+<!-- more -->
 
 ### 二、String 对象的不可变性
 
