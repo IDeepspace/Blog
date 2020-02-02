@@ -11,7 +11,7 @@ date: 2017-06-29
 urlname: java-string-stringBuffer-stringBuilder
 ---
 
-## Java 中的 String、StringBuffer、StringBuilder
+<!-- ## Java 中的 String、StringBuffer、StringBuilder -->
 
 `Java` 中的 `String` 属于引用类型，它是一个类，这和其他语言是不一样的。
 
