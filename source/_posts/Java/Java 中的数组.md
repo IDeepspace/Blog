@@ -509,3 +509,36 @@ public class Dog {
 
 关于 `Java` 中对象的深浅，可以看这里：https://togoblog.cn/categories/Java/java-copy-object
 
+
+
+### 五、数组的遍历
+
+#### 1、for 循环
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    int[] arr = {1, 2, 3, 4, 5, 6, 7, 8};
+
+    for (int i = 0; i < arr.length; i++) {
+      System.out.println(arr[i]);
+    }
+  }
+}
+```
+
+
+
+#### 2、foreach 循环
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    int[] arr = {1, 2, 3, 4, 5, 6, 7, 8};
+
+    for (int value : arr) {
+      System.out.println(value);
+    }
+  }
+}
+```
