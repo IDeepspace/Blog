@@ -56,7 +56,7 @@ int[] arr = new int[3]; // 这样等于是在定义int数组变量的时候，�
 
 这里要注意，在 `Java` 中，数组一旦创建，其存储空间的大小是无法改变的。
 
-
+<!-- more -->
 
 ### 二、数组的初始化
 
@@ -466,5 +466,46 @@ public class Main {
 }
 ```
 
-这里需要特别注意：数组的拷贝是浅拷贝，对于基本类型可以，对于引用类型是不适合的。
+
+
+### 四、数组的深浅拷贝
+
+这里需要特别注意：前面所介绍的数组的拷贝方法，都是浅拷贝，对于**基本类型或者 `String` 类型**是可以正常满足需求的，但是对于引用类型是不适合的。
+
+```java
+import java.util.Arrays;
+
+public class Main {
+  public static void main(String[] args) {
+    Dog[] dogs = new Dog[]{new Dog("da-huang", 1), new Dog("da-hui", 2)};
+    Dog[] newDogs = Arrays.copyOf(dogs, 2);
+
+    System.out.println(dogs[0].name); // da-huang
+
+    newDogs[0].name = "xiao-huang";
+    System.out.println(newDogs[0].name); // xiao-huang
+    System.out.println(dogs[0].name); // xiao-huang
+  }
+}
+
+public class Dog {
+  String name;
+  int age;
+
+  Dog(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+```
+
+浅拷贝只是复制了对象的引用地址，两个对象指向同一个内存地址，所以修改其中任意的值，另一个值都会随之变化。
+
+而深拷贝是将对象及值复制过来，两个对象修改其中任意的值另一个值不会改变。那怎么做到深拷贝呢？
+
+深拷贝的原理就是要让**原始对象和拷贝之后的对象所具有的引用类型属性指向的不是同一块堆内存，给新对象另辟了一个独立的内存空间。**
+
+所以，我们只需要可以完成**对象的深拷贝**了，那数组的深拷贝也就好办了。
+
+关于 `Java` 中对象的深浅，可以看这里：https://togoblog.cn/categories/Java/java-copy-object
 
