@@ -401,12 +401,12 @@ public class Main {
   public static void main(String[] args) {
     int[] scores = new int[] { 57, 81, 68, 75, 91, 66, 75, 84 };
     int[] newScores = (int[]) Arrays.copyOfRange(scores, 0, 5);
+
+    System.out.println(scores == newScores); // false
     System.out.println(Arrays.toString(newScores)); // [57, 81, 68, 75, 91]
   }
 }
 ```
-
-`copyOfRange()` 方法也是深拷贝。
 
 
 
@@ -437,7 +437,8 @@ public class Main {
     int[] newScores = new int[]{80, 82, 71, 92, 68, 71, 87, 88, 81, 79, 90, 77};
 
     System.arraycopy(scores, 0, newScores, 2, 8);
-    System.out.println(Arrays.toString(newScores));
+    System.out.println(scores == newScores); // false
+    System.out.println(Arrays.toString(newScores)); // [80, 82, 100, 81, 68, 75, 91, 66, 75, 100, 90, 77]
   }
 }
 ```
@@ -459,8 +460,9 @@ public class Main {
   public static void main(String[] args) {
     int[] scores = new int[]{100, 81, 68, 75, 91, 66, 75, 100};
 
-    int[] newScores = (int[]) scores.clone();
+    int[] newScores = scores.clone();
 
+    System.out.println(scores == newScores); // false
     System.out.println(Arrays.toString(newScores)); // [100, 81, 68, 75, 91, 66, 75, 100]
   }
 }
@@ -470,7 +472,7 @@ public class Main {
 
 ### 四、数组的深浅拷贝
 
-这里需要特别注意：前面所介绍的数组的拷贝方法，都是浅拷贝，对于**基本类型或者 `String` 类型**是可以正常满足需求的，但是对于引用类型是不适合的。
+这里需要特别注意：前面所介绍的数组的拷贝方法，其实都是浅拷贝，对于**基本类型或者 `String` 类型的元素**是可以正常满足需求的，但是对于引用类型是不适合的。
 
 ```java
 import java.util.Arrays;
@@ -479,6 +481,8 @@ public class Main {
   public static void main(String[] args) {
     Dog[] dogs = new Dog[]{new Dog("da-huang", 1), new Dog("da-hui", 2)};
     Dog[] newDogs = Arrays.copyOf(dogs, 2);
+
+    System.out.println(dogs == newDogs); // false
 
     System.out.println(dogs[0].name); // da-huang
 
@@ -501,11 +505,9 @@ public class Dog {
 
 浅拷贝只是复制了对象的引用地址，两个对象指向同一个内存地址，所以修改其中任意的值，另一个值都会随之变化。
 
-而深拷贝是将对象及值复制过来，两个对象修改其中任意的值另一个值不会改变。那怎么做到深拷贝呢？
+而深拷贝是将对象及值复制过来，两个对象修改其中任意的值另一个值不会改变。所以，深拷贝的原理就是要让**原始对象和拷贝之后的对象所具有的引用类型属性指向的不是同一块堆内存，给新对象另辟了一个独立的内存空间。**
 
-深拷贝的原理就是要让**原始对象和拷贝之后的对象所具有的引用类型属性指向的不是同一块堆内存，给新对象另辟了一个独立的内存空间。**
-
-所以，我们只需要可以完成**对象的深拷贝**了，那数组的深拷贝也就好办了。
+我们只需要可以完成**对象的深拷贝**了，那数组的深拷贝也就好办了。
 
 关于 `Java` 中对象的深浅，可以看这里：https://togoblog.cn/categories/Java/java-copy-object
 
