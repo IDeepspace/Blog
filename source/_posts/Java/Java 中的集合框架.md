@@ -76,14 +76,14 @@ urlname: java-collection-framework
 
 我们都知道数组的限制是它有一个固定的长度，所以如果数组已满，就不能再添加任何元素。而 `ArrayList` 是 `List` 接口的**可调整大小**的数组实现，可以在添加和删除元素后**动态增长和缩小长度**，所以，我们也不用在声明的时候指定大小。`ArrayList` 使用起来比 `Array` 更加方便。
 
-**1）创建 `ArrayList`**
+1）创建 `ArrayList`
 
 ```java
 ArrayList<String> arrList=new ArrayList<String>();
 ArrayList<Integer> list = new ArrayList<Integer>();
 ```
 
-**2）添加元素**
+2）添加元素
 
 ```java
 ArrayList<String> fruits = new ArrayList<String>();
@@ -93,19 +93,19 @@ fruits.add(1,"Strawberry"); // 在指定位置添加
 System.out.println(Arrays.toString(fruits.toArray())); // [Apple, Strawberry, Banana]
 ```
 
-**3）获取长度**
+3）获取长度
 
 ```java
 System.out.println(fruits.size()); // 获取长度 3
 ```
 
-**4）获取元素**
+4）获取元素
 
 ```java
 System.out.println(fruits.get(1)); // 获取元素
 ```
 
-**5）删除元素**
+5）删除元素
 
 ```java
 ArrayList<String> fruits = new ArrayList<String>();
@@ -119,7 +119,7 @@ fruits.remove(1); // 在指定位置删除
 System.out.println(Arrays.toString(fruits.toArray())); // [Strawberry]
 ```
 
-**6）遍历**
+6）遍历
 
 ```java
 ArrayList<String> fruits = new ArrayList<String>();
@@ -136,7 +136,7 @@ for (String fruit : fruits) {
 }
 ```
 
-**7）返回元素的索引**
+7）返回元素的索引
 
 ```java
 ArrayList<String> fruits = new ArrayList<String>();
@@ -149,7 +149,7 @@ System.out.println(fruits.lastIndexOf("Apple")); // 获取索引: 2
 System.out.println(fruits.lastIndexOf("pear")); // 获取索引: -1
 ```
 
-**8）检查某个元素是否存在 `ArrayList` 中**
+8）检查某个元素是否存在 `ArrayList` 中
 
 ```java
 ArrayList<String> fruits = new ArrayList<String>();
@@ -166,13 +166,13 @@ fruits.add("Banana");
 System.out.println(fruits.containsAll(newFruits)); // true
 ```
 
-**9）一次性删除所有元素**
+9）一次性删除所有元素
 
 ```java
 fruits.clear();
 ```
 
-**10）排序**
+10）排序
 
 ```java
 Collections.sort(fruits); // 升序
@@ -270,7 +270,7 @@ public class Main {
 }
 ```
 
-**11）更新列表元素**
+11）更新列表元素
 
 ```java
 public class Main {
@@ -287,7 +287,7 @@ public class Main {
 }
 ```
 
-**12）连接组合**
+12）连接组合
 
 ```java
 ArrayList<Integer> arrayList = new ArrayList<Integer>();
@@ -300,7 +300,7 @@ arrayList1.add(3);
 arrayList1.addAll(arrayList); // [3, 1, 2]
 ```
 
-**13）拷贝**
+13）拷贝
 
 ```java
 ArrayList<Integer> arrayList = new ArrayList<Integer>();
@@ -313,7 +313,7 @@ ArrayList<Integer> arrayList = new ArrayList<Integer>();
     System.out.println(arrayList1); // [1, 2, 3]
 ```
 
-**14）判空**
+14）判空
 
 ```java
 ArrayList<Integer> arrayList = new ArrayList<Integer>();
@@ -325,7 +325,7 @@ System.out.println(arrayList.isEmpty()); // false
 System.out.println(arrayList1.isEmpty()); // true
 ```
 
-**15）将 `ArrayList` 转换为字符串数组**
+15）将 `ArrayList` 转换为字符串数组
 
 ```java
 ArrayList<String> fruits = new ArrayList<String>();
@@ -335,7 +335,7 @@ fruits.add("Banana");
 System.out.println(Arrays.toString(fruits.toArray())); // [Strawberry]
 ```
 
-**16）将数组转换为 `ArrayList`**
+16）将数组转换为 `ArrayList`
 
 ```java
 String cityNames[] = {"Agra", "Mysore", "Chandigarh", "Bhopal"};
@@ -396,9 +396,186 @@ Collections.addAll(arrayList, cityNames);
 
 
 
+下面介绍下 `LinkedList` 类的方法。
+
+1）创建
+
+```java
+LinkedList<String> list = new LinkedList<String>();
+```
+
+2）添加
+
+```java
+LinkedList<String> list = new LinkedList<String>();
+list.add("hello");
+list.add(0, "I love");
+list.addFirst("world");
+list.addLast("bye");
+```
+
+3）将指定集合的所有元素添加到列表中：`addAll`
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    LinkedList<String> list = new LinkedList<String>();
+    ArrayList<String> arrayList= new ArrayList<String>();
+    arrayList.add("String1");
+    arrayList.add("String2");
+    list.addAll(arrayList);
+
+    System.out.println(list); // [String1, String2]
+  }
+}
+```
+
+如果指定的集合为 `null`，则抛出 `NullPointerException`。
+
+4）获取元素
+
+- `Object get(int index)`：从列表中返回指定索引的项；
+- `Object getFirst()`：从列表中取出第一个项；
+- `Object getLast()`：从列表中取出最后一项；
+- `int size()`：返回列表元素的数量。
+
+5）索引
+
+- `int indexOf(Object item)`：返回指定项的索引；
+- `int lastIndexOf(Object item)`：返回指定元素最后一次出现的索引；
+
+6）删除元素
+
+- `Object poll()`：返回并删除列表的第一项；
+- `Object pollFirst()`：与`poll()`方法相同，删除列表中的第一项；
+- `Object pollLast()`：返回并删除列表的最后一个元素；
+- `Object remove()`：删除列表的第一个元素；
+- `Object remove(int index)`：从列表中删除指定索引处的元素；
+- `Object remove(Object obj)`：从列表中删除指定的对象；
+- `Object removeFirst()`：从列表中删除第一个项目；
+- `Object removeLast()`：删除列表的最后一项；
+- `Object removeFirstOccurrence(Object item)`：删除第一次出现的指定项；
+- `Object removeLastOccurrence(Object item)`：删除最后一次出现的指定项；
+- 删除列表中的所有元素：`void clear()`。
+
+7）返回列表的副本：`Object clone()`
+
+8）用赋值更新指定索引的项：`Object set(int index, Object item)`
+
+9）遍历
+
+- `for` 循环
+- 高级 `For ` 循环
+- 迭代器
+- `while` 循环
+
+只介绍迭代器循环：
+
+```java
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class Main {
+  public static void main(String[] args) {
+    /*LinkedList declaration*/
+    LinkedList<String> linkedList = new LinkedList<String>();
+    linkedList.add("Apple");
+    linkedList.add("Orange");
+    linkedList.add("Mango");
+
+    /*for loop*/
+    System.out.println("**For loop**");
+    for (int num = 0; num < linkedList.size(); num++) {
+      System.out.println(linkedList.get(num));
+    }
+
+    /*Advanced for loop*/
+    System.out.println("**Advanced For loop**");
+    for (String str : linkedList) {
+      System.out.println(str);
+    }
+
+    /*Using Iterator*/
+    System.out.println("**Iterator**");
+    Iterator i = linkedList.iterator();
+    while (i.hasNext()) {
+      System.out.println(i.next());
+    }
+
+    /* Using While Loop*/
+    System.out.println("**While Loop**");
+    int num = 0;
+    while (linkedList.size() > num) {
+      System.out.println(linkedList.get(num));
+      num++;
+    }
+  }
+}
+```
+
+10）获取子列表
+
+`LinkedList `类的 `subList(int startIndex, int endIndex)` 方法可以获取 `LinkedList` 的子列表。它返回指定索引 `startIndex`（包括）和 `endIndex`（不包括）之间的 `List`。
+
+**注意：对子列表所做的任何更改都将反映在原始列表中。**
+
+```java
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Main {
+  public static void main(String[] args) {
+    // Create a LinkedList
+    LinkedList<String> linkedList = new LinkedList<String>();
+
+    // Add elements to LinkedList
+    linkedList.add("Item1");
+    linkedList.add("Item2");
+    linkedList.add("Item3");
+    linkedList.add("Item4");
+    linkedList.add("Item5");
+    linkedList.add("Item6");
+    linkedList.add("Item7");
+
+    // Displaying LinkedList elements
+    System.out.println("LinkedList elements:");
+    Iterator it = linkedList.iterator();
+    while (it.hasNext()) {
+      System.out.println(it.next());
+    }
+
+    // Obtaining Sublist from the LinkedList
+    List sublist = linkedList.subList(2, 5);
+
+    // Displaying SubList elements
+    System.out.println("\nSub List elements:");
+    Iterator item = ((List) sublist).iterator();
+    while (item.hasNext()) {
+      System.out.println(item.next());
+    }
+
+    sublist.remove("Item4");
+    System.out.println("\nLinkedList elements After remove:");
+    Iterator it2 = linkedList.iterator();
+    while (it2.hasNext()) {
+      System.out.println(it2.next());
+    }
+  }
+}
+```
+
+11）`isEmpty()` 方法用于检查列表是否为空
+
+
+
 #### 3、ArrayList 和 LinkedList 的区别
 
+操作方面，`ArrayList` 搜索操作非常快，而 `LinkedList` 元素删除更快，插入性能也是  `LinkedList` 较好，原因在前面已经解释过了。
 
+而在内存开销上面，`ArrayList` 维护索引和元素数据，而 `LinkedList` 维护元素数据和相邻节点的两个指针，因此 `LinkedList` 中的内存消耗比较高。
+
+所以，在开发过程中，我们需要根据具体的需求来选择哪种集合。
 
 
 
