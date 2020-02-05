@@ -31,7 +31,7 @@ urlname: java-collection-framework
 
 集合容器因为内部的数据结构不同，也就有了不同的**具体容器**；然后经过不断地向上抽取，就形成了集合框架（`collection framework`）。
 
-在向上抽取的过程中，因为数据的结构不同，所以就出现了两个不同的顶层接口：`Collection` 接口和 `Map` 接口。在集合框架中，接口 `Map` 和 `Collection` 在层次结构没有任何亲缘关系，它们是截然不同的。
+在向上抽取的过程中，因为数据的结构不同，所以就出现了两个不同的顶层接口：`Collection` 接口和 `Map` 接口。
 
 `Java` 中的集合框架的所有类和接口都包含在 `java.util` 包中。
 
@@ -64,7 +64,7 @@ urlname: java-collection-framework
 
 
 
-`Collection` 接口和 `Map` 接口之间并不是独立的，也有一些联系，用来创建一个其他的数据结构。
+`Collection` 接口和 `Map` 接口之间并不是完全独立的，也有一些联系，用来创建一个其他的数据结构。
 
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-collection.png" alt="Java 集合框架的结构" />
 
@@ -596,8 +596,6 @@ String[] array = linkedList.toArray(new String[linkedList.size()]);
 
 
 
-
-
 #### 3、ArrayList 和 LinkedList 的区别
 
 操作方面，`ArrayList` 搜索操作非常快，而 `LinkedList` 元素删除更快，插入性能也是  `LinkedList` 较好，原因在前面已经解释过了。
@@ -629,7 +627,7 @@ String[] array = linkedList.toArray(new String[linkedList.size()]);
   - `ArrayList` 和 `Vector` 都会动态地增长和缩小以保持存储空间的最佳使用 —— 但是它们的调整方式是不同的；
   - 如果元素的数量超过了当前数组的容量，`ArrayList` 的增量为当前数组大小的 `50%` ，而矢量的增量为 `100%`。
 - 遍历
-  - `Vector` 可以使用枚举和迭代器（`Enumeration and Iterator`）遍历 `Vector` 元素，而 ArrayList 只能使用迭代器遍历。
+  - `Vector` 可以使用枚举和迭代器（`Enumeration and Iterator`）遍历 `Vector` 元素，而 `ArrayList` 不可以使用枚举遍历。
 
 在开发中，我们可以根据具体的需求和 `ArrayList` 与 `Vector` 的区别来决定选取哪种集合。
 
@@ -1414,3 +1412,9 @@ Key is: 100& Value is: Jim
 ```
 
 可以看到，值的返回顺序与插入的顺序相同。
+
+
+
+### 九、总结
+
+关于 `Java` 集合框架中的实现类，还有很多 `Api`，本文没有详尽地列出。具体的方法的使用可以查看官方文档或者源码。
