@@ -498,6 +498,7 @@ public class Main {
     /*Using Iterator*/
     System.out.println("**Iterator**");
     Iterator i = linkedList.iterator();
+    // Iterator i = linkedList.descendingIterator(); // 反序遍历
     while (i.hasNext()) {
       System.out.println(i.next());
     }
@@ -567,6 +568,28 @@ public class Main {
 
 11）`isEmpty()` 方法用于检查列表是否为空
 
+12）将 `LinkedList` 转换为 `ArrayList` 
+
+```java
+LinkedList<String> linkedList = new LinkedList<String>();
+linkedList.add("Harry");
+linkedList.add("Jack");
+
+List<String> list = new ArrayList<String>(linkedList);
+```
+
+13）将 `LinkedList` 转换为数组
+
+```java
+LinkedList<String> linkedList = new LinkedList<String>();
+linkedList.add("Harry");
+linkedList.add("Jack");
+
+String[] array = linkedList.toArray(new String[linkedList.size()]);
+```
+
+
+
 
 
 #### 3、ArrayList 和 LinkedList 的区别
@@ -579,13 +602,247 @@ public class Main {
 
 
 
-#### 3、Ventor
+#### 3、Vector
+
+`Vector` （向量）实现 `List` 接口。与 `ArrayList` 一样，它也维护插入顺序，但是两者还是有很大的区别的。
+
+**`Vector` 和 `ArrayList` 的区别：**
+
+- 同步性（`Synchronization`）
+  - `Vector` 是同步的，这意味着一次只有一个线程可以访问代码，而不是 `ArrayList` 同步的，这意味着多个线程可以同时在 `ArrayList` 上工作；
+  - 例如，如果一个线程正在执行添加操作，这个时候可能有另一个线程在多线程环境中执行删除操作。如果多线程同时访问 `ArrayList`，可能就会发生一个线程的值覆盖另一个线程添加的值，在某些时候会导致一些错误；
+  - `vector` 大部分方法都使用了 `synchronized` 修饰符，所以它是**线程安全**的集合类。
+  - 如下图所示：
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/ArrayList-vs-Vector-Java.png" alt="Java Vector vs ArrayList" style="zoom:87%;" />
+
+- 性能（`Performance`）
+  - `ArrayList` 更快，因为它是非同步的，而向量操作因为是同步的（线程安全的） ，所以性能更慢；
+  -  如果一个线程处理一个向量，那么它就获得了一个向量的锁，这迫使任何其他想要处理它的线程必须等待，直到锁被释放。
+- 数据增长（`Data Growth`）
+  - `ArrayList` 和 `Vector` 都会动态地增长和缩小以保持存储空间的最佳使用 —— 但是它们的调整方式是不同的；
+  - 如果元素的数量超过了当前数组的容量，`ArrayList` 的增量为当前数组大小的 `50%` ，而矢量的增量为 `100%`。
+- 遍历
+  - `Vector` 可以使用枚举和迭代器（`Enumeration and Iterator`）遍历 `Vector` 元素，而 ArrayList 只能使用迭代器遍历。
+
+在开发中，我们可以根据具体的需求和 `ArrayList` 与 `Vector` 的区别来决定选取哪种集合。
+
+常用的 `Vector` 类方法有：
+
+1. `void addElement(Object element)`：在 `Vector` 的末尾插入元素；
+2. `int capacity()`：此方法返回向量的当前容量；
+3. `int size()`：返回向量的当前大小；
+4. `void setSize(int size)`：使用指定的大小更改现有大小；
+5. `boolean contains(Object element)`：此方法检查 `Vector` 中是否存在指定的元素；
+6. `boolean containsAll(Collection c)`：如果 `Vector` 中存在集合 `c` 的所有元素，则返回 `true`；
+7. `Object elementAt(int index)`：返回 `Vector` 中指定位置的元素；
+8. `Object firstElement()`：用于获取向量的第一个元素；
+9. `Object lastElement()`：返回数组的最后一个元素；
+10. `Object get(int index)`：返回指定索引处的元素；
+11. `boolean isEmpty()`：如果 `Vector` 没有任何元素，则此方法返回 `true`；
+12. `boolean remove(Object element)`：从向量中移除指定的元素；
+13. `boolean removeAll(Collection c)`：从向量中删除所有存在于 `Collection c` 中的元素；
+14. `void setElementAt(Object element, int index)`：使用给定元素更新指定索引的元素；
+15. `subList(int fromIndex, int toIndex)`：获取元素的子列表；
+16. 使用 `Enumeration` 迭代 `Vector`；
+17. 使用 `Iterator` 遍历 `Vector`；
+18. 使用 `ListIterator` 在前进和后退方向上遍历 `Vector`
+
+```java
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.Vector;
+
+public class Main {
+  public static void main(String[] args) {
+    Vector<String> vector = new Vector<String>();
+
+    vector.add("Mango");
+    vector.add("Orange");
+    vector.add("Apple");
+
+    // 使用 Enumeration 迭代 Vector
+    Enumeration en = vector.elements();
+
+    System.out.println("Vector elements are(Enumeration): ");
+    while (en.hasMoreElements()) {
+      System.out.println(en.nextElement());
+    }
+
+    // 使用 Iterator 遍历 Vector
+    Iterator it = vector.iterator();
+
+    System.out.println("\nVector elements are(Iterator):");
+    while (it.hasNext()) {
+      System.out.println(it.next());
+    }
+
+    ListIterator litr = vector.listIterator();
+    System.out.println("\nTraversing in Forward Direction:");
+    while (litr.hasNext()) {
+      System.out.println(litr.next());
+    }
+
+    System.out.println("\nTraversing in Backward Direction:");
+    while (litr.hasPrevious()) {
+      System.out.println(litr.previous());
+    }
+  }
+}
+```
+
+打印结果：
+
+```
+Vector elements are(Enumeration): 
+Mango
+Orange
+Apple
+
+Vector elements are(Iterator):
+Mango
+Orange
+Apple
+
+Traversing in Forward Direction:
+Mango
+Orange
+Apple
+
+Traversing in Backward Direction:
+Apple
+Orange
+Mango
+```
+
+19. 将 `Vector` 转换为 `List` ；
+20. 将 `Vector` 转换为 `ArrayList`；
+21. 将 `Vector` 转换为字符串数组。
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args) {
+    Vector<String> vector = new Vector<String>();
+
+    vector.add("Mango");
+    vector.add("Orange");
+    vector.add("Apple");
+
+    System.out.println("Vector Elements :");
+    for (String str : vector) {
+      System.out.println(str);
+    }
+
+    List<String> list = Collections.list(vector.elements());
+
+    ArrayList<String> arrayList = new ArrayList<String>(vector);
+
+    System.out.println("\nList Elements :");
+    for (String str2 : list) {
+      System.out.println(str2);
+    }
+
+    System.out.println("\nArrayList Elements :");
+    for (String str2 : arrayList) {
+      System.out.println(str2);
+    }
+
+    String[] array = vector.toArray(new String[vector.size()]);
+    System.out.println("\nString Array Elements :");
+    for (String s : array) {
+      System.out.println(s);
+    }
+  }
+}
+```
 
 
 
 #### 4、Stack
 
+在 `Java` 中 `Stack` 类表示后进先出（`Last in First out, LIFO`）的对象堆栈。
 
+就像洗碗一样，最后洗好的碗叠在最上面，而下次拿的时候是最先拿到最后叠上去的碗，即已放置在最底部位置的碗在堆栈中保留的时间最长。像一些编辑器的撤销功能，棋牌程序的悔牌、悔棋功能，就可以选择 `Stack`。
+
+`Stack` 类支持一个缺省构造函数堆栈 ，用于创建一个空堆栈。
+
+下面的程序展示了 `Stack` 类提供的一些基本操作：
+
+```java
+import java.util.Stack;
+
+public class Main {
+  // Pushing element on the top of the stack
+  static void stack_push(Stack<Integer> stack) {
+    for (int i = 0; i < 5; i++) {
+      stack.push(i);
+    }
+  }
+
+  // Popping element from the top of the stack
+  static void stack_pop(Stack<Integer> stack) {
+    System.out.println("Pop :");
+
+    for (int i = 0; i < 5; i++) {
+      Integer y = (Integer) stack.pop();
+      System.out.println(y);
+    }
+  }
+
+  // Displaying element on the top of the stack
+  static void stack_peek(Stack<Integer> stack) {
+    Integer element = (Integer) stack.peek();
+    System.out.println("Element on stack top : " + element);
+  }
+
+  // Searching element in the stack
+  static void stack_search(Stack<Integer> stack, int element) {
+    Integer pos = (Integer) stack.search(element);
+
+    if (pos == -1)
+      System.out.println("Element not found");
+    else
+      System.out.println("Element is found at position " + pos);
+  }
+
+
+  public static void main(String[] args) {
+    Stack<Integer> stack = new Stack<Integer>();
+
+    stack_push(stack);
+    stack_pop(stack);
+    System.out.println(stack.empty());
+    stack_push(stack);
+    stack_peek(stack);
+    stack_search(stack, 2);
+    stack_search(stack, 6);
+  }
+}
+```
+
+打印结果为：
+
+```java
+Pop :
+4
+3
+2
+1
+0
+true
+Element on stack top : 4
+Element is found at position 3
+Element not found
+```
+
+- `Object push(Object element)`：将一个元素推送到堆栈顶部；
+- `Object pop()` : 移除并返回堆栈的顶部元素。 注意，当调用堆栈为空时，如果我们调用 `pop ()` ，就会引发 `EmptyStackException` 异常；
+- `Object peek()`：返回堆栈顶部的元素，但不删除它；
+- `boolean empty()`：如果堆栈顶部没有任何内容，则返回 `true`， 否则，返回 `false`
+- `int search(Object element)` : 它确定堆栈中是否存在某对象。 如果找到该元素，则返回该元素在堆栈中的索引，否则，它返回 `-1`。
 
 
 
