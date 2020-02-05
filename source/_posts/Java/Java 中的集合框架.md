@@ -62,6 +62,12 @@ urlname: java-collection-framework
 
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-map-hierarchy.png" alt="Java 集合框架的结构" style="zoom:70%;" />
 
+
+
+`Collection` 接口和 `Map` 接口之间并不是独立的，也有一些联系，用来创建一个其他的数据结构。
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-collection.png" alt="Java 集合框架的结构" />
+
 下面我们来具体看看集合框架中的一些常见的类。
 
 
@@ -848,15 +854,563 @@ Element not found
 
 ### 四、Queue
 
+`Queue` （队列）接口与 `List`、`Set` 同一级别，都是继承了 `Collection` 接口。
+
+队列是一种数据结构。它有两个基本操作：**在队列尾部加入一个元素和从队列头部移除一个元素**（注意不要弄混队列的头部和尾部），即数据是**先进先出**（`FIFO：first in first out`）。
+
+`LinkedList` 实现了 `Deque` 接口。但是 `Queue` 接口窄化了对 `LinkedList` 的方法的访问权限，即在方法中的参数类型如果是 `Queue` 时，就只能访问 `Queue` 接口所定义的方法 了，而不能直接访问 `LinkedList` 的非 `Queue` 的方法。
+
+在并发队列上，`JDK` 提供了两套实现：
+
+- 一个是以 `ConcurrentLinkedQueue` 为代表的高性能非阻塞队列；
+- 一个是以 `BlockingQueue` 接口为代表的阻塞队列，无论哪种都继承自 `Queue`。
+
+`Queue` 接口支持集合接口的所有方法，包括插入、删除等。
+
+
+
+#### 1、阻塞队列与非阻塞队列
+
+**阻塞队列**
+
+阻塞调用是指调用结果返回之前，当前线程会被挂起。函数只有在得到结果之后才会返回。
+
+阻塞队列与普通队列的区别在于，当队列是空的时，从队列中获取元素的操作将会被阻塞，或者当队列是满时，往队列里添加元素的操作会被阻塞。
+
+从空的阻塞队列中获取元素的线程将会被阻塞，直到其他的线程往空的队列插入新的元素。同样，往已满的阻塞队列中添加新元素的线程同样也会被阻塞，直到其他的线程使队列重新变得空闲起来，如从队列中移除一个或者多个元素，或者完全清空队列。
+
+**阻塞与同步**
+
+这里需要注意，看了上面的解释之后，你可能会把阻塞调用和同步调用等同起来，实际上它们是不同的。对于同 步调用来说，很多时候当前线程还是激活的，只是从逻辑上当前函数没有返回而已，当前线程还会继续处理各种各样的消息。
+
+而在阻塞状态下， 如果没有数据的情况下调用该函数，则当前线程就会被挂起，直到有数据为止。
+
+**非阻塞队列**
+
+非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。
+
+
+
+#### 2、Queue 中的方法
+
+- `add()`：此方法用于在队列尾部添加元素；
+- `peek()`：用于查看队列头部，而不用移除它；如果队列为空，则返回 `Null`；
+- `element()`：此方法类似于 `peek()`； 当队列为空时，它抛出 `NoSuchElementException`；
+- `remove()`：此方法删除并返回队列的头部；当队列为空时，它抛出 `NoSuchElementException`；
+- `poll()`：此方法删除并返回队列的前端；如果队列为空，则返回 `null`；
+- `size()`：此方法返回队列中元素的编号。
+
+```java
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+  public static void main(String[] args) {
+    Queue<Integer> q = new LinkedList<>();
+
+    // Adds elements {0, 1, 2, 3, 4} to queue
+    for (int i = 0; i < 5; i++) {
+      q.add(i);
+    }
+
+    // Display contents of the queue.
+    System.out.println("Elements of queue-" + q);
+
+    // To remove the head of queue.
+    int removedele = q.remove();
+    System.out.println("removed element-" + removedele);
+
+    System.out.println(q);
+
+    // To view the head of queue
+    int head = q.peek();
+    System.out.println("head of queue-" + head);
+
+    // Rest all methods of collection interface,
+    // Like size and contains can be used with this
+    // implementation.
+    int size = q.size();
+    System.out.println("Size of queue-" + size);
+  }
+}
+```
+
+输出结果为：
+
+```java
+Elements of queue-[0, 1, 2, 3, 4]
+removed element-0
+[1, 2, 3, 4]
+head of queue-1
+Size of queue-4
+```
+
 
 
 ### 五、Set
 
+`Set` 也是 `Collection` 的子接口，它的特点是：**无序**，**不允许包含重复元素**，重复元素会覆盖掉。当不考虑顺序，且没有重复元素时，`Set` 集合和 `List` 集合可以互相替换的。
+
+**注意**：元素虽然无放入顺序，但是元素在 `Set` 中的位置是有该元素的 `HashCode` 决定的，其位置其实是固定的，加入 `Set` 的 `Object` 必须定义 `equals()` 方法 ，另外 `List` 支持 `for` 循环、下标和迭代器来遍历，但是 `Set`  只能用迭代器和 `foreach` 循环方法来遍历，因为它无序，无法用下标来取得想要的值。
+
+所以，与 `List` 相比，`Set` 的检索元素效率低下，删除和插入效率高，插入和删除时不会引起元素位置改变。而 `List` 查找元素效率高，插入和删除元素效率低，因为会引起其他元素位置改变。 
+
+基于 `Set` 接口类有三个：`HashSet`、`LinkedHashSet`、`TreeSet`。
+
+基本上，`Set` 的方法和 `List` 都是一致的，这里就不再赘述。
 
 
-### 六、Hashtable 
 
-### 七、HashMap 
+#### 1、HashSet
 
-### 八、WeakHashMap
+使用 `HashSet` 有几点需要注意：
 
+- 不维护任何顺序，元素将以任何随机顺序返回；
+- 不允许重复；如果在 `HashSet` 中添加重复元素，则旧值将被覆盖；
+- 允许空值 `null`，但是如果插入多个空值，它仍然只返回一个空值；
+- 它是非同步的。
+
+```java
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class Main {
+  public static void main(String[] args) {
+    HashSet<String> hset = new HashSet<String>();
+
+    hset.add("Apple");
+    hset.add("Mango");
+    hset.add("Strawberry");
+    //Addition of duplicate elements
+    hset.add("Apple");
+    hset.add("Mango");
+    //Addition of null values
+    hset.add(null);
+    hset.add(null);
+
+    //Displaying HashSet elements
+    System.out.println(hset);
+
+    System.out.println("\n--foreach--");
+    for (String value : hset) {
+      System.out.println(value);
+    }
+
+    System.out.println("\n--iterator--");
+    Iterator s = hset.iterator();
+    while (s.hasNext()) {
+      System.out.println(s.next());
+    }
+  }
+}
+```
+
+输出结果为：
+
+```
+[null, Apple, Strawberry, Mango]
+
+--foreach--
+null
+Apple
+Strawberry
+Mango
+
+--iterator--
+null
+Apple
+Strawberry
+Mango
+```
+
+
+
+那 `HashSet` 如何保证唯一性呢？我们看看 `HashSet` 的源码中的一部分：
+
+```java
+private transient HashMap<E,Object> map;
+
+// Dummy value to associate with an Object in the backing Map
+private static final Object PRESENT = new Object();
+
+/**
+ * Constructs a new, empty set; the backing <tt>HashMap</tt> instance has
+ * default initial capacity (16) and load factor (0.75).
+ */
+public HashSet() {
+  map = new HashMap<>();
+}
+
+// ...
+public boolean add(E e) {
+  return map.put(e, PRESENT)==null;
+}
+```
+
+可以看出 `HashSet` 是基于 `HashMap` 来实现的，而 `PRESENT` 则是一个虚假的值。
+
+当向 `HashSet` 中添加元素时，将元素作为 `map` 的 `key`，而 `value` 则是用一个虚假的值 `PRESENT`。由于 `HashMap` 中的 `Key` 是唯一的，而 `HashSet` 中的元素是作为 `Key` 储存在 `HashMap` 中的，这样就保证了 `HashSet`元素中没有重复的值。
+
+> 那如何能够确保 `HashMap` 中 `Key` 的唯一性呢？`HashMap` 中有 `hashCode()` 和 `equals()` 两个方法，用来保证唯一性。
+
+
+
+#### 2、TreeSet
+
+`TreeSet` 类似于 `HashSet`，不同之处在于它按**自然顺序**对元素进行升序排序，而 `HashSet` 不维护任何顺序。
+
+注意：`TreeSet` 不允许 `null` 元素。
+
+```java
+import java.util.TreeSet;
+
+public class Main {
+  public static void main(String[] args) {
+    TreeSet<String> treeSet = new TreeSet<String>();
+
+    // Adding elements to TreeSet<String>
+    treeSet.add("ABC");
+    treeSet.add("String");
+    treeSet.add("Test");
+    treeSet.add("Pen");
+    treeSet.add("Ink");
+    treeSet.add("ABC");
+
+    //Displaying TreeSet
+    System.out.println(treeSet); // [ABC, Ink, Pen, String, Test]
+
+    // TreeSet of Integer Type
+    TreeSet<Integer> treeSet1 = new TreeSet<Integer>();
+
+    // Adding elements to TreeSet<Integer>
+    treeSet1.add(88);
+    treeSet1.add(7);
+    treeSet1.add(101);
+    treeSet1.add(0);
+    treeSet1.add(3);
+    treeSet1.add(222);
+    System.out.println(treeSet1); // [0, 3, 7, 88, 101, 222]
+  }
+}
+```
+
+可以看到 `TreeSet` 已经按隐式升序排序了。
+
+
+
+#### 3、LinkedHashSet
+
+`LinkedHashSet` 也是 `Set` 接口的一个实现，它的特点是：保持插入顺序，元素按照添加到 `Set` 中的顺序进行排序。`LinkedHashSet` 支持 `null`。
+
+```java
+import java.util.LinkedHashSet;
+
+public class Main {
+  public static void main(String[] args) {
+    LinkedHashSet<String> lhset = new LinkedHashSet<String>();
+
+    // Adding elements to the LinkedHashSet
+    lhset.add("Z");
+    lhset.add("PQ");
+    lhset.add("KK");
+    lhset.add("Z");
+    lhset.add(null);
+    System.out.println(lhset); // [Z, PQ, KK, null]
+
+    // LinkedHashSet of Integer Type
+    LinkedHashSet<Integer> lhset2 = new LinkedHashSet<Integer>();
+
+    // Adding elements
+    lhset2.add(99);
+    lhset2.add(7);
+    lhset2.add(0);
+    System.out.println(lhset2); // [99, 7, 0]
+  }
+}
+```
+
+可以看到，两种类型的 `LinkedHashSet` 都保留了插入顺序。
+
+
+
+#### 4、小结
+
+所以，三者都保证了元素的唯一性，怎么选择呢？
+
+如果无排序要求可以选用 `HashSet`；
+
+如果想取出元素的顺序和放入元素的顺序相同，那么可以选用 `LinkedHashSet` ；
+
+如果想插入、删除立即排序或者按照一定规则排序可以选用 `TreeSet`。
+
+
+
+### 六、HashMap
+
+`HashMap  ` 是一个基于 `Map` 的集合类，用于存储键值对。
+
+#### 1、Map 接口的特点
+
+`Map` 接口中的每个成员方法由一个关键字（`key`）和一个值（`value`）构成。`Map` 接口不直接继承于 `Collection` 接口，因为它包装的是一组成对的 **"键—值"** 对象的集合，而且在 `Map` 接口的集合中也不能有重复的 `key` 出现，因为每个键只能与一个成员元素相对应。
+
+ `Map` 接口的特点有： 
+
+- `Map`接口提供了一种映射关系，其中的元素是以键值对（`key-value`）的形式存储的，能够实现根据`key` 快速查找 `value`；
+- `Map` 中的键值对以 `Entry` 类型的对象实例形式存在；`key` 值不可重复，`value` 值可以；
+- 每个键最多只能映射到一个值；
+- `Map` 接口提供了分别返回 `key` 值集合，`value` 值集合以及 `Entry`（键值对）集合的方法；
+- Map同样也支持泛型，形式如：`Map<K,V>`；
+
+
+
+**`HashMap`** 
+
+`HashMap` 不是有序集合，这意味着它不会按照插入`HashMap` 的顺序返回键和值，也不会对存储的键和值进行排序。它是一个**线程不安全**的集合对象。
+
+`HashMap` 的键和值都允许有 `null` 值存在。
+
+
+
+#### 2、HashMap 中的方法
+
+1. `void clear()`：它从指定的 `Map` 中删除所有键和值对。
+
+2. `Object clone()`：它返回映射所有映射的副本，用于将它们克隆到另一个映射中。
+
+3. `boolean containsKey(Object key)`：它是一个布尔函数，根据是否在映射中找到指定的键返回 `true`或 `false`；
+
+4. `boolean containsValue(Object Value)`：与 `containsKey()`方法类似，但它查找的是指定的值而不是 `key`；
+
+5. `Value get(Object key)`：返回指定键的值；
+
+6. `boolean isEmpty()`：检查映射是否为空；
+
+7. `Set keySet()`：返回从映射中获取的键的 `Set`；
+
+8. `Value put(Key k, Value v)`：将键值映射插入到映射中；
+
+9. `int size()`：返回映射的大小（键值映射）的数量；
+
+10. `Set values()`：返回映射的值集合；
+
+11. `Value remove(Object key)`：删除指定键的键值对；
+
+12. `void putAll(Map m)`：将映射的所有元素复制到另一个指定的映射；
+
+13. 遍历
+
+    1. `for` 循环
+    2. `while` 循环 + 迭代器
+
+    ```java
+    import java.util.HashMap;
+    import java.util.Iterator;
+    import java.util.Map;
+    
+    public class Main {
+      public static void main(String[] args) {
+        HashMap<Integer, String> hmap = new HashMap<Integer, String>();
+        // Adding elements to HashMap
+        hmap.put(11, "AB");
+        hmap.put(2, "CD");
+    
+        // FOR LOOP
+        System.out.println("For Loop:");
+        for (Map.Entry me : hmap.entrySet()) {
+          System.out.println("Key: " + me.getKey() + " & Value: " + me.getValue());
+        }
+    
+        // WHILE LOOP & ITERATOR
+        System.out.println("While Loop:");
+        Iterator iterator = hmap.entrySet().iterator();
+        while (iterator.hasNext()) {
+          Map.Entry me2 = (Map.Entry) iterator.next();
+          System.out.println("Key: " + me2.getKey() + " & Value: " + me2.getValue());
+        }
+      }
+    }
+    ```
+
+
+
+### 七、TreeMap 
+
+`TreeMap` 存储是会进行排序的，会根据 `key` 来对 `key-value` 键值对进行排序。但是如果想根据它的值对它进行排序，那就需要使用比较器（`Comparator`）来实现了。
+
+
+
+#### 1、TreeMap 的排序
+
+默认情况下，`TreeMap `元素按键的升序排序。我们可以以相反的顺序迭代 `TreeMap`，以按键的降序显示元素。
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args) {
+    Map<String, String> treemap = new TreeMap<String, String>(Collections.reverseOrder());
+
+    treemap.put("Key1", "Jack");
+    treemap.put("Key2", "Rick");
+    treemap.put("Key3", "Kate");
+    treemap.put("Key4", "Tom");
+    treemap.put("Key5", "Steve");
+
+    Set set = treemap.entrySet();
+    Iterator i = set.iterator();
+    
+    while (i.hasNext()) {
+      Map.Entry me = (Map.Entry) i.next();
+      System.out.print(me.getKey() + ": ");
+      System.out.println(me.getValue());
+    }
+  }
+}
+```
+
+下面再演示下按值排序：
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args) {
+    TreeMap<String, String> treeMap = new TreeMap<String, String>();
+
+    treeMap.put("Key1", "Steve");
+    treeMap.put("Key2", "Rick");
+    treeMap.put("Key3", "Kate");
+    treeMap.put("Key4", "Tom");
+    treeMap.put("Key5", "Jack");
+
+    Map sortedMap = sortByValues(treeMap);
+
+    // Get a set of the entries on the sorted map
+    Set set = sortedMap.entrySet();
+
+    // Get an iterator
+    Iterator i = set.iterator();
+
+    // Display elements
+    while (i.hasNext()) {
+      Map.Entry me = (Map.Entry) i.next();
+      System.out.print(me.getKey() + ": ");
+      System.out.println(me.getValue());
+    }
+  }
+
+  public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
+    Comparator<K> valueComparator = new Comparator<K>() {
+      public int compare(K k1, K k2) {
+        int compare =
+                map.get(k1).compareTo(map.get(k2));
+        if (compare == 0)
+          return 1;
+        else
+          return compare;
+      }
+    };
+
+    Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+    sortedByValues.putAll(map);
+    return sortedByValues;
+  }
+}
+```
+
+输出结果为：
+
+```java
+Key5: Jack
+Key3: Kate
+Key2: Rick
+Key1: Steve
+Key4: Tom
+```
+
+
+
+#### 4、获取子映射
+
+从 `TreeMap` 获取子映射，需要用到  `subMap` 方法：
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args) {
+    TreeMap<String, String> treeMap = new TreeMap<String, String>();
+
+    // Put elements to the map
+    treeMap.put("Key1", "Jack");
+    treeMap.put("Key2", "Rick");
+    treeMap.put("Key3", "Kate");
+    treeMap.put("Key4", "Tom");
+    treeMap.put("Key5", "Steve");
+    treeMap.put("Key6", "Ram");
+
+    // Displaying TreeMap elements
+    System.out.println("TreeMap Contains : " + treeMap);
+    
+    SortedMap<String, String> sortedMap = treeMap.subMap("Key2", "Key5");
+    System.out.println("SortedMap Contains : " + sortedMap);
+
+    // Removing an element from Sub Map
+    sortedMap.remove("Key4");
+
+    System.out.println("TreeMap Contains : " + treeMap);
+  }
+}
+```
+
+输出结果为：
+
+```
+TreeMap Contains : {Key1=Jack, Key2=Rick, Key3=Kate, Key4=Tom, Key5=Steve, Key6=Ram}
+SortedMap Contains : {Key2=Rick, Key3=Kate, Key4=Tom}
+TreeMap Contains : {Key1=Jack, Key2=Rick, Key3=Kate, Key5=Steve, Key6=Ram}
+```
+
+可以看到，子映射会影响到源映射。
+
+
+
+### 八、LinkedHashMap
+
+`LinkedHashMap` 的不同之处在于维护了元素的插入顺序。
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args) {
+    LinkedHashMap<Integer, String> lhmap = new LinkedHashMap<Integer, String>();
+
+    lhmap.put(22, "Abey");
+    lhmap.put(33, "Dawn");
+    lhmap.put(1, "Sherry");
+    lhmap.put(2, "Karon");
+    lhmap.put(100, "Jim");
+
+    Set set = lhmap.entrySet();
+
+    Iterator iterator = set.iterator();
+    while (iterator.hasNext()) {
+      Map.Entry me = (Map.Entry) iterator.next();
+      System.out.print("Key is: " + me.getKey() + "& Value is: " + me.getValue() + "\n");
+    }
+  }
+}
+```
+
+输出结果为：
+
+```
+Key is: 22& Value is: Abey
+Key is: 33& Value is: Dawn
+Key is: 1& Value is: Sherry
+Key is: 2& Value is: Karon
+Key is: 100& Value is: Jim
+```
+
+可以看到，值的返回顺序与插入的顺序相同。
