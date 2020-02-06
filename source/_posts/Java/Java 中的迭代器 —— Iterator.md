@@ -546,7 +546,7 @@ public class Main {
     Spliterator<String> splitList1 = mutantStream.spliterator();
     // 调用 .trySplit() 方法，从 splitList1 中拆分一个 splitList2
     Spliterator<String> splitList2 = splitList1.trySplit();
-    // 如果 splitList1 可以被拆分，也就说 splitList2 不为 null, 那就优先使用 splitList2.
+    // 如果 splitList1 可以被拆分，也就说 splitList2 不为 null, 那就使用 splitList2.
     if (splitList2 != null) {
       System.out.println("\nOutput from splitList2:");
       splitList2.forEachRemaining((n) -> System.out.println(n));
@@ -671,3 +671,41 @@ name: xiaobai, age: 34.
 name: xiaohuang, age: 48.
 ```
 
+
+
+### 八、Iterable 接口
+
+我们发现，在集合框架的最顶层就是 `Iterable` 接口，该接口中只有三个方法，源码如下：
+
+```java
+public interface Iterable<T> {
+  Iterator<T> iterator();
+
+  default void forEach(Consumer<? super T> var1) {
+    Objects.requireNonNull(var1);
+    Iterator var2 = this.iterator();
+
+    while(var2.hasNext()) {
+      Object var3 = var2.next();
+      var1.accept(var3);
+    }
+
+  }
+
+  default Spliterator<T> spliterator() {
+    return Spliterators.spliteratorUnknownSize(this.iterator(), 0);
+  }
+}
+```
+
+其中，返回了一个 `Iterator` 。
+
+那么问题就来了，为什么集合框架一定要实现 `Iterable` 接口，而不直接实现 `Iterator` 接口呢？
+
+通过前面的讲解，我们知道 `Iterator` 接口的核心方法是 `next()` 和 `hasNext()` 方法，而这两个方法是**依赖于迭代器的当前迭代位置的**。如果 `Collection` 直接实现 `Iterator` 接口，那就会导致集合对象中包含当前迭代位置的数据（指针）。
+
+当集合在不同方法间被传递时，由于当前迭代位置不可预知，那么 `next()` 方法的结果也就会变成不可预知。 除非再为 `Iterator` 接口添加一个 `reset()` 方法，用来重置当前迭代位置。 但是即使这样做的话，`Collection` 也只能**同时存在一个当前迭代位置**。 
+
+而集合框架实现了 `Iterable` 接口，每次调用都会返回一个从头开始计数的迭代器，这样多个迭代器是互不干扰的。
+
+所以，基于上面的原因，集合框架实现的事 `Iterable` 接口，而不直接实现 `Iterator` 接口。
