@@ -139,7 +139,7 @@ function fun() {
   // 声明一个变量a，赋值10
   let a = 10;
   // 重新开辟内存空间存放b并把a的值10赋值给b
-  let b = a;
+  const b = a;
   // 变量a原来的值10被覆盖重新更改为20，b的值不受影响
   a = 20;
   console.log('a:' + a, 'b:' + b);
@@ -152,7 +152,7 @@ function fun() {
   arr1.push(2);
   console.log(arr1, arr2);
 
-  let obj = {};
+  const obj = {};
   // 变量 arr2 指向新的数据obj对象
   // 注意这不会改变原来的数组，此时 arr2 指向的数组只是少了一个引用
   arr2 = obj;
