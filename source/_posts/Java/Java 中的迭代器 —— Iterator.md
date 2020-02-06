@@ -698,7 +698,7 @@ public interface Iterable<T> {
 }
 ```
 
-其中，返回了一个 `Iterator` 。
+其中，返回了一个 `Iterator` ，`Spliterator` 方法是 `Java8` 中新增的。
 
 那么问题就来了，为什么集合框架一定要实现 `Iterable` 接口，而不直接实现 `Iterator` 接口呢？
 
