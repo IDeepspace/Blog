@@ -13,9 +13,9 @@ urlname: java-comparator
 
 ### 一、Comparable 接口
 
-学习 `Comparator` 之前，我们先来看看 `Comparable` 接口。这里先不介绍 `Comparable` 接口的相关概念，我们先看看数组和集合列表的排序。
+学习 `Comparator` 之前，我们先来看看 `Comparable` 接口。
 
-我们应该都写过，比较简单，这里要回顾一下吧。
+这里先不介绍 `Comparable` 接口的相关概念，我们先看看数组和集合列表的排序。我们应该都写过，比较简单，这里再回顾一下吧。
 
 #### 1、数组的排序
 
@@ -46,7 +46,7 @@ Orange
 Pineapple
 ```
 
-
+<!-- more -->
 
 #### 2、集合列表的排序
 
