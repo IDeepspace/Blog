@@ -574,7 +574,46 @@ Mystique
 
 
 
-### 七、编写自定义的 Iterator
+### 七、Iterable 接口
+
+我们发现，在集合框架的最顶层就是 `Iterable` 接口，该接口中只有三个方法，源码如下：
+
+```java
+public interface Iterable<T> {
+  Iterator<T> iterator();
+
+  default void forEach(Consumer<? super T> var1) {
+    Objects.requireNonNull(var1);
+    Iterator var2 = this.iterator();
+
+    while(var2.hasNext()) {
+      Object var3 = var2.next();
+      var1.accept(var3);
+    }
+
+  }
+
+  default Spliterator<T> spliterator() {
+    return Spliterators.spliteratorUnknownSize(this.iterator(), 0);
+  }
+}
+```
+
+其中，返回了一个 `Iterator` ，`Spliterator` 方法是 `Java8` 中新增的。
+
+那么问题就来了，为什么集合框架一定要实现 `Iterable` 接口，而不直接实现 `Iterator` 接口呢？
+
+通过前面的讲解，我们知道 `Iterator` 接口的核心方法是 `next()` 和 `hasNext()` 方法，而这两个方法是**依赖于迭代器的当前迭代位置的**。如果 `Collection` 直接实现 `Iterator` 接口，那就会导致集合对象中包含当前迭代位置的数据（指针）。
+
+当集合在不同方法间被传递时，由于当前迭代位置不可预知，那么 `next()` 方法的结果也就会变成不可预知。 除非再为 `Iterator` 接口添加一个 `reset()` 方法，用来重置当前迭代位置。 但是即使这样做的话，`Collection` 也只能**同时存在一个当前迭代位置**。 
+
+而集合框架实现了 `Iterable` 接口，每次调用都会返回一个从头开始计数的迭代器，这样多个迭代器是互不干扰的。
+
+所以，基于上面的原因，集合框架实现的是 `Iterable` 接口，而不是直接实现 `Iterator` 接口。
+
+
+
+### 八、编写自定义的 Iterator
 
 有的时候，我们需要要创建一个自定义的 `Iterator` 接口。
 
@@ -673,39 +712,128 @@ name: xiaohuang, age: 48.
 
 
 
-### 八、Iterable 接口
+### 九、Enumeration 接口
 
-我们发现，在集合框架的最顶层就是 `Iterable` 接口，该接口中只有三个方法，源码如下：
+`Enumeration` 接口也可以用于迭代，其中定义了一些方法，通过这些方法可以枚举（一次获得一个）对象集合中的元素。
 
 ```java
-public interface Iterable<T> {
-  Iterator<T> iterator();
+public interface Enumeration<E> {
+  boolean hasMoreElements();
+  E nextElement();
+}
+```
 
-  default void forEach(Consumer<? super T> var1) {
-    Objects.requireNonNull(var1);
-    Iterator var2 = this.iterator();
+- `hasMoreElements()` 方法用于检测 `Enumeration` 对象中是否还有元素，有则返回 `true`，否则返回 `false`；
+- `nextElement()`： 如果 `Enumeration` 对象还有元素，该方法用于获取下一个元素。
 
-    while(var2.hasNext()) {
-      Object var3 = var2.next();
-      var1.accept(var3);
+可以看到，`Enumeration` 接口的作用与 `Iterator` 接口类似。但是它只提供了遍历 `Vector` 和 `Hashtable` 类型集合元素的枚举功能，**不支持元素的移除操作**。
+
+看个例子：
+
+```java
+import java.util.Enumeration;
+import java.util.Vector;
+
+public class Main {
+  public static void main(String[] args) {
+    Enumeration<Integer> company;
+    Vector<Integer> employees = new Vector<Integer>();
+
+    // add values to employees
+    employees.add(1001);
+    employees.add(2001);
+    employees.add(3001);
+    employees.add(4001);
+    
+    company = employees.elements();
+
+    while (company.hasMoreElements()) {
+      // get elements using nextElement() 
+      System.out.println("Emp ID = " + company.nextElement());
     }
-
-  }
-
-  default Spliterator<T> spliterator() {
-    return Spliterators.spliteratorUnknownSize(this.iterator(), 0);
   }
 }
 ```
 
-其中，返回了一个 `Iterator` ，`Spliterator` 方法是 `Java8` 中新增的。
+#### 1、Enumeration 接口和 Iterator 接口的区别
+下面我们看看两者的区别：
 
-那么问题就来了，为什么集合框架一定要实现 `Iterable` 接口，而不直接实现 `Iterator` 接口呢？
+1）函数接口不同
 
-通过前面的讲解，我们知道 `Iterator` 接口的核心方法是 `next()` 和 `hasNext()` 方法，而这两个方法是**依赖于迭代器的当前迭代位置的**。如果 `Collection` 直接实现 `Iterator` 接口，那就会导致集合对象中包含当前迭代位置的数据（指针）。
+- `Enumeration` 只有 `2` 个函数接口；通过 `Enumeration`，我们只能读取集合的数据，而不能对数据进行修改；
+- 而 `Iterator` 接口中还有其他方法，除了能读取集合的数据之外，也能对数据进行删除操作。
 
-当集合在不同方法间被传递时，由于当前迭代位置不可预知，那么 `next()` 方法的结果也就会变成不可预知。 除非再为 `Iterator` 接口添加一个 `reset()` 方法，用来重置当前迭代位置。 但是即使这样做的话，`Collection` 也只能**同时存在一个当前迭代位置**。 
 
-而集合框架实现了 `Iterable` 接口，每次调用都会返回一个从头开始计数的迭代器，这样多个迭代器是互不干扰的。
 
-所以，基于上面的原因，集合框架实现的事 `Iterable` 接口，而不直接实现 `Iterator` 接口。
+2）`Iterator` 支持 `fail-fast` 机制，而 `Enumeration` 不支持
+
+什么是 `fail-fast` 机制呢？
+
+`fail-fast` 机制是 `Java` 集合中的一种错误机制。当多个线程对同一个集合的内容进行操作时，就可能会产生 `fail-fast` 事件。例如：当某一个线程 `A` 通过 `Iterator` 去遍历某集合的过程中，若该集合的内容被其他线程所改变了，那么线程 `A` 访问集合时，就会抛出 `ConcurrentModificationException` 异常，产生 `fail-fast` 事件。
+
+`Enumeration` 是 `JDK 1.0` 添加的接口。使用到它的函数包括 `Vector`、`Hashtable` 等类，这些类都是 `JDK 1.0` 中加入的，`Enumeration` 存在的目的就是为它们提供遍历接口。`Enumeration` 本身并没有支持同步，而在 `Vector`、`Hashtable` 实现 `Enumeration` 时，添加了同步。
+
+而 `Iterator` 是 `JDK 1.2` 才添加的接口，它也是为了 `HashMap`、`ArrayList` 等集合提供遍历接口。 `Iterator` 是支持 `fail-fast` 机制的，当多个线程对同一个集合的内容进行操作时，就可能会产生 `fail-fast` 事件。
+
+所以，使用 `Iterator` 更加安全。
+
+
+
+3）性能方面，对于 `Vector` 和 `Hashtable` 类型集合来说，`Enumeration` 的速度比 `Iterator` 接口快，同时所需的内存也远比 `Iterator` 低。
+
+我们测试一下：
+
+```java
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Random;
+
+public class IteratorEnumeration {
+  public static void main(String[] args) {
+    int val;
+    Random r = new Random();
+    Hashtable table = new Hashtable();
+    for (int i = 0; i < 1000000; i++) {
+      // 随机获取一个[0,100)之间的数字
+      val = r.nextInt(100);
+      table.put(String.valueOf(i), val);
+    }
+    // 通过Iterator遍历Hashtable
+    iterateHashtable(table);
+    // 通过Enumeration遍历Hashtable
+    enumHashtable(table);
+  }
+
+  /*
+   * 通过Iterator遍历Hashtable
+   */
+  private static void iterateHashtable(Hashtable table) {
+    long startTime = System.currentTimeMillis();
+    Iterator iter = table.entrySet().iterator();
+    while (iter.hasNext()) {
+      iter.next();
+    }
+    long endTime = System.currentTimeMillis();
+    countTime(startTime, endTime);
+  }
+
+  /*
+   * 通过Enumeration遍历Hashtable
+   */
+  private static void enumHashtable(Hashtable table) {
+    long startTime = System.currentTimeMillis();
+    Enumeration enu = table.elements();
+    while (enu.hasMoreElements()) {
+      enu.nextElement();
+    }
+    long endTime = System.currentTimeMillis();
+    countTime(startTime, endTime);
+  }
+
+  private static void countTime(long start, long end) {
+    System.out.println("time: " + (end - start) + "ms");
+  }
+}
+```
+
