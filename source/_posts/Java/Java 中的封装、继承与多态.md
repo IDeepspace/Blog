@@ -282,7 +282,7 @@ class Student {
 
 `Java` 通过 `extends` 关键字来实现继承。
 
-学生和老师都是人类，人类都要吃饭喝睡觉。所以我们可以提取一个叫作 `Person` 的类：
+学生和老师都是人类，人类都要吃饭和睡觉。所以我们可以提取一个叫作 `Person` 的类：
 
 ```java
 public class Person {
@@ -550,6 +550,7 @@ public class Cat extends Animal {
     System.out.println(cat); // 我是动物，我的名字叫喵星人
   }
 
+  @override
   public String toString() {
     return "我是" + super.name + "，我的名字叫" + this.name;
   }
