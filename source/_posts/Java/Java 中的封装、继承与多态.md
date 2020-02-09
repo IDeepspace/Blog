@@ -238,7 +238,7 @@ public class Person {
 }
 ```
 
-构造代码块的作用就是将所有构造方法中公共的信息进行抽取，用一对花括号包裹起来，**每次创建对象时，构造代码块会对所有对象进行统一初始化。**
+构造代码块的作用就是将所有构造函数中公共的信息进行抽取，用一对花括号包裹起来，**每次创建对象时，构造代码块会对所有对象进行统一初始化。**
 
 
 
@@ -656,23 +656,23 @@ class Father {
   int age;
 
   public Father() {
-    System.out.println("Father 的无参构造方法");
+    System.out.println("Father 的无参构造函数");
   }
 
   public Father(String name) {
-    System.out.println("Father 的带参构造方法");
+    System.out.println("Father 的带参构造函数");
   }
 }
 
 class Son extends Father {
   public Son() {
     //super();
-    System.out.println("Son 的无参构造方法");
+    System.out.println("Son 的无参构造函数");
   }
 
   public Son(String name) {
     //super();
-    System.out.println("Son 的带参构造方法");
+    System.out.println("Son 的带参构造函数");
   }
 }
 
@@ -688,20 +688,20 @@ public class ExtendsDemo {
 运行结果为：
 
 ```
-Father 的无参构造方法
-Son 的无参构造方法
+Father 的无参构造函数
+Son 的无参构造函数
 ------------
-Father 的无参构造方法
-Son 的带参构造方法
+Father 的无参构造函数
+Son 的带参构造函数
 ```
 
-如果父类没有无参构造方法，那么子类的构造方法会出现什么现象呢？直接报错了，父类无法完成初始化。**也就是说子类中一定要有一个去访问了父类的构造方法，否则父类数据就没有初始化。**
+如果父类没有无参构造函数，那么子类的构造函数会出现什么现象呢？直接报错了，父类无法完成初始化。**也就是说子类中一定要有一个去访问了父类的构造函数，否则父类数据就没有初始化。**
 
 有下面几种方式解决：
 
-- 在父类中加一个无参构造方法，必须显式定义；
-- 通过使用 `super` 关键字去显示的调用父类的带参构造方法；
-- 子类通过 `this` 去调用本类的其他构造方法（前提是子类这个构造方法满足了前面两者其一）；
+- 在父类中加一个无参构造函数，必须显式定义；
+- 通过使用 `super` 关键字去显示的调用父类的带参构造函数；
+- 子类通过 `this` 去调用本类的其他构造函数（前提是子类这个构造函数满足了前面两者其一）；
 
 代码如下：
 
@@ -710,28 +710,28 @@ class Father {
   int age;
 
 //  public Father() {
-//    System.out.println("Father 的无参构造方法");
+//    System.out.println("Father 的无参构造函数");
 //  }
 
   public Father(String name) {
-    System.out.println("Father 的带参构造方法");
+    System.out.println("Father 的带参构造函数");
   }
 }
 
 class Son extends Father {
   public Son() {
     super("Deepspace");
-    System.out.println("Son 的无参构造方法");
+    System.out.println("Son 的无参构造函数");
   }
 
   public Son(String name) {
     this();
-    System.out.println("Son 的带参构造方法");
+    System.out.println("Son 的带参构造函数");
   }
 
   public Son(String name, int age) {
     this("Deepspace");
-    System.out.println("Son 的带参构造方法-1");
+    System.out.println("Son 的带参构造函数-1");
   }
 }
 ```
@@ -807,7 +807,7 @@ public class Teacher {
 
 
 
-**`this` 访问构造方法：**
+**`this` 访问构造函数：**
 
 `this()` 用来访问本类的构造函数，如果括号内有参数，就是调用指定的有参构造函数。
 
@@ -815,12 +815,12 @@ public class Teacher {
 public class Student {
   String name;
 
-  // 无参构造方法（没有参数的构造方法）
+  // 无参构造函数（没有参数的构造函数）
   public Student() {
     this("张三");
   }
 
-  // 有参构造方法
+  // 有参构造函数
   public Student(String name) {
     this.name = name;
   }
@@ -911,7 +911,7 @@ class Student extends Person {
   private String school;
 
   public Student(String name, int age, String school) {
-    super(name, age);    // 指定要调用抽象类中有两个参数的构造方法
+    super(name, age);    // 指定要调用抽象类中有两个参数的构造函数
     this.school = school;
   }
 
@@ -968,7 +968,7 @@ public interface USB {
 - 接口中无法定义普通的成员变量，接口中声明的变量其实**都是常量**，接口中的变量声明，将隐式地声明为 `public`、`static` 和 `final`，即常量，所以接口中定义的变量**必须初始化**；
 - 接口中声明的方法，将**隐式地声明为公有的（`public`）和抽象的（`abstract`）**；
 - 接口中的方法不能设置成 `private` ，这样会导致使用该接口的类不能实现该方法；
-- 接口没有构造方法，**不能被实例化**；
+- 接口没有构造函数，**不能被实例化**；
 
 ```java
 public interface MyInterface {
@@ -1002,7 +1002,7 @@ public class MathClass implements IMath {
   private int num2;    // 第 2 个操作数
 
   public MathClass(int num1, int num2) {
-    // 构造方法
+    // 构造函数
     this.num1 = num1;
     this.num2 = num2;
   }
