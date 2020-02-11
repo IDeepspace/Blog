@@ -412,7 +412,9 @@ public enum Color implements Behaviour {
 
 #### 4、使用接口组织枚举
 
-**在接口内部，可以创建实现该接口的枚举，**这些枚举都是该接口的子类。
+有时候，我们需要扩展原 `enum` 中的元素，或者希望使用子类将一个 `enum` 中的元素进行分组。这个时候，我们就可以在在一个接口的内部，创建实现该接口的枚举，以此将元素进行分组，可以达到将枚举元素分类组织的目的。
+
+举个例子，假设我们想用 `enum` 来表示不同类别的食物，同时还希望每个 `enum` 元素仍然保持 `Food` 类型。那么我们就可以这样实现：
 
 ```java
 public interface Food {
@@ -432,23 +434,16 @@ public interface Food {
     BLACK_COFFEE, DECAF_COFFEE, ESPRESSO, LATTE, CAPPUCCINO, TEA, HERB_TEA;
   }
 }
-```
 
-因为这些枚举（`Appetizer`，`MainCourse`，`Dessert`，`Coffee`）都实现了 `Food` 接口， 所以这些枚举的实例都能用 `Food` 的变量来保存：
-
-```java
-public class TypeOfFood {
+public class InterfaceOrganizeEnum {
   public static void main(String[] args) {
     Food food = Food.Appetizer.SALAD;
     food = Food.MainCourse.LASAGNE;
-    food = Food.Dessert.GELTO;
-    food = Food.Coffee.CAPPUCCINO;
-    System.out.println(food);
   }
 }
 ```
 
-相当于是分类的作用。
+对于 `enum` 而言，实现接口是使其子类化的唯一办法。所以嵌入在 `Food` 中的每个 `enum` 都实现了 `Food` 接口。现在，在 `main` 方法中，可以使用实现了 `Food` 接口的 `enum` 类型，那么我们就可以将其实例向上转型为 `Food`，所以上例中的所有东西都是 `Food`。
 
 
 
