@@ -1407,7 +1407,7 @@ public class Main {
 
     Animal c = new Cat();
     c.eat(); // 猫在吃！！
-    c.eat(); // 猫在吃！！
+    c.walk(); // 猫在走！！
   }
 }
 ```
