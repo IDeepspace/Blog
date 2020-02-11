@@ -1,5 +1,5 @@
 ---
-title: Java 中的 数组
+title: Java 中的数组
 author: Deepspace
 tags:
   - Java
