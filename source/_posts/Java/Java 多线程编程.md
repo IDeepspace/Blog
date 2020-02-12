@@ -3,10 +3,13 @@ title: Java 中多线程编程
 author: Deepspace
 tags:
   - Java
-  - concurrency
+  - 进程
+  - 线程
+  - 并行
+  - 并发
 categories: Java
 date: 2017-06-29
-urlname: java-concurrency-program
+urlname: java-multithreading-program
 ---
 
 
