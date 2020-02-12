@@ -1354,7 +1354,7 @@ public class Main {
 
     miao.run();
 
-    Cat mew = (Cat)miao; // 强制类型转换
+    Cat mew = (Cat) miao; // 强制类型转换
     mew.catchMouse(); // 抓老鼠
   }
 }
