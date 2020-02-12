@@ -73,7 +73,6 @@ promise2
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-architecture.png" alt="node.js 架构图" style="zoom:67%;" />
 
 <p align="center">(图片来自网络)</p>
-
 **1、Application/Modules（JS）**：这部分就是所有的 `JavaScript` 代码：我们的应用程序、`Node.js` 核心模块、任何 `npm install` 的模块，以及你写的所有模块代码等等，我们花费的主要精力都在这部分。
 
 **2、C/C++ Bindings**：`Node.js` 中用了很多 `C/C++` 的代码和库，它们的性能很好。但是这三种不同的语言是怎么相互调用的呢？`Bindings` 就在这里发挥了作用。`Bindings` 是一些胶水代码，能够把不同语言绑定在一起，使其能够互相沟通调用。
@@ -197,7 +196,6 @@ timeout
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/eventLoop-browser-2.png" alt="事件循环" style="zoom:87%;" />
 
 <p align="center">(图片来自网络)</p>
-
 而在 `Node.js` 中，**`microtask` 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 `microtask` 队列的任务。**
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
@@ -207,7 +205,6 @@ timeout
 ![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
-
 - 首先进入 `timers` 阶段，执行 `timer1` 的回调函数，打印 `timer1`，并将 `promise1.then` 回调放入 `microtask` 队列，同样的步骤执行 `timer2` ，打印 `timer2`；
 
 - 至此，`timer` 阶段执行结束，`event loop` 进入下一个阶段之前，执行 `microtask` 队列的所有任务，依次打印 `promise1`、`promise2`。
@@ -217,7 +214,6 @@ timeout
 ![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/browser-event-loop-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
-
 
 ### 五、process.nextTick和setImmediate
 
