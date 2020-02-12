@@ -66,7 +66,7 @@ urlname: java-multithreading-program
 
 并发和并行是两个不同的概念。
 
-##### 并发
+##### 5.1、并发
 
 并发的概念是：**在一个时间段内发生若干事件**。
 
@@ -76,7 +76,7 @@ urlname: java-multithreading-program
 
 
 
-##### 并行
+##### 5.2、并行
 
 并行的概念是：**在同一时刻发生若干事件**。
 
@@ -87,6 +87,16 @@ urlname: java-multithreading-program
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
 
 <p align="center">（图片来自 Joe Armstrong）</p>
+
+
+
+#### 6、多进程与多线程的区别
+
+基于上面的描述，我们可以总结出下面选择原则：
+
+- 需要频繁创建销毁的优先用线程；
+- 需要进行大量计算的优先使用线程；
+- 强相关的处理用线程，弱相关的处理用进程；
 
 
 
