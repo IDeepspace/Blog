@@ -18,7 +18,7 @@ urlname: java-multithreading-program
 
 
 
-### 一、多线程是什么？
+### 一、概念
 
 #### 1、进程
 
@@ -70,7 +70,7 @@ urlname: java-multithreading-program
 
 并发的概念是：**在一个时间段内发生若干事件**。
 
-对于单核 `CPU` 而言，同一时间，`CPU` 只能处理 1 个线程。多线程 "同时执行" 指的是 `CPU` 快速地在多个线程之间切换，调度线程的时间足够快，就造成了多线程的 "同时" 执行（**时间片轮转机制、分时复用**）。
+对于单核 `CPU` 而言，同一时间，`CPU` 只能处理 `1` 个线程。多线程 "同时执行" 指的是 `CPU` 快速地在多个线程之间切换，调度线程的时间足够快，就造成了多线程的 "同时" 执行（**时间片轮转机制、分时复用**）。
 
 如果线程数非常多，`CPU` 就会在 `n` 个线程之间切换，消耗大量的 `CPU` 资源；这时，每个线程被调度的次数就会降低，线程的执行效率也会降低。
 
@@ -100,4 +100,60 @@ urlname: java-multithreading-program
 
 
 
-### 二、Java 进程和线程的关系
+#### 7、什么是线程安全
+
+如果代码在多线程下执行和在单线程下执行永远都能获得一样的结果，那么这个代码就是线程安全的。
+
+
+
+### 二、线程的状态
+
+`Java` 中线程的生命周期由 `JVM` 控制，线程的状态分为 `6` 种，可以用下面的图来表示：
+
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
+
+1. 初始（`NEW`）：新创建了一个线程对象，但还没有调用 `start()` 方法；
+
+2. 可运行（`RUNNABLE`）：`Java` 线程中将就绪（`ready`）和运行中（`running`）两种状态都称为「运行」；
+
+3. 阻塞（`BLOCKED`）：当一个线程试图获取一个对象锁，而该对象锁又被其他的线程持有时，该线程就进入 `Blocked` 状态；当该线程持有锁时，该线程将变成 `Runnable` 状态；
+
+   > 任何一个对象都有一个内置锁，锁的作用是保证线程同步，解决线程安全问题。关于锁的问题，这里暂不讨论。
+
+4. 等待（`WAITING`）：进入该状态的线程需要等待其他线程做出一些特定动作（通知或中断）；
+
+5. 超时等待（`TIMED_WAITING`）：该状态不同于 `WAITING`，它可以在指定的时间后自行返回；
+
+6. 终止（`TERMINATED`）：表示该线程已经执行完毕。
+
+
+
+### 三、多线程的多种实现方式
+
+`Java` 给多线程编程提供了内置的支持。`Java` 采用单线程编程模型，即**如果没有主动创建线程，程序会自动创建一个线程，称为主线程。**我们可以这样验证：
+
+```java
+public class ThreadDemo {
+  public static void main(String[] args) {
+    System.out.println(Thread.currentThread().getName()); // main
+  }
+}
+```
+
+实现多线程编程的方式主要有四种：
+
+- 继承 `Thread` 类；
+- 实现 `Runnable` 接口；
+- 实现 `Callable` 接口，通过 `FutureTask` 包装器来创建 `Thread` 线程；
+- 使用 `ExecutorService`、`Callable`、`Future` 实现有返回结果的线程。
+
+其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。下面我们通过例子来详细介绍这四种方式。
+
+
+
+#### 1、继承 `Thread` 类
+
+
+
+#### 2、实现 `Runnable` 接口
+
