@@ -89,7 +89,6 @@ urlname: java-multithreading-program
 <p align="center">（图片来自 Joe Armstrong）</p>
 
 
-
 #### 6、多进程与多线程的区别
 
 基于上面的描述，我们可以总结出下面选择原则：
@@ -135,25 +134,447 @@ urlname: java-multithreading-program
 ```java
 public class ThreadDemo {
   public static void main(String[] args) {
-    System.out.println(Thread.currentThread().getName()); // main
+    Thread t = Thread.currentThread();
+    System.out.println(t.getName() + " " + t.getId()); // main 1
   }
 }
 ```
+
+`Thread` 类的静态方法 `currentThread()` 用于获取当前运行的线程的引用。
+
+- `getId()` 的作用是取得线程的唯一标识；
+- `getName()` 方法可以获取线程名称。
 
 实现多线程编程的方式主要有四种：
 
 - 继承 `Thread` 类；
 - 实现 `Runnable` 接口；
-- 实现 `Callable` 接口，通过 `FutureTask` 包装器来创建 `Thread` 线程；
-- 使用 `ExecutorService`、`Callable`、`Future` 实现有返回结果的线程。
+- `Callable` 接口和 `Future` 接口。
 
-其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。下面我们通过例子来详细介绍这四种方式。
+其中前两种方式线程执行完后都没有返回值，后面一种是带返回值的。下面我们通过例子来详细介绍这几种方式。
 
 
 
 #### 1、继承 `Thread` 类
 
+`Thread` 类本质上是实现了 `Runnable` 接口的一个实例，代表一个线程的实例。
+
+**启动线程**的唯一方法就是通过 `Thread` 类的 `start()` 方法。**`start()` 方法将启动一个新线程，并自动执行 `run()` 方法。**也就是说 `run()` 方法是不需要用户来调用的
+
+这种方式实现多线程很简单，通过自己的类直接继承 `Thread` 类，并重写 `run()` 方法，就可以启动新线程并执行自己定义的 `run()` 方法。看个例子：
+
+```java
+import java.io.IOException;
+
+public class Main {
+  private final Object object = new Object();
+  private int i = 10;
+
+  public static void main(String[] args) throws IOException {
+    System.out.println(Thread.currentThread().getName() + " 主线程运行开始!");
+    Main main = new Main();
+    MyThread thread1 = main.getMyThreadInstance();
+    MyThread thread2 = main.getMyThreadInstance();
+    thread1.start();
+    thread2.start();
+    System.out.println(Thread.currentThread().getName() + " 主线程运行结束!");
+  }
+
+  private MyThread getMyThreadInstance() {
+    return new MyThread();
+  }
+
+
+  class MyThread extends Thread {
+    @Override
+    public void run() {
+      synchronized (object) { // synchronized 修饰代码块，其他试图访问该对象的线程将被阻塞
+        i++;
+        System.out.println("i:" + i);
+        try {
+          System.out.println("线程" + Thread.currentThread().getName() + "已启动，下面将进入休眠状态");
+          sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        System.out.println("线程" + Thread.currentThread().getName() + "休眠结束");
+        i++;
+        System.out.println("i:" + i);
+      }
+    }
+  }
+}
+```
+
+输出结果为：
+
+```
+main 主线程运行开始!
+main 主线程运行结束!
+i:11
+线程Thread-0已启动，下面将进入休眠状态
+线程Thread-0休眠结束
+i:12
+i:13
+线程Thread-1已启动，下面将进入休眠状态
+线程Thread-1休眠结束
+i:14
+```
+
+解释下代码：
+
+- 为了便于演示，这里使用了内部类 `MyThread`，`MyThread` 中重写了 `run` 方法；
+- `sleep(long millis)`：**在指定的毫秒数内让当前正在执行的线程休眠（暂停执行）**，相当于让线程睡眠，交出 `CPU`，让 `CPU` 去执行其他的任务；
+- `synchronized` 修饰符用来修饰代码块，其他试图访问该对象的线程将被阻塞，保证一个时间段最多只有一个线程访问被修饰的代码（**加锁**）；
+- 有一点要非常注意，**如果当前线程是拥有锁的，`sleep()` 方法不会释放锁**，也就是说如果当前线程持有对某个对象的锁，即使调用了 `sleep()` 方法，其他线程也无法访问这个对象，从上面的打印结果也可以验证出来这一点；
+- 所以，当 `Thread-0` 进入休眠状态之后，`Thread-1` 并没有去执行具体的任务；只有当 `Thread-0` 执行完之后，此时 `Thread-0` 释放了对象锁，`Thread-1` 才开始执行。
+- `sleep()` 方法也支持一个两个形参的构造函数：`sleep(long millis,int nanoseconds)`，第一参数为毫秒，第二个参数为纳秒。
+
+**注意**，如果调用了 `sleep()` 方法，必须捕获 `InterruptedException` 异常或者将该异常向上层抛出。当线程休眠时间到达后，不一定会立即得到执行，因为此时可能 `CPU` 正在执行其他的任务。所以说调用 `sleep()` 方法相当于让线程进入**阻塞**状态。
+
+
+
+我们也可以看到，**主线程比子线程早结束**，如果想要主线程一定会等子线程都结束了才结束该怎么办呢？使用 `join()` 方法：
+
+```java
+import java.io.IOException;
+
+public class Main {
+  private final Object object = new Object();
+  private int i = 10;
+
+  public static void main(String[] args) throws IOException {
+    System.out.println(Thread.currentThread().getName() + " 主线程运行开始!");
+    Main main = new Main();
+    MyThread thread1 = main.getMyThreadInstance();
+    MyThread thread2 = main.getMyThreadInstance();
+    thread1.start();
+    thread2.start();
+
+    try {
+      thread1.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    try {
+      thread2.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    System.out.println(Thread.currentThread().getName() + " 主线程运行结束!");
+  }
+
+  private MyThread getMyThreadInstance() {
+    return new MyThread();
+  }
+
+
+  class MyThread extends Thread {
+    @Override
+    public void run() {
+      synchronized (object) { // synchronized 修饰代码块，其他试图访问该对象的线程将被阻塞
+        i++;
+        System.out.println("i:" + i);
+        try {
+          System.out.println("线程" + Thread.currentThread().getName() + "已启动，下面将进入休眠状态");
+          sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        System.out.println("线程" + Thread.currentThread().getName() + "休眠结束");
+        i++;
+        System.out.println("i:" + i);
+      }
+    }
+  }
+}
+```
+
+`join()` 方法也是 `Thread` 类的一个方法，启动线程后直接调用。`join()` 还支持一个可以传参的构造函数：
+
+```java
+join(long millis);
+```
+
+表示等待该线程终止的时间最长时间，单位为毫秒。
+
+在当前线程里调用其它线程的 `join()` 方法时，当前线程进入 `WAITING/TIMED_WAITING` 状态（注意：**当前线程不会释放已经持有的对象锁**），等待其它线程执行完毕或者 `millis` 时间结束，当前线程一般情况下进入 `RUNNABLE` 状态（也有可能进入 `BLOCKED` 状态）；
+
+上面的例子中「当前线程」是主线程，它需要等待子线程的终止之后，再执行后面的代码，所以最后一句打印语句会在最后执行。
+
+**这是一个非常常见的场景。**在很多情况下，主线程生成并起动了子线程，如果子线程里要进行大量的耗时的运算，主线程往往将于子线程之前结束，但是如果主线程处理完其他的事务后，需要用到子线程的处理结果，也就是主线程需要等待子线程执行完成之后再结束，这个时候就要用到 `join()` 方法了。
+
+
+
+**`Thread.yield()` 方法**
+
+这里再介绍另外一个方法：`Thread.yield()` 方法，它的作用是：暂停当前正在执行的线程对象，并执行其他线程。它做的其实是让当前运行线程回到可运行状态，以允许具有相同优先级的其他线程获得运行机会。
+
+但是，实际中无法保证 `yield()` 达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。
+
+```java
+public class YieldTest extends Thread {
+  public YieldTest(String name) {
+    super(name);
+  }
+
+  public static void main(String[] args) {
+    YieldTest yt1 = new YieldTest("线程A");
+    YieldTest yt2 = new YieldTest("线程B");
+
+    yt1.start();
+    yt2.start();
+  }
+
+  @Override
+  public void run() {
+    for (int i = 1; i <= 5; i++) {
+      System.out.println("" + this.getName() + " ----- " + i);
+      // 当i为3时，该线程就会把CPU时间让掉，让其他或者自己的线程执行（也就是谁先抢到谁执行）
+      if (i == 3) {
+        Thread.yield();
+      }
+    }
+  }
+}
+```
+
+**线程暂停之后，接着轮到谁执行是不确定的。**可以多运行几次上述代码，来验证 `yield()` 的特性（一般在开发中，`yield()` 不常用）。
+
 
 
 #### 2、实现 `Runnable` 接口
+
+如果我们自己的类本身已经继承另一个类了，那么就不能再去继承 `Thread` 类了。这个时候我们就可以实现 `Runnable` 接口。
+
+```java
+class ThreadDemo implements Runnable {
+  @Override
+  public void run() {
+    try {
+      System.out.println("线程" + Thread.currentThread().getName() + "已启动，下面将进入休眠状态");
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    System.out.println("线程" + Thread.currentThread().getName() + "休眠结束");
+  }
+}
+```
+
+要想启动线程，需要讲 `ThreadDemo` 实例传入 `Thread` 类的构造函数中：
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(Thread.currentThread().getName() + " 主线程运行开始!");
+    ThreadDemo thread0 = new ThreadDemo();
+    ThreadDemo thread1 = new ThreadDemo();
+
+    new Thread(thread0).start();
+    new Thread(thread1).start();
+    System.out.println(Thread.currentThread().getName() + " 主线程运行结束!");
+  }
+}
+```
+
+输出结果为：
+
+```java
+main 主线程运行开始!
+main 主线程运行结束!
+线程Thread-0已启动，下面将进入休眠状态
+线程Thread-1已启动，下面将进入休眠状态
+线程Thread-1休眠结束
+线程Thread-0休眠结束
+```
+
+事实上，当传入一个 `Runnable` 的 `target` 给 `Thread` 后，`Thread` 的 `run()` 方法就会调用 `target.run()` 了，参考 `JDK` 源代码：
+
+```java
+@Override
+public void run() {
+  if (target != null) {
+    target.run();
+  }
+}
+```
+
+
+
+#### 3、缺陷
+
+前面介绍的两种方式都有一个缺陷：在执行完任务之后无法获取执行结果。 如果需要获取执行结果，就必须通过共享变量或者使用线程通信的方式来达到效果，这样使用起来就比较麻烦。 所以从 `Java 1.5` 开始，`Java` 就提供了 `Callable` 和 `Future`，通过它们可以在任务执行完毕之后得到任务执行结果。
+
+
+
+#### 4、使用 `Callable` 接口
+
+`Callable` 接口中，只有一个方法，接口的定义如下：
+
+```java
+public interface Callable<V> {
+  V call() throws Exception;
+}
+```
+
+可以看到，它是有返回值的。并且，`Callable` 接口是一个泛型接口，所以我们必须指出 `call()` 方法将返回的数据类型。
+
+通过实现 `Callable` 接口的方式来实现多线程，有两种方式：
+
+- 通过 `FutureTask`；
+- 通过线程池获取
+
+
+
+##### 4.1、通过 `FutureTask`
+
+前面我们知道，`Runnable` 对象可以传入到 `Thread` 类的构造函数中，通过 `Thread` 来运行；而 `Callable` 接口不能直接传入到 `Thread` 中来运行，需要结合 `FutureTask` 类来使用。
+
+```java
+import java.util.concurrent.Callable;
+
+class ThreadDemo implements Callable<Integer> {
+  //想当于run方法
+  @Override
+  public Integer call() throws Exception {
+    int sum = 0;
+    for (int i = 0; i <= 1000000; i++) {
+      sum += i;
+    }
+    return sum;
+  }
+}
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
+public class TestCallable {
+  public static void main(String[] args) {
+    ThreadDemo td = new ThreadDemo();
+
+    // 1.执行 Callable 方式，需要 FutureTask 实现类的支持，用于接收运算结果。
+    FutureTask<Integer> result = new FutureTask<>(td);
+    new Thread(result).start();
+
+    // 2.接收线程运算后的结果
+    try {
+      if (!result.isDone()) {
+        System.out.println("任务还没执行完");
+      }
+      Integer sum = result.get();  // FutureTask 可用于闭锁，会一直等待  直到子线程完成
+      System.out.println(sum);
+      System.out.println("----------");
+    } catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+输出结果为：
+
+```
+任务还没执行完
+1784293664
+----------
+```
+
+`isDone()` 可以用于判断 `Callable` 的 `call()` 方法是否执行完成。
+
+`get()` 方法用来阻塞当前调用它的线程，直到 `Callable` 的 `call()` 方法执行完毕为止，并且取到返回值；`get()` 方法还支持一个带有参数的重载方法：
+
+```java
+get(long timeout, TimeUnit unit)
+```
+
+加入了一个超时机制，超时的话抛出 `TimeoutException` 异常：
+
+```java
+import java.util.concurrent.Callable;
+
+class ThreadDemo implements Callable<Integer> {
+  @Override
+  public Integer call() throws Exception {
+    int sum = 0;
+    for (int i = 0; i <= 1000000; i++) {
+      sum += i;
+    }
+    return sum;
+  }
+}
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+public class TestCallable {
+  public static void main(String[] args) {
+    ThreadDemo td = new ThreadDemo();
+
+    // 1.执行 Callable 方式，需要 FutureTask 实现类的支持，用于接收运算结果。
+    FutureTask<Integer> result = new FutureTask<>(td);
+    new Thread(result).start();
+
+    // 2.接收线程运算后的结果
+    try {
+      if (!result.isDone()) {
+        System.out.println("任务还没执行完");
+      }
+      Integer sum = result.get(1, TimeUnit.MICROSECONDS );  // FutureTask 可用于闭锁，会一直等待  直到子线程完成
+      System.out.println(sum);
+      System.out.println("----------");
+    } catch (InterruptedException | ExecutionException | TimeoutException e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+
+
+##### 4.2、通过线程池获取
+
+```java
+import java.util.concurrent.Callable;
+
+class ThreadDemo implements Callable<Integer> {
+  @Override
+  public Integer call() throws Exception {
+    int sum = 0;
+    for (int i = 0; i <= 1000000; i++) {
+      sum += i;
+    }
+    return sum;
+  }
+}
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class ThreadPoolDemo {
+  public static void main(String[] args) {
+    // 创建线程池
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    // 往线程池提交任务
+    Future<Integer> future = executorService.submit(new ThreadDemo());
+    if (!future.isDone()) {
+      System.out.println("任务还没执行完");
+    }
+    try {
+      System.out.println(future.get());
+      System.out.println("----------");
+    } catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace();
+    } finally {
+      // 关闭线程池
+      executorService.shutdown();
+    }
+  }
+}
+```
 
