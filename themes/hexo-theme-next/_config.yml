@@ -203,6 +203,8 @@ social:
   #YouTube: https://youtube.com/yourname || youtube
   #Instagram: https://instagram.com/yourname || instagram
   #Skype: skype:yourname?call|chat || skype
+  CSDN: https://blog.csdn.net/deepspacece || blog
+  掘金: https://juejin.im/user/5c4a734e6fb9a049c64434ff/posts || blog
 
 social_icons:
   enable: true
@@ -217,7 +219,7 @@ links_settings:
   layout: block
 
 links:
-  Node.js 教程: http://node.togoblog.cn
+#  Node.js 教程: http://node.togoblog.cn
 
 # Table of Contents in the Sidebar
 toc:
