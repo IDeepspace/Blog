@@ -489,7 +489,7 @@ public class TestCallable {
 get(long timeout, TimeUnit unit)
 ```
 
-加入了一个超时机制，超时的话抛出 `TimeoutException` 异常：
+这个重载方法加入了一个超时机制，超时的话抛出 `TimeoutException` 异常：
 
 ```java
 import java.util.concurrent.Callable;
@@ -535,7 +535,62 @@ public class TestCallable {
 
 
 
-##### 4.2、通过线程池获取
+##### 4.2、通过线程池实现多线程
+
+在开发中，我们经常会遇到这样的场景：服务器需要接受并处理请求，所以会为一个请求来分配一个线程来进行处理。如果为每次请求都新创建一个线程的话实现起来非常简便，但是存在一个问题：
+
+**如果并发的请求数量非常多，但每个线程执行的时间很短，这样就会频繁的创建和销毁线程，如此一来会大大降低系统的效率。可能出现服务器在为每个请求创建新线程和销毁线程上花费的时间和消耗的系统资源要比处理实际的用户请求的时间和资源更多。**
+
+那么有没有一种办法可以使线程在执行完一个任务之后，并不被销毁，而是可以继续执行其他的任务呢？
+
+这就是线程池的作用了：**解决线程生命周期的开销和资源不足问题**。使用线程池的好处有：
+
+- 降低资源消耗：通过重复利用已创建的线程降低线程创建和销毁造成的消耗；
+- 提高响应速度：当任务到达时，任务可以不需要等到线程创建就能立即执行；
+- 提高线程的可管理性：线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。
+
+`Java` 中的线程池是用 `ThreadPoolExecutor` 类来实现的，我们来看一下它的构造函数：
+
+```java
+public ThreadPoolExecutor(int corePoolSize,
+                            int maximumPoolSize,
+                            long keepAliveTime,
+                            TimeUnit unit,
+                            BlockingQueue<Runnable> workQueue) {
+    this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
+            Executors.defaultThreadFactory(), defaultHandler);
+  }
+```
+
+几个核心参数的作用：
+
+- `corePoolSize`： 线程池核心线程数最大值；
+- `maximumPoolSize`： 线程池最大线程数（非核心）大小；
+- `keepAliveTime`： 线程池中非核心线程空闲的存活时间大小；
+- `unit`： 线程空闲存活时间单位；
+- `workQueue`： 存放任务的阻塞队列；
+- `threadFactory`： 用于设置创建线程的工厂，可以给创建的线程设置有意义的名字，方便排查问题；
+- `handler`：  线城池的饱和策略事件（拒绝策略）；用于处理当任务来不及处理的情况。主要有四种类型。
+
+**线程池的执行流程**可以用下图来表示：
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
+
+
+
+**创建线程池**
+
+通过 `ExecutorService` 可以创建四种类型的线程池：
+
+- `newFixedThreadPool`：固定数目线程的线程池
+
+- `newCachedThreadPool`：可缓存线程的线程池
+
+- `newSingleThreadExecutor`：单线程的线程池
+
+- `newScheduledThreadPool`：定时及周期执行的线程池
+
+创建的语法都是类似的，下面使用「可缓存线程池」写一个例子：
 
 ```java
 import java.util.concurrent.Callable;
@@ -558,7 +613,7 @@ import java.util.concurrent.Future;
 
 public class ThreadPoolDemo {
   public static void main(String[] args) {
-    // 创建线程池
+    // 创建可缓存线程池
     ExecutorService executorService = Executors.newCachedThreadPool();
     // 往线程池提交任务
     Future<Integer> future = executorService.submit(new ThreadDemo());
@@ -577,4 +632,25 @@ public class ThreadPoolDemo {
   }
 }
 ```
+
+通过 `java.util.concurrent.ExecutorService` 接口对象来执行任务，该对象有两个方法可以执行任务：
+
+- `execute()` 方法：这种方式提交没有返回值，也就是说不能判断是否执行成功；
+- `submit()` 方法：这种方式它会返回一个 `Future` 对象，通过返回对象的 `get` 方法可以获取返回值；
+
+`future.get` 方法是一个阻塞方法，当 `submit()` 提交多个任务时，只有所有任务都完成后，才能使用 `get` 按照任务的提交顺序得到返回结果，所以一般需要使用 `future.isDone` 先判断任务是否全部执行完成，完成后再使用`future.get` 得到结果。
+
+所以，上面的代码输出结果为：
+
+```
+任务还没执行完
+1784293664
+----------
+```
+
+
+
+### 四、总结
+
+`Java` 多线程编程的内容是非常多的，足够写一本书；并且在不同的应用场景有不同的最佳解决方案，本文的主要目的是为了帮助初学者初步理解及简单使用多线程，关于更多内容还需要不断学习、总结。
 
