@@ -28,8 +28,11 @@ urlname: java-enum
 假设我们需要为方位描绘出四个方向，我们看一下下面的程序，这是在没有枚举类型时定义常量常见的方式：
 
 ```java
-public enum Directions {
-  NORTH, SOUTH, EAST, WEST
+public class Directions {
+  public final static String NORTH = "NORTH";
+  public final static String SOUTH = "SOUTH";
+  public final static String EAST = "EAST";
+  public final static String WEST = "WEST";
 }
 ```
 
