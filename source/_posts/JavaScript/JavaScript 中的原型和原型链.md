@@ -9,8 +9,6 @@ date: 2018-07-03
 urlname: javascript-prototypes-and-prototype-chains 
 ---
 
-## JavaScript 中的原型和原型链
-
 ### 一、通过 new 创建对象
 
 我们知道，使用 `new` 操作符可以创建并初始化一个新对象。关键字 `new` 后跟随一个函数调用，这里的函数称为构造函数（`constructor`）。
@@ -345,3 +343,4 @@ obj.name = 'Deepspace';
 
 console.log(obj.valueOf());
 ```
+

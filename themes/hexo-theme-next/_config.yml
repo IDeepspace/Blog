@@ -203,8 +203,8 @@ social:
   #YouTube: https://youtube.com/yourname || youtube
   #Instagram: https://instagram.com/yourname || instagram
   #Skype: skype:yourname?call|chat || skype
-  CSDN: https://blog.csdn.net/deepspacece || blog
-  掘金: https://juejin.im/user/5c4a734e6fb9a049c64434ff/posts || blog
+  CSDN: https://blog.csdn.net/deepspacece || star
+  掘金: https://juejin.im/user/5c4a734e6fb9a049c64434ff/posts || star
 
 social_icons:
   enable: true
