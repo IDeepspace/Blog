@@ -80,6 +80,30 @@ $ root@f0da3247bdd4:/#
 
 ```bash
 $ root@f0da3247bdd4:/# mysql -uroot -p123456
+mysql>
+```
+
+登录后会显示 `mysql` 命令。
+
+显示所有数据库：
+
+```bash
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+```
+
+退出登录：
+
+```bash
+mysql> exit;
 ```
 
 
@@ -94,6 +118,64 @@ Port: 3306
 User: root
 Password: 123456
 ```
+
+这里推荐一些可视化数据库工具：
+
+- `DataGrip`：`Jetbrain` 家的产品，收费；
+- `DBeaver`：功能强大，免费；
+- `Navicat`：收费。
+
+
+
+### 二、导入演示数据
+
+为了便于演示，这里需要先导入一份数据库数据：
+
+> 链接:https://pan.baidu.com/s/1brD2UJKWgpO0GKicFkyyiA  密码:4nqz
+
+如何导入？
+
+假设下载解压后的文件在本机的存储地址为：`/Users/cxin/Downloads/mysqlsampledatabase.sql`。
+
+首先需要将宿主机（本机）上的文件拷贝至容器中，执行命令：
+
+```bash
+$ docker cp /Users/cxin/Downloads/mysqlsampledatabase.sql f0da3247bdd4:/opt/
+```
+
+进入容器，在容器内登陆 `Mysql` 并执行数据库脚本文件：
+
+```bash
+$ docker exec -it test_mysql bash
+$ root@f0da3247bdd4:/opt# mysql -uroot -p123456
+mysql> source /opt/mysqlsampledatabase.sql
+```
+
+该脚本会创建一个名为 `classicmodels` 的数据库，并写入一些数据。
+
+```bash
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| classicmodels      |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+```
+
+数据库的表之间的关系为：
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/DB/MySQL-Sample-Database-Schema.png" alt="MySQL-Sample-Database-Schema" />
+
+接下来的 `SQL` 语句讲解都是基于上面所导入的数据。
+
+
+
+### 二、SQL 语句
 
 
 
