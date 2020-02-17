@@ -69,7 +69,24 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 f0da3247bdd4        mysql:latest        "docker-entrypoint.s…"   56 seconds ago      Up 54 seconds       127.0.0.1:3306->3306/tcp, 33060/tcp   test_mysql
 ```
 
-现在我们就可以通过一些「数据库可视化客户端」或者程序代码进行数据库连接了：
+我们可以进入 `test_mysql` 容器：
+
+```bash
+$ docker exec -it test_mysql bash
+$ root@f0da3247bdd4:/#
+```
+
+在容器内登陆 `Mysql`：
+
+```bash
+$ root@f0da3247bdd4:/# mysql -uroot -p123456
+```
+
+
+
+#### 4、通过客户端来连接
+
+由于前面我们已经把数据库容器的端口映射出来了，所以我们也可以通过一些「数据库可视化客户端」或者「程序代码」进行数据库连接：
 
 ```
 Host: 127.0.0.1
@@ -77,4 +94,6 @@ Port: 3306
 User: root
 Password: 123456
 ```
+
+
 
