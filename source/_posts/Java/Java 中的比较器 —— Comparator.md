@@ -384,7 +384,7 @@ public class Main {
 
 在 `Java8` 中，`List` 接口直接提供了排序方法， 所以不需要再使用 `Collections.sort` ，更加简洁。
 
-#### 1、使用 Lambda 表达式的基本排序
+#### 1、基本排序
 
 ```java
 import java.util.Comparator;
