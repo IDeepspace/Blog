@@ -91,8 +91,6 @@ Pineapple
 那对于对象的排序该怎么办呢？假设我们有一个 `Employee` 的 `class` ：
 
 ```java
-package PackageOne;
-
 public class Employee {
   private int id;
   private String name;
@@ -106,9 +104,41 @@ public class Employee {
     this.salary = salary;
   }
 
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public int getAge() {
+    return age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  public long getSalary() {
+    return salary;
+  }
+
+  public void setSalary(long salary) {
+    this.salary = salary;
+  }
+
   @Override
   public String toString() {
-    return  "id: " + id + ", name: " + name + ", age:" + age + ", salary: " + salary + "\n";
+    return "id: " + id + ", name: " + name + ", age:" + age + ", salary: " + salary + "\n";
   }
 }
 ```
@@ -149,7 +179,9 @@ Exception in thread "main" java.lang.ClassCastException: packageOne.Employee can
 package java.lang;
 import java.util.*;
 
-public int compareTo(T o);
+public interface Comparable<T> {
+  public int compareTo(T o);
+}
 ```
 
 若一个类实现了 `Comparable` 接口，就意味着 **「该类支持排序」**。 实现 `Comparable` 接口的类的对象的 `List` 列表(或数组) 就可以通过 `Collections.sort()`（或 `Arrays.sort()`）进行排序了。
@@ -231,17 +263,20 @@ public class EmployeeComparator implements Comparator<Employee> {
 调用的时候需要明确指定所使用的排序类：
 
 ```java
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
   public static void main(String[] args) {
-    Employee[] empArray = new Employee[4];
-    empArray[0] = new Employee(10, "Mikey", 25, 10000);
-    empArray[1] = new Employee(20, "Arun", 29, 20000);
-    empArray[2] = new Employee(5, "Lisa", 35, 5000);
-    empArray[3] = new Employee(1, "Pankaj", 32, 50000);
-    Arrays.sort(empArray, new EmployeeComparator());
-    System.out.println("Default Sorting of Employees list:\n" + Arrays.toString(empArray));
+    List<Employee> empList = new ArrayList<Employee>();
+    empList.add(new Employee(10, "Mikey", 25, 10000));
+    empList.add(new Employee(20, "Arun", 29, 20000));
+    empList.add(new Employee(5, "Lisa", 35, 5000));
+    empList.add(new Employee(1, "Pankaj", 32, 50000));
+
+    Collections.sort(empList, new EmployeeComparator());
+    System.out.println("Default Sorting of Employees list:\n" + empList.toString());
   }
 }
 ```
@@ -266,18 +301,21 @@ public class EmployeeComparator implements Comparator<Employee> {
 测试一下：
 
 ```java
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
   public static void main(String[] args) {
-    Employee[] empArray = new Employee[5];
-    empArray[0] = new Employee(10, "Mikey", 25, 10000);
-    empArray[1] = new Employee(10, "Mikey", 23, 10000);
-    empArray[2] = new Employee(20, "Arun", 29, 20000);
-    empArray[3] = new Employee(5, "Lisa", 35, 5000);
-    empArray[4] = new Employee(1, "Pankaj", 32, 50000);
-    Arrays.sort(empArray, new EmployeeComparator());
-    System.out.println("Default Sorting of Employees list:\n" + Arrays.toString(empArray));
+    List<Employee> empList = new ArrayList<Employee>();
+    empList.add(new Employee(10, "Mikey", 25, 10000));
+    empList.add(new Employee(20, "Arun", 29, 20000));
+    empList.add(new Employee(5, "Lisa", 35, 5000));
+    empList.add(new Employee(1, "Pankaj", 32, 50000));
+    empList.add(new Employee(10, "Mikey", 23, 10000));
+
+    Collections.sort(empList, new EmployeeComparator());
+    System.out.println("Default Sorting of Employees list:\n" + empList.toString());
   }
 }
 ```
@@ -296,6 +334,38 @@ Default Sorting of Employees list:
 
 首先按照 `name` 的自然排序来排序，如果 `name` 相同，则按照 `age` 来排序。
 
+当然，我们也可以不新建一个专门的排序类，直接使用匿名类：
+
+```java
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Main {
+  public static void main(String[] args) {
+    List<Employee> empList = new ArrayList<Employee>();
+    empList.add(new Employee(10, "Mikey", 25, 10000));
+    empList.add(new Employee(20, "Arun", 29, 20000));
+    empList.add(new Employee(5, "Lisa", 35, 5000));
+    empList.add(new Employee(1, "Pankaj", 32, 50000));
+    empList.add(new Employee(10, "Mikey", 23, 10000));
+
+    Collections.sort(empList, new Comparator<Employee>() {
+      @Override
+      public int compare(Employee employee1, Employee employee2) {
+        int nameCom = employee1.getName().compareTo(employee2.getName());
+        if (nameCom != 0) {
+          return nameCom;
+        }
+        return Integer.compare(employee1.getAge(), employee2.getAge());
+      }
+    });
+    System.out.println("Default Sorting of Employees list:\n" + empList.toString());
+  }
+}
+```
+
 
 
 ### 三、Comparable 和 Comparator 的区别
@@ -303,9 +373,124 @@ Default Sorting of Employees list:
 下面我们总结下二者的区别：
 
 - `Comparable` 是排序接口；若一个类实现了 `Comparable` 接口，就意味着 「该类支持排序」；
-- 使用 `Comparator` 时，需要自定义一个专门的排序类，并且调用排序的时候也要明确的指明；
+- 使用 `Comparator` 时，需要自定义一个专门的排序类（也可以使用匿名类），并且调用排序的时候也要明确的指明；
 
 - `Comparable` 是内部比较器，而 `Comparator` 是外部比较器；
 - `Comparable`  接口只允许对单个属性进行排序，而 `Comparator` 接口可以支持多个属性排序（多级排序）。
 
-其实，`Java8` 里新增的 `API` 可以帮助我们更好地处理这些排序问题，不过不在本文的讨论范围内，会在 `Java8` 新增 `API` 里讲解。
+
+
+### 四、 通过 Lambda 表达式进行排序
+
+在 `Java8` 中，`List` 接口直接提供了排序方法， 所以不需要再使用 `Collections.sort` ，更加简洁。
+
+#### 1、使用 Lambda 表达式的基本排序
+
+```java
+import java.util.Comparator;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Main {
+  public static void main(String[] args) {
+    List<Employee> empList = new ArrayList<Employee>();
+    empList.add(new Employee(10, "Mikey", 25, 10000));
+    empList.add(new Employee(10, "Mikey", 23, 10000));
+    empList.add(new Employee(20, "Arun", 29, 20000));
+    empList.add(new Employee(5, "Lisa", 35, 5000));
+    empList.add(new Employee(1, "Pankaj", 32, 50000));
+
+    // 使用 lambda 表达式
+    empList.sort((Employee employee1, Employee employee2) -> employee1.getName().compareTo(employee2.getName()));
+    
+    System.out.println("Default Sorting of Employees list:\n" + empList.toString());
+  }
+}
+```
+
+也可以省略类型，编译器可以根据上下文推测出排序的类型：
+
+```java
+empList.sort((employee1, employee2) -> employee1.getName().compareTo(employee2.getName()));
+```
+
+甚至可以简化成下面这样：
+
+```java
+empList.sort(Comparator.comparing(Employee::getName));
+```
+
+
+
+#### 2、组合排序
+
+如果是组合（多级）排序，我们可以这样写：
+
+```java
+empList.sort((Employee employee1, Employee employee2) -> {
+  if (employee1.getName().equals(employee2.getName())) {
+    return employee1.getAge() - employee2.getAge();
+  }
+  return employee1.getName().compareTo(employee2.getName());
+});
+```
+
+省略类型：
+
+```java
+empList.sort((employee1, employee2) -> {
+  if (employee1.getName().equals(employee2.getName())) {
+    return employee1.getAge() - employee2.getAge();
+  }
+  return employee1.getName().compareTo(employee2.getName());
+});
+```
+
+甚至可以简化成下面这样：
+
+```java
+empList.sort(Comparator.comparing(Employee::getName).thenComparing(Employee::getAge));
+```
+
+
+
+#### 3、提取 Comparator 进行排序
+
+```java
+Collections.sort(empList, Comparator.comparing(Employee::getName).thenComparing(Employee::getAge));
+```
+
+
+
+#### 4、自定义静态的比较方法来排序
+
+```java
+empList.sort(Employee::compareByNameThenAge);
+```
+
+静态方法 `compareByNameThenAge` 需要写在被比较的类（`Employee`）中：
+
+```java
+public static int compareByNameThenAge(Employee employee1, Employee employee2) {
+  if (employee1.getName().equals(employee2.getName())) {
+    return employee1.getAge() - employee2.getAge();
+  }
+  return employee1.getName().compareTo(employee2.getName());
+}
+```
+
+
+
+#### 5、反转排序
+
+```java
+Comparator<Employee> comparator = (Employee employee1, Employee employee2) -> {
+  if (employee1.getName().equals(employee2.getName())) {
+    return employee1.getAge() - employee2.getAge();
+  }
+  return employee1.getName().compareTo(employee2.getName());
+};
+empList.sort(comparator); // 先按 name 排序
+empList.sort(comparator.reversed()); // 反转排序
+```
+
