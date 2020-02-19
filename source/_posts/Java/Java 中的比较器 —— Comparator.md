@@ -91,6 +91,8 @@ Pineapple
 那对于对象的排序该怎么办呢？假设我们有一个 `Employee` 的 `class` ：
 
 ```java
+package PackageOne;
+
 public class Employee {
   private int id;
   private String name;
@@ -104,38 +106,6 @@ public class Employee {
     this.salary = salary;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public int getAge() {
-    return age;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
-  public long getSalary() {
-    return salary;
-  }
-
-  public void setSalary(long salary) {
-    this.salary = salary;
-  }
-  
   @Override
   public String toString() {
     return  "id: " + id + ", name: " + name + ", age:" + age + ", salary: " + salary + "\n";
