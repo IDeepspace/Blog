@@ -217,7 +217,7 @@ namesIterator.next();
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator4.png" alt="迭代器4" style="zoom:60%;" />
 
-当读取最后一个元素后，如果继续运行下面的代码片段，它将返回 `false` 。
+当读取最后一个元素后，如果继续运行上面的代码片段，它将返回 `false` 。
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator5.png" alt="迭代器5" style="zoom:60%;" />
 
