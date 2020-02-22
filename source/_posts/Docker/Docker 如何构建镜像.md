@@ -148,7 +148,7 @@ $ docker run --name webserver2 -d -p 81:80 nginx:v2
 
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/docker-welcome-to-nginx-1.png" alt="docker-welcome-to-nginx-1" style="zoom:50%;" />
 
-访问 [http://localhost:81](http://localhost:81/) 看到结果，其内容应该和之前修改后的 `webserver` 是一样的。
+访问 [http://localhost:81](http://localhost:81/) 看到结果，其内容和之前修改后的 `webserver` 是一样的。
 
 
 
@@ -169,4 +169,134 @@ $ docker run --name webserver2 -d -p 81:80 nginx:v2
 
 
 ### 二、使用 Dockerfile 构建镜像
+
+`Dockerfile` 是一个文本文件，其内包含了一条条的**指令(`Instruction`)**，每一条指令构建一层，所以每一条指令的内容，就是描述该层应当如何构建。
+
+还以之前定制 `nginx` 镜像为例，这次我们使用 `Dockerfile` 来定制。
+
+在一个空白目录中，新建一个文件，并命名为 `Dockerfile`：
+
+```bash
+$ mkdir mynginx
+$ cd mynginx
+$ touch Dockerfile
+```
+
+其内容为：
+
+```dockerfile
+FROM nginx
+RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
+```
+
+这个 `Dockerfile` 很简单，只包含了 `FROM` 和 `RUN` 两条指令。
+
+#### 1、FROM 和 RUN 指令的作用
+
+- `FROM`：定制的镜像都是基于 `FROM` 的镜像，这里的 `nginx` 就是定制需要的基础镜像，后续的操作都是基于 `nginx`；
+
+- `RUN`：用于执行后面跟着的命令行命令。有两种格式：
+
+  - `shell` 格式：`RUN <命令行命令>`，`<命令行命令>` 等同于在终端操作的 `shell` 命令；
+
+  - `exec` 格式：`RUN ["可执行文件", "参数1", "参数2"]`，这更像是函数调用中的格式，例如：
+
+    ```bash
+    $ RUN ["./test.js", "dev", "offline"] 
+    ```
+
+    等价于 `shell` 格式的：
+
+    ```bash
+    $ RUN ./test.js dev offline
+    ```
+
+既然 `RUN` 就像 `shell` 脚本一样可以执行命令，那么我们是否就可以像 `shell` 脚本一样把每个命令对应一个 `RUN` 呢？比如这样：
+
+```dockerfile
+FROM debian:stretch
+
+RUN apt-get update
+RUN apt-get install -y gcc libc6-dev make wget
+RUN wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz"
+RUN mkdir -p /usr/src/redis
+RUN tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1
+RUN make -C /usr/src/redis
+RUN make -C /usr/src/redis install
+```
+
+之前说过，`Dockerfile` 中每一个指令都会建立一层，`RUN` 也不例外。每一个 `RUN` 的行为，就和刚才我们手工建立镜像的过程一样：**新建立一层，在其上执行这些命令，执行结束后，`commit` 这一层的修改，构成新的镜像。**
+
+而上面的这种写法，创建了 7 层镜像。这是完全没有意义的，而且很多运行时不需要的东西，都被装进了镜像里，比如编译环境、更新的软件包等等。结果就是产生非常臃肿、非常多层的镜像，不仅仅增加了构建部署的时间，也很容易出错。
+
+所以，上面的 `Dockerfile` 正确的写法应该是这样：
+
+```dockerfile
+FROM debian:stretch
+
+RUN buildDeps='gcc libc6-dev make wget' \
+    && apt-get update \
+    && apt-get install -y $buildDeps \
+    && wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz" \
+    && mkdir -p /usr/src/redis \
+    && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
+    && make -C /usr/src/redis \
+    && make -C /usr/src/redis install \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm redis.tar.gz \
+    && rm -r /usr/src/redis \
+    && apt-get purge -y --auto-remove $buildDeps
+```
+
+之前所有的命令只有一个目的：编译、安装 `redis` 可执行文件。因此没有必要建立很多层，这只是一层的事情。因此，这里仅仅使用一个 `RUN` 指令，并使用 `&&` 将各个所需命令串联起来，将之前的 7 层，简化为了 1 层。
+
+并且，这里为了格式化还进行了换行。`Dockerfile` 支持在行尾添加 `\` 的命令换行，以及行首 `#` 进行注释的格式。**良好的格式，比如换行、缩进、注释等，会让维护、排障更为容易，这是一个比较好的习惯。**
+
+此外，还可以看到这一组命令的最后添加了清理工作的命令，删除了为了编译构建所需要的软件，清理了所有下载、展开的文件，并且还清理了 `apt` 缓存文件。这是很重要的一步，我们之前说过，镜像是多层存储，每一层的东西并不会在下一层被删除，会一直跟随着镜像。**因此镜像构建时，一定要确保每一层只添加真正需要添加的东西，任何无关的东西都应该清理掉**。
+
+
+
+#### 2、构建镜像
+
+现在我们来通过 `Dockerfile` 构建这个镜像，在 `Dockerfile` 文件所在目录执行：
+
+```bash
+$ docker build -t nginx:v3 .
+Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM nginx
+ ---> 2073e0bcb60e
+Step 2/2 : RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
+ ---> Running in d1b384920233
+Removing intermediate container d1b384920233
+ ---> ff3b6f56ff97
+Successfully built ff3b6f56ff97
+Successfully tagged nginx:v3
+```
+
+`docker build` 命令用于构建镜像，其格式为：
+
+```bash
+$ docker build [选项] <上下文路径/URL/->
+```
+
+- `-t` 是 `--tag` 的简写，用于指定镜像的名字及标签，通常 `name:tag` 或者 `name` 格式，在这里我们指定了最终镜像的名称 `-t nginx:v3` ；
+
+- `.` 代表本次执行的上下文路径，这个我们待会解释。
+
+下面，查看构建好的镜像：
+
+```bash
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+nginx               v3                  ff3b6f56ff97        About a minute ago   127MB
+```
+
+通过该镜像启动一个容器：
+
+```bash
+$ docker run --name webserver3 -d -p 82:80 nginx:v3
+cc6cd57fb1d8d627abf0f47f5415ff9f10a6f0cba0e45cf4973cc54c02515bc2
+```
+
+访问 [http://localhost:82](http://localhost:82/) 可以看到结果，其内容和之前使用 `docker commit` 的方式构建的镜像是一样的。
 
