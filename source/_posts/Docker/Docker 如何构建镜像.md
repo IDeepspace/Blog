@@ -300,3 +300,33 @@ cc6cd57fb1d8d627abf0f47f5415ff9f10a6f0cba0e45cf4973cc54c02515bc2
 
 访问 [http://localhost:82](http://localhost:82/) 可以看到结果，其内容和之前使用 `docker commit` 的方式构建的镜像是一样的。
 
+
+
+#### 3、镜像构建上下文
+
+`docker` 的运行模式是 `C/S`（`Client/Service`）架构的。我们本机是 `C`，`docker` 引擎是 `S`。实际上的构建过程并不是在我们的本机环境中完成的，而是在 `docker` 引擎下完成的。
+
+`Docker` 的引擎提供了一组 `REST API`，被称为 [Docker Remote API](https://docs.docker.com/develop/sdk/)，我们在客户端工具中执行的 `docker` 命令，就是通过这组 `API` 与 `Docker` 引擎进行交互，从而完成各种功能。
+
+因此，虽然表面上我们好像是在本机执行各种 `Docker` 功能，但实际上，一切都是使用的远程调用形式在服务端（`Docker` 引擎）完成。所以这个时候，`Docker` 引擎无法用到我们本机的文件。这就需要把我们本机的指定目录下的文件（上下文包）一起打包提供给 `Docker` 引擎使用。这就是构建上下文的概念（`context`）。
+
+所以，刚才的命令 `docker build -t nginx:v3 .` 中的这个 `.`，实际上是在指定上下文的目录，`docker build` 命令会将该目录下的内容打包交给 `Docker` 引擎用以帮助构建镜像。
+
+如果观察 `docker build` 输出，我们其实已经看到了这个发送上下文的过程：
+
+```bash
+$ docker build -t nginx:v3 .
+Sending build context to Docker daemon  2.048kB
+...
+```
+
+**注意**：上下文路径下不要放无用的文件，因为会一起打包发送给 `Docker` 引擎，如果文件过多会造成过程缓慢。
+
+
+
+### 三、Dockerfile 指令详解
+
+#### 1、COPY 复制文件
+
+
+
