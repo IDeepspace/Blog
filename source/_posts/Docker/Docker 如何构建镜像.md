@@ -1,5 +1,5 @@
 ---
-title: Docker 从入门到实践（二）
+title: Docker —— 使用 Dockerfile 构建镜像
 author: Deepspace
 categories: Docker
 date: 2018-05-12
@@ -14,7 +14,7 @@ tags:
 
 并且，在部署应用程序的时候，我们也会将应用打包成 `Docker` 镜像并部署到服务器。
 
-下面我们来看看如何定制镜像。
+下面我们来看看如何构建镜像。
 
 
 
@@ -326,7 +326,7 @@ Sending build context to Docker daemon  2.048kB
 
 ### 三、Dockerfile 指令详解
 
-#### 1、COPY 复制文件
+#### 1、COPY
 
-
+复制指令，从上下文目录中复制文件或者目录到容器里指定路径。
 
