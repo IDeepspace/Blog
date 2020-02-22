@@ -1,9 +1,9 @@
 ---
-title: Docker 从入门到实践（一）
+title: Docker 概念理解与常用命令
 author: Deepspace
 categories: Docker
-date: 2017-05-12
-urlname: docker-tutorial-1
+date: 2018-05-12
+urlname: what-is-docker
 tags:
   - Docker
 ---
