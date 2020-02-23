@@ -145,4 +145,5 @@ $ docker-compose up -d
 
 ### 四、完成
 
-浏览器访问 IP 地址，安装 WordPress！
+浏览器访问 `IP` 地址，安装 `WordPress`！
+
