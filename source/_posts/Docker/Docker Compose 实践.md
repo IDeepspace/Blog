@@ -12,7 +12,7 @@ tags:
 
 有个 `Compose` 的支持，我们只需要定义一个 `YAML` 格式的配置文件（`docker-compose.yml`），来编写一个项目所需要的多个容器配置及调用关系，通过简单的命令即可同时开始或者关闭这些容器。
 
-下面我们演示一下如何使用 `Docker Compose` 来设置和运行一个简单的 `django / postgresql` 应用程序。 
+下面我们演示一下如何使用 `Docker Compose` 来设置和运行一个简单的 `Wordpress / MySQL` 应用程序。 
 
 
 

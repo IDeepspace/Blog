@@ -57,7 +57,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/docker-welcome-to-nginx.png" alt="docker-welcome-to-nginx" style="zoom:50%;" />
 
-直接用浏览器访问的 http://localhost，我们会看到默认的 `Nginx` 欢迎页面。
+直接用浏览器访问的 http://localhost:80， 我们会看到默认的 `Nginx` 欢迎页面。
 
 现在，我们不喜欢这个欢迎页面，想进行一些修改，该页面的存储位置在这个被取名为 `webserver` 的 `Nginx` 容器中的 `/usr/share/nginx/html/` 目录下。使用 `docker exec` 命令进入容器，修改其内容：
 
@@ -508,7 +508,6 @@ app.listen(port, () => console.log(`Running on http://localhost:${port}`));
     "express": "^4.17.1"
   }
 }
-
 ```
 
 
