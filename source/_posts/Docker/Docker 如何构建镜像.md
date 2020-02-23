@@ -464,7 +464,124 @@ HEALTHCHECK --interval=5s --timeout=3s \
 
 
 
-### 四、总结
+### 四、Dockerfile 实践
+
+下面我们通过一个 `Node.js` 的简单项目为例，介绍下如何编写 `Dockerfile` 文件、如何在 `Docker` 容器里运行  `Node.js` 项目。
+
+#### 1、项目准备
+
+创建一个 `Node.js` 项目：
+
+```bash
+$ mkdir hello-docker & cd hello-docker
+$ npm init -y
+$ npm install express --save
+```
+
+创建 `server.js` 文件，写入以下内容：
+
+```javascript
+const express = require('express');
+const port = 30010;
+
+const app = express();
+app.get('/', (req, res) => res.send('Hello Docker!'));
+
+app.listen(port, () => console.log(`Running on http://localhost:${port}`));
+```
+
+修改 `package.json` 里面的内容：
+
+```json
+{
+  "name": "hello-docker",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "repository": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+
+```
+
+
+
+#### 2、编写 Dockerfile
+
+```dockerfile
+FROM node:10.0
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+EXPOSE 30010
+CMD [ "node", "server.js" ]
+```
+
+
+
+#### 3、构建镜像
+
+```bash
+$ docker build -t hello-docker .
+```
+
+
+
+#### 4、启动容器
+
+```bash
+$ docker run -d -p 30000:30010 hello-docker
+```
+
+将本机的 `30000` 端口映射到容器的 `30010` 端口，这样在外网就可通过 `30000` 端口访问到我们的服务了。
+
+通过 `docker ps` 查看我们刚刚运行的容器信息：
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                 NAMES
+70746429068a        hello-docker        "node server.js"         2 minutes ago       Up 2 minutes        0.0.0.0:30000->30010/tcp              modest_brown
+```
+
+
+
+#### 5、访问服务
+
+此时我们的 `Node.js` 服务已经运行在 `Docker` 容器的虚拟环境里了，浏览器访问 http://localhost:30000 可以进行测试。也可以直接通过 `curl` 命令测试：
+
+```bash
+$ curl -i localhost:30000
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 13
+ETag: W/"d-ycMOqUR5/PppgEP78YMMk23qVGA"
+Date: Sun, 23 Feb 2020 02:13:19 GMT
+Connection: keep-alive
+
+Hello Docker!%
+```
+
+
+
+### 五、总结
 
 更多内容可以参考：
 
