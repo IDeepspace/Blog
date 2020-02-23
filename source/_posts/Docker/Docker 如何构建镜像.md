@@ -184,10 +184,10 @@ $ touch Dockerfile
 
 其内容为：
 
-> ```dockerfile
-> FROM nginx
-> RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
-> ```
+```dockerfile
+FROM nginx
+RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' > /usr/share/nginx/html/index.html
+```
 
 这个 `Dockerfile` 很简单，只包含了 `FROM` 和 `RUN` 两条指令。
 
