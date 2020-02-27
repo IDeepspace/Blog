@@ -2,7 +2,7 @@
 title: Java 中的注解
 author: Deepspace
 categories: Java
-date: 2018-05-12
+date: 2020-02-27
 urlname: java-annotation
 tags:
   - 注解
@@ -45,6 +45,8 @@ public class Dog extends Animal {
 3. 如果没写 `@Override`，而下面的方法名又不是父类中的方法，这时编译器是可以编译通过的，因为编译器会认为这个方法是子类中自己增加的方法。
 
 所以，为了避免发生错误，我们在重写时，需要加上 `@override`。
+
+<!-- more -->
 
 那 `@Override` 是如何定义的呢？我们看下 `JDK` 对于这个内置注解的定义：
 
