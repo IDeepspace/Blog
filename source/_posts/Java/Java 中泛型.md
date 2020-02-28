@@ -417,7 +417,6 @@ public class GenericTest {
 }
 
 
-
 class Box<T> {
   private T data;
 

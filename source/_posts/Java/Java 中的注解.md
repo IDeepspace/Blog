@@ -199,8 +199,8 @@ public interface MyFunction {
 指定标记注解的存储方式：
 
 - `RetentionPolicy.SOURCE` - 标记的注解仅在源级别保留，并被编译器忽略。
-- `RetentionPolicy.CLASS` - 标记的注解由编译器在编译时保留，但被 Java 虚拟机（JVM）忽略。
-- `RetentionPolicy.RUNTIME` - 标记的注解由 JVM 保留，因此可以由运行时环境使用。
+- `RetentionPolicy.CLASS` - 标记的注解由编译器在编译时保留，但被 `Java` 虚拟机（`JVM`）忽略。
+- `RetentionPolicy.RUNTIME` - 标记的注解由 `JVM` 保留，因此可以由运行时环境使用。
 
 
 
