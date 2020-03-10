@@ -23,7 +23,7 @@ person.sayName = function () {
   console.log(this.name);
 };
 ```
-
+<!-- more -->
 并且，`JavaScript` 中的原始类型都包含内置构造函数，在运行时会自动出现在执行环境中。如：
 
 ```javascript

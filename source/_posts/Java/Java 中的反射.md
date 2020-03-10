@@ -22,7 +22,7 @@ person.setName = "Deepspace";
 ```
 
 这种对类对象进行初始化的操作，我们可以理解为「正」。
-
+<!-- more -->
 #### 1、Class 的概念
 
 这里要提一下 `Class` 类的概念。

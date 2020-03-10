@@ -23,7 +23,7 @@ tags:
 第一步肯定是要先**准备一台物理服务器**，然后在物理服务器上**安装一个操作系统**（`Operating System`），有了操作系统之后，就可以在操作系统上**安装并运行我们的应用程序**。这个过程可以用下面的图来表示：
 
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/deploy-application-without-virtualization.png" alt="deploy-application-without-virtualization" style="zoom:50%;" />
-
+<!-- more -->
 这种方式有几个缺点：
 
 - 部署非常慢：得先准备硬件服务器，接着还要安装操作系统，然后再部署应用程序；而且应用程序还有很多的依赖软件和环境变量，这些都需要在安装的操作系统中设置，所以这个过程是比较慢的；

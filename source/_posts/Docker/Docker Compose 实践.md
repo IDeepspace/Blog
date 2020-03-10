@@ -14,7 +14,7 @@ tags:
 
 下面我们演示一下如何使用 `Docker Compose` 来设置和运行一个简单的 `Wordpress / MySQL` 应用程序。 
 
-
+<!-- more -->
 
 ### 一、安装
 

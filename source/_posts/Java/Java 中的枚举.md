@@ -21,7 +21,7 @@ urlname: java-enum
 
 > 这里需要注意，**枚举（`enum`）是一个类**，它的全称是 `enumeration`，但是 `Java` 中也有一个 `Enumeration` 的**接口**，这两者是没有任何关系的。
 
-
+<!-- more -->
 
 ### 二、为什么会出现枚举？
 

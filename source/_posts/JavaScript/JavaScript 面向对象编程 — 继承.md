@@ -38,7 +38,7 @@ urlname: javascript-object-oriented-programming-2
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
 
 图中蓝色的线条就是原型链。
-
+<!-- more -->
 
 
 ### 三、实现原型链继承
