@@ -4,7 +4,7 @@ author: Deepspace
 tags:
   - JavaScript
 categories: JavaScript
-date: 2016-10-28
+date: 2018-07-28
 urlname: javascript-object-oriented-programming-3
 ---
 
