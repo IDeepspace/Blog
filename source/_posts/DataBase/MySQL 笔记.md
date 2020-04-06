@@ -10,7 +10,6 @@ tags:
 ---
 
 
-
 ### 一、安装
 
 网络上已经有很多讲述如何在 `Windows`、`Mac`、和 `Ubuntu` 等环境上安装 `MySQL` 的教程了，这里就不再赘述。
@@ -221,12 +220,12 @@ FROM
 语法：
 
 ```mysql
-SELECT 
+SELECT
    select_list
-FROM 
+FROM
    table_name
-ORDER BY 
-   column1 [ASC|DESC], 
+ORDER BY
+   column1 [ASC|DESC],
    column2 [ASC|DESC],
    ...;
 ```
@@ -283,14 +282,14 @@ ORDER BY
 
 
 
-### 四、过滤 
+### 四、过滤
 
 #### 1、WHERE
 
 语法：
 
 ```mysql
-SELECT 
+SELECT
     select_list
 FROM
     table_name
@@ -540,9 +539,9 @@ FROM table_name;
 如果别名中包含空格，就需要这样写：
 
 ```mysql
-SELECT 
+SELECT
    [column_1 | expression] AS `descriptive name`
-FROM 
+FROM
    table_name;
 ```
 
@@ -577,7 +576,7 @@ HAVING
 
 下面我们来看一下如何在两张或者两张以上的表中查询数据。
 
-一个关系数据库由多个相关的表组成，表之间使用公共的列连接在一起，这些列被称为外键。 
+一个关系数据库由多个相关的表组成，表之间使用公共的列连接在一起，这些列被称为外键。
 
 以我们导入的数据库为例， `orders` 和 `orderdetails` 这两张表就使用 `orderNumber` 这个外键进行连接。如果要获得完整的订单信息就需要联表查询，这就是 `JOIN` 的作用。
 
@@ -683,7 +682,7 @@ LIMIT 20;
 语法：
 
 ```mysql
-SELECT 
+SELECT
     c1, c2,..., cn, aggregate_function(ci)
 FROM
     table
@@ -717,15 +716,15 @@ ORDER BY
 语法：
 
 ```mysql
-SELECT 
+SELECT
     select_list
-FROM 
+FROM
     table_name
-WHERE 
+WHERE
     search_condition
-GROUP BY 
+GROUP BY
     group_by_expression
-HAVING 
+HAVING
     group_condition;
 ```
 
@@ -763,7 +762,7 @@ LIMIT 10;
 
 ```mysql
 INSERT INTO table(c1,c2,...)
-VALUES 
+VALUES
    (v11,v12,...),
    (v21,v22,...),
     ...
@@ -857,8 +856,8 @@ VALUES('john.doe@gmail.com'),
 语法：
 
 ```mysql
-UPDATE [LOW_PRIORITY] [IGNORE] table_name 
-SET 
+UPDATE [LOW_PRIORITY] [IGNORE] table_name
+SET
     column_name1 = expr1,
     column_name2 = expr2,
     ...
@@ -1012,7 +1011,7 @@ WHERE
 `REPLACE`语句的工作原理如下：
 
 - 如果给定行数据不存在，那么 `REPLACE` 语句会插入一个新行；
-- 如果给定行数据存在，则 `REPLACE` 语句首先删除旧行，然后插入一个新行。 
+- 如果给定行数据存在，则 `REPLACE` 语句首先删除旧行，然后插入一个新行。
 
 ```mysql
 CREATE TABLE cities (
