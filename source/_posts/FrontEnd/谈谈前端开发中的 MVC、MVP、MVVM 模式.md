@@ -28,13 +28,13 @@ tags:
 
 ### 一、GUI 所面临的问题
 
-图形界面的应用程序（`Graphical User Interface`）为用户提供**交互式可视化组件的操作界面**。用户的**输入行为**（如鼠标点击、键盘输入）会执行一些**应用逻辑**（`application logic`），应用逻辑可能会触发一定的**业务逻辑**（`business logic`），这时候应用程序的数据就可能会发生变更；数据的变更自然需要**用户界面的同步变更**以提供最准确的信息。
+图形界面的应用程序（`Graphical User Interface`）为用户提供**交互式可视化组件的操作界面**。用户的**输入行为**（如鼠标点击、键盘输入）会执行一些**应用逻辑**（`application logic`），应用逻辑可能会触发一定的**业务逻辑**（`business logic`），这时候应用程序的数据就可能会发生变更；数据的变更需要**用户界面的同步变更**以提供最准确的信息。
 
 例如用户对一个电子表格进行重新排序的操作，应用程序需要响应用户操作，对数据进行排序，然后需要再同步到界面上。
 
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/gui.png" alt="GUI" style="zoom:80%;" />
 
-下面我们来看一些 `GUI` 应用所面临的常见的设计问题。
+下面我们来看一些 `GUI` 应用会面临的设计问题。
 
 #### 1、界面的变化和业务的变化频率不同
 
@@ -49,11 +49,15 @@ tags:
 - 测试耗时长， 因为要启动真实的应用；
 - 测试比较脆弱， 无论是可靠性还是可维护性，都会比较脆弱；因为界面元素的变化很频繁， 而通过编程来控制界面和用户真实操作经常有细微的差别， 尤其是时序相关的问题。
 
+
+
 所以，在开发 `GUI` 应用程序的时候，为了降低应用的复杂度，提高可维护性，开发人员基于职责分离（`Speration of Duties`）的思想，对应用程序进行了分层：
 
 **把管理用户界面的层次称为 `View`（视图），把应用程序的数据称为 `Model` （模型）**。
 
-`View` 用于定义结构、布局，它以一种合适的方式展示数据；`Modal` 用于封装和应用程序的业务逻辑相关的数据以及对数据的处理方法。
+- `View` 用于定义界面的结构、布局，以一种合适的方式展示数据；
+
+- `Modal` 用于封装和应用程序的业务逻辑相关的数据以及对数据的处理方法。
 
 有了 `View` 和 `Model` 的分层，那么问题就来了：`View` 如何同步 `Model` 的变更呢？也就是说，我们要怎样将 `View` 和 `Model` 粘合在一起呢？
 
@@ -67,9 +71,7 @@ tags:
 
 `Controller` 的职责就是充当 `View` 和 `Model` 之间的中介者。`Controller` 负责处理传入的请求。 它通过 `Model` 处理用户的数据，并将结果传递回 `View`。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvc.jpg" alt="mvc" style="zoom: 65%;" />
-
-> 在网上的一些资料里，`Controller` 和 `View` 之间的依赖关系可能不一样，有些是单向依赖，有些是双向依赖，这个其实区别不大，它们的依赖关系就是为了把处理用户行为触发的事件的处理权转交给 `Controller`。
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvc.jpg" alt="mvc" style="zoom: 60%;" />
 
 在 `MVC` 的模式里：
 
@@ -77,13 +79,9 @@ tags:
 2. `Controller` 会对来自 `View` 的数据进行预处理，决定调用哪个 `Model` 的接口；
 3. 然后由 `Model` 执行相关的业务逻辑；当 `Model` 变更了以后，会通知 `View`；`View` 收到 `Model` 变更的消息以后，会向 `Model` 请求最新的数据，然后更新界面。
 
-这里有一个需要理解的地方：`Model` 的更新是通过**观察者模式（`Observer Pattern`）**告知 `View` 的，具体表现形式可以是 `Pub/Sub` 或者是触发 `Events`。
+> 这里有一个需要理解的地方：`Model` 的更新是通过**观察者模式（`Observer Pattern`）**告知 `View` 的，具体表现形式可以是 `Pub/Sub` 或者是触发 `Events`。
 
-清楚 `MVC` 的架构模式后，下面我们来动手实现一个简易版的 `MVC`。
-
-> // 待补充
-
-实现完一个 `MVC` 之后，我们来看看它的优缺点：
+清楚 `MVC` 的架构模式后，我们来看看它的优缺点：
 
 优点：
 
@@ -101,9 +99,11 @@ tags:
 
 `MVP` 模式是 `MVC` 模式的改良。`MVP` 模式把 `MVC` 模式中的 `Controller` 换成了 `Presenter`。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvp.png" alt="mvp" style="zoom:65%;" />
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvp.jpg" alt="mvp" style="zoom:60%;" />
 
 `MVP` 打破了 `View` 原来对于 `Model` 的依赖，其余的依赖关系和 `MVC` 模式一致。那么问题来了，`View` 如何同步 `Model` 的变更呢？
 
-和 `MVC` 模式一样，用户对 `View` 的操作都会从 `View` 交移给 `Presenter` 。`Presenter` 会执行相应的应用程序逻辑，并且对 `Model` 进行相应的操作；而这时候 `Model` 执行完业务逻辑以后，也是通过观察者模式把自己变更的消息传递出去，但是是传给 `Presenter` 而不是 `View`。`Presenter` 获取到 `Model` 变更的消息以后，通过 `View` 提供的接口更新界面。
+和 `MVC` 模式一样，用户对 `View` 的操作都会从 `View` 交移给 `Presenter` 。`Presenter` 会执行相应的应用程序逻辑，并且对 `Model` 进行相应的操作；`Model` 执行完业务逻辑以后，也是通过观察者模式把自己变更的消息传递出去，但是是传给 `Presenter` 而不是 `View`。`Presenter` 获取到 `Model` 变更的消息以后，通过 `View` 提供的接口更新界面。
+
+所以我们可以看到： **`View` 和 `Presenter`、`Presenter` 和 `Model` 之间的通信是双向的**。
 
