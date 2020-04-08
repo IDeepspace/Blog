@@ -107,3 +107,6 @@ tags:
 
 所以我们可以看到： **`View` 和 `Presenter`、`Presenter` 和 `Model` 之间的通信是双向的**。
 
+- `View` 不再负责同步的逻辑，而是由 `Presenter` 负责。`Presenter` 中既有应用程序逻辑也有同步逻辑。
+- `View` 需要提供操作界面的接口给 `Presenter` 进行调用。
+
