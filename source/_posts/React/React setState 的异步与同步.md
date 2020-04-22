@@ -10,7 +10,7 @@ urlname: react-setState
 
 ### 一、如何使用 setState
 
-在 `React` 中，一个很重要的点就是不要直接去修改 `state`，类似于这样的写法：`this.state.count = 1` ，这种方式是无法触发 `React` 去更新视图的。因为 React 的机制中规定了：一个 `state` 的更新，首先需要调用 `setState` 方法：
+在 `React` 中，一个很重要的点就是不要直接去修改 `state`，类似于这样的写法：`this.state.count = 1` ，这种方式是无法触发 `React` 去更新视图的。因为 `React` 的机制中规定了：一个 `state` 的更新，首先需要调用 `setState` 方法：
 
 ```jsx
 this.setState({
@@ -55,7 +55,14 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
 ```
 
-通过打印结果我们可以看出：`React setState` 并不是同步的。那怎么才能获取到修改后的 `state` 呢？`React` 为我们提供了一个回调去实现：
+输出结果为：
+
+```
+Demo about setState
+1
+```
+
+通过结果我们可以看出：`React setState` 并不是同步的。那怎么才能获取到修改后的 `state` 呢？`React` 为我们提供了一个回调去实现：
 
 ```jsx
 ...
@@ -65,7 +72,7 @@ this.setState({count: this.state.count + 1}, ()=>{
 ...
 ```
 
-回调里的 `state` 便是最新的了，原因是该回调的执行时机在于 `state` 合并处理之后。如果我们这样去做：
+回调里的 `state` 便是最新的了，原因是该回调的执行时机在于 `state` 合并处理之后。如果我们按照上面的例子那样去做：
 
 ```jsx
 ...
@@ -74,7 +81,7 @@ this.setState({count: this.state.count + 1}, ()=>{
 ...
 ```
 
-实际最终的 `count` 会等于 `1`，原因是执行时第二行代码时得到的 `this.state.count = 0`。那怎么实现结果为 `2` 呢？
+实际最终的 `count` 会等于 `1`，原因是执行到第二行代码时，得到的 `this.state.count` 为 `0`。那怎么实现结果为 `2` 呢？
 
 ```jsx
 ...
@@ -100,7 +107,7 @@ this.setState({count: this.state.count + 1}, ()=>{
       count: prevState.count + 1,
     };
   }, () => {
-    console.log(`last console: ${  this.state.count}`);
+    console.log(`last console: ${  this.state.count}`); // 2
   });
 ...
 ```
@@ -118,7 +125,7 @@ last console: 2
 
 
 
-### 二、setState为什么要设计成异步的形式
+### 二、setState 为什么要设计成异步的形式
 
 因为 `setState` 之后，无法立即获取最新的 `state` ，给人的感觉像是用**异步**的方式去设置状态。那 `setState` 到底是不是异步的呢？
 
@@ -184,7 +191,9 @@ ReactDOM.render(<App />, rootElement);
 
 在上面的 `demo` 中我们用了 `4` 种方式调用 `setState()`，后面紧接着去取最新的 `state`，如果按照异步原理，应该是取不到的。然而，在 `setTimeout` 中调用以及原生事件中调用的话，是可以立马获取到最新的 `state` 的。根本原因在于，`setState` 并不是真正意义上的异步操作，它只是模拟了异步的行为。
 
-`React` 中会去维护一个标识（`isBatchingUpdates`），判断是直接更新还是先暂存 `state` 进队列。`setTimeout` 以及原生事件都会直接去更新 `state` ，因此可以立即得到最新 `state`。而合成事件和 `React` 生命周期函数中，是受 `React` 控制的，其会将 `isBatchingUpdates` 设置为 `true`，从而走的是类似异步的那一套机制。
+**`React` 中会去维护一个标识（`isBatchingUpdates`），判断是直接更新还是先暂存 `state` 进队列。**
+
+**`setTimeout` 以及原生事件都会直接去更新 `state` ，因此可以立即得到最新 `state`。而合成事件和 `React` 生命周期函数中，是受 `React` 控制的，其会将 `isBatchingUpdates` 设置为 `true`，从而走的是类似异步的那一套机制**。
 
 那么为什么 `React` 要把状态的更新设计成这种方式呢？直接 `this.state.count = 1` 不可以吗？ `FaceBook` 做了解释：https://github.com/facebook/react/issues/11527#issuecomment-360199710
 
