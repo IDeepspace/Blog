@@ -424,10 +424,10 @@ ReactDOM.render(<Clock />, document.getElementById('root'));
 
 #### 1、基本用法
 
-React 元素的事件处理和 DOM 元素的很相似。但是有一点语法上的不同:
+`React` 元素的事件处理和 `DOM` 元素的很相似。但是有一点语法上的不同:
 
-- React 事件绑定属性的命名采用驼峰式写法，而不是小写；
-- 如果采用 JSX 的语法，需要传入一个函数作为事件处理函数(**推荐使用 ES6 的箭头函数**)，而不是一个字符串(DOM 元素的写法)。
+- `React` 事件绑定属性的命名采用驼峰式写法，而不是小写；
+- 如果采用 `JSX` 的语法，需要传入一个函数作为事件处理函数(**推荐使用 `ES6` 的箭头函数**)，而不是一个字符串(`DOM` 元素的写法)。
 
 `index.js` :
 
@@ -722,7 +722,7 @@ const doubled = numbers.map(number => number * 2);
 console.log(doubled);
 ```
 
-在 `React`中，把数组转化为数列元素的过程是相似的：
+在 `React` 中，把数组转化为数列元素的过程是相似的：
 
 `index.js` :
 
@@ -746,7 +746,7 @@ ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 
 #### 2、Key
 
-把数据的 id 作为 key 是非常常见的做法：
+把数据的 `id` 作为 `key` 是非常常见的做法：
 
 `index.js` ：
 
@@ -779,9 +779,9 @@ const List = props => {
 ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 ```
 
-一个元素的 `key` 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用来自数据的 `id` 作为元素的 key。
+一个元素的 `key` 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用来自数据的 `id` 作为元素的 `key`。
 
-实际开发中的数据一般都是配有 `id` 的，将 `id` 作为 `key` 是一个很好的做法。如果用数组 `index` 作为 key 也是勉强可以的，但是由于 `index` 可能会随着数组元素的增减发生变化，如果列表可以重新排序，这会导致渲染变得很慢。
+实际开发中的数据一般都是配有 `id` 的，将 `id` 作为 `key` 是一个很好的做法。如果用数组 `index` 作为 `key` 也是勉强可以的，但是由于 `index` 可能会随着数组元素的增减发生变化，如果列表可以重新排序，这会导致渲染变得很慢。
 
 ### 九、表单
 
