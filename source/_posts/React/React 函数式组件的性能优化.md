@@ -12,11 +12,12 @@ urlname: react-functional-component-performance-enhancement
 
 ##React 函数式组件的性能优化
 
-不论是类组件还是函数式组件，`React` 性能优化的主要方向有三个：
+不论是类组件还是函数式组件，`React` 性能优化的主要方向有下面几个：
 
 - 减少重新 `render` 的次数
 - 减少计算量
 - 减少渲染的节点、降低渲染量
+- 合理设计组件
 
 
 
@@ -516,6 +517,48 @@ export default App;
 
 这样就避免了重复渲染的问题。
 
+所以，我们在使用 `Context API` 的时候，需要特别谨慎。
+
+
+
+#### 5、避免使用内联对象
+
+拿上面的 `React Context` 的代码示例来说， `ThemeProvider` 其实还存在一个问题：
+
+```jsx
+const ThemeProvider = (props) => {
+  const [theme, setTheme] = useState(redTheme);
+
+  return (
+    /*
+    value 值使用内联对象时，react 会在每次渲染时重新创建对此对象的引用，
+    这会导致接收此对象的组件将其视为不同的对象，
+    因此，该组件对于 prop 的浅层比较始终返回 false
+    这会导致所有依赖于该 Context 的组件被强制重新渲染。
+    */
+    <Context.Provider value={{ theme, switchTheme: setTheme }}>
+      {props.children}
+    </Context.Provider>
+  );
+};
+```
+
+我们可以使用 `useMemo` 缓存一下：
+
+```jsx
+const ThemeProvider = (props) => {
+  const [theme, setTheme] = useState(redTheme);
+
+  const value = useMemo(() => ({ theme, setTheme }), [theme]); // 缓存
+
+  return (
+    <Context.Provider value={value}>
+      {props.children}
+    </Context.Provider>
+  );
+};
+```
+
 
 
 ### 二、减少计算量
@@ -757,5 +800,5 @@ const Example = () => (
 
 
 
-### 三、其他
+### 四、合理设计组件
 
