@@ -14,10 +14,10 @@ urlname: react-new-api-in-16
 
 对于 `React v16` 之后版本中的一些新特性，挑选了以下几个常用的 `Api` 来讲解 :
 
-- Render 方法优化
+- `Render` 方法优化
 - 错误边界
-- Portals
-- Context API
+- `Portals`
+- `Context API`
 - 新的生命周期
 
 后面会持续更新。
@@ -581,8 +581,8 @@ shouldComponentUpdate 生命周期钩子返回 true，或者调用 this.forceUpd
 
 新增加了两个新的生命周期函数
 
-- static getDerivedStateFromProps
-- getSnapshotBeforeUpdate
+- `static getDerivedStateFromProps`
+- `getSnapshotBeforeUpdate`
 
 ##### getDerivedStateFromProps
 

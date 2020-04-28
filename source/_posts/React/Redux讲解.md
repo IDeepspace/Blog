@@ -131,7 +131,7 @@ console.log(store.getState()); //当前值为121+2=123
 
 ### 三、Redux 工作流
 
-![Redux工作流](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg)
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg" alt="Redux工作流" style="zoom:77%;" />
 
 <p align="center">(图片来自网络)</p>
 ### 四、代码组织目录结构
