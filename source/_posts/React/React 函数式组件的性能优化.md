@@ -25,7 +25,7 @@ urlname: react-functional-component-performance-enhancement
 
 `React` 中最重的（时间开销最大的）一块就是 `reconciliation` ，翻译为调和、和解。`reconciliation` 的最终目标是以最有效的方式，根据新的状态来更新 `UI`，我们可以简单地理解为 `diff`。如果不发生 `render`，就不会发生 `reconciliation`。
 
-
+<!-- more -->
 
 #### 1、使用 React.memo 缓存组件
 
