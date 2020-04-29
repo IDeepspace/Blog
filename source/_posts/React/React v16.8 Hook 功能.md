@@ -19,9 +19,10 @@ urlname: react-hook
 
 - 渲染属性( [`Render Props`](<https://reactjs.org/docs/render-props.html>) )
 - 高阶组件( [`Higher-Order Components` ](<https://zh-hans.reactjs.org/docs/higher-order-components.html#___gatsby>))
+
+
+
 <!-- more -->
-
-
 
 #### 渲染属性
 
@@ -490,6 +491,8 @@ function MainSection() {
 ```
 
 使用 `useContext` 则变得十分简洁，在原来的基础上，不用再写 `Consumer` ，可读性更强且不会增加组件树深度。
+
+
 
 ### 六、Reducer Hook
 
