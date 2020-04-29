@@ -25,15 +25,6 @@ urlname: react-functional-component-performance-enhancement
 
 `React` 中最重的（时间开销最大的）一块就是 `reconciliation` ，翻译为调和、和解。`reconciliation` 的最终目标是以最有效的方式，根据新的状态来更新 `UI`，我们可以简单地理解为 `diff`。如果不发生 `render`，就不会发生 `reconciliation`。
 
-在使用类组件的时候，为了**减少重新 `render` 的次数**，我们会使用 `React` 提供的两个 `API`：
-
-- `shouldComponentUpdate` 
-- `PureComponent`
-
-这两个 `API` 提供的思路都是解决一个问题 —— **当父组件重新 `render` 也会导致子组件重新 `render`**。
-
-那在函数式组件里，我们该如何减少重新 `render` 的次数呢？
-
 
 
 #### 1、使用 React.memo 缓存组件
@@ -86,9 +77,9 @@ export default Child;
 
 假设 `Child` 组件是一个非常庞大的组件，里面有大量的计算，这样的 `Child` 组件渲染一次会消耗很多的性能，我们应该减少或者避免 `Child` 组件的不必要渲染。所以，我们的优化点是 —— **在传递给子组件的 `props` 没有变化的时候，让子组件不渲染**。
 
-在函数式组件中，我们可以使用 `React.memo` 来做到这一点，`memo` 即 `memorized`，是记住的意思。
+在函数式组件中，我们可以使用 **`React.memo`** 来做到这一点，`memo` 即 `memorized`，是记住的意思。
 
-`React.memo` 是一个高阶组件，可以用它来包裹一个函数式组件之后，在 `props` 不变的情况下，这个被包裹的组件是不会重新渲染的，`React.memo` 会对参数进行**浅比较**，如果引用相同，则跳过 `render` 阶段，直接使用之前记忆的结果，即**缓存组件**。
+`React.memo` 是一个高阶组件，可以用它来包裹一个函数式组件之后，在 `props` 不变的情况下，这个被包裹的组件是不会重新渲染的。`React.memo` 会对参数进行**浅比较**，如果引用相同，则跳过 `render` 阶段，直接使用之前记忆的结果，即**缓存组件**。
 
 所以，我们可以把 `Child` 组件改造一下：
 
@@ -115,7 +106,7 @@ export default React.memo(MyComponent, areEqual);
 
 比较时，我们应当尽可能地做到**精细化比对**。
 
-不过这里需要**注意**：与 `class` 组件中 `shouldComponentUpdate()` 方法不同的是，如果 `props` 相等，`areEqual` 会返回 `true`；如果 `props` 不相等，则返回 `false`。这与 `shouldComponentUpdate` 方法的返回值是相反的。
+不过这里需要**注意**：与 `class` 组件中 `shouldComponentUpdate()` 方法不同的是，使用 `React.memo` 时，如果 `props` 相等，`areEqual` 会返回 `true`；如果 `props` 不相等，则返回 `false`。这与 `shouldComponentUpdate` 方法的返回值是相反的。
 
 
 
@@ -215,11 +206,13 @@ const Child = ({ name, a }) => {
 export default React.memo(Child);
 ```
 
+如何解决呢？
+
 
 
 **（1）将函数或者引用变量放在组件的外边**
 
-那我们把传递的函数 `props` 放在组件的外边不就就行了吗？是的，这样可以避免子组件重复渲染的问题：
+我们把传递的函数 `props` 放在组件的外边不就就行了吗？是的，这样可以避免子组件重复渲染的问题：
 
 ```jsx
 import React, { useState } from 'react';
@@ -303,7 +296,7 @@ ReactDOM.render(
 
 上面的例子中，只有当 `subtitle` 这个状态改变时，才会重新生成 `print` 函数，子组件才会更新。
 
-使用 `useCallback` 的时候，如果传一个空数组作为依赖数组，那么子组件就不再受父组件的影响了，子组件接受的函数里面的参数永远都是初始化使用 `useCallback` 时的值：
+使用 `useCallback` 的时候，如果传一个空数组作为依赖数组，那么子组件就不再受父组件的影响了，子组件接受的函数里面的参数永远都是初始化使用 `useCallback` 时的值，如：
 
 `App.js`：
 
@@ -456,7 +449,7 @@ export default App;
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
 
-如何避免这个问题呢？思路很简单，**需要一个方法去告诉 `Context.Provider`，告诉他你的子组件没有变化**。
+如何避免这个问题呢？思路很简单，**需要一个方法去告诉 `Context.Provider`，告诉它子组件没有变化**。
 
 按照这个思路实现就是：建一个独立的组件来管理 `state` 和 `Provider`，把子组件写在这个组件之外。
 
@@ -572,7 +565,7 @@ const ThemeProvider = (props) => {
 
 #### 1、减少不必要的节点嵌套
 
-我们知道 React 使用的是虚拟 `DOM` ，`React` 使用 `JavaScript` 对象表示 `DOM` 节点。`DOM` 节点包括标签、属性和子节点。
+我们知道 `React` 使用的是虚拟 `DOM` ，`React` 使用 `JavaScript` 对象表示 `DOM` 节点。`DOM` 节点包括标签、属性和子节点。
 
 `React` 在内存中生成维护一个跟真实 `DOM` 一样的虚拟 `DOM` 树，在改动完组件后，会再生成一个新得`DOM`，`React` 会把新虚拟 `DOM` 跟原虚拟 `DOM` 进行比对，找出两个`DOM` 不同的地方（`diff`） ，然后把 `diff` 放到队列里面，最后批量更新 `diff` 到真实 `DOM` 上。
 
@@ -591,7 +584,7 @@ const ThemeProvider = (props) => {
 
 `h1` 标签和 `p` 标签是完全没必要使用 `div` 标签包裹起来的。
 
-> 曾经我非常喜欢用 [styled-components](https://github.com/styled-components/styled-components) 这个库，后来发现它完全是没有必要的，带来的好处仅仅是提高代码的可读性。大量使用它会让节点嵌套变得非常深，并且它的样式设置方案也会带来性能问题（这点我会待会说）。
+> 曾经我非常喜欢用 [styled-components](https://github.com/styled-components/styled-components) 这个库，后来发现它完全是没有必要的，带来的好处仅仅是提高代码的可读性（自认为）。大量使用它会让节点嵌套变得非常深，并且它的样式设置方案也会带来性能问题（这点我会待会说）。
 
 并且，**很多不必要的节点嵌套都是滥用高阶组件导致的**，对于高阶组件，我们应该保有一个原则：只在需要的时候使用它。尽可能地使用 `props`、`Hooks` 来代替。
 
@@ -631,6 +624,8 @@ const Main = () => (
 - `CSS Modules`
 
 它们的性能对比大致是：`CSS Module` > `CSS Classes` > `Inline Style`。
+
+很多时候，我们为了方便会使用内联样式，这是非常影响性能的。使用内联样式时，因为我们实际写的驼峰式的样式还是属于 `JSX`，并不是真正的样式，浏览器需要花费更多时间来处理脚本和渲染，增加了一个映射传递样式规则的过程。
 
 所以，在项目中**优先选择 `CSS Module`** 这种方式。
 
@@ -695,7 +690,7 @@ ReactDOM.render(
 const base = useMemo(expensiveFn, []);
 ```
 
-只在初次渲染的时候执行 `expensiveFn` 并缓存结果，重复点击 `button`，不会再执行，达到了优化的效果。
+只在初次渲染的时候执行 `expensiveFn` 并缓存结果，重复点击 `button`，不会再打印 `expensiveFn` 函数的结果，也就是 `expensiveFn` 函数没用再执行了，达到了优化的效果。
 
 
 
@@ -730,9 +725,70 @@ const Parent = ({ a, b }) => {
 
 
 
+#### 6、节流和防抖
+
+> 关于节流和防抖的概念，你可以从这里了解：https://togoblog.cn/javascript-throttle-debounce/
+
+在 `React` 中有一个非常常见的场景：在输入框中输入内容，向后端（假设为  `api/users`）请求数据，并在输入框的下方展示用户列表。
+
+这里面会有一个问题：我们在输入框中每输入一个字符时，它都会触发异步网络请求，请求 `api/users` 获取要显示的用户列表，并且成功后通过更新 `state` 来更新 `DOM`，这是非常影响性能的。
+
+可能有的时候，我们会为了减轻后端的服务器压力，在内存中维护一个「用户列表」，用以避免频繁的网络请求，但是仍然需要为输入的字符进行昂贵的 `DOM` 更新。
+
+这里我们可以使用函数的节流与防抖来优化性能，推荐使用 [`loadsh`](https://lodash.com/) 库中的函数。
+
+
+
 ### 三、减少渲染的节点、降低渲染量
 
-#### 1、虚拟列表
+#### 1、优化条件渲染
+
+我们经常会用到条件渲染，看下面的例子：
+
+```jsx
+const App = () => {
+  const [name, setName] = useState('react');
+
+  if (name === 'react') {
+    return (
+      <>
+        <HeaderComponent>header</HeaderComponent>
+        <ContentComponent>content</ContentComponent>
+        <FooterComponent>footer</FooterComponent>
+      </>
+    );
+  }
+
+  return (
+      <>
+        <ContentComponent>content</ContentComponent>
+        <FooterComponent>footer</FooterComponent>
+      </>
+  );
+};
+```
+
+当 `name` 为 `'react'` 的时候，才会渲染 `HeaderComponent` 组件。拿 `JavaScript` 语法的角度来看，没有性能问题。但是我们是在写 `React`，它是有性能问题的。
+
+在每次状态改变重新渲染的时候，`React` 会首先检查 `name` 的值是不是 `'react'`，然后在 `diff` 算法中确定哪些 `DOM` 节点发生了改变。
+
+而上面的写法，在每次执行 `diff` 时，如果 `name` 发生了变化，`React` 会认为 `HeaderComponent` 组件不可用了，现在需要渲染的第一个组件和第二个组件都发生了变化，所以 `React` 会将在位置 1 和位置 2 的组件卸载并重新安装，这其实是完全没必要的，因为 `ContentComponent` 组件和 `FooterComponent` 组件并没有发生更改。
+
+我们可以这样优化：
+
+```jsx
+<>
+  {name === 'react' && <HeaderComponent>header</HeaderComponent>}
+  <ContentComponent>content</ContentComponent>
+  <FooterComponent>footer</FooterComponent>
+</>
+```
+
+当 `name` 不是 `'react'` 时，`React` 在位置 1 处放置 `null`，位置 2 和位置 3 的组件保持不变，由于元素没变，因此组件不会卸载，减少了不必要的操作。
+
+
+
+#### 2、虚拟列表
 
 虚拟列表是常见的「长列表」和「复杂组件树」优化方式，它优化的本质是减少渲染的节点。**虚拟列表只渲染当前可视窗口的可见元素**。如下图：
 
@@ -781,11 +837,17 @@ const Example = () => (
 
 
 
-#### 2、懒加载
+#### 3、懒加载
 
-懒加载也称为延迟加载，它的本质和虚拟列表一样 —— **只在必要时才去渲染对应的节点，如果在某一时刻资源没有被查看或使用的需要，就不要渲染它们**。
+懒加载（`Lazy loading`）也称为**延迟加载**，它的本质和虚拟列表一样 —— **只在必要时才去渲染对应的节点，如果在某一时刻相关资源没有被查看或使用的需要，就不要渲染它们**。
 
-例如 [`Ant Design`](https://ant.design/components/drawer-cn/#header) 的 `Drawer` 抽屉组件，首次渲染时，抽屉是不显示的，对应的就是 `visible` 这个 `props` 默认为 `false`，那么在 `render` 里就 `return null`，抽屉组件就不渲染，`DOM` 树中也就没有对应的结构；当点击按钮将 `visible` 属性设置为 `true` 时，渲染抽屉组件，然后再点击按钮，`visible` 为 `false`，此时组件隐藏，但是在 `DOM` 树中仍然存在。这样做的好处在于，**在初始加载时，可以大大减少渲染的负担，提高页面的加载速度**。
+例如 [`Ant Design`](https://ant.design/components/drawer-cn/#header) 的 `Drawer` 抽屉组件，首次渲染时，抽屉是不显示的，对应的就是 `visible` 这个 `props` 默认为 `false`，那么在 `render` 里就 `return null`，抽屉组件就不渲染，`DOM` 树中也就没有对应的结构；当点击按钮将 `visible` 属性设置为 `true` 时，渲染抽屉组件，然后再点击按钮，`visible` 为 `false`，此时组件隐藏，但是在 `DOM` 树中仍然存在。
+
+这样做的好处有很多：
+
+- 在初始加载时，可以大大减少客户端渲染的负担，提高页面的加载速度；
+- 减少无效资源的加载，这样可以明显减少了服务器的压力和流量，也能够减小浏览器的负担；
+- 防止并发加载的资源过多会阻塞 `js` 的加载，影响网站的正常使用。
 
 有很多场景会用到懒加载，比如：
 
@@ -794,11 +856,84 @@ const Example = () => (
 - 树形选择器
 - 折叠组件
 
-> 例子待补充。。。。。。
+经常使用到的实现懒加载的库有：
+
+- [react-lazyload](https://github.com/twobin/react-lazyload)，这里有一个 `demo`：https://github.com/IDeepspace/lazydemo
+- [react-loadable](https://github.com/jamiebuilds/react-loadable)
+- `React 16.6` 引入的新特性：`React.lazy` 和 `suspense`；需要注意，`React.lazy` 并不适合 `SSR`。
+
+关于使用 `React.lazy` 和 `suspense` 实现懒加载的示例，可以参考：https://github.com/IDeepspace/react-lazy-preload-demo，切换不同的分支查看相关代码。
 
 
+
+#### 4、预加载
+
+前面提到了懒加载，它可以提高页面初次加载时的速度；但是对于大型项目的复杂组件来说，加载一个组件的时间开销很大，这会导致 `loading` 显示的很长，影响用户体验。
+
+我们可以预先加载（`preloading`）一个组件，但并不在页面中展示，也就是隐藏渲染；当用户行为触发显示时，直接显示就好了，这样可以使用户的操作得到最快的反映。
+
+比较流行的库有：
+
+- [react-snap](https://github.com/stereobooster/react-snap)
+- [react-snapshot](https://www.npmjs.com/package/react-snapshot) 
+
+这两个库也有经由 `React` 官方推荐的。
+
+也可以使用 `React 16.6` 引入的新特性：`React.lazy` 和 `suspense`。
+
+关于使用 `React.lazy` 和 `suspense` 实现预加载的示例，可以参考：https://github.com/IDeepspace/react-lazy-preload-demo，切换不同的分支查看相关代码。
 
 
 
 ### 四、合理设计组件
 
+是的，合理设计组件也会提高性能。**组件的设计应该严格遵循职责单一原则**。看个例子：
+
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
+
+<p align='center'>（图片来自网络）</p>
+
+`MyComponent` 组件依赖于 `A`、`B`、`C` 三个组件，如果按照这样的结构来设计组件，只要 `A`、`B`、`C` 任意一个变动，那么 `MyComponent` 整个就会重新渲染。
+
+基于职责单一的原则，我们可以这样来设计：
+
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
+
+<p align='center'>（图片来自网络）</p>
+
+将 `A`、`B`、`C` 都抽取各自的组件中，现在 `A` 变动只会渲染 `A` 组件本身，而不会影响父组件和 `B`、`C` 组件。
+
+一个比较常见的例子就是列表渲染，应当把列表项抽离出来当作单独的组件。这样一来，当列表项有变动，不会影响到整个大的组件。
+
+
+
+### 五、拓展
+
+还有一些其他的方式来优化 `React` 应用。
+
+#### 1、服务端渲染
+
+`React` 提供了两个方法 `renderToString` 和 `renderToStaticMarkup` 用来将组件（`Virtual DOM`）输出成 `HTML` 字符串，这是 `React` 服务器端渲染（`Server-Side Rendering`，简称 `SSR`）的基础。比较流行的库有：
+
+- [Loadable Components](https://github.com/smooth-code/loadable-components)
+- [Next.js](https://github.com/zeit/next.js/#dynamic-import)
+
+
+
+#### 2、使用生产版本
+
+在开发应用时使用开发模式，在为用户部署应用时使用生产模式。
+
+如果项目是通过 [Create React App](https://github.com/facebookincubator/create-react-app) 构建的，运行：
+
+```bash
+$ npm run build
+```
+
+这段命令将在项目下的 `build/` 目录中生成对应的生产版本。只有在生产部署前才需要执行这个命令，正常开发使用 `npm start` 即可。
+
+
+
+### 六、最后
+
+本篇文章参考了网络上很多优秀文章，一些地方可能会有雷同之处。
