@@ -10,7 +10,7 @@ urlname: react-functional-component-performance-enhancement
 
 
 
-##React 函数式组件的性能优化
+## React 函数式组件的性能优化
 
 不论是类组件还是函数式组件，`React` 性能优化的主要方向有下面几个：
 
