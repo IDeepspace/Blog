@@ -390,134 +390,108 @@ export default App;
 
 ### 五、新的生命周期
 
-#### 旧的生命周期
+#### 1、旧的生命周期
 
 我们先看看 `React 16` 之前的生命周期图：
 
-![Reactv15生命周期图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react15-lifecycle.png)
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
 
 <p align="center">(图片来自网络)</p>
 如上图所示，可以把组件的生命周期大致分为三个阶段：
 
-- 挂载阶段 (Mount)
-- 更新阶段 (Update)
-- 卸载阶段 (Unmount)
+- 挂载阶段 (`Mount`)
+- 更新阶段 (`Update`)
+- 卸载阶段 (`Unmount`)
 
-##### 挂载阶段
+##### 1.1、挂载阶段
 
-**constructor()**
+- **`constructor()`**
+  - 挂载之前调用一次，可以初始化 `state`。
 
-```
-挂载之前调用一次，可以初始化state
-```
+- **`getDefaultProps()`**
+  - 设置默认的 `props` ，也可以用 `dufaultProps` 设置组件的默认属性。
 
-**getDefaultProps()**
+- **getInitialState()**
+  - 初始化 `state`，可以直接在 `constructor` 中定义 `this.state`（推荐方式）。
 
-```
-设置默认的 props ，也可以用 dufaultProps 设置组件的默认属性。
-```
+- **componentWillMount()**
+  - `componentWillMount` 方法的调用在 `constructor` 之后，在 `render` 之前，在这方法里的代码调用 `setState` 方法不会触发重渲染，所以它一般不会用来作加载数据之用，它也很少被使用到（在 `React 16.9` 中也被废弃）；
+  - 这是服务端渲染（`server render`）中唯一调用的钩子（`hook`）。
 
-**getInitialState()**
+- **render()**
+  - `react` 中最重要的步骤，创建虚拟 `dom`、进行 `diff` 算法，更新 `dom` 树都在此进行；
+  - 在 `componentWillMount()` 方法之后执行；
+  - 在 `componentWillReceive(nextProps, nextState)` 方法之后执行。
 
-```
-初始化 state，可以直接在 constructor 中定义 this.state
-```
-
-**componentWillMount()**
-
-```
-componentWillMount 会在组件 render 之前执行，并且永远都只执行一次。
-
-componentWillMount 和挂载是同步执行的，意味着执行完这个钩子，立即挂载。
-
-由于这个方法始终只执行一次，所以如果在这里定义了 setState 方法之后，页面永远都只会在加载前更新一次。
-```
-
-**render()**
-
-```
-react 最重要的步骤，创建虚拟 dom，进行 diff 算法，更新 dom 树都在此进行
-```
-
-**componentDidMount()**
-
-```
-这个方法会在组件加载完毕之后立即执行。在这个时候之后组件已经生成了对应的 DOM 结构，可以通过 this.getDOMNode() 来进行访问。
-
-如果你想和其他 JavaScript 框架一起使用，可以在这个方法中执行 setTimeout, setInterval 或者发送 AJAX 请求等操作(防止异部操作阻塞UI)。
-```
+- **componentDidMount()**
+  - 这个方法会在 `render()` 之后立即执行。在这个时候之后组件已经生成了对应的 `DOM` 结构，可以通过 `this.getDOMNode()` 来进行访问；
+  - 这里可以加载服务器数据，并且如果使用了 `redux`，这里可以出发加载服务器数据的 `action`；
+  - 这里可以使用 `setState()` 方法触发重新渲染（`re-render`）。
 
 
 
-##### 更新阶段
-
-**componentWillReceivePorps(nextProps)**
-
-```
-在组件接收到一个新的 prop 时被执行。这个方法在初始化 render 时不会被调用。
-```
-
-**shouldComponentUpdate(nextProps, nextState)**
-
-```
-组件接收到新的 props 或者 state 时调用，在初始化时或者使用 forceUpdate 时不被执行。return true 就会更新 dom（使用diff算法更新），return false 能阻止更新（不调用render）。
-
-可以在你确认不需要更新组件时使用，提升性能。
-```
-
-**componentWillUpdata(nextProps, nextState)**
-
-```
-组件挂载时不调用，只有在组件将要更新时才调用。
-
-shouldComponentUpdate 生命周期钩子返回 true，或者调用 this.forceUpdate 之后，会立即执行该生命周期钩子。
-
-要特别注意，componentWillUpdate 生命周期钩子每次更新前都会执行，所以在这里调用 this.setState 非常危险，有可能会没完没了。
-```
-
-**render()**
-
-```
-react 最重要的步骤，创建虚拟 dom，进行 diff 算法，更新 dom 树都在此进行
-```
-
-**componentDidUpdate(nextProps, nextState, snapshot)**
-
-```
-这是组件更新之后触发的生命周期钩子。
-
-componentDidUpdate 生命周期钩子每次更新后都会执行，所以在这里调用 this.setState 也非常危险，有可能会没完没了。
-
-搭配 getSnapshotBeforeUpdate 生命周期钩子(React 16 中的新生命周期)使用的时候，第三个参数是 getSnapshotBeforeUpdate 的返回值。
-```
+> 注：把 `Ajax` 请求放在 `componentWillMount` 函数中也是可以的，但是官方推荐放在 `componentDidMount` 这个生命周期函数中发起 `Ajax` 请求,因为执行这个生命周期时，`DOM` 已经挂载完了，这样做可以拿到 `Ajax` 请求返回的数据并通过 `setState` 来更新组件。
 
 
 
-##### 卸载阶段
+##### 1.2、更新阶段
 
-**componentWillUnmount()**
+- **componentWillReceivePorps(nextProps)**
+  - 在已经挂载的组件接收到一个新的 `prop` 时被执行。这个方法在初始化 `render` 时不会被调用；
+  - 如果你需要在 `props` 发生变化时来更新 `state`，你可能需要比较 `this.props` 和 `nextProps`，然后根据比较结果，使用 `this.setState()` 方法来改变 `this.state`；
 
-```
-组件渲染之后，卸载之前的生命周期钩子，只调用一次。
+- **shouldComponentUpdate(nextProps, nextState)**
+  - 组件接收到新的 `props` 或者 `state` 发生改变时被调用，在初始化时或者使用 `forceUpdate` 时不被执行；
+  - `return true` 就会更新 `dom`（使用 `diff` 算法更新），`return false` 能阻止更新（不调用 `render`）；
+  - 可以在你确认不需要更新组件时使用，提升性能。
 
-React的最佳实践是，组件中用到的事件监听器、订阅器、定时器都要在这里销毁。
+- **componentWillUpdate(nextProps, nextState)**
+  - 组件挂载时不调用，只有在组件将要更新时才调用。也就是说：在 `props` 或 `state` 发生改变或者 `shouldComponentUpdate(nextProps, nextState)` 触发后，在 `render()` 之前执行；
+  - 要特别注意，`componentWillUpdate` 生命周期钩子每次更新前都会执行，所以在这里调用 `this.setState ` 非常危险，有可能会没完没了。
 
-事件监听指的是下面这种情况：
-componentDidMount() {
-    document.addEventListener('click', () => {});
-}
+- **render()**
+  - `react` 中最重要的步骤，创建虚拟 `dom`、进行 `diff` 算法，更新 `dom` 树都在此进行；
+  - 在 `componentWillMount()` 方法之后执行；
+  - 在 `componentWillReceive(nextProps, nextState)` 方法之后执行。
 
-下面这种 React 会自动销毁
-render(
-    return (
-        <button onClick={this.handleClick}>click</button>
-    );
-)
-```
-
+- **componentDidUpdate(nextProps, nextState, snapshot)**
+  - 这是组件更新或者发生 `componentWillUpdate(nextProps, nextState)` 之后触发的生命周期钩子；
+  - 使用这个方法可以对组件中的 `DOM` 进行操作；
+  - 如果 `shouldComponentUpdate(nextProps, nextState)` 返回 `false`，那么 `componentDidUpdate(prevProps, prevState)` 不会被触发；
+  - 因为 `componentDidUpdate` 生命周期钩子每次更新后都会被执行，所以在这里调用 `this.setState` 也非常危险，有可能会没完没了；
+  - 搭配 `getSnapshotBeforeUpdate` 生命周期钩子（`React 16` 中的新生命周期）使用的时候，第三个参数是 `getSnapshotBeforeUpdate` 的返回值。
 
 
-#### 新的生命周期
+
+##### 1.3、卸载阶段
+
+- **componentWillUnmount()**
+
+  - 组件渲染之后，卸载或销毁之前的生命周期钩子，只调用一次。
+
+  - `React` 的最佳实践是，组件中用到的事件监听器、订阅器、定时器都要在这里销毁。事件监听指的是下面这种情况：
+
+    ```jsx
+    componentDidMount() {
+      document.addEventListener('click', () => {});
+    }
+    ```
+
+  - 下面这种事件绑定， `React` 会自动销毁：
+
+    ```jsx
+    render() {
+      return (
+      	<button onClick={this.handleClick}>click</button>
+    	);
+    }
+    ```
+
+下面我们再看看新的生命周期。
+
+
+
+#### 2、新的生命周期
 
 再来看下 `React v16.4` 的生命周期图：
 
@@ -526,36 +500,37 @@ render(
 <p align="center">(图片来自网络)</p>
 `React16` 废弃的三个生命周期函数：
 
-- componentWillMount
+- `componentWillMount`
+- `componentWillReceiveProps`
+- `componentWillUpdate`
 
-- componentWillReceiveProps
+目前在 `React 16` 版本中，官方并未完全删除这三个函数，而且新增了：
 
-- componentWillUpdate
+- `UNSAFE_componentWillMount`，
+- `UNSAFE_componentWillReceiveProps`，
+- `UNSAFE_componentWillUpdate `
 
-  目前在 `React 16` 版本中，官方并未完全删除这三个函数，而且新增了`UNSAFE_componentWillMount`， `UNSAFE_componentWillReceiveProps`，`UNSAFE_componentWillUpdate `三个函数，计划在 `React 17` 的版本中移除掉这三个函数，目的是为了做向下兼容，为什么会移除这三个生命周期函数呢？
+这三个函数，计划在 `React 17` 的版本（更新，已经在 `React 16.9` 中被废弃）中移除掉这三个函数，目的是为了做向下兼容。
 
-**componentWillMount**
+那为什么会移除这三个生命周期函数呢？
 
-```
+##### 2.1、废除 componentWillMount
+
 很多人会有一个误区：这个钩子是请求数据然后将数据插入元素一同挂载的最佳时机。
 
-其实 componentWillMount 和挂载是同步执行的，意味着执行完这个钩子，立即挂载。而向服务器请求数据是异步执行的。所以无论请求多么快，都要排在同步任务之后再处理。也就是说，永远不可能在这里将数据插入元素一同挂载。
-
-并不是说不能在这里请求数据，而是达不到你臆想的效果。
+其实 `componentWillMount` 和挂载（`render`）是同步执行的，意味着执行完这个钩子，立即挂载。而向服务器请求数据是异步执行的。所以无论请求多么快，都要排在同步任务之后再处理。也就是说，永远不可能在这里将数据插入元素一同挂载。并不是说不能在这里请求数据，而是达不到你臆想的效果。
 
 它被废弃的原因主要有：
 
-- 。
-- 如果它声明了定时器或者订阅器，在服务端渲染中，componentWillUnmount 生命周期钩子中的清除代码不会生效。因为如果组件没有挂载成功，componentWillUnmount 是不会执行的。没有挂载就没有卸载。
+- 如果它声明了定时器或者订阅器，在服务端渲染中，`componentWillUnmount` 生命周期钩子中的清除代码不会生效。因为如果组件没有挂载成功，`componentWillUnmount` 是不会执行的。没有挂载就没有卸载。
 - 在异步渲染中，它的表现不稳定。
+- 初始化 `this.state` 应该在 `constructor` 生命周期钩子中完成，请求数据应该在 `componentDidMount` 生命周期钩子中完成，所以本来它就没什么用。可能当初创造它是为了成双成对吧，所以才被完全废弃了。
 
-初始化 this.state 应该在 constructor 生命周期钩子中完成，请求数据应该在 componentDidMount 生命周期钩子中完成，所以本来它就没什么用。可能当初创造它是为了成双成对吧，所以才被完全废弃了。
-```
 
-**componentWillReceiveProps**
 
-```
-componentWillReceiveProps 生命周期钩子只有一个参数，更新后的 props。
+##### 2.2、废除 componentWillReceiveProps
+
+`componentWillReceiveProps` 生命周期钩子只有一个参数，更新后的 props。
 
 该声明周期函数可能在两种情况下被触发：
 
@@ -564,18 +539,17 @@ componentWillReceiveProps 生命周期钩子只有一个参数，更新后的 pr
 
 初始化时并不会触发该生命周期钩子。
 
-因为 Fiber 机制的引入，这个生命周期钩子有可能会多次触发。
-```
+因为 `Fiber `机制的引入，这个生命周期钩子有可能会多次触发。
 
-**componentWillUpdate**
 
-```
-shouldComponentUpdate 生命周期钩子返回 true，或者调用 this.forceUpdate 之后，会立即执行该生命周期钩子。
 
-要特别注意，componentWillUpdate 生命周期钩子每次更新前都会执行，所以在这里调用 this.setState 非常危险，有可能会没完没了。
+##### 2.3、componentWillUpdate
 
-同样，因为Fiber机制的引入，这个生命周期钩子有可能会多次调用。
-```
+`shouldComponentUpdate` 生命周期钩子返回 `true`，或者调用 `this.forceUpdate` 之后，会立即执行该生命周期钩子。
+
+要特别注意，`componentWillUpdate` 生命周期钩子每次更新前都会执行，所以在这里调用 `this.setState` 非常危险，有可能会没完没了。
+
+同样，因为 `Fiber` 机制的引入，这个生命周期钩子有可能会多次调用。
 
 
 
@@ -584,19 +558,17 @@ shouldComponentUpdate 生命周期钩子返回 true，或者调用 this.forceUpd
 - `static getDerivedStateFromProps`
 - `getSnapshotBeforeUpdate`
 
-##### getDerivedStateFromProps
+##### 2.4、新增 getDerivedStateFromProps
 
-```
-static getDerivedStateFromProps(nextProps, prevState)，它是一个静态方法，所以不能再这个函数里面使用 this；
+`static getDerivedStateFromProps(nextProps, prevState)`，它是一个静态方法，所以不能再这个函数里面使用 `this`。
 
-这个函数有两个参数： props 和 state，分别指接收到的新参数和当前的 state 对象；
+这个函数有两个参数： `props` 和 `state`，分别指接收到的新参数和当前的 `state` 对象。
 
-该函数会返回一个对象用来更新当前的 state 对象，如果不需要更新状态可以返回 null 来表明不需要更新任何状态；
+该函数会返回一个对象用来更新当前的 `state` 对象，如果不需要更新状态可以返回 `null` 来表明不需要更新任何状态。
 
-该函数会在挂载时，接收到新的 props，调用了 setState 和 forceUpdate 时被调用，简单点说就是：getDerivedStateFromProps 无论是在挂载阶段还是更新阶段，也无论是什么引起的更新，统统都会被调用，在首次渲染的时候也会被触发 (注意：v16.3 中，setState 时、forceUpdate 时不会执行这个方法，v16.4 修复了这个问题)。
+该函数会在挂载时，接收到新的 `props`，调用了 `setState` 和 `forceUpdate` 时被调用，简单点说就是：**`getDerivedStateFromProps` 无论是在挂载阶段还是更新阶段，也无论是什么引起的更新，统统都会被调用，在首次渲染的时候也会被触发** (注意：`v16.3` 中，`setState` 时、`forceUpdate` 时不会执行这个方法，`v16.4` 修复了这个问题)。
 
-和 componentWillReceiveProps 不同，componentWillReceiveProps 只在父组件引起的更新时才会触发。
-```
+和 `componentWillReceiveProps` 不同，`componentWillReceiveProps` 只在由父组件引起的更新时才会触发。
 
 一个简单的例子：
 
@@ -667,9 +639,9 @@ class B extends Component {
 export default B;
 ```
 
-`getDerivedStateFromProps ` 是用来替代 `componentWillReceiveProps` 的，应对 `state` 需要关联 `props` 变化的场景。它的作用就是让组件根据父组件传来的 `props`，判断是否需要更新自己的 `state` ，这种state叫做衍生state。返回的对象就是要增量更新的state。
+`getDerivedStateFromProps ` 是用来替代 `componentWillReceiveProps` 的，应对 `state` 需要关联 `props` 变化的场景。它的作用就是让组件根据父组件传来的 `props`，判断是否需要更新自己的 `state` ，这种 `state` 叫做衍生state。返回的对象就是要增量更新的state。
 
-将 `getDerivedStateFromProps` 设计成静态函数，目的是保持该方法的纯粹，它就是用来定义衍生state的，能做的操作局限在根据 `props` 和 `state` 决定新的 `state`，除此之外不应该在里面执行任何操作。
+将 `getDerivedStateFromProps` 设计成静态函数，目的是保持该方法的纯粹，它就是用来定义衍生 `state` 的，能做的操作局限在根据 `props` 和 `state` 决定新的 `state`，除此之外不应该在里面执行任何操作。
 
 一般使用场景如下：
 
@@ -678,24 +650,24 @@ export default B;
 
 
 
-##### getSnapshotBeforeUpdate
+##### 2.5、getSnapshotBeforeUpdate
 
-```
 顾名思义，保存状态快照用的。
 
-它会在组件即将挂载时调用，注意，是即将挂载。它甚至调用的比 render 还晚，由此可见 render 并没有完成挂载操作，而是进行构建抽象 UI 的工作。getSnapshotBeforeUpdate 执行完就会立即调用 componentDidUpdate 生命周期钩子。
+它会在组件即将挂载时调用，注意，是即将挂载。它甚至调用的比 `render` 还晚，由此可见 `render` 并没有完成挂载操作，而是进行构建抽象 `UI` 的工作。`getSnapshotBeforeUpdate` 执行完就会立即调用 `componentDidUpdate` 生命周期钩子。
 
 它是做什么用的呢？有一些状态，比如网页滚动位置，不需要它持久化，只需要在组件更新以后能够恢复原来的位置即可。
 
-getSnapshotBeforeUpdate 生命周期钩子返回的值会被 componentDidUpdate 的第三个参数接收，我们可以利用这个通道保存一些不需要持久化的状态，用完即可舍弃。
+`getSnapshotBeforeUpdate` 生命周期钩子返回的值会被 `componentDidUpdate` 的第三个参数接收，我们可以利用这个通道保存一些不需要持久化的状态，用完即可舍弃。
 
-很显然，它是用来取代 componentWillUpdate 生命周期钩子的。
+很显然，它是用来取代 `componentWillUpdate` 生命周期钩子的。
 
 意思就是说呀，开发者一般用不到它。
-```
 
 
 
-> 本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
+### 六、最后
+
+本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
 
 
