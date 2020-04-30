@@ -9,13 +9,15 @@ urlname: react-high-order-component
 ---
 <!-- ## React 高阶组件 -->
 
-高阶组件 `（HOC）` 是 `react` 中对组件逻辑进行重用的高级技术。高阶组件本身并不是 React API，它只是一种模式，这种模式是由 react 自身的组合性质产生的。
+高阶组件 `（HOC）` 是 `react` 中对组件逻辑进行重用的高级技术。高阶组件本身并不是 `React API`，它只是一种模式，这种模式是由 `react` 自身的组合性质产生的。
 
 具体而言， **高阶组件就是一个函数（而不是组件），且该函数接受一个你传递给它的组件作为参数，并返回一个新的组件** 。
 
 ```jsx
 const NewComponent = higherOrderComponent(OldComponent);
 ```
+
+
 
 ### 一、定义高阶组件
 
@@ -62,6 +64,8 @@ export default (WrappedComponent, name) => {
 
 现在 `NewComponent` 会根据第二个参数 `name` 在组件挂载阶段从 `LocalStorage` 中加载数据，并且 `setState` 到自己的`state.data` 中，而渲染的时候将 `state.data` 通过 `props.data` 传给 `WrappedComponent`。
 
+
+
 ### 二、使用高级组件
 
 假设上面的代码是在 `src/wrapWithLoadData.js` 文件中的，我们可以在别的地方这么用它：
@@ -85,7 +89,7 @@ export default InputWithUserName;
 
 这样，别人在使用 `InputWithUserName` 这个组件的时候，实际上是用了被加工的组件。根据 `wrapWithLoadData` 的代码我们可以知道，这个新的组件挂载的时候会先去 `LocalStorage` 加载数据，渲染的时候再通过 `props.data` 传给真正的 `InputWithUserName`。
 
-然后，我又写了一个文本输入框组件，该组件遵循类似的模式：它也需要 LocalStorage 加载 `'content'` 字段的数据。我们只需要定义一个新的 `TextareaWithContent`：
+然后，我又写了一个文本输入框组件，该组件遵循类似的模式：它也需要 `LocalStorage` 加载 `'content'` 字段的数据。我们只需要定义一个新的 `TextareaWithContent`：
 
 ```jsx
 import wrapWithLoadData from './wrapWithLoadData';
@@ -101,6 +105,8 @@ export default TextareaWithContent;
 ```
 
 我们根本不需要重复写从 `LocalStorage` 加载数据字段的逻辑，直接用 `wrapWithLoadData` 包装一下就可以了。
+
+
 
 ### 三、高阶组件的灵活性
 
