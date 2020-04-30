@@ -20,7 +20,7 @@ this.setState({
 
 稍有经验的 `React` 开发者都会知道，`setState` 方法其实是**异步**的。即 `setState` 立马执行之后，是无法直接获取到最新的 `state` 的，需要经过 `React` 对 `state` 的所有改变进行合并处理之后，才会去计算新的虚拟 `DOM`，然后再根据最新的虚拟 `DOM` 去重新渲染真实 `DOM`。
 
-> 所以，这里我们谈到的异步，并不是异步代码，而是说 `react` 会先收集变更,然后再进行统一的更新。
+**所以，这里我们谈到的异步，并不是异步代码，而是说 `react` 会先收集变更，然后再进行统一的更新**。
 
 <!-- more -->
 我们看个例子：
@@ -58,42 +58,66 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
 ```
 
-输出结果为：
+页面上的输出结果为：
 
 ```
 Demo about setState
 1
 ```
 
-通过结果我们可以看出：`React setState` 并不是同步的。那怎么才能获取到修改后的 `state` 呢？`React` 为我们提供了一个回调去实现：
+通过结果我们可以看出：`React setState` 并不是同步的，不然的话，页面上应该显示 `2`；当执行到第二个 `setState` 的代码时，得到的 `this.state.count` 依然为 `0`。
+
+
+
+#### 1、如何获取最新的 state？
+
+那怎么才能获取到修改后的 `state` 呢？
+
+##### 1.1、回调里执行需要的操作
+
+**`React` 在 `setState`  函数的第二个参数允许传入回调函数，在状态更新完毕后进行调用**。所以我们可以这样写：
 
 ```jsx
 ...
-this.setState({count: this.state.count + 1}, ()=>{
-    console.log(this.state.count) // 1
-})
+this.setState({ count: this.state.count + 1 }, () => {
+  console.log(this.state.count); // 1
+});
 ...
 ```
 
-回调里的 `state` 便是最新的了，原因是该回调的执行时机在于 `state` 合并处理之后。如果我们按照上面的例子那样去做：
+回调里的 `state` 便是最新的了，原因是该回调的执行时机在于 `state` 合并处理之后。
+
+
+
+##### 1.2、传入状态计算函数
+
+回到上面的例子，怎么实现结果为 `2` 呢？
+
+`setState()` 方法还有**第二种形式，以一个函数而不是对象作为参数，此函数的第一个参数是前一刻的 `state`，第二个参数是 `state` 更新执行瞬间的 `props`**。用法如下：
+
+```jsx
+this.setState((prevState, props) => ({
+  count: prevState.count + props.increment,
+}));
+
+...
+<App increment={2} />
+```
+
+给 `App` 组件传递一个 `props` 即可。这时候，页面上就会输出 `2` 了。
+
+当然，我们也可以不使用第二个参数，像下面这样：
 
 ```jsx
 ...
-	this.setState({count: this.state.count + 1})
-	this.setState({count: this.state.count + 1})
+	this.setState((prevState) => ({ count: prevState.count + 1 }));
+  this.setState((prevState) => ({ count: prevState.count + 1 }));
 ...
 ```
 
-实际最终的 `count` 会等于 `1`，原因是执行到第二行代码时，得到的 `this.state.count` 为 `0`。那怎么实现结果为 `2` 呢？
 
-```jsx
-...
-	this.setState(prevState => {count: prevState.count + 1});
-	this.setState(prevState => {count: prevState.count + 1});
-...
-```
 
-`setState()` 实际上可以接受一个函数作为参数，函数的首个参数就是上一次的 `state`。
+#### 2、执行时机
 
 以上介绍了 `setState ` 的三种使用方式，下面我们来看看它们的执行时机是怎样的，看段代码：
 
@@ -151,7 +175,7 @@ class App extends Component {
     this.setState({ count: this.state.count + 1 });
     console.log(`lifecycle: ${this.state.count}`);
     setTimeout(() => {
-      // setTimeout中调用
+      // setTimeout 中调用
       this.setState({ count: this.state.count + 1 });
       console.log(`setTimeout: ${this.state.count}`);
     }, 0);
@@ -200,10 +224,10 @@ ReactDOM.render(<App />, rootElement);
 
 那么为什么 `React` 要把状态的更新设计成这种方式呢？直接 `this.state.count = 1` 不可以吗？ `FaceBook` 做了解释：https://github.com/facebook/react/issues/11527#issuecomment-360199710
 
-原因简单总结下：
+**原因**简单总结下：
 
-- 保证内部的一致性：即使 `state` 是同步更新，`props` 也不是。（你只有在父组件重新渲染时才能知道`props`）
-- 将 `state` 的更新延缓到最后批量合并再去渲染对于应用的性能优化是有极大好处的，如果每次的状态改变都去重新渲染真实 `dom`，那么它将带来巨大的性能消耗。
+- 保证内部的一致性：即使 `state` 是同步更新，`props` 也不是（你只有在父组件重新渲染时才能知道 `props`）；
+- 将 `state` 的更新延缓到最后批量合并再去渲染，对于应用的性能优化是有极大好处的，如果每次的状态改变都去重新渲染真实 `dom`，那么它将带来巨大的性能消耗。
 
 
 
