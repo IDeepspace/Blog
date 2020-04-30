@@ -650,7 +650,7 @@ export default B;
 
 
 
-##### 2.5、getSnapshotBeforeUpdate
+##### 2.5、新增 getSnapshotBeforeUpdate
 
 顾名思义，保存状态快照用的。
 
