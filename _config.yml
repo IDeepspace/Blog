@@ -93,7 +93,7 @@ deploy:
   type: git
   repo:
     github: https://github.com/IDeepspace/IDeepspace.github.io.git
-    coding: https://e.coding.net/Deepspace/blog/blog.git
+    coding: https://e.coding.net/Deepspace/Deepspace.coding.me.git
     gitee: https://gitee.com/IDeepspace/IDeepspace.git
   branch: master
 
