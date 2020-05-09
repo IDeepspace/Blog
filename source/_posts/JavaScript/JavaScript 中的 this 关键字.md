@@ -491,7 +491,7 @@ var chenxingxing = {
 };
 
 console.log(chenxingxing.age(1)); // 23
-console.log(getAge.apply(chenxingxing, [1])); // 23, this 指向 chenxingxing, 参数为空
+console.log(getAge.apply(chenxingxing, [1])); // 23, this 指向 chenxingxing, 参数为 1
 ```
 
 
