@@ -1,11 +1,11 @@
 ---
-title: Webpack 简介
+title: Webpack 性能优化
 author: Deepspace
-categories: FrontEnd
-date: 2019-11-13
-urlname: webpack-performance-enhancement
 tags:
   - Webpack
+categories: FrontEnd
+date: 2019-11-28
+urlname: webpack-performance-enhancement
 ---
 
 
