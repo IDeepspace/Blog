@@ -20,7 +20,7 @@ tags:
 
 `webpack` 是一种前端资源构建工具，它是一个**静态模块打包器**（`module bundler`）。在 `webpack` 中，前端的所有资源文件（`javascript/json/css/img/less/...`）都会作为模块处理，当 `webpack` 处理应用程序时,它会递归地构建一个依赖关系图（`dependency graph`），其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 `bundle`。
 
-<img src="/Users/cxin/Documents/Workspace/ImageHosting/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
 
 <p align='center'>（图片来自网络）</p>
 
