@@ -23,7 +23,7 @@ urlname: webpack-performance-enhancement
 <img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
 
 <p align='center'>（图片来自网络）</p>
-
+<!-- more -->
 #### 1、基本功能
 
 - **代码转换**：将 `TypeScript` 编译成 `JavaScript`、`SCSS` 编译成 `CSS` 等。
