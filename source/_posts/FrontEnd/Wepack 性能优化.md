@@ -476,3 +476,11 @@ if ('serviceWorker' in navigator) {
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/pwa
 
+
+
+### 六、更多
+
+- [深入浅出 Webpack](https://webpack.wuhaolin.cn/)
+- [Webpack小书](https://www.timsrc.com/article/2/webpack-book)
+- [Webpack Guidebook](https://tsejx.github.io/webpack-guidebook/)
+- [Webpack 中文官网](https://webpack.docschina.org/concepts/)
