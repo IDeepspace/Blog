@@ -218,6 +218,14 @@ tags:
 
 
 
+这里有一张简单图示，可以帮助理解三次握手和四次挥手：
+
+<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/three-four-handshake.png" alt="three-four-handshake.png" style="zoom: 50%;" />
+
+<p align='center'>（图片来自网络）</p>
+
+
+
 #### 3、为什么握手需要三次，而挥手却需要四次？
 
 握手的时候，`A` 和 `B` 打个招呼，`B `可以直接把自己的 `SYN` 信息和对 `A` 的回应 `ACK` 信息一起带上，但是挥手的时候，`A` 说我要断开了，`B` 还没发完最后的数据，因此需要先回应一下 `A`，我收到你的断开的请求了，但是你要等我把最后的内容给你，所以这里分开了 `2` 步：
