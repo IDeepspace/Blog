@@ -110,7 +110,7 @@ this.setState((prevState, props) => ({
 
 ```jsx
 ...
-	this.setState((prevState) => ({ count: prevState.count + 1 }));
+  this.setState((prevState) => ({ count: prevState.count + 1 }));
   this.setState((prevState) => ({ count: prevState.count + 1 }));
 ...
 ```
@@ -123,7 +123,7 @@ this.setState((prevState, props) => ({
 
 ```jsx
 ...
-	this.setState({ count: this.state.count + 1 });
+  this.setState({ count: this.state.count + 1 });
   console.log('console: ' + this.state.count); // 0
   this.setState({ count: this.state.count + 1 }, () => {
     console.log('console from callback: ' + this.state.count); // 2
