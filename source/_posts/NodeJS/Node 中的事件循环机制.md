@@ -200,7 +200,7 @@ timeout
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
 
-文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将2个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，执行栈空闲，任务队列开始执行：
+文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将 2 个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，执行栈空闲，任务队列开始执行：
 
 ![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
 
@@ -215,7 +215,7 @@ timeout
 
 <p align="center">(图片来自网络)</p>
 
-### 五、process.nextTick和setImmediate
+### 五、process.nextTick 和 setImmediate
 
 除了 `setTimeout` 和 `setInterval` 这两个方法，`Node.js` 还提供了另外两个与 **任务队列** 有关的方法：[process.nextTick](http://nodejs.org/docs/latest/api/process.html#process_process_nexttick_callback) 和 [setImmediate](http://nodejs.org/docs/latest/api/timers.html#timers_setimmediate_callback_arg)。它们可以帮助我们加深对 **任务队列** 的理解。
 
@@ -276,7 +276,7 @@ setImmediate 1000
 
 1. `Node.js` 的事件循环分为6个阶段；
 
-2. 浏览器和Node 环境下，`microtask` 任务队列的执行时机不同
+2. 浏览器和 `Node` 环境下，`microtask` 任务队列的执行时机不同
 
    - `Node.js` 中，`microtask` 在事件循环的各个阶段之间执行
 
