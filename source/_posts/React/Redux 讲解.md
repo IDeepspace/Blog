@@ -84,6 +84,8 @@ const reducer = (state = 10, action) => {
 
 当 `store.dispatch` 发送过来一个新的 `action` ，`store` 就会自动调用 `reducer`，得到新的 `state` 。
 
+
+
 ### 二、简单实例
 
 ```javascript
@@ -129,11 +131,15 @@ store.dispatch(addTwo); //发起'+2'的action
 console.log(store.getState()); //当前值为121+2=123
 ```
 
+
+
 ### 三、Redux 工作流
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
+
+
 ### 四、代码组织目录结构
 
 下面对目录结构进行划分
@@ -218,11 +224,13 @@ console.log(store.getState()); //当前值为121+2=123
 
 ![目录结构](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-directory-structure.png)
 
+
+
 ### 四、UI 层
 
 前面的示例中，只是 `redux` 的状态改变，下面利用 `UI` 层来建立 `view` 和 `state` 的联系，将根目录下的`index.js` 的内容更改如下:
 
-```javascript
+```jsx
 import store from './store';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -247,7 +255,7 @@ ReactDOM.render(
 
 下面将示例代码更改如下：
 
-```javascript
+```jsx
 import store from './store';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -272,9 +280,11 @@ render();
 store.subscribe(render);
 ```
 
+
+
 ### 五、异步
 
-`redux` 默认只处理同步，对于 `API` 请求这样的异步任务则无能为力，接下来尝试使用`axios`的`get`方法来请求下面这个`API`。
+`redux` 默认只处理同步，对于 `API` 请求这样的异步任务则无能为力，接下来尝试使用 `axios` 的 `get` 方法来请求下面这个`API`。
 
 ```
 https://jsonplaceholder.typicode.com/posts/2
@@ -336,7 +346,7 @@ const render = () =>
         type="button"
         onClick={() => {
           axios.get(uri).then(res => {
-            store.dispatch(store.dispatch(setNum(res.data.id)));
+            store.dispatch(setNum(res.data.id));
           });
         }}
         value="设置Num"
@@ -359,6 +369,8 @@ store.subscribe(render);
 
 如果要使用真正的异步操作，即把 `axios` 方法封装到 `store.dispatch` 中，需要使用 `redux-thunk` 中间件。
 
+
+
 #### 1. redux-thunk
 
 首先，使用 `npm` 进行安装：
@@ -376,9 +388,9 @@ import rootReducer from '../reducer';
 export default createStore(rootReducer, applyMiddleware(thunk));
 ```
 
-接着来定义 `setNum` 这个 `action creator` ，然后在 `index.js` 文件的 `DOM` 加载完成后就发出 `setNum`
+接着来定义 `setNum` 这个 `action creator` ，然后在 `index.js` 文件的 `DOM` 加载完成后就发出 `setNum`。
 
-**[注意]: **如果 `action` 是一个对象，则它就是一个 `action` ，如果 `action` 是一个函数，则它是一个`action creator` ，即 `action` 制造器，修改的代码如下：
+**[注意]**：如果 `action` 是一个对象，则它就是一个 `action` ，如果 `action` 是一个函数，则它是一个 `action creator` ，即 `action` 制造器，修改的代码如下：
 
 ```javascript
 // action/math.js
@@ -426,7 +438,7 @@ store.subscribe(render);
 
 【提示信息】
 
-如果做的更完备一点，应该把异步请求时的提示信息也加上。增加一个 `fetch` 的 `action`，用于控制`fetch` 过程的提示信息及显示隐藏情况，代码更改如下
+如果做的更完备一点，应该把异步请求时的提示信息也加上。增加一个 `fetch` 的 `action`，用于控制 `fetch` 过程的提示信息及显示隐藏情况，代码更改如下：
 
 ```javascript
 // action/fetch.js
@@ -541,6 +553,8 @@ render();
 store.subscribe(render);
 ```
 
+
+
 ### 六、React-Redux 基础知识点
 
 前面的代码中，我们是通过 `store.subscribe()` 方法监控 `state` 状态的变化来更新 `UI` 层的。而使用 `react-redux`，可以让组件动态订阅状态树。状态树一旦被修改，组件能自动刷新显示最新数据。
@@ -569,6 +583,8 @@ ReactDOM.render(
 ```
 
 按照组件拆分规范，将原来 `index.js` 中相关代码，分拆到 `container/MathContainer` 和 `component/Math` 这两个组件中。
+
+
 
 #### 2. connect
 
@@ -599,6 +615,8 @@ const MathContainer = connect(
 
 上面代码中，`connect` 方法接受两个参数：`mapStateToProps` 和 `mapDispatchToProps`。它们定义了展示组件的业务逻辑。前者负责输入逻辑，即将 `state` 映射到 `UI` 组件的参数(`props`)，后者负责输出逻辑，即将用户对展示组件的操作映射成 `Action`，下面分别介绍这两个参数。
 
+
+
 #### 3. mapStateToProps()
 
 `mapStateToProps` 建立一个从外部的 `state` 对象到展示组件的 `props` 对象的映射关系。作为参数，`mapStateToProps` 执行后应该返回一个对象，里面的每一个键值对就是一个映射。
@@ -622,6 +640,8 @@ const mapStateToProps = (state, ownProps) => {
 ```
 
 `mapStateToProps` 会订阅 `Store` ，每当 `state` 更新的时候，就会自动执行，重新计算展示组件的参数，从而触发展示组件的重新渲染。`connect` 方法可以省略 `mapStateToProps` 参数，那样，展示组件就不会订阅 `Store`，就是说 `Store` 的更新不会引起展示组件的更新。
+
+
 
 #### 4. mapDispatchToProps
 
