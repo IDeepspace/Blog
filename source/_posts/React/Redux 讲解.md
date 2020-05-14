@@ -26,7 +26,7 @@ urlname: redux-basic
 
 #### 1. store
 
-`store` 就是存放数据的地方，可以把它看作是一个容器。 `Redux` 应用只有一个单一的 `store`。`redux` 提供`createStore`函数来生成 `store`，函数参数是 `reducer`(后面介绍)。
+`store` 就是存放数据的地方，可以把它看作是一个容器。 `Redux` 应用只有一个单一的 `store`。`redux` 提供 `createStore` 函数来生成 `store`，函数参数是 `reducer`（后面介绍）。
 
 ```javascript
 import { createStore } from 'redux';
@@ -35,7 +35,7 @@ const store = createStore(reducer);
 
 #### 2. state
 
-state 是 store 的某个时刻的快照，可以通过 `store.getState()` 取得当前时刻的 `state`
+`state` 是 `store` 的某个时刻的快照，可以通过 `store.getState()` 取得当前时刻的 `state`
 
 ```javascript
 const state = store.getState();
