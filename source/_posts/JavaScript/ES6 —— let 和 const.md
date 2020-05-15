@@ -18,7 +18,7 @@ urlname: es6-let-const
 
 ```javascript
 if (condition) {
-    var value = 1;
+  var value = 1;
 }
 console.log(value);
 ```
@@ -30,7 +30,7 @@ console.log(value);
 ```javascript
 var value;
 if (condition) {
-    value = 1;
+  value = 1;
 }
 console.log(value);
 ```

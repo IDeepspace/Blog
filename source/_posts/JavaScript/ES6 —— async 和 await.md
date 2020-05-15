@@ -63,7 +63,7 @@ asyncReadFile();
 
 **语法：**
 
-`await` 只能出现在 `async` 函数中，`async` 用于申明一个 `function` 是异步的，而 `await` 用于等待一个异步方法执行完成。下面我们单独对 `async` 和 `await` 做一些介绍，帮助理解。
+`await` 只能出现在 `async` 函数中，`async` 用于声明一个 `function` 是异步的，而 `await` 用于等待一个异步方法执行完成。下面我们单独对 `async` 和 `await` 做一些介绍，帮助理解。
 <!-- more -->
 
 

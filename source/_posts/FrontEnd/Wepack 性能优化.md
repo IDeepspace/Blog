@@ -402,7 +402,7 @@ externals: {
 - 添加多个入口 `entry`
   - 缺点：不好维护，每次都需要新添加入口配置
 - 使用 `splitChunks` 配置
-  - 可以将 `node_modules` 中代码单独打包一个 `chunk` 最终输出
+  - **[`SplitChunksPlugin`](https://webpack.docschina.org/plugins/split-chunks-plugin/) 插件**可以将 `node_modules` 或者其他公共的依赖模块中代码单独打包一个 `chunk` 最终输出
   - 它也会自动分析多入口 `chunk` 中，有没有公共的文件，如果有则会打包成单独一个 `chunk`
 - 通过 `js` 代码，让某个文件被单独打包成一个 `chunk`
   - `import` 动态导入语法：能将某个文件单独打包

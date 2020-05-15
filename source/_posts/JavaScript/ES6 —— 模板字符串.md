@@ -28,7 +28,7 @@ $('#result').append(
 
 <!-- more -->
 
-ES6 引入了一种新型的字符串字面量语法，我们称之为模板字符串（`template strings`）。
+`ES6` 引入了一种新型的字符串字面量语法，我们称之为模板字符串（`template strings`）。
 
 使用方法如下：
 

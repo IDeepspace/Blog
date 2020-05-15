@@ -10,7 +10,7 @@ urlname: es6-arrow-functions
 
 <!-- ## ES6 —— 箭头函数 Arrow Functions -->
 
-ES6 中引入了一种编写函数的新语法 ---- 箭头函数 `Arrow Functions` 。
+`ES6` 中引入了一种编写函数的新语法 ---- 箭头函数 `Arrow Functions` 。
 
 ### 一、箭头函数的优点
 
@@ -105,7 +105,7 @@ headAndTail(1, 2, 3, 4, 5);
 
 > 你可以在这里查看 `JavaScript` 中的 `this`：https://togoblog.cn/javascript-this/
 
-#### 1、默认绑定外层this
+#### 1、默认绑定外层 this
 
 我们都知道 ：`this` 的值是可以用 `call` 方法修改的，而且只有在调用的时候我们才能确定 `this` 的值，简单写个例子说明：
 
@@ -294,11 +294,13 @@ fn0().fn1().b.c();
 
 fn0().fn1().d().c();
 // { fn1: [Function: fn1] }
-/*{
-   a: { c: [Function: c] },
-   b: { c: [Function: c] },
+/*
+{
+  a: { c: [Function: c] },
+  b: { c: [Function: c] },
   d: [Function: d]
- }*/
+ }
+*/
 ```
 
 
