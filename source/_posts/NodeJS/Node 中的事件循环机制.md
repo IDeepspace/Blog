@@ -65,9 +65,7 @@ promise2
 
 ### 二、Node.js 的架构
 
-把 `Node.js` 拆分到组件，看看它们的关键作用是什么、如何交互协作。
-
- `Node.js` 运行时环境图示：
+把 `Node.js` 拆分到组件，看看它们的关键作用是什么、如何交互协作。 `Node.js` 运行时环境图示：
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-architecture.png" alt="node.js 架构图" style="zoom:67%;" />
 
