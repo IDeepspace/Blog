@@ -67,7 +67,7 @@ var copySpread = { ...obj1, ...obj2 }; // Object { foo: "foo", bar: "bar" }
 var copyAssign = Object.assign({}, obj1, obj2); // Object { foo: "foo", bar: "bar" }
 ```
 
-但是，上面的两种方法也存在一些问题：如果对象的属性本身也是对象，那么实际被拷贝的还只是那些指针。也就是说，这跟执行 `var bar = foo;`  的效果是一样的，跟前言中的代码的做法效果是一样的。
+但是，上面的两种方法也存在一些问题：**如果对象的属性本身也是对象，那么实际被拷贝的还只是那些指针**。也就是说，这跟执行 `var bar = foo;`  的效果是一样的，跟前言中的代码的做法效果是一样的。
 
 ```javascript
 var foo = { a: 0 , b: { c: 0 } };

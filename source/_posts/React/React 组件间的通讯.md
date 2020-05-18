@@ -352,7 +352,7 @@ class BrotherCom extends Component {
 
 
 
-#### 2、利用Context
+#### 2、利用 Context
 
 利用父组件做中转可以完成兄弟组件之间的通信，但是如果父组件结构很深，那么中间的每一层组件都要去传递 `props`，增加了复杂度，并且这些 `props` 并不是这些中间组件自己所需要的。可以使用 `Context` 来解决这个问题。
 

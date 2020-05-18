@@ -216,7 +216,7 @@ const makeRequest = () => {
 };
 ```
 
-上面的代码看着就会觉得很头疼，嵌套了 6 层。`return` 语句很容易让人感到迷茫，而它们只是需要将最终结果传递到最外层的 `Promise`。如果我们使用 `async/await` 来改写代码，代码的可读性会大大提高：
+上面的代码看着就会觉得很头疼，嵌套了好几层。`return` 语句很容易让人感到迷茫，而它们只是需要将最终结果传递到最外层的 `Promise`。如果我们使用 `async/await` 来改写代码，代码的可读性会大大提高：
 
 ```javascript
 const makeRequest = async () => {

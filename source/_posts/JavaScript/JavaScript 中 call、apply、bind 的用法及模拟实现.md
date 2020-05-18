@@ -148,6 +148,8 @@ obj.sayHi(); // Deepspace
 
 ```javascript
 Function.prototype.call2 = function (context) {
+  // console.log(this); // [Function: sayHi]
+  // console.log(context); // { name: 'Deepspace' }
   context.fn = this; // 用 this 获取要调用 call 方法的函数
   context.fn();
   delete context.fn;
@@ -162,6 +164,7 @@ function sayHi() {
 }
 
 sayHi.call2(obj); // Deepspace
+
 ```
 
 前面说了，`call` 方法是支持传递参数的，由于参数的个数不确定的，所以，我们可以从 `Arguments` 对象中取值，取出第二个到最后一个参数，然后放到一个数组里。下面我们接着改造：

@@ -321,7 +321,7 @@ console.log(obj.name); // Deepspace
 console.log(Object.prototype.__proto__ === null); // true
 ```
 
-`null` 表示 "没有对象"，即该处不应该有值。所以， `Object.prototype` 没有原型了，查找属性时，查到 `Object.prototype` 就停止查找了。
+`null` 表示 "没有对象"，即此处不应该有值。所以， `Object.prototype` 没有原型了，查找属性时，查到 `Object.prototype` 就停止查找了。
 
 我们可以再更新一下图：
 
@@ -334,6 +334,8 @@ console.log(Object.prototype.__proto__ === null); // true
 上图中的蓝色的线，其实就是原型链。
 
 假如我们让原型对象等于另一个类型的实例，结果会怎么样呢？显然，此时的原型对象将包含一个指向另一个原型的指针（`__proto__`）；相应地，另一个原型中也包含着一个指向另一个构造函数的指针（`constructor`）。假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓原型链的基本概念。
+
+> 所以，在 `JavaScript` 中的原型链继承里，是通过 `prototype` 对象指向父类对象，直到指向 `Object` 对象为止，这样就形成了一个原型指向的链条。
 
 一个比较好理解的例子就是：不管是 `JavaScript` 内置的对象还是自定义的对象，都可以使用 `toString()`、 `valueOf()` 等默认方法，就是因为 `Object.prototype` 这个原型上面有这些方法，自定义对象通过原型链继承过去使用的。
 

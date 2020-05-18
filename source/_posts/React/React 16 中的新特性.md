@@ -428,9 +428,7 @@ export default App;
   - 这里可以加载服务器数据，并且如果使用了 `redux`，这里可以出发加载服务器数据的 `action`；
   - 这里可以使用 `setState()` 方法触发重新渲染（`re-render`）。
 
-
-
-> 注：把 `Ajax` 请求放在 `componentWillMount` 函数中也是可以的，但是官方推荐放在 `componentDidMount` 这个生命周期函数中发起 `Ajax` 请求,因为执行这个生命周期时，`DOM` 已经挂载完了，这样做可以拿到 `Ajax` 请求返回的数据并通过 `setState` 来更新组件。
+> 注：把 `Ajax` 请求放在 `componentWillMount` 函数中也是可以的，但是官方推荐放在 `componentDidMount` 这个生命周期函数中发起 `Ajax` 请求，因为执行这个生命周期时，`DOM` 已经挂载完了，这样做可以拿到 `Ajax` 请求返回的数据并通过 `setState` 来更新组件。
 
 
 
@@ -530,7 +528,7 @@ export default App;
 
 ##### 2.2、废除 componentWillReceiveProps
 
-`componentWillReceiveProps` 生命周期钩子只有一个参数，更新后的 props。
+`componentWillReceiveProps` 生命周期钩子只有一个参数，更新后的 `props`。
 
 该声明周期函数可能在两种情况下被触发：
 
@@ -539,7 +537,7 @@ export default App;
 
 初始化时并不会触发该生命周期钩子。
 
-因为 `Fiber `机制的引入，这个生命周期钩子有可能会多次触发。
+因为 `Fiber ` 机制的引入，这个生命周期钩子有可能会多次触发。
 
 
 
@@ -568,7 +566,7 @@ export default App;
 
 该函数会在挂载时，接收到新的 `props`，调用了 `setState` 和 `forceUpdate` 时被调用，简单点说就是：**`getDerivedStateFromProps` 无论是在挂载阶段还是更新阶段，也无论是什么引起的更新，统统都会被调用，在首次渲染的时候也会被触发** (注意：`v16.3` 中，`setState` 时、`forceUpdate` 时不会执行这个方法，`v16.4` 修复了这个问题)。
 
-和 `componentWillReceiveProps` 不同，`componentWillReceiveProps` 只在由父组件引起的更新时才会触发。
+和 `componentWillReceiveProps` 不同，`getDerivedStateFromProps` 只在由父组件引起的更新时才会触发。
 
 一个简单的例子：
 

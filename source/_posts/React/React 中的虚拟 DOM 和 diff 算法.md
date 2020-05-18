@@ -341,7 +341,7 @@ function updateElement($parent, newNode, oldNode, index = 0) {
 
 <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
 
-完整代码：https://jsfiddle.net/cxin1427/cvdgtqup/
+> 实现的例子参考自完整代码：https://jsfiddle.net/cxin1427/cvdgtqup/
 
 
 
