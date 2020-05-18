@@ -4,7 +4,7 @@ author: Deepspace
 tags:
   - async/await
 categories: JavaScript
-date: 2020-03-18
+date: 2020-05-18
 urlname: how-to-write-async-await-without-try-catch-blocks-in-javascript
 ---
 
@@ -52,6 +52,8 @@ async function asyncTask(cb) {
   cb(null, savedTask);
 }
 ```
+
+<!-- more -->
 
 写了很多个 `try-catch` 语句，不是那么好看，可以像下面这样写：
 
