@@ -637,7 +637,7 @@ class B extends Component {
 export default B;
 ```
 
-`getDerivedStateFromProps ` 是用来替代 `componentWillReceiveProps` 的，应对 `state` 需要关联 `props` 变化的场景。它的作用就是让组件根据父组件传来的 `props`，判断是否需要更新自己的 `state` ，这种 `state` 叫做衍生state。返回的对象就是要增量更新的state。
+`getDerivedStateFromProps ` 是用来替代 `componentWillReceiveProps` 的，应对 `state` 需要关联 `props` 变化的场景。它的作用就是让组件根据父组件传来的 `props`，判断是否需要更新自己的 `state` ，这种 `state` 叫做衍生 `state`。返回的对象就是要增量更新的`state`。
 
 将 `getDerivedStateFromProps` 设计成静态函数，目的是保持该方法的纯粹，它就是用来定义衍生 `state` 的，能做的操作局限在根据 `props` 和 `state` 决定新的 `state`，除此之外不应该在里面执行任何操作。
 

@@ -139,6 +139,29 @@ console.log(store.getState()); //当前值为121+2=123
 
 <p align="center">(图片来自网络)</p>
 
+概念：
+
+- Store：保存数据的地方，你可以把它看成一个容器，整个应用只能有一个 Store。
+
+- State：Store 对象包含所有数据，如果想得到某个时点的数据，就要对 Store 生成快照，这种时点的数据集合，就叫做 State。
+
+- Action：State 的变化，会导致 View 的变化。但是，用户接触不到 State，只能接触到 View。所以，State 的变化必须是 View导 致的。Action 就是 View 发出的通知，表示 State 应该要发生变化了。
+
+- Action Creator：View 要发送多少种消息，就会有多少种 Action。如果都手写，会很麻烦，所以我们定义一个函数来生成 Action，这个函数就叫 Action Creator。
+
+- Reducer：Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。
+
+- dispatch：是 View 发出 Action 的唯一方法。
+
+流程：
+
+- 首先，用户（通过 View）发出 Action，发出方式就用到了 dispatch 方法。
+
+- 然后，Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action，Reducer 会返回新的 State。
+
+- State 一旦有变化，Store 就会调用监听函数，来更新 View。
+
+
 
 ### 四、代码组织目录结构
 

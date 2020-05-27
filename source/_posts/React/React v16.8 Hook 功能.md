@@ -242,7 +242,7 @@ function Example() {
 
 **`useEffect` 怎么解绑一些副作用** ?
 
-这种场景也是非常常见的：当我们在 `componentDidMount` 里添加了一个注册，我们得马上在`componentWillUnmount` 中，也就是组件被注销之前清除掉添加的注册，否则就会导致内存泄漏的问题。
+这种场景也是非常常见的：当我们在 `componentDidMount` 里添加了一个注册，我们得马上在 `componentWillUnmount` 中，也就是组件被注销之前清除掉添加的注册，否则就会导致内存泄漏的问题。
 
 怎么清除呢？我们可以在 `useEffect` 函数中返回一个函数，`React` 会在组件卸载时调用这个函数，所以我们可以把清理函数放在这里。看个例子：
 
@@ -377,7 +377,7 @@ useEffect(() => {
 
 ### 五、Context Hook
 
-上面介绍了 `useState`、`useEffect` 这两个最基本的 `API`，下面我们看看 React 帮我们封装好的 `useContext` ，它被用来处理多层级数据的传递。
+上面介绍了 `useState`、`useEffect` 这两个最基本的 `API`，下面我们看看 `React` 帮我们封装好的 `useContext` ，它被用来处理多层级数据的传递。
 
 在兄弟组件间的通讯中，利用父组件做中转可以完成兄弟组件之间的通信，但是如果父组件结构很深，那么中间的每一层组件都要去传递 `props`，增加了复杂度，并且这些 `props` 并不是这些中间组件自己所需要的。我们可以用 `React Context API` 来帮我们做这件事，参考：<https://togoblog.cn/react-component-communication/#toc-heading-7>，代码如下：
 

@@ -179,7 +179,7 @@ request(url)
 
 #### 3、catch 方法
 
- `Promise` 对象也拥有 `catch` 方法。它的用途是什么呢？其实它和 `then` 方法的第二个参数是一样的，用来指定`reject` 的回调，和写在 `then` 里第二个参数里面的效果是一样。用法如下：
+ `Promise` 对象也拥有 `catch` 方法。它的用途是什么呢？其实它和 `then` 方法的第二个参数是一样的，用来指定 `reject` 的回调，和写在 `then` 里第二个参数里面的效果是一样。用法如下：
 
 ```javascript
 runAsync()

@@ -41,7 +41,7 @@ urlname: javascript-module
 
 #### 1、一个函数就是一个模块
 
-```javascript
+```html
 <script>
   function m1 () {
     // ...
@@ -60,7 +60,7 @@ urlname: javascript-module
 
 对象写法为了解决上面的缺点，可以把模块写成一个对象，所有的模块成员都放到这个对象里面。
 
-```javascript
+```html
 <script>
   var module1 = new Object({
     _sum: 0,
@@ -82,7 +82,7 @@ module1._sum = 2;
 
 #### 3、立即执行函数为一个模块
 
-```javascript
+```html
 <script>
   var module1 = (function() {
     var _sum = 0;

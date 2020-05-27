@@ -498,7 +498,9 @@ console.log(getAge.apply(chenxingxing, [1])); // 23, this 指向 chenxingxing, �
 
 #### 4、new 绑定
 
-执行 `new` 操作符来调用函数的时候，将创建一个新的对象，并且将构造函数的 `this` 指向所创建的新对象。如果函数没有返回其他对象，那么 `new` 表达式中的函数调用会自动返回这个新对象：
+执行 `new` 操作符来调用函数的时候，将创建一个新的对象，这个新对象会绑定到函数调用的 `this`。
+
+如果函数没有返回其他对象，那么 `new` 表达式中的函数调用会自动返回这个新对象：
 
 ```javascript
 function foo(a) {

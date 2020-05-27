@@ -165,15 +165,13 @@ test();
 ```javascript
 const makeRequest = () => {
   try {
-    getJSON().then(result => {
+    getJSON().then((result) => {
       // JSON.parse可能会出错
       const data = JSON.parse(result);
       console.log(data);
+    }).catch((err) => { // 处理异步代码的错误
+      console.log(err);
     });
-    // 取消注释，处理异步代码的错误
-    // .catch((err) => {
-    //   console.log(err)
-    // })
   } catch (err) {
     console.log(err);
   }
