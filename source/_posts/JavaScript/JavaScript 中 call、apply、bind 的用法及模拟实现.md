@@ -164,7 +164,6 @@ function sayHi() {
 }
 
 sayHi.call2(obj); // Deepspace
-
 ```
 
 前面说了，`call` 方法是支持传递参数的，由于参数的个数不确定的，所以，我们可以从 `Arguments` 对象中取值，取出第二个到最后一个参数，然后放到一个数组里。下面我们接着改造：
@@ -174,9 +173,9 @@ Function.prototype.call2 = function (context) {
   context.fn = this; // 用 this 获取要调用 call 方法的函数
   const args = [];
   for (let i = 1, len = arguments.length; i < len; i++) {
-    args.push(`arguments[${i}]`);
+    args.push(`arguments[${ i }]`);
   }
-  eval(`context.fn(${args})`);
+  eval(`context.fn(${ args })`);
   delete context.fn;
 };
 
@@ -186,10 +185,10 @@ const obj = {
 
 
 function sayHi(age, gender) {
-  console.log(`${this.name} ${age} ${gender}`);
+  console.log(`${ this.name } ${ age } ${ gender }`);
 }
 
-sayHi.call2(obj, 23, 'male'); // Deepspace
+sayHi.call2(obj, 23, 'male'); // Deepspace 23 male
 ```
 
 这里要遗留下两个小问题：
@@ -229,7 +228,6 @@ function sayHi(age, gender) {
 
 sayHi.call2(null); // Deepspace
 sayHi.call2(obj, 23, 'male'); // Deepspace
-
 ```
 
 
@@ -490,3 +488,4 @@ Function.prototype.bind2 = function (context) {
   return fBound;
 };
 ```
+
