@@ -706,7 +706,7 @@ import module, { a } from './module'
 
 
 
-#### 3. export ... from...
+#### 3、export ... from...
 
 还有一种写法，可以将 `export` 和 `from` 结合起来用。
 
