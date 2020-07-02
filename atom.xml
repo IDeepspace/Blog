@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Deepspace</title>
+  
+  <subtitle>我叫陈星星</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://togoblog.cn/"/>
+  <updated>2020-07-02T02:00:35.475Z</updated>
+  <id>https://togoblog.cn/</id>
+  
+  <author>
+    <name>Deepspace</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何更好地处理 async-await 中的错误</title>
+    <link href="https://togoblog.cn/how-to-write-async-await-without-try-catch-blocks-in-javascript/"/>
+    <id>https://togoblog.cn/how-to-write-async-await-without-try-catch-blocks-in-javascript/</id>
+    <published>2020-05-17T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.475Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;如何更好地处理-async-await-中的错误&quot;&gt;&lt;a href=&quot;#如何更好地处理-async-await-中的错误&quot; class=&quot;headerlink&quot; title=&quot;如何更好地处理 async-await 中的错误&quot;&gt;&lt;/a&gt;如何更好地处理 async-await 中的错误&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;原文链接：&lt;a href=&quot;https://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在 &lt;code&gt;async / await&lt;/code&gt; 函数中，通常使用 &lt;code&gt;try / catch&lt;/code&gt; 来捕获错误。代码像下面这样：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;async function asyncTask(cb) {
+  try {
+    const user = await UserModel.findById(1);
+    if (!user) return cb(&amp;#39;No user found&amp;#39;);
+  } catch (e) {
+    return cb(&amp;#39;Unexpected error occurred&amp;#39;);
+  }
+
+  try {
+    const savedTask = await TaskModel({ userId: user.id, name: &amp;#39;Demo Task&amp;#39; });
+  } catch (e) {
+    return cb(&amp;#39;Error occurred while saving task&amp;#39;);
+  }
+
+  if (user.notificationsEnabled) {
+    try {
+      await NotificationService.sendNotification(user.id, &amp;#39;Task Created&amp;#39;);
+    } catch (e) {
+      return cb(&amp;#39;Error while sending notification&amp;#39;);
+    }
+  }
+
+  if (savedTask.assignedUser.id !== user.id) {
+    try {
+      await NotificationService.sendNotification(savedTask.assignedUser.id, &amp;#39;Task was created for you&amp;#39;);
+    } catch (e) {
+      return cb(&amp;#39;Error while sending notification&amp;#39;);
+    }
+  }
+
+  cb(null, savedTask);
+}
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://togoblog.cn/categories/JavaScript/"/>
+    
+    
+      <category term="async/await" scheme="https://togoblog.cn/tags/async-await/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React 函数式组件的性能优化</title>
+    <link href="https://togoblog.cn/react-functional-component-performance-enhancement/"/>
+    <id>https://togoblog.cn/react-functional-component-performance-enhancement/</id>
+    <published>2020-03-31T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.479Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;React-函数式组件的性能优化&quot;&gt;&lt;a href=&quot;#React-函数式组件的性能优化&quot; class=&quot;headerlink&quot; title=&quot;React 函数式组件的性能优化&quot;&gt;&lt;/a&gt;React 函数式组件的性能优化&lt;/h2&gt;&lt;p&gt;不论是类组件还是函数式组件，&lt;code&gt;React&lt;/code&gt; 性能优化的主要方向有下面几个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;减少重新 &lt;code&gt;render&lt;/code&gt; 的次数&lt;/li&gt;
+&lt;li&gt;减少计算量&lt;/li&gt;
+&lt;li&gt;减少渲染的节点、降低渲染量&lt;/li&gt;
+&lt;li&gt;合理设计组件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;一、减少重新-render-的次数&quot;&gt;&lt;a href=&quot;#一、减少重新-render-的次数&quot; class=&quot;headerlink&quot; title=&quot;一、减少重新 render 的次数&quot;&gt;&lt;/a&gt;一、减少重新 render 的次数&lt;/h3&gt;&lt;p&gt;&lt;code&gt;React&lt;/code&gt; 中最重的（时间开销最大的）一块就是 &lt;code&gt;reconciliation&lt;/code&gt; ，翻译为调和、和解。&lt;code&gt;reconciliation&lt;/code&gt; 的最终目标是以最有效的方式，根据新的状态来更新 &lt;code&gt;UI&lt;/code&gt;，我们可以简单地理解为 &lt;code&gt;diff&lt;/code&gt;。如果不发生 &lt;code&gt;render&lt;/code&gt;，就不会发生 &lt;code&gt;reconciliation&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="React" scheme="https://togoblog.cn/categories/React/"/>
+    
+    
+      <category term="React" scheme="https://togoblog.cn/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>瀑布与敏捷</title>
+    <link href="https://togoblog.cn/waterfall-and-agile/"/>
+    <id>https://togoblog.cn/waterfall-and-agile/</id>
+    <published>2019-12-28T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.457Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;瀑布与敏捷&quot;&gt;&lt;a href=&quot;#瀑布与敏捷&quot; class=&quot;headerlink&quot; title=&quot;瀑布与敏捷&quot;&gt;&lt;/a&gt;瀑布与敏捷&lt;/h2&gt;&lt;p&gt;每个软件开发项目都需要一种管理方法，来保证项目能够成功交付。在项目管理中，最具挑战性的问题之一就是：&lt;strong&gt;该如何选取正确的管理方式来让团队在舒适的环境中开发软件并取得成功呢？&lt;/strong&gt;这是一个关于方法论的讨论。&lt;/p&gt;
+&lt;p&gt;在现代软件开发行业中，有两种最基本和最流行的项目管理方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;瀑布（&lt;code&gt;Waterfall&lt;/code&gt;），也被称为「传统的软件开发方法」；&lt;/li&gt;
+&lt;li&gt;敏捷（&lt;code&gt;Agile&lt;/code&gt;），这种管理方法比瀑布模式更新。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下来我们来看看瀑布式和敏捷式的区别。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Agile" scheme="https://togoblog.cn/categories/Agile/"/>
+    
+    
+      <category term="敏捷" scheme="https://togoblog.cn/tags/%E6%95%8F%E6%8D%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 的内存管理</title>
+    <link href="https://togoblog.cn/javascript-memory-management/"/>
+    <id>https://togoblog.cn/javascript-memory-management/</id>
+    <published>2019-12-05T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.473Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- ## JavaScript 的内存管理（一） --&gt;
+&lt;h3 id=&quot;一、内存&quot;&gt;&lt;a href=&quot;#一、内存&quot; class=&quot;headerlink&quot; title=&quot;一、内存&quot;&gt;&lt;/a&gt;一、内存&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Javascript&lt;/code&gt; 程序的运行，不管是依赖于浏览器还是 &lt;code&gt;Node.js&lt;/code&gt; 环境，最终的运行都依赖于操作系统，而操作系统的运行依赖于计算机硬件资源。使用 &lt;code&gt;Javascript&lt;/code&gt; 语言开发的程序最终会变成一条条指令和数据，要依赖于计算机硬件的执行和存储。&lt;/p&gt;
+&lt;p&gt;比如两个变量执行加法运算， 就需要 &lt;code&gt;CPU&lt;/code&gt; 运算单元的加法器提供支持，而参与运算数据的存储就要占用内存空间。&lt;/p&gt;
+&lt;p&gt;当然，计算机的硬件资源（&lt;code&gt;CPU&lt;/code&gt; 的运算资源和缓存空间、内存条的内存空间等等）是有限的，不可能无限制的使用。所以，程序运行的时候产生的一些没用的中间数据，要及时的清理掉，释放出空间，留出的空间用以存储其他数据，这就是所谓的&lt;strong&gt;垃圾回收&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;举个简单的例子：&lt;/p&gt;
+&lt;p&gt;我们要计算 &lt;code&gt;1+2+4&lt;/code&gt; 的结果，那么 &lt;code&gt;1+2&lt;/code&gt; 的和 &lt;code&gt;3&lt;/code&gt; 就是一个临时数据，只用到它来加 &lt;code&gt;4&lt;/code&gt; 得到最终结果 &lt;code&gt;7&lt;/code&gt; 存在内存中，之后 &lt;code&gt;3&lt;/code&gt; 就不会再占用具体的内存空间了。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://togoblog.cn/categories/JavaScript/"/>
+    
+    
+      <category term="内存管理" scheme="https://togoblog.cn/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Webpack 性能优化</title>
+    <link href="https://togoblog.cn/webpack-performance-enhancement/"/>
+    <id>https://togoblog.cn/webpack-performance-enhancement/</id>
+    <published>2019-11-27T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.461Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Wepack-性能优化&quot;&gt;&lt;a href=&quot;#Wepack-性能优化&quot; class=&quot;headerlink&quot; title=&quot;Wepack 性能优化&quot;&gt;&lt;/a&gt;Wepack 性能优化&lt;/h2&gt;&lt;p&gt;本篇文章我们一起来看看 &lt;code&gt;Webpack&lt;/code&gt; 的性能优化相关内容。在这之前，再简单介绍下 &lt;code&gt;Webpack&lt;/code&gt; 的一些相关概念。&lt;/p&gt;
+&lt;h3 id=&quot;一、webpack-是什么？&quot;&gt;&lt;a href=&quot;#一、webpack-是什么？&quot; class=&quot;headerlink&quot; title=&quot;一、webpack 是什么？&quot;&gt;&lt;/a&gt;一、webpack 是什么？&lt;/h3&gt;&lt;p&gt;&lt;code&gt;webpack&lt;/code&gt; 是一种前端资源构建工具，它是一个&lt;strong&gt;静态模块打包器&lt;/strong&gt;（&lt;code&gt;module bundler&lt;/code&gt;）。在 &lt;code&gt;webpack&lt;/code&gt; 中，前端的所有资源文件（&lt;code&gt;javascript/json/css/img/less/...&lt;/code&gt;）都会作为模块处理，当 &lt;code&gt;webpack&lt;/code&gt; 处理应用程序时,它会递归地构建一个依赖关系图（&lt;code&gt;dependency graph&lt;/code&gt;），其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 &lt;code&gt;bundle&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/webpack.png&quot; alt=&quot;image-20200511205102019&quot; style=&quot;zoom:50%;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;（图片来自网络）&lt;/p&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="https://togoblog.cn/categories/FrontEnd/"/>
+    
+    
+      <category term="Webpack" scheme="https://togoblog.cn/tags/Webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 CircleCI + Github 搭建持续集成环境</title>
+    <link href="https://togoblog.cn/set-up-ci-env-with-circleci-and-github/"/>
+    <id>https://togoblog.cn/set-up-ci-env-with-circleci-and-github/</id>
+    <published>2019-11-06T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.460Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、CircleCI-介绍&quot;&gt;&lt;a href=&quot;#一、CircleCI-介绍&quot; class=&quot;headerlink&quot; title=&quot;一、CircleCI 介绍&quot;&gt;&lt;/a&gt;一、CircleCI 介绍&lt;/h3&gt;&lt;p&gt;首先介绍一下 &lt;code&gt;CircleCI&lt;/code&gt;：&lt;a href=&quot;https://circleci.com。&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://circleci.com。&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CircleCI&lt;/code&gt; 是一款 &lt;code&gt;SaaS&lt;/code&gt; （软件即服务，&lt;code&gt;Software-as-a-service&lt;/code&gt;） 服务，它是一个提供持续集成和持续交付（&lt;code&gt;CI&lt;/code&gt;、&lt;code&gt;CD&lt;/code&gt;）的工具。因为是一款 &lt;code&gt;SaaS&lt;/code&gt; 服务，所以我们不用维护相关的服务器，只用关注在编码层面就好了。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CircleCI&lt;/code&gt; 支持 &lt;code&gt;GitHub&lt;/code&gt; 和 &lt;code&gt;Bitbucket&lt;/code&gt; 帐号的登录，授权登录完成后，就可以添加 &lt;code&gt;Projects&lt;/code&gt; 了，支持 &lt;code&gt;GitHub&lt;/code&gt; 和 &lt;code&gt;Bitbucket&lt;/code&gt; 的公有及私有仓库。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CircleCI&lt;/code&gt; 需要付费的主要是它的容器。你可以免费使用一个容器，当你开始使用更多容器的时候，你可以选择你所需要的并行化级别来加速你的应用。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="https://togoblog.cn/categories/FrontEnd/"/>
+    
+    
+      <category term="持续集成" scheme="https://togoblog.cn/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="CircleCI" scheme="https://togoblog.cn/tags/CircleCI/"/>
+    
+      <category term="Github" scheme="https://togoblog.cn/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web 前端工程化（二） —— CI/CD</title>
+    <link href="https://togoblog.cn/what-is-ci-cd/"/>
+    <id>https://togoblog.cn/what-is-ci-cd/</id>
+    <published>2019-11-04T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.460Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;工厂的生产中，我们需要思考如何让生产线以快速、自动化和可重复的方式从原材料生产出消费品。在软件开发领域，也同样会思考同样的问题：&lt;strong&gt;如何以快速、自动化和可重复的方式从源代码生成发布版本。&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CI/CD&lt;/code&gt; 是一种通过在应用开发阶段引入自动化来频繁向客户交付应用的方法。&lt;code&gt;CI/CD&lt;/code&gt; 的核心概念是持续集成、持续交付和持续部署。&lt;/p&gt;
+&lt;p&gt;缩略词 &lt;code&gt;CI/CD&lt;/code&gt; 具有几个不同的含义：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CI/CD&lt;/code&gt; 中的 &lt;code&gt;CI&lt;/code&gt; 指持续集成（&lt;code&gt;Continuous Integration&lt;/code&gt;），&lt;code&gt;CI/CD&lt;/code&gt; 中的 &lt;code&gt;CD&lt;/code&gt; 指的是持续交付（&lt;code&gt;Continuous Delivery&lt;/code&gt;）或持续部署（&lt;code&gt;Continuous Deployment&lt;/code&gt;）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="https://togoblog.cn/categories/FrontEnd/"/>
+    
+    
+      <category term="持续集成" scheme="https://togoblog.cn/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="持续交付" scheme="https://togoblog.cn/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="持续部署" scheme="https://togoblog.cn/tags/%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈前端开发中的 MVC、MVP、MVVM 模式</title>
+    <link href="https://togoblog.cn/mvc-map-mvvm/"/>
+    <id>https://togoblog.cn/mvc-map-mvvm/</id>
+    <published>2019-10-31T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.462Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;谈谈前端开发中的-MVC、MVP、MVVM-模式&quot;&gt;&lt;a href=&quot;#谈谈前端开发中的-MVC、MVP、MVVM-模式&quot; class=&quot;headerlink&quot; title=&quot;谈谈前端开发中的 MVC、MVP、MVVM 模式&quot;&gt;&lt;/a&gt;谈谈前端开发中的 MVC、MVP、MVVM 模式&lt;/h2&gt;&lt;p&gt;在前端开发中，我们经常会听到 &lt;code&gt;MVC&lt;/code&gt;、&lt;code&gt;MVP&lt;/code&gt;、&lt;code&gt;MVVM&lt;/code&gt; 这些名词。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MVC&lt;/code&gt; 代表 &lt;code&gt;Model-View-Controller&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MVP&lt;/code&gt; 代表 &lt;code&gt;Model-View-Presenter&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MVVM&lt;/code&gt; 代表 &lt;code&gt;Model-View-ViewModel&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它们都是为了解决图形化界面应用程序（&lt;code&gt;GUI&lt;/code&gt;，&lt;code&gt;Graphical User Interface&lt;/code&gt;）复杂性管理问题而产生的应用架构模式。&lt;/p&gt;
+&lt;p&gt;网络上也有很多文章来介绍这三种模式，但是有些杂乱，可能有些表述也并不是特别准确。本文将会更加细致地介绍这三种模式。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="https://togoblog.cn/categories/FrontEnd/"/>
+    
+    
+      <category term="MVC" scheme="https://togoblog.cn/tags/MVC/"/>
+    
+      <category term="MVP" scheme="https://togoblog.cn/tags/MVP/"/>
+    
+      <category term="MVVM" scheme="https://togoblog.cn/tags/MVVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web 前端工程化（一） —— 什么是前后端分离？</title>
+    <link href="https://togoblog.cn/what-is-frontend-backend-separation/"/>
+    <id>https://togoblog.cn/what-is-frontend-backend-separation/</id>
+    <published>2019-10-30T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.460Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、什么是-Web-开发？&quot;&gt;&lt;a href=&quot;#一、什么是-Web-开发？&quot; class=&quot;headerlink&quot; title=&quot;一、什么是 Web 开发？&quot;&gt;&lt;/a&gt;一、什么是 Web 开发？&lt;/h3&gt;&lt;p&gt;如果在一个比较高的抽象层面来看待这个问题的话，&lt;strong&gt;&lt;code&gt;Web&lt;/code&gt; 开发就是在处理客户端请求及服务端响应这两件事&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/web-development.jpg&quot; alt=&quot;Web 开发&quot; style=&quot;zoom:58%;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;当然，这是抽象。在实际的 &lt;code&gt;Web&lt;/code&gt; 开发中，我们会有很多东西需要关注。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="https://togoblog.cn/categories/FrontEnd/"/>
+    
+    
+      <category term="Web 前端工程化" scheme="https://togoblog.cn/tags/Web-%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+      <category term="前后端分离" scheme="https://togoblog.cn/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 异步处理（ES6）</title>
+    <link href="https://togoblog.cn/javascript-async/"/>
+    <id>https://togoblog.cn/javascript-async/</id>
+    <published>2019-10-28T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.473Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、Promise-是什么？&quot;&gt;&lt;a href=&quot;#一、Promise-是什么？&quot; class=&quot;headerlink&quot; title=&quot;一、Promise 是什么？&quot;&gt;&lt;/a&gt;一、Promise 是什么？&lt;/h3&gt;&lt;p&gt;不是讲 &lt;code&gt;async/await&lt;/code&gt; 吗？为什么会提到 &lt;code&gt;Promise&lt;/code&gt; ？&lt;/p&gt;
+&lt;p&gt;实际上，&lt;code&gt;async/await&lt;/code&gt; 是 &lt;code&gt;Promise&lt;/code&gt; 的一个拓展，所以，想要更好地理解 &lt;code&gt;async/await&lt;/code&gt;，需要先理解 &lt;code&gt;Promise&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;我们先看看 &lt;code&gt;Promise&lt;/code&gt; 是什么。先在浏览器中使用 &lt;code&gt;console.dir(Promise)&lt;/code&gt; 打印出 &lt;code&gt;Promise&lt;/code&gt; 对象的所的属性和方法：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/promise.png&quot; alt=&quot;Promise&quot;&gt;&lt;/p&gt;
+&lt;p&gt;从打印结果可以看出，&lt;code&gt;Promise&lt;/code&gt; 是一个构造函数，它自己本身有 &lt;code&gt;all&lt;/code&gt;、&lt;code&gt;reject&lt;/code&gt;、&lt;code&gt;resolve&lt;/code&gt; 等方法，原型上有 &lt;code&gt;catch&lt;/code&gt;、&lt;code&gt;finally&lt;/code&gt;、&lt;code&gt;then&lt;/code&gt; 等方法。所以 &lt;code&gt;new&lt;/code&gt; 出来的 &lt;code&gt;Promise&lt;/code&gt; 对象也就自然拥有 &lt;code&gt;catch&lt;/code&gt;、&lt;code&gt;finally&lt;/code&gt;、&lt;code&gt;then&lt;/code&gt; 这些方法。从上图中可以看到，&lt;code&gt;then&lt;/code&gt; 方法返回的是一个新的 &lt;code&gt;Promise&lt;/code&gt; 实例（注意，不是原来那个 &lt;code&gt;Promise&lt;/code&gt; 实例）。因此可以采用链式写法，即 &lt;code&gt;then&lt;/code&gt; 方法后面再调用另一个 &lt;code&gt;then&lt;/code&gt; 方法。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt; 的中文意思是承诺，这种&lt;strong&gt;“承诺将来会执行”&lt;/strong&gt;的对象在 &lt;code&gt;JavaScript&lt;/code&gt; 中称为 &lt;code&gt;Promise&lt;/code&gt; 对象。简单说就是一个容器，里面保存着某个未来才会执行的事件（通常是一个异步操作）的结果。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://togoblog.cn/categories/JavaScript/"/>
+    
+    
+      <category term="异步" scheme="https://togoblog.cn/tags/%E5%BC%82%E6%AD%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 forEach 中使用 async/await 遇到的问题</title>
+    <link href="https://togoblog.cn/javascript-async-await-in-foreach/"/>
+    <id>https://togoblog.cn/javascript-async-await-in-foreach/</id>
+    <published>2019-10-24T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.475Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述&quot;&gt;&lt;/a&gt;一、问题描述&lt;/h3&gt;&lt;p&gt;前几天，项目中遇到一个 &lt;code&gt;JavaScript&lt;/code&gt; 异步问题：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有一组数据，需要对每一个数据进行一个异步处理，并且希望处理的时候是同步的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;用代码描述如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;// 生成数据
+const getNumbers = () =&amp;gt; {
+  return Promise.resolve([1, 2, 3])
+}
+
+// 异步处理
+const doMulti = num =&amp;gt; {
+  return new Promise((resolve, reject) =&amp;gt; {
+    setTimeout(() =&amp;gt; {
+      if (num) {
+        resolve(num * num)
+      } else {
+        reject(new Error(&amp;#39;num not specified&amp;#39;))
+      }
+    }, 2000)
+  })
+}
+
+// 主函数
+const main = async () =&amp;gt; {
+  console.log(&amp;#39;start&amp;#39;);
+  const nums = [1, 2, 3];
+  nums.forEach(async (x) =&amp;gt; {
+    const res = await doMulti(x);
+    console.log(res);
+  });
+  console.log(&amp;#39;end&amp;#39;);
+};
+
+// 执行
+main();
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://togoblog.cn/categories/JavaScript/"/>
+    
+    
+      <category term="async/await" scheme="https://togoblog.cn/tags/async-await/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React 中的 Refs</title>
+    <link href="https://togoblog.cn/react-ref/"/>
+    <id>https://togoblog.cn/react-ref/</id>
+    <published>2019-10-11T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.478Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;React-中的-Refs&quot;&gt;&lt;a href=&quot;#React-中的-Refs&quot; class=&quot;headerlink&quot; title=&quot;React 中的 Refs&quot;&gt;&lt;/a&gt;React 中的 Refs&lt;/h2&gt;&lt;p&gt;在典型的 &lt;code&gt;React&lt;/code&gt;
+        
+      
+    
+    </summary>
+    
+      <category term="React" scheme="https://togoblog.cn/categories/React/"/>
+    
+    
+      <category term="React" scheme="https://togoblog.cn/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EventEmitter</title>
+    <link href="https://togoblog.cn/eventemitter/"/>
+    <id>https://togoblog.cn/eventemitter/</id>
+    <published>2019-08-19T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.476Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;Node.js&lt;/code&gt; 所有的异步 &lt;code&gt;I/O&lt;/code&gt; 操作在完成时都会发送一个事件到事件队列。&lt;/p&gt;
+&lt;p&gt;例如，&lt;a href=&quot;http://nodejs.cn/s/gBYjux&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;net.Server&lt;/code&gt;&lt;/a&gt; 会在每次有新连接时触发事件，&lt;a href=&quot;http://nodejs.cn/s/C3Eioq&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;fs.ReadStream&lt;/code&gt;&lt;/a&gt; 会在打开文件时触发事件，&lt;a href=&quot;http://nodejs.cn/s/kUvpNm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;stream&lt;/code&gt;&lt;/a&gt; 会在数据可读时触发事件。&lt;/p&gt;
+&lt;p&gt;所有能触发事件的对象都是 &lt;code&gt;EventEmitter&lt;/code&gt; 类的实例。 &lt;/p&gt;
+&lt;h3 id=&quot;一、EventEmitter-类&quot;&gt;&lt;a href=&quot;#一、EventEmitter-类&quot; class=&quot;headerlink&quot; title=&quot;一、EventEmitter 类&quot;&gt;&lt;/a&gt;一、EventEmitter 类&lt;/h3&gt;&lt;p&gt;&lt;code&gt;events&lt;/code&gt; 模块只提供了一个对象： &lt;code&gt;events.EventEmitter&lt;/code&gt;。&lt;code&gt;EventEmitter&lt;/code&gt; 的核心就是事件触发与事件监听器功能的封装。&lt;/p&gt;
+&lt;p&gt;我们可以通过 &lt;code&gt;require(&amp;#39;events&amp;#39;);&lt;/code&gt; 来访问该模块：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;// 引入 events 模块
+const Event = require(&amp;#39;events&amp;#39;);
+// 创建 eventEmitter 对象
+const eventEmitter = new Event.EventEmitter();
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="NodeJS" scheme="https://togoblog.cn/categories/NodeJS/"/>
+    
+    
+      <category term="EventEmitter" scheme="https://togoblog.cn/tags/EventEmitter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React setState 的异步与同步</title>
+    <link href="https://togoblog.cn/react-setstate/"/>
+    <id>https://togoblog.cn/react-setstate/</id>
+    <published>2019-08-18T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.478Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、如何使用-setState&quot;&gt;&lt;a href=&quot;#一、如何使用-setState&quot; class=&quot;headerlink&quot; title=&quot;一、如何使用 setState&quot;&gt;&lt;/a&gt;一、如何使用 setState&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;React&lt;/code&gt; 中，一个很重要的点就是不要直接去修改 &lt;code&gt;state&lt;/code&gt;，类似于这样的写法：&lt;code&gt;this.state.count = 1&lt;/code&gt; ，这种方式是无法触发 &lt;code&gt;React&lt;/code&gt; 去更新视图的。因为 &lt;code&gt;React&lt;/code&gt; 的机制中规定了：一个 &lt;code&gt;state&lt;/code&gt; 的更新，首先需要调用 &lt;code&gt;setState&lt;/code&gt; 方法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;jsx&quot;&gt;this.setState({
+    count: 1
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;稍有经验的 &lt;code&gt;React&lt;/code&gt; 开发者都会知道，&lt;code&gt;setState&lt;/code&gt; 方法其实是&lt;strong&gt;异步&lt;/strong&gt;的。即 &lt;code&gt;setState&lt;/code&gt; 立马执行之后，是无法直接获取到最新的 &lt;code&gt;state&lt;/code&gt; 的，需要经过 &lt;code&gt;React&lt;/code&gt; 对 &lt;code&gt;state&lt;/code&gt; 的所有改变进行合并处理之后，才会去计算新的虚拟 &lt;code&gt;DOM&lt;/code&gt;，然后再根据最新的虚拟 &lt;code&gt;DOM&lt;/code&gt; 去重新渲染真实 &lt;code&gt;DOM&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;所以，这里我们谈到的异步，并不是异步代码，而是说 &lt;code&gt;react&lt;/code&gt; 会先收集变更，然后再进行统一的更新&lt;/strong&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="React" scheme="https://togoblog.cn/categories/React/"/>
+    
+    
+      <category term="React" scheme="https://togoblog.cn/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Oracle批量插入数据时ID自增问题</title>
+    <link href="https://togoblog.cn/oracle-id-increase/"/>
+    <id>https://togoblog.cn/oracle-id-increase/</id>
+    <published>2019-07-28T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.458Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- ## Oracle批量插入数据时ID自增问题 --&gt;
+&lt;p&gt;&lt;strong&gt;三步走：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1、创建序列 sequence&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;create sequence seq_stu
+      increment by 1    -- 每次递增1
+      start with 1       -- 从1开始
+      nomaxvalue      -- 没有最大值
+      minvalue 1       -- 最小值=1
+      NOCYCLE;      -- 不循环
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;2、为序列创建触发事件&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;create or replace trigger student_id_automation
+  before insert
+  on student
+  for each row
+begin
+  IF :new.id IS NULL THEN :new.id := seq_stu.nextval;
+  end if;
+end;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="DataBase" scheme="https://togoblog.cn/categories/DataBase/"/>
+    
+    
+      <category term="Oracle" scheme="https://togoblog.cn/tags/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 模块化</title>
+    <link href="https://togoblog.cn/javascript-module/"/>
+    <id>https://togoblog.cn/javascript-module/</id>
+    <published>2019-06-28T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.472Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;JavaScript-模块化&quot;&gt;&lt;a href=&quot;#JavaScript-模块化&quot; class=&quot;headerlink&quot; title=&quot;JavaScript 模块化&quot;&gt;&lt;/a&gt;JavaScript 模块化&lt;/h2&gt;&lt;p&gt;&lt;code&gt;JavaScript&lt;/code&gt; 模块化的发展历史：无模块化 –&amp;gt; &lt;code&gt;CommonJS&lt;/code&gt; 规范 –&amp;gt; &lt;code&gt;AMD&lt;/code&gt; 规范 –&amp;gt; &lt;code&gt;CMD&lt;/code&gt; 规范 –&amp;gt; &lt;code&gt;ES6&lt;/code&gt; 模块化。&lt;/p&gt;
+&lt;p&gt;下面我们根据这个发展历史来讲解 &lt;code&gt;JavaScript&lt;/code&gt; 模块化的内容。&lt;/p&gt;
+&lt;h3 id=&quot;一、无模块化&quot;&gt;&lt;a href=&quot;#一、无模块化&quot; class=&quot;headerlink&quot; title=&quot;一、无模块化&quot;&gt;&lt;/a&gt;一、无模块化&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&amp;lt;script src=&amp;quot;jquery.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;jquery_scroller.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;other1.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;other2.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;other3.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即简单的将所有的 &lt;code&gt;js&lt;/code&gt; 文件统统放在一起。但是这些&lt;strong&gt;文件的顺序不能出错&lt;/strong&gt;，比如 &lt;code&gt;jquery&lt;/code&gt; 需要先引入，才能引入 &lt;code&gt;jquery&lt;/code&gt; 插件。缺点很明显：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;污染全局作用域&lt;/li&gt;
+&lt;li&gt;维护成本高&lt;/li&gt;
+&lt;li&gt;依赖关系不明显&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://togoblog.cn/categories/JavaScript/"/>
+    
+    
+      <category term="Ajax" scheme="https://togoblog.cn/tags/Ajax/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微前端</title>
+    <link href="https://togoblog.cn/micro-frontends/"/>
+    <id>https://togoblog.cn/micro-frontends/</id>
+    <published>2019-06-23T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.461Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、什么是微前端？&quot;&gt;&lt;a href=&quot;#一、什么是微前端？&quot; class=&quot;headerlink&quot; title=&quot;一、什么是微前端？&quot;&gt;&lt;/a&gt;一、什么是微前端？&lt;/h3&gt;&lt;p&gt;微前端的概念由我司(&lt;code&gt;ThoughtWorks&lt;/code&gt;)在2016年十一月份的&lt;a href=&quot;https://www.thoughtworks.com/radar/techniques/micro-frontends&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;技术雷达&lt;/a&gt;中被列为组织应评估的技术，后来又被提升为试用版，最后将其推广到 &lt;code&gt;Adopt&lt;/code&gt; 中。&lt;/p&gt;
+&lt;p&gt;微前端是一种类似于微服务的架构。它将微服务的理念应用于浏览器端，即将单页面前端应用由单一的单体应用转变为把多个小型前端应用聚合为一的应用。各个前端应用还可以独立开发，独立部署，这样我们也就实现了应用的自治。而划分的团队之间也可以自治，独立定义自己的命名规则、代码规范、技术栈、开发流程等。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="https://togoblog.cn/categories/FrontEnd/"/>
+    
+    
+      <category term="微前端" scheme="https://togoblog.cn/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Node.JS 中的事件循环机制</title>
+    <link href="https://togoblog.cn/event-loop-in-nodejs/"/>
+    <id>https://togoblog.cn/event-loop-in-nodejs/</id>
+    <published>2019-05-28T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.476Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、与浏览器中事件循环机制的差异&quot;&gt;&lt;a href=&quot;#一、与浏览器中事件循环机制的差异&quot; class=&quot;headerlink&quot; title=&quot;一、与浏览器中事件循环机制的差异&quot;&gt;&lt;/a&gt;一、与浏览器中事件循环机制的差异&lt;/h3&gt;&lt;p&gt;前面我们对浏览器中的事件循环机制有了一些了解，那 &lt;code&gt;Node&lt;/code&gt; 环境下事件循环机制是否也是一致的呢？看段代码：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;setTimeout(() =&amp;gt; {
+  console.log(&amp;#39;timer1&amp;#39;);
+
+  Promise.resolve().then(function () {
+    console.log(&amp;#39;promise1&amp;#39;);
+  });
+}, 0);
+
+setTimeout(() =&amp;gt; {
+  console.log(&amp;#39;timer2&amp;#39;);
+
+  Promise.resolve().then(function () {
+    console.log(&amp;#39;promise2&amp;#39;);
+  });
+}, 0);
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="NodeJS" scheme="https://togoblog.cn/categories/NodeJS/"/>
+    
+    
+      <category term="事件循环" scheme="https://togoblog.cn/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浏览器中的事件循环机制</title>
+    <link href="https://togoblog.cn/event-loop-in-browser/"/>
+    <id>https://togoblog.cn/event-loop-in-browser/</id>
+    <published>2019-05-27T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.477Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;在看 Event loop 的时候，我发现相关的文章有很多，但是有的文章写得零碎，有的文章只讲解了浏览器或者 Node 环境之一的事件循环，这两者如果没有对比起来理解的话，总是觉得比较模糊。所以在读了很多文章之后，整理出来本文，本篇文章为《浏览器中的事件循环》，下一篇为《&lt;a href=&quot;https://togoblog.cn/event-loop-in-nodejs/&quot;&gt;Node.JS中的事件循环&lt;/a&gt;》，二者对比起来理解会更好。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;一、单线程和异步&quot;&gt;&lt;a href=&quot;#一、单线程和异步&quot; class=&quot;headerlink&quot; title=&quot;一、单线程和异步&quot;&gt;&lt;/a&gt;一、单线程和异步&lt;/h3&gt;&lt;p&gt;提到 &lt;code&gt;JavaScript&lt;/code&gt; ，就会想到它的 &lt;strong&gt;单线程&lt;/strong&gt; 和 &lt;strong&gt;异步&lt;/strong&gt; 两大特性。那么在 &lt;code&gt;JavaScript&lt;/code&gt; 中单线程是如何做到异步的呢？我们先了解一下单线程和异步之间的关系。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;JavaScript&lt;/code&gt; 中的任务分为 &lt;strong&gt;同步&lt;/strong&gt; 和 &lt;strong&gt;异步&lt;/strong&gt; 两种，它们的处理方式存在很大的不同。&lt;/p&gt;
+&lt;h4 id=&quot;1、异步&quot;&gt;&lt;a href=&quot;#1、异步&quot; class=&quot;headerlink&quot; title=&quot;1、异步&quot;&gt;&lt;/a&gt;1、异步&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;同步任务&lt;/strong&gt; 是直接在 &lt;strong&gt;主线程&lt;/strong&gt; 上排队执行。在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务。所有同步任务都在主线程上执行，形成一个 &lt;strong&gt;执行栈&lt;/strong&gt;（&lt;code&gt;execution context stack&lt;/code&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;异步任务&lt;/strong&gt; 则是被放在 &lt;strong&gt;任务队列&lt;/strong&gt; (&lt;code&gt;task queue&lt;/code&gt;) 中，不进入主线程，只有 &lt;strong&gt;任务队列&lt;/strong&gt; 通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。任务队列类似一个缓冲区，任务下一步会被移到 &lt;strong&gt;执行栈&lt;/strong&gt;，然后主线程执行 &lt;strong&gt;执行栈 &lt;/strong&gt;的任务。如果有多个异步任务，那这些异步任务就要在任务队列中排队等候。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="NodeJS" scheme="https://togoblog.cn/categories/NodeJS/"/>
+    
+    
+      <category term="事件循环" scheme="https://togoblog.cn/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux — 让 scp 始终覆盖或创建目录</title>
+    <link href="https://togoblog.cn/linux-scp-cover-completely/"/>
+    <id>https://togoblog.cn/linux-scp-cover-completely/</id>
+    <published>2019-05-19T16:00:00.000Z</published>
+    <updated>2020-07-02T02:00:35.476Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间在搭建前端项目的基础设施时，遇到这样一个问题：在 &lt;code&gt;pipline&lt;/code&gt; 上将前端项目 &lt;code&gt;build&lt;/code&gt; 之后的文件夹拷贝到 &lt;code&gt;aws&lt;/code&gt; 上，我使用 &lt;code&gt;scp&lt;/code&gt; 命令将目录从一个远程服务器复制到另一个远程服务器上的新目录，命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;$ scp -r server1:dir1 server2:dir2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果在 &lt;code&gt;server2&lt;/code&gt; 上不存在 &lt;code&gt;dir2&lt;/code&gt;，这可以正常工作，它会创建一个名为 &lt;code&gt;dir2&lt;/code&gt; 的新目录，其中包含 &lt;code&gt;server1&lt;/code&gt; 上 &lt;code&gt;dir1&lt;/code&gt; 的所有内容。&lt;/p&gt;
+&lt;p&gt;但是当 &lt;code&gt;dir2&lt;/code&gt; 已经存在于 &lt;code&gt;server2&lt;/code&gt; 上时，就会出现问题，已经存在的文件不会被覆盖。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://togoblog.cn/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://togoblog.cn/tags/Linux/"/>
+    
+  </entry>
+  
+</feed>

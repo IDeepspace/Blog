@@ -1,0 +1,110 @@
+<!DOCTYPE HTML><html lang="zh-CN"><head><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="keywords" content="Linux 常用命令, Deepspace"><meta name="description" content="1、pwd — 打印出当前工作目录名 $ ~/Documents: pwd
+/Users/cxin/Documents
+
+2、cd — 更改目录 $ ~/Documents: cd Workspace
+ $ Documents/Worksp"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="renderer" content="webkit|ie-stand|ie-comp"><meta name="mobile-web-app-capable" content="yes"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>Linux 常用命令 | Deepspace</title><link rel="icon" type="image/png" href="/favicon.png"><link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css"><link rel="stylesheet" type="text/css" href="/libs/aos/aos.css"><link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css"><link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css"><link rel="stylesheet" type="text/css" href="/css/matery.css"><link rel="stylesheet" type="text/css" href="/css/my.css"><script src="/libs/jquery/jquery-2.2.0.min.js"></script><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head></head><body><header class="navbar-fixed"><nav id="headNav" class="bg-color nav-transparent"><div id="navContainer" class="container"><div class="nav-wrapper"><div class="brand-logo"><a href="/" class="waves-effect waves-light"><span></span> <span class="logo-span">Deepspace</span></a></div><a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a><ul class="right"><li class="hide-on-med-and-down"><a href="/" class="waves-effect waves-light"><i class="fa fa-home"></i> <span>首页</span></a></li><li class="hide-on-med-and-down"><a href="/tags" class="waves-effect waves-light"><i class="fa fa-tags"></i> <span>标签</span></a></li><li class="hide-on-med-and-down"><a href="/categories" class="waves-effect waves-light"><i class="fa fa-bookmark"></i> <span>分类</span></a></li><li class="hide-on-med-and-down"><a href="/archives" class="waves-effect waves-light"><i class="fa fa-archive"></i> <span>归档</span></a></li><li class="hide-on-med-and-down"><a href="/about" class="waves-effect waves-light"><i class="fa fa-user-circle-o"></i> <span>关于</span></a></li><li><a id="toggleSearch" class="waves-effect waves-light"><i id="searchIcon" class="mdi-action-search"></i></a></li></ul><div class="side-nav" id="mobile-nav"><div class="mobile-head bg-color"><div class="logo-name">Deepspace</div><div class="logo-desc"> 凡事预 ？立 ：废</div></div><ul class="menu-list mobile-menu-list"><li><a href="/" class="waves-effect waves-light"><i class="fa fa-fw fa-home"></i> 首页</a></li><li><a href="/tags" class="waves-effect waves-light"><i class="fa fa-fw fa-tags"></i> 标签</a></li><li><a href="/categories" class="waves-effect waves-light"><i class="fa fa-fw fa-bookmark"></i> 分类</a></li><li><a href="/archives" class="waves-effect waves-light"><i class="fa fa-fw fa-archive"></i> 归档</a></li><li><a href="/about" class="waves-effect waves-light"><i class="fa fa-fw fa-user-circle-o"></i> 关于</a></li><li><div class="divider"></div></li><li><a href="https://github.com/IDeepspace" class="waves-effect waves-light" target="_blank"><i class="fa fa-github-square fa-fw"></i> Fork Me</a></li></ul><div class="social-link"><a href="https://github.com/IDeepspace" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50"><i class="fa fa-github"></i></a><a href="mailto:cxin1427@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50"><i class="fa fa-envelope-open"></i></a><a href="#!" class="tooltipped" data-tooltip="QQ: 690862036" data-position="top" data-delay="50"><i class="fa fa-qq"></i></a><a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50"><i class="fa fa-rss"></i></a></div></div></div></div><style>.nav-transparent .github-corner{display:none!important}.github-corner{position:absolute;z-index:10;top:0;right:0;border:0;transform:scale(1.1)}.github-corner svg{color:#202020;fill:#fff;height:64px;width:64px}.github-corner:hover .octo-arm{animation:a .56s ease-in-out}.github-corner .octo-arm{animation:none}@keyframes a{0%,to{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}</style> <a href="https://github.com/IDeepspace" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50"><svg viewbox="0 0 250 250" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"/><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"/></svg></a></nav></header><div class="bg-cover post-cover" style="background-image:url(/medias/featureimages/lighted.jpg)"><div class="container"><div class="row"><div class="col s12 m12 l12"><div class="brand"><div class="description center-align post-detail-title"> Linux 常用命令</div></div></div></div></div></div><main class="post-container content"><link rel="stylesheet" href="/libs/tocbot/tocbot.css"><style>#articleContent h1,#articleContent h2,#articleContent h3,#articleContent h4,#articleContent h5,#articleContent h6{padding-top:76px;margin-top:-76px}#articleContent h1{line-height:3.5rem}#articleContent h2{line-height:3.2rem}#articleContent h3{line-height:2.8rem}#articleContent h4{line-height:2.5rem}#articleContent h5{line-height:2.2rem}#articleContent h6{line-height:1.9rem}#articleContent :focus{outline:0}.toc-fixed{position:fixed;top:64px}.toc-widget{padding-left:20px}.toc-widget .toc-title{margin:35px 0 15px 0;padding-left:17px;font-size:1.5rem;font-weight:700;line-height:1.5rem}.toc-widget ol{padding:0;list-style:none}#toc-content ol{padding-left:10px}#toc-content ol li{padding-left:10px}#toc-content .toc-link:hover{color:#42b983;font-weight:700;text-decoration:underline}#toc-content .toc-link::before{background-color:transparent;max-height:25px}#toc-content .is-active-link{color:#42b983}#toc-content .is-active-link::before{background-color:#42b983}</style><div class="row"><div class="col s12 m12 l9"><div id="artDetail"><div class="card"><div class="card-content article-info"><div class="article-tag"> <a href="/tags/Linux/" target="_blank"><span class="chip bg-color">Linux</span></a></div><div class="post-info"><span class="post-cate"><i class="fa fa-bookmark fa-fw icon-category"></i> <a href="/categories/Linux/" class="post-category" target="_blank">Linux</a></span><span class="post-date"><i class="fa fa-clock-o fa-fw"></i> 2017-12-20</span></div></div><hr><div class="card-content article-card-content"><div id="articleContent"><h4 id="1、pwd-—-打印出当前工作目录名"><a href="#1、pwd-—-打印出当前工作目录名" class="headerlink" title="1、pwd — 打印出当前工作目录名"></a>1、pwd — 打印出当前工作目录名</h4><pre class="language-shell"><code class="language-shell"> $ ~/Documents: pwd
+/Users/cxin/Documents
+</code></pre><h4 id="2、cd-—-更改目录"><a href="#2、cd-—-更改目录" class="headerlink" title="2、cd — 更改目录"></a>2、cd — 更改目录</h4><pre class="language-shell"><code class="language-shell"> $ ~/Documents: cd Workspace
+ $ Documents/Workspace: 
+</code></pre><h4 id="3、ls-—-列出目录内容"><a href="#3、ls-—-列出目录内容" class="headerlink" title="3、ls — 列出目录内容"></a>3、ls — 列出目录内容</h4><ul><li><p>除了当前工作目录以外，也可以指定别的目录：<code>$ ls /usr</code></p></li><li><p>也可以指定多个目录，用空格隔开即可：<code>$ ls ~ /usr</code></p></li><li><p>改变输出格式，来得到更多的细节：<code>$ ls -l</code></p></li></ul><h4 id="4、file-—-确定文件类型"><a href="#4、file-—-确定文件类型" class="headerlink" title="4、file — 确定文件类型"></a>4、file — 确定文件类型</h4><pre class="language-shell"><code class="language-shell">$ ~/Desktop: file a.png
+a.png: PNG image data, 1920 x 6154, 8-bit/color RGBA, non-interlaced
+$ ~/Desktop:
+</code></pre><h4 id="5、less-—-浏览文件内容"><a href="#5、less-—-浏览文件内容" class="headerlink" title="5、less — 浏览文件内容"></a>5、less — 浏览文件内容</h4><pre class="language-shell"><code class="language-shell">$ less filename
+</code></pre><a id="more"></a><h4 id="6、mkdir-—-创建目录"><a href="#6、mkdir-—-创建目录" class="headerlink" title="6、mkdir — 创建目录"></a>6、mkdir — 创建目录</h4><pre class="language-shell"><code class="language-shell">$ mkdir directoryName
+</code></pre><h4 id="7、rm-—-删除文件和目录"><a href="#7、rm-—-删除文件和目录" class="headerlink" title="7、rm — 删除文件和目录"></a>7、rm — 删除文件和目录</h4><p>删除文件：</p><pre class="language-shell"><code class="language-shell">$ rm filename
+</code></pre><p>删除目录：</p><pre class="language-shell"><code class="language-shell">$ rm -rf directoryName
+</code></pre><h4 id="8、cp-—-复制文件和目录"><a href="#8、cp-—-复制文件和目录" class="headerlink" title="8、cp — 复制文件和目录"></a>8、cp — 复制文件和目录</h4><p><strong>复制文件：</strong></p><pre class="language-shell"><code class="language-shell">$ cp Source Directory
+</code></pre><ul><li><p><code>Source</code>：要复制的源文件</p></li><li><p><code>Directory</code>：复制文件的新位置。如果此参数是一个新目录名，则将文件复制到新位置时重命名文件</p></li></ul><p><strong>复制目录：</strong></p><p>将目录 <code>test</code> 复制到目录 <code>file</code> 中</p><pre class="language-shell"><code class="language-shell">$ cp -R test file/
+</code></pre><p>如果要复制的源目录中还存在子目录，可能会发生错误，此时使用选项R递归地复制子目录。</p><h4 id="9、mv-—-移动-重命名文件和目录"><a href="#9、mv-—-移动-重命名文件和目录" class="headerlink" title="9、mv — 移动/重命名文件和目录"></a>9、mv — 移动/重命名文件和目录</h4><p><code>mv</code> 命令对文件或文件夹进行移动，如果文件或文件夹存在于当前工作目录，还可以对文件或文件夹进行重命名。</p><h4 id="10、cat-—-输出文件内容"><a href="#10、cat-—-输出文件内容" class="headerlink" title="10、cat — 输出文件内容"></a>10、cat — 输出文件内容</h4><p><code>cat</code> 用于在标准输出（监控器或屏幕）上查看文件内容。</p><h4 id="11、tail-—-输出"><a href="#11、tail-—-输出" class="headerlink" title="11、tail — 输出"></a>11、tail — 输出</h4><p>默认在标准输出上显示给定文件的最后10行内容，可以使用 <code>$ tail -n N</code> 命令来指定在标准输出上显示文件的最后 <code>N</code> 行内容。</p><h4 id="12、less-—-按页或按窗口打印文件内容"><a href="#12、less-—-按页或按窗口打印文件内容" class="headerlink" title="12、less — 按页或按窗口打印文件内容"></a>12、less — 按页或按窗口打印文件内容</h4><p><code>less</code> 按页或按窗口打印文件内容。在查看包含大量文本数据的大文件时是非常有用和高效的。可以使用 <code>Ctrl+F</code> 向前翻页，<code>Ctrl+B</code> 向后翻页。</p><h4 id="13、grep-—-在给定的文件中搜寻指定的字符串"><a href="#13、grep-—-在给定的文件中搜寻指定的字符串" class="headerlink" title="13、grep — 在给定的文件中搜寻指定的字符串"></a>13、grep — 在给定的文件中搜寻指定的字符串</h4><pre class="language-shell"><code class="language-shell">~ Desktop/demo: grep module data.js
+module.exports = data;
+~ Desktop/demo:
+</code></pre><h4 id="14、find-—-搜索文件"><a href="#14、find-—-搜索文件" class="headerlink" title="14、find — 搜索文件"></a>14、find — 搜索文件</h4><p><code>find</code> 用于在给定位置搜寻与条件匹配的文件。</p><pre class="language-shell"><code class="language-shell">~ Desktop/demo: find data.js
+data.js
+~ Desktop/demo: find data1.js
+find: data1.js: No such file or directory
+</code></pre><p><code>find -iname</code> 来进行不区分大小写的搜寻：</p><pre class="language-shell"><code class="language-shell">~ Desktop/demo: find . -iname data.js
+./data.js
+~ Desktop/demo:
+</code></pre><h4 id="15、tar"><a href="#15、tar" class="headerlink" title="15、tar"></a>15、tar</h4><p><code>tar</code> 命令能创建、查看和提取 <code>tar</code> 压缩文件</p><ul><li><p><code>tar -cvf</code> 是创建对应压缩文件</p><pre class="language-shell"><code class="language-shell"> ~/Desktop: ls
+demo
+ ~/Desktop: tar -cvf demo.tar demo
+a demo
+a demo/result.json
+a demo/test.js
+a demo/index.js
+a demo/data.js
+a demo/periods.js
+ ~/Desktop:
+</code></pre></li><li><p><code>tar -tvf</code> 来查看对应压缩文件</p><pre class="language-shell"><code class="language-shell"> ~/Desktop: tar -tvf demo.tar
+drwxr-xr-x  0 cxin   staff       0 May  7 14:11 demo/
+-rw-r--r--  0 cxin   staff 1497545 May  5 10:35 demo/result.json
+-rw-r--r--  0 cxin   staff     313 May  6 22:58 demo/test.js
+-rw-r--r--  0 cxin   staff    4443 Apr 25 15:47 demo/index.js
+-rw-r--r--  0 cxin   staff     210 Apr 29 09:44 demo/._data.js
+-rw-r--r--  0 cxin   staff  111200 Apr 29 09:44 demo/data.js
+-rw-r--r--  0 cxin   staff     578 Apr 24 09:12 demo/periods.js
+</code></pre></li><li><p><code>tar -xvf</code> 来提取对应压缩文件</p><pre class="language-shell"><code class="language-shell">~/Desktop: ls
+demo.tar
+~/Desktop: tar -xvf demo.tar
+x demo/
+x demo/result.json
+x demo/test.js
+x demo/index.js
+x demo/._data.js
+x demo/data.js
+x demo/periods.js
+~/Desktop: ls
+demo     demo.tar
+~/Desktop: cd demo
+Desktop/demo: ls
+data.js     index.js    periods.js  result.json test.js
+</code></pre></li></ul><h4 id="16、gzip"><a href="#16、gzip" class="headerlink" title="16、gzip"></a>16、gzip</h4><p><code>gzip</code> 命令创建和提取 <code>gzip</code> 压缩文件，还可以用 <code>gzip -d</code> 来提取压缩文件。</p><h4 id="17、unzip"><a href="#17、unzip" class="headerlink" title="17、unzip"></a>17、unzip</h4><p><code>unzip</code> 对 <code>gzip</code> 文档进行解压。在解压之前，可以使用 <code>unzip -l</code> 命令查看文件内容。</p><h4 id="18、whatis-—-What-is-this-command"><a href="#18、whatis-—-What-is-this-command" class="headerlink" title="18、whatis — What is this command"></a>18、whatis — What is this command</h4><p><code>whatis</code> 会用单行来描述给定的命令，就是解释当前命令。</p><h4 id="19、who-—-Who-Is-logged-in"><a href="#19、who-—-Who-Is-logged-in" class="headerlink" title="19、who — Who Is logged in"></a>19、who — Who Is logged in</h4><p><code>who</code> 能列出当前登录的用户名。</p><h4 id="20、uname"><a href="#20、uname" class="headerlink" title="20、uname"></a>20、uname</h4><p><code>uname</code> 会显示出关于系统的重要信息，如内核名称、主机名、内核版本、处理机类型等等，使用 <code>uname -a</code> 可以查看所有信息。</p><h4 id="21、ps-—-ProcesseS"><a href="#21、ps-—-ProcesseS" class="headerlink" title="21、ps — ProcesseS"></a>21、ps — ProcesseS</h4><p>显示系统的运行进程。</p><h4 id="22、top-—-Top-processes"><a href="#22、top-—-Top-processes" class="headerlink" title="22、top — Top processes"></a>22、top — Top processes</h4><p><code>top</code> 命令会默认按照 <code>CPU</code> 的占用情况，显示占用量较大的进程。</p></div><hr><style>#reward{margin:40px 0;text-align:center}#reward .reward-link{font-size:1.88rem}#reward .btn-floating:hover{box-shadow:0 6px 12px rgba(0,0,0,.2),0 5px 15px rgba(0,0,0,.2)}#rewardModal{width:320px;height:350px}#rewardModal .reward-title{margin:15px auto;padding-bottom:5px}#rewardModal .modal-content{padding:10px}#rewardModal .close{position:absolute;right:15px;top:15px;color:rgba(0,0,0,.5);font-size:1.3rem;line-height:20px;cursor:pointer}#rewardModal .reward-tabs{margin:0 auto;width:210px}.reward-tabs .tabs{height:38px;margin:10px auto;padding-left:0}.reward-tabs .tabs .tab{height:38px;line-height:38px}.reward-tabs .tab a{color:#fff;background-color:#ccc}.reward-tabs .tab a:hover{color:#fff}.reward-tabs .wechat-tab .active{color:#fff;background-color:#22ab38}.reward-tabs .alipay-tab .active{color:#fff;background-color:#019fe8}.reward-tabs .reward-img{width:210px;height:210px}</style><div id="reward"> <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a><div id="rewardModal" class="modal"><div class="modal-content"><a class="close"><i class="fa fa-close"></i></a><h4 class="reward-title">请我喝杯咖啡?</h4><div class="reward-content"><div class="reward-tabs"><ul class="tabs"><li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li><li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li></ul><div id="wechat"> <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码"></div><div id="alipay"> <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码"></div></div></div></div></div></div><script>$(function(){$("#reward .reward-link").on("click",function(){$("#rewardModal").openModal()}),$("#rewardModal .close").on("click",function(){$("#rewardModal").closeModal()})})</script><link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css"><div id="article-share"><div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div></div><script src="/libs/share/js/social-share.min.js"></script><div class="reprint"><p> <span class="reprint-tip">转载请注明:</span> <a href="https://togoblog.cn" class="b-link-green">Deepspace</a><i class="fa fa-angle-right fa-lg fa-fw text-color"></i> <a href="/linux-frequently-used-commands/" class="b-link-green">Linux 常用命令</a></p></div></div></div><div class="article" data-aos="fade-up"><div class="card relate-article-wrapper"><header class="relate-article-header">相关文章&nbsp;<i class="fa fa-arrow-right"></i></header><div class="relate-post-box"><div class="relate-post"> <span>1、</span><a id="relate-post-link" href="/linux-scp-cover-completely/">linux — 让 scp 始终覆盖或创建目录</a></div></div></div></div><div class="disqus-card card" data-aos="fade-up"><div id="disqus_thread" class="card-content"><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div></div><script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://togoblog.cn/linux-frequently-used-commands/';
+        this.page.identifier = '/linux-frequently-used-commands/';
+        this.page.title = 'Linux 常用命令';
+    };
+    let disqus_shortname = 'https-togoblog-cn';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://Deepspace.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script></div></div><div class="col l3 hide-on-med-and-down"><div class="toc-widget"><div class="toc-title">目录</div><div id="toc-content"></div></div></div></div><script src="/libs/tocbot/tocbot.min.js"></script><script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h2, h3, h4, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script></main><footer class="page-footer bg-color"><div class="container row center-align"><div class="col s12 m8 l8 copy-right"> <span>COPYRIGHT 2020 DEEPSPACE. ALL RIGHTS RESERVED.</span></div><div class="col s12 m4 l4 social-link"><a href="https://github.com/IDeepspace" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50"><i class="fa fa-github"></i></a><a href="mailto:cxin1427@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50"><i class="fa fa-envelope-open"></i></a><a href="#!" class="tooltipped" data-tooltip="QQ: 690862036" data-position="top" data-delay="50"><i class="fa fa-qq"></i></a><a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50"><i class="fa fa-rss"></i></a></div></div></footer><div class="progress-bar"></div><div id="searchModal" class="modal"><div class="modal-content"><div class="search-header"> <span class="title">搜索</span> <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus></div><div id="searchResult"></div></div></div><script src="/js/search.js"></script><script type="text/javascript">searchFunc("/search.xml","searchInput","searchResult")</script><div id="backTop" class="top-scroll"><a class="btn-floating btn-large waves-effect waves-light" href="#!"><i class="fa fa-angle-up"></i></a></div><script src="/libs/materialize/js/materialize.min.js"></script><script src="/libs/masonry/masonry.pkgd.min.js"></script><script src="/libs/aos/aos.js"></script><script src="/libs/scrollprogress/scrollProgress.min.js"></script><script src="/libs/lightGallery/js/lightgallery-all.min.js"></script><script src="/js/matery.js"></script></body></html>

@@ -1,0 +1,13 @@
+/* Here is your custom css styles. */
+pre {
+    background-color: #263238 !important;
+}
+
+.btn-floating:hover {
+    background-color: #303030;
+}
+
+.img-item {
+    display: flex;
+    justify-content: center;
+}
