@@ -311,7 +311,7 @@ const App = () => {
 
   const print = useCallback(() => {
     console.log(`title: ${title}`);
-  }, [subtitle]);
+  }, []);
 
   return (
     <div className="App">
