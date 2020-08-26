@@ -28,7 +28,7 @@ tags:
 
 有了持续集成，软件在每次修改之后都可以保证是可工作的（假如有足够全面的自动化测试集合的话），即使它被坏了，我们也能很快知道，并且修复，避免了应用程序在相当长的一段时间处于内不可用的状态。
 
-<img src="../ImageHosting/FrontEnd/Contiunous-Integration.png" alt="Contiunous-Integration" style="zoom:50%;" />
+<img src="/ImageHosting/FrontEnd/Contiunous-Integration.png" alt="Contiunous-Integration" style="zoom:50%;" />
 
 <p align="center">(图片来自网络)</p>
 #### 持续集成的优势
@@ -142,7 +142,7 @@ tags:
 - `Production` 环境：生产（产品）环境，直接面向于用户。应用程序在 `Staging` 环境中运行正常，没有 `bug`，可以手动部署到生产环境中。
 
 
-<img src="../ImageHosting/FrontEnd/Continuous-Delivery.png" alt="Continuous-Delivery" style="zoom: 50%;" />
+<img src="/ImageHosting/FrontEnd/Continuous-Delivery.png" alt="Continuous-Delivery" style="zoom: 50%;" />
 
 <p align="center">(图片来自网络)</p>
 ### 三、持续部署
@@ -151,7 +151,7 @@ tags:
 
 持续部署的前提是能自动化完成测试、构建、部署等步骤。
 
-<img src="../ImageHosting/FrontEnd/Continuous-Deploy.png" alt="Continuous-Deploy" style="zoom:50%;" />
+<img src="/ImageHosting/FrontEnd/Continuous-Deploy.png" alt="Continuous-Deploy" style="zoom:50%;" />
 
 <p align="center">(图片来自网络)</p>
 #### 和持续交付的关系

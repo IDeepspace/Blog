@@ -394,7 +394,7 @@ export default App;
 
 我们先看看 `React 16` 之前的生命周期图：
 
-<img src="../ImageHosting/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
+<img src="/ImageHosting/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
 
 <p align="center">(图片来自网络)</p>
 如上图所示，可以把组件的生命周期大致分为三个阶段：
@@ -493,7 +493,7 @@ export default App;
 
 再来看下 `React v16.4` 的生命周期图：
 
-![Reactv16.4生命周期图](../ImageHosting/React/reactv16.4-lifecycle.jpg)
+![Reactv16.4生命周期图](/ImageHosting/React/reactv16.4-lifecycle.jpg)
 
 <p align="center">(图片来自网络)</p>
 `React16` 废弃的三个生命周期函数：

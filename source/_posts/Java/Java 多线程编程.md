@@ -84,7 +84,7 @@ urlname: java-multithreading-program
 
 可以用下面的一张图来描述**并发与并行的区别**：
 
-<img src="../ImageHosting/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
+<img src="/ImageHosting/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
 
 <p align="center">（图片来自 Joe Armstrong）</p>
 
@@ -109,7 +109,7 @@ urlname: java-multithreading-program
 
 `Java` 中线程的生命周期由 `JVM` 控制，线程的状态分为 `6` 种，可以用下面的图来表示：
 
-<img src="../ImageHosting/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
+<img src="/ImageHosting/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
 
 1. 初始（`NEW`）：新创建了一个线程对象，但还没有调用 `start()` 方法；
 
@@ -574,7 +574,7 @@ public ThreadPoolExecutor(int corePoolSize,
 
 **线程池的执行流程**可以用下图来表示：
 
-<img src="../ImageHosting/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
+<img src="/ImageHosting/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
 
 
 

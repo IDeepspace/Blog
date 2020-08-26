@@ -127,7 +127,7 @@ button {
 
 这里我们加了一些样式，在 `App.vue` 中引入父组件 `ParentCom` ，打开浏览器会看到：
 
-![父组件向子组件传递](../ImageHosting/Vue/vue-pass-data-1.png)
+![父组件向子组件传递](/ImageHosting/Vue/vue-pass-data-1.png)
 
 这样，在子组件中就拿到了父组件传递下来的数据和方法以及父组件本身，点击按钮就可以查看到父组件传递给子组件的数据。
 
@@ -207,7 +207,7 @@ export default {
 
 在子组件上绑定监听子组件中自定义事件的方法需要使用 `@` 符号，在 `methods` 中添加了 `addItem` 方法。这时候，我们打开浏览器，点击第三个按钮，就会看到子组件向父组件传递的数据了。
 
-![子组件向父组件传递](../ImageHosting/Vue/vue-pass-data-2.gif)
+![子组件向父组件传递](/ImageHosting/Vue/vue-pass-data-2.gif)
 
 
 
@@ -266,7 +266,7 @@ export default {
 
 打开浏览器，点击 `button` :
 
-![子组件向父组件传递](../ImageHosting/Vue/vue-pass-data-3.gif)
+![子组件向父组件传递](/ImageHosting/Vue/vue-pass-data-3.gif)
 
 ### 二、兄弟组件之间的通讯
 
@@ -398,7 +398,7 @@ export default {
 
 结果如下：
 
-![兄弟组件之间的通信](../ImageHosting/Vue/vue-pass-data-4.gif)
+![兄弟组件之间的通信](/ImageHosting/Vue/vue-pass-data-4.gif)
 
 在学习完父子组件之间的通讯方法之后，通过父组件进行兄弟组件的通讯就很简单了，其实就是把兄弟之间需要共享的数据提升至他们最近的父组件当中进行管理，将他们的父组件作为中间媒介（在 `React` 中把这种方式被称为状态提升）。
 
@@ -632,7 +632,7 @@ export default {
 
 效果如下：
 
-![全局模式](../ImageHosting/Vue/vue-pass-data-5.gif)
+![全局模式](/ImageHosting/Vue/vue-pass-data-5.gif)
 
 可以看到，我们使用这种方式也可以实现组件间的通讯。
 
@@ -642,6 +642,6 @@ export default {
 
 最后，我们画个图总结一下 `Vue` 组件间的通讯：
 
-![Vue组件间的通讯](../ImageHosting/Vue/vue-pass-data-in-components.png)
+![Vue组件间的通讯](/ImageHosting/Vue/vue-pass-data-in-components.png)
 
 > 本节内容代码地址：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-component-communication

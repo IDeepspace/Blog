@@ -146,7 +146,7 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 下面用一张图表示构造函数和实例原型之间的关系：
 
-<img src="../ImageHosting/JavaScript/prototype1.png" alt="构造函数和实例原型的关系图" style="zoom:88%;" />
+<img src="/ImageHosting/JavaScript/prototype1.png" alt="构造函数和实例原型的关系图" style="zoom:88%;" />
 
 重复一遍前面开头的描述，加深理解：
 
@@ -166,7 +166,7 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 所以，我们可以把上面的图更新成下面这样：
 
-<img src="../ImageHosting/JavaScript/prototype2.png" alt="实例与实例原型的关系图" style="zoom:88%;" />
+<img src="/ImageHosting/JavaScript/prototype2.png" alt="实例与实例原型的关系图" style="zoom:88%;" />
 
 问题来了，既然实例对象（`person`）和构造函数（`Person`）都可以指向原型（`Person.prototype`），那原型（`Person.prototype`）是否有属性指向构造函数（`Person`）或者实例（`person`）呢？
 
@@ -195,7 +195,7 @@ console.log(Person === Person.prototype.constructor); // true
 
 所以，我们可以再更新一下上面的图：
 
-<img src="../ImageHosting/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
+<img src="/ImageHosting/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
 
 这个图可以用代码描述如下：
 
@@ -313,7 +313,7 @@ console.log(obj.name); // Deepspace
 
 我们可以把图更新成下面这样：
 
-<img src="../ImageHosting/JavaScript/prototype4.png" alt="原型的原型关系图" style="zoom:88%;" />
+<img src="/ImageHosting/JavaScript/prototype4.png" alt="原型的原型关系图" style="zoom:88%;" />
 
 问题又来了，原型的原型还有原型吗？也就是 `Object.prototype` 的原型是什么呢？
 
@@ -325,7 +325,7 @@ console.log(Object.prototype.__proto__ === null); // true
 
 我们可以再更新一下图：
 
-![原型链示意图](../ImageHosting/JavaScript/prototype5.png)
+![原型链示意图](/ImageHosting/JavaScript/prototype5.png)
 
 
 

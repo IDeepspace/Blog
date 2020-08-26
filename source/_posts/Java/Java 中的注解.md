@@ -123,7 +123,7 @@ public class Dog extends Animal {
 
 这个时候，继承 `Animal` 类时，会发出警告，`IDE` 会划出一个中横线：
 
-<img src="../ImageHosting/Java/annotation-deprecated.png" alt="Deprecated" style="zoom:50%;" />
+<img src="/ImageHosting/Java/annotation-deprecated.png" alt="Deprecated" style="zoom:50%;" />
 
 由于已经被标注了 `@Deprecated` ，但是 `Animal` 依然在被使用，所以 `Animal` 类会报出一个 `Deprecated member 'Animal' is still used` 的警告。如果没有被使用，则不会发出警告。
 

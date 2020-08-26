@@ -206,7 +206,7 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 #### 1、三次握手
 
-<img src="../ImageHosting/FrontEnd/what-is-a-tcp-3-way-handshake-process-three-way-handshaking-establishing-connection.jpg" style="zoom: 60%;" />
+<img src="/ImageHosting/FrontEnd/what-is-a-tcp-3-way-handshake-process-three-way-handshaking-establishing-connection.jpg" style="zoom: 60%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -226,7 +226,7 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 客户端或服务器均可主动发起挥手动作，在 `socket` 编程中，任何一方执行 `close()` 操作即可产生挥手操作。
 
-<img src="../ImageHosting/FrontEnd/tcp-connection-closed-four-way-handshake.png" alt="tcp-connection-closed-four-way-handshake" style="zoom:77%;" />
+<img src="/ImageHosting/FrontEnd/tcp-connection-closed-four-way-handshake.png" alt="tcp-connection-closed-four-way-handshake" style="zoom:77%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -244,7 +244,7 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 这里有一张简单图示，可以帮助理解三次握手和四次挥手：
 
-<img src="../ImageHosting/FrontEnd/three-four-handshake.png" alt="three-four-handshake.png" style="zoom: 50%;" />
+<img src="/ImageHosting/FrontEnd/three-four-handshake.png" alt="three-four-handshake.png" style="zoom: 50%;" />
 
 <p align='center'>（图片来自网络）</p>
 

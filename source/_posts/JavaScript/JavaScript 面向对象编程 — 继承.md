@@ -29,13 +29,13 @@ urlname: javascript-object-oriented-programming-2
 
 如下图：
 
-<img src="../ImageHosting/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
+<img src="/ImageHosting/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
 
 ### 二、原型链
 
 那么，假如我们让原型对象等于另一个类型的实例，结果会怎么样呢？显然，此时的原型对象将包含一个指向另一个原型的指针（`__proto__`）；相应地，另一个原型中也包含着一个指向另一个构造函数的指针（`constructor`）。假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓原型链的基本概念。
 
-<img src="../ImageHosting/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
+<img src="/ImageHosting/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
 
 图中蓝色的线条就是原型链。
 <!-- more -->

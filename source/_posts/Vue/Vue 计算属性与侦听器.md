@@ -182,7 +182,7 @@ export default {
 
 **效果 ：**
 
-![match](../ImageHosting/Vue/vue-computed.gif)
+![match](/ImageHosting/Vue/vue-computed.gif)
 
 **代码：**
 
