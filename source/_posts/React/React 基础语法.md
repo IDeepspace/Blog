@@ -34,7 +34,7 @@ $ npm start
 
 执行完上述命令之后，你可以直接打开 http://localhost:3000，即可以看到你 `React APP` 的运行效果：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/create-react-app.png" alt="create-react-app" style="zoom: 25%;" />
+<img src="../ImageHosting/React/create-react-app.png" alt="create-react-app" style="zoom: 25%;" />
 
 **目录结构：**
 
@@ -268,7 +268,7 @@ const tick = () => {
 setInterval(tick, 1000);
 ```
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/granular-dom-updates.gif" alt="更新必要部分" style="zoom: 67%;" />
+<img src="../ImageHosting/React/granular-dom-updates.gif" alt="更新必要部分" style="zoom: 67%;" />
 
 ### 四、组件&Props
 

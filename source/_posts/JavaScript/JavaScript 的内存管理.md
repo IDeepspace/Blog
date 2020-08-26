@@ -42,7 +42,7 @@ urlname: javascript-memory-management
 
 **程序执行的时候内存空间会分为代码区和数据区，数据区又可以分为静态存储区和动态存储区，动态存储区又可以分为堆区和栈区。** 如下图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-memory-management.jpg" alt="javascript-memory-management.png" style="zoom:50%;" />
+<img src="../ImageHosting/JavaScript/javascript-memory-management.jpg" alt="javascript-memory-management.png" style="zoom:50%;" />
 
 以下面的代码为例，分别对几个名字做一下简单介绍：
 

@@ -614,7 +614,7 @@ friend.sayName(); // TypeError: friend.sayName is not a function
 
 前面我们介绍 `prototype` 的时候提到过，`prototype` 指向的是原型，而不是构造函数。而把原型修改为另外一个对象就等于切断了构造函数与最初原型之间的联系。因为 `person1` 指向的原型中不包含 `name` 和 `sayName`，所以会报错。如下图所示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/oo.png" style="zoom: 67%;" />
+<img src="../ImageHosting/JavaScript/oo.png" style="zoom: 67%;" />
 
 重写原型对象切断了现有原型与任何之前已经存在的对象实例之间的联系，实例引用的仍然是最初的原型。那怎么解决这个问题呢？很简单，把调用构造函数的代码放在往 `prototype` 上添加属性和方法的后面就可以了：
 

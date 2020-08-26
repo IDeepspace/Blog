@@ -109,7 +109,7 @@ urlname: java-multithreading-program
 
 `Java` 中线程的生命周期由 `JVM` 控制，线程的状态分为 `6` 种，可以用下面的图来表示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
+<img src="../ImageHosting/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
 
 1. 初始（`NEW`）：新创建了一个线程对象，但还没有调用 `start()` 方法；
 

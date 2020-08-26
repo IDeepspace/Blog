@@ -135,7 +135,7 @@ console.log(store.getState()); //当前值为121+2=123
 
 ### 三、Redux 工作流
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
+<img src="../ImageHosting/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
 
@@ -245,7 +245,7 @@ console.log(store.getState()); //当前值为121+2=123
 
 最终的目录结构：
 
-![目录结构](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-directory-structure.png)
+![目录结构](../ImageHosting/React/redux-directory-structure.png)
 
 
 
@@ -694,4 +694,4 @@ const mapDispatchToProps = {
 
 所以，最终的目录结构就变成下面这个样子（你也可以把 `store.js` 放在单独的 `store` 文件夹里面）：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />
+<img src="../ImageHosting/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />

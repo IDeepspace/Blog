@@ -67,7 +67,7 @@ promise2
 
 把 `Node.js` 拆分到组件，看看它们的关键作用是什么、如何交互协作。 `Node.js` 运行时环境图示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-architecture.png" alt="node.js 架构图" style="zoom:67%;" />
+<img src="../ImageHosting/NodeJS/nodejs-architecture.png" alt="node.js 架构图" style="zoom:67%;" />
 
 <p align="center">(图片来自网络)</p>
 
@@ -95,7 +95,7 @@ promise2
 
 在 `Node.js` 中，也是单线程的事件循环。`Nodejs` 的事件循环会分为6个阶段，它们会按照顺序反复运行。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
+<img src="../ImageHosting/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
 
 每个阶段的作用如下:
 
@@ -195,17 +195,17 @@ timeout
 
 浏览器环境下，`microtask` 的任务队列是每个 `macrotask ` 执行完之后执行。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/eventLoop-browser-2.png" alt="事件循环" style="zoom:87%;" />
+<img src="../ImageHosting/NodeJS/eventLoop-browser-2.png" alt="事件循环" style="zoom:87%;" />
 
 <p align="center">(图片来自网络)</p>
 
 而在 `Node.js` 中，**`microtask` 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 `microtask` 队列的任务。**
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
+<img src="../ImageHosting/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
 
 文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将 2 个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，执行栈空闲，任务队列开始执行：
 
-![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
+![NodeJS事件循环](../ImageHosting/NodeJS/node-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
 
@@ -215,7 +215,7 @@ timeout
 
 **对比浏览器端的处理过程：**
 
-![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/browser-event-loop-excute-animate.gif)
+![事件循环](../ImageHosting/NodeJS/browser-event-loop-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
 
