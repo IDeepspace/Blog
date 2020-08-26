@@ -1140,7 +1140,7 @@ public class ImpClass implements InterfaceA, InterfaceB {
 
 假设我们有一个父接口 `A`，子接口 `B` 和 `C` 都重写了 `A` 中的方法 `test()`。此时又有一个 `D` 接口，同时继承了 `B` 和 `C`，那么当 `D` 调用 `test()` 时，继承的是哪个父接口的方法呢？如果没有给出进一步的说明，编译器是无法给出答案的。如图所示：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:70%;" />
+<img src="../ImageHosting/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:70%;" />
 
 为了解决这个问题，实现类必须**显示地指定要使用的方法**，当然也可以重写共享方法并提供自己的实现。
 

@@ -84,7 +84,7 @@ urlname: java-multithreading-program
 
 可以用下面的一张图来描述**并发与并行的区别**：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
+<img src="../ImageHosting/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
 
 <p align="center">（图片来自 Joe Armstrong）</p>
 
@@ -574,7 +574,7 @@ public ThreadPoolExecutor(int corePoolSize,
 
 **线程池的执行流程**可以用下图来表示：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
+<img src="../ImageHosting/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
 
 
 

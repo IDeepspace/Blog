@@ -244,7 +244,7 @@ box(); // Deepspace
 >
 > 在全局作用域中，用 `let` 和 `const` 声明的全局变量并没有在全局对象中，只是一个块级作用域（`Script`）中（可以在浏览器中设置断点查看）。
 >
-> ![let debug](https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/let-const-debug.png)
+> ![let debug](../ImageHosting/FrontEnd/let-const-debug.png)
 >
 > 所以，要想访问用 `let` 和 `const` 声明的全局变量，就不可以使用 `window`。所以在上面演示 `this` 的默认绑定的时候，使用 `var` 来初始化变量。
 

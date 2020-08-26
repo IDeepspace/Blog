@@ -44,7 +44,7 @@ urlname: java-collection-framework
 
 下面看看集合框架中基于 `Collection` 接口的结构层次：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-collection-hierarchy.png" alt="Java 集合框架的结构" style="zoom:80%;" />
+<img src="../ImageHosting/Java/java-collection-hierarchy.png" alt="Java 集合框架的结构" style="zoom:80%;" />
 
 在 `Collection` 接口中声明了许多方法，具体方法及作用可以在 `Collection` 接口中查看。
 
@@ -58,13 +58,13 @@ urlname: java-collection-framework
 
 `Map` 接口中，它有两个接口用于实现 ：`Map` 和 `SortedMap` 接口，以及三个类: `HashMap`、 `LinkedHashMap` 和  `TreeMap`。` Java` 中 `Map` 分支下的层次结构如下:
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-map-hierarchy.png" alt="Java 集合框架的结构" style="zoom:70%;" />
+<img src="../ImageHosting/Java/java-map-hierarchy.png" alt="Java 集合框架的结构" style="zoom:70%;" />
 
 
 
 `Collection` 接口和 `Map` 接口之间并不是完全独立的，也有一些联系，用来创建一个其他的数据结构，稍后会讲到。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/java-collection.png" alt="Java 集合框架的结构" />
+<img src="../ImageHosting/Java/java-collection.png" alt="Java 集合框架的结构" />
 
 下面我们来具体看看集合框架中的一些常见的类。
 
@@ -369,7 +369,7 @@ Collections.addAll(arrayList, cityNames);
 
 如下图：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/singly-linked-list.png" alt="Java 单链表" />
+<img src="../ImageHosting/Java/singly-linked-list.png" alt="Java 单链表" />
 
 **注意：**
 
@@ -380,7 +380,7 @@ Collections.addAll(arrayList, cityNames);
   - 元素的内容；
   - 指向链表的下一个节点的指针。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/doubly-linked-list.png" alt="Java 双链表"  />
+<img src="../ImageHosting/Java/doubly-linked-list.png" alt="Java 双链表"  />
 
 为什么会出现 `LinkedList` 这样的一个数据结构呢？也就是为什么需要链表呢？
 
@@ -618,7 +618,7 @@ String[] array = linkedList.toArray(new String[linkedList.size()]);
   - `vector` 大部分方法都使用了 `synchronized` 修饰符，所以它是**线程安全**的集合类。
   - 如下图所示：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Java/ArrayList-vs-Vector-Java.png" alt="Java Vector vs ArrayList" style="zoom:87%;" />
+<img src="../ImageHosting/Java/ArrayList-vs-Vector-Java.png" alt="Java Vector vs ArrayList" style="zoom:87%;" />
 
 - 性能（`Performance`）
   - `ArrayList` 更快，因为它是非同步的，而向量操作因为是同步的（线程安全的） ，所以性能更慢；

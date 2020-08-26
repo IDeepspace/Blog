@@ -32,7 +32,7 @@ tags:
 
 例如用户对一个电子表格进行重新排序的操作，应用程序需要响应用户操作，对数据进行排序，然后需要再同步到界面上。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/gui.png" alt="GUI" style="zoom:75%;" />
+<img src="../ImageHosting/FrontEnd/gui.png" alt="GUI" style="zoom:75%;" />
 
 下面我们来看一些 `GUI` 应用会面临的设计问题。
 
@@ -71,7 +71,7 @@ tags:
 
 `Controller` 的职责就是充当 `View` 和 `Model` 之间的中介者。`Controller` 负责处理传入的请求。 它通过 `Model` 处理用户的数据，并将结果传递回 `View`。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvc.jpg" alt="mvc" style="zoom: 55%;" />
+<img src="../ImageHosting/FrontEnd/mvc.jpg" alt="mvc" style="zoom: 55%;" />
 
 在 `MVC` 的模式里：
 
@@ -99,7 +99,7 @@ tags:
 
 `MVP` 模式是 `MVC` 模式的改良。`MVP` 模式把 `MVC` 模式中的 `Controller` 换成了 `Presenter`。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvp.jpg" alt="mvp" style="zoom: 55%;" />
+<img src="../ImageHosting/FrontEnd/mvp.jpg" alt="mvp" style="zoom: 55%;" />
 
 `MVP` 打破了 `View` 原来对于 `Model` 的依赖，其余的依赖关系和 `MVC` 模式一致。那么问题来了，`View` 如何同步 `Model` 的变更呢？
 
@@ -127,7 +127,7 @@ tags:
 
 `MVVM` 可以看作是一种特殊的 `MVP`  模式，它将 `Presenter` 改名为 `ViewModel`。
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/FrontEnd/mvvm.jpg" alt="mvvm" style="zoom: 55%;" />
+<img src="../ImageHosting/FrontEnd/mvvm.jpg" alt="mvvm" style="zoom: 55%;" />
 
 唯一的区别是，它采用双向绑定（`data-binding`），即：**`View` 的变动，自动反映在 `ViewModel`，反之亦然**。也就是说，`MVVM` 把 `View` 和 `Model` 的同步逻辑自动化了，以前 `Presenter` 负责的 `View` 和 `Model` 同步不再需要手动地进行操作。
 

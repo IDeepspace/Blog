@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Deepspace
-subtitle: 我叫陈星星
+title: 茶壶的佩蒂酱
+subtitle:
 description: 凡事预 ？立 ：废
-keywords: Deepspace
-author: Deepspace
+keywords: 茶壶的佩蒂酱
+author: 茶壶的佩蒂酱
 language: zh-CN
 timezone:
 
@@ -100,6 +100,8 @@ deploy:
 search:
   path: search.xml
   field: post
+  format: html
+  limit: 10000
 
 permalink_pinyin:
   enable: true
@@ -114,3 +116,6 @@ feed:
   content_limit: 140
   content_limit_delim: ' '
   order_by: -date
+
+sitemap:
+  path: sitemap.xml

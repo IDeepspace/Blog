@@ -22,7 +22,7 @@ tags:
 
 第一步肯定是要先**准备一台物理服务器**，然后在物理服务器上**安装一个操作系统**（`Operating System`），有了操作系统之后，就可以在操作系统上**安装并运行我们的应用程序**。这个过程可以用下面的图来表示：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/deploy-application-without-virtualization.png" alt="deploy-application-without-virtualization" style="zoom:50%;" />
+<img src="../ImageHosting/Docker/deploy-application-without-virtualization.png" alt="deploy-application-without-virtualization" style="zoom:50%;" />
 <!-- more -->
 这种方式有几个缺点：
 
@@ -46,7 +46,7 @@ tags:
 
 虚拟机允许我们在一台物理计算机上模拟出多台机器。简单地理解，虚拟化技术就是在一台物理计算机上，通过中间虚拟软件层 `Hypervisor` 隔离 `CPU`、内存等硬件资源，虚拟出多台虚拟服务器，这样做的话，一台物理服务器就可以安装多个应用程序，达到资源利用的最大化，而且多个应用之间相互隔离，如下图所示：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/deploy-application-with-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
+<img src="../ImageHosting/Docker/deploy-application-with-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
 
 使用虚拟机有这些优点：
 
@@ -72,7 +72,7 @@ tags:
 
 我们看一下 `Docker` 官网的图示：
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/container-vs-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
+<img src="../ImageHosting/Docker/container-vs-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
 
 虚拟机有 `Hypervisor` 层，`Hypervisor` 是整个虚拟机的核心所在，它为虚拟机提供了虚拟的运行平台，管理虚拟机的操作系统运行。而容器没有 `Hypervisor` 这一层，**并且每个容器是和宿主机共享硬件资源及操作系统，那么由 `Hypervisor` 带来性能的损耗，在 `linux` 容器这边是不存在的。**
 
@@ -101,7 +101,7 @@ tags:
 
 ### 二、Docker 架构一瞥
 
-<img src="https://github.com/IDeepspace/ImageHosting/raw/master/Docker/docker-architecture.jpg" alt="Docker Architecture" style="zoom: 62%;" />
+<img src="../ImageHosting/Docker/docker-architecture.jpg" alt="Docker Architecture" style="zoom: 62%;" />
 
 <p align="center">（图片来自网络）</p>
 

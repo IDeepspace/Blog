@@ -98,7 +98,7 @@ function fun() {
     var city = 'Wuhan';
     ```
 
-    <img src="https://github.com/IDeepspace/ImageHosting/raw/master/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
+    <img src="../ImageHosting/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
 
 - 堆
 
@@ -126,7 +126,7 @@ function fun() {
     var person3 = { name: '陈鑫' };
     ```
   
-    <img src="https://github.com/IDeepspace/ImageHosting/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
+    <img src="../ImageHosting/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
   
     
 
