@@ -269,7 +269,7 @@ reward_settings:
   # If true, reward will be displayed in every article by default.
   enable: true
   animation: true
-  #comment: Donate comment here.
+  comment: 请我喝杯咖啡吧~
 
 reward:
   wechatpay: /images/wechatpay.png
@@ -363,11 +363,11 @@ codeblock:
   highlight_theme: normal
   # Add copy button on codeblock
   copy_button:
-    enable: false
+    enable: true
     # Show text copy result.
-    show_result: false
+    show_result: true
     # Available values: default | flat | mac
-    style:
+    style: mac
 
 back2top:
   enable: true
@@ -615,39 +615,22 @@ changyan:
 
 # Valine
 # For more information: https://valine.js.org, https://github.com/xCss/Valine
-#valine:
-#  enable: false
-#  appid: # Your leancloud application appid
-#  appkey: # Your leancloud application appkey
-#  notify: false # Mail notifier
-#  verify: false # Verification code
-#  placeholder: Just go go # Comment box placeholder
-#  avatar: mm # Gravatar style
-#  guest_info: nick,mail,link # Custom comment header
-#  pageSize: 10 # Pagination size
-#  language: # Language, available values: en, zh-cn
-#  visitor: false # Article reading statistic
-#  comment_count: true # If false, comment count will only be displayed in post page, not in home page
-#  recordIP: false # Whether to record the commenter IP
-#  serverURLs: # When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)
-#  #post_meta_order: 0
-
 valine:
-  # 功能开关
-  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version
-  appid: CfctPDmhHbd4WOnmEI6bibKa-9Nh9j0Va # Your leancloud application appid #LeanClound获得的appid
-  appkey: EfLiJEDccHHAe8waCqhY0SH7 # Your leancloud application appkey #LeanClound获得的appkey
-  notify: false # Mail notifier. See: https://github.com/xCss/Valine/wiki # 邮件提醒
+  enable: true
+  appid: CfctPDmhHbd4WOnmEI6bibKa-9Nh9j0Va # Your leancloud application appid
+  appkey: EfLiJEDccHHAe8waCqhY0SH7 # Your leancloud application appkey
+  notify: false # Mail notifier
   verify: false # Verification code
-  placeholder: 欢迎畅所欲言 # Comment box placeholder
-  avatar: mm # Gravatar style #默认头像设置
+  placeholder: Just go go # Comment box placeholder
+  avatar: mm # Gravatar style
   guest_info: nick,mail,link # Custom comment header
   pageSize: 10 # Pagination size
-  language: zh-cn # Language, available values: en, zh-cn # 语言，设为zh-cn
-  # 是否开启当前文章阅读量统计
-  visitor: false # leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html
+  language: zh-cn # Language, available values: en, zh-cn
+  visitor: true # Article reading statistic
   comment_count: true # If false, comment count will only be displayed in post page, not in home page
-  recordIP: false
+  recordIP: false # Whether to record the commenter IP
+  serverURLs: https://togoblog.cn/ # When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)
+  #post_meta_order: 0
 
 # LiveRe comments system
 # You can get your uid from https://livere.com/insight/myCode (General web site)
@@ -712,9 +695,9 @@ cnzz_siteid:
 # AppID and AppKey are recommended to be the same as valine's for counter compatibility.
 # Do not enable both `valine.visitor` and `leancloud_visitors`.
 leancloud_visitors:
-  enable: false
-  app_id: # <your app id>
-  app_key: # <your app key>
+  enable: true
+  app_id: CfctPDmhHbd4WOnmEI6bibKa-9Nh9j0Va # <your app id>
+  app_key: EfLiJEDccHHAe8waCqhY0SH7 # <your app key>
   # Required for apps from CN region
   server_url: # <your server url>
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
