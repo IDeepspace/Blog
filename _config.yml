@@ -93,8 +93,8 @@ deploy:
   type: git
   repo:
     github: https://github.com/IDeepspace/IDeepspace.github.io.git
-#    coding: https://e.coding.net/Deepspace/Deepspace.coding.me.git
-    gitee: https://gitee.com/IDeepspace/IDeepspace.git
+#    coding: git@e.coding.net:Deepspace/deepspace/deepspace.git
+#    gitee: https://gitee.com/IDeepspace/IDeepspace.git
   branch: gh-pages
 
 search:
