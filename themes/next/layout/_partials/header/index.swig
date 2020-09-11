@@ -5,3 +5,7 @@
 {{ partial('_partials/search/index.swig', {}, {cache: theme.cache.enable}) }}
 
 {{- next_inject('header') }}
+
+{% if is_index %}
+  {{ live2d() }}
+{% endif %}
