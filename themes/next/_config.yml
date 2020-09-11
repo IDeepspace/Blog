@@ -33,7 +33,6 @@ custom_file_path:
 #mixin: source/_data/mixins.styl
 #style: source/_data/styles.styl
 
-
 # ---------------------------------------------------------------
 # Site Information Settings
 # See: https://theme-next.org/docs/getting-started/
@@ -85,13 +84,13 @@ footer:
 # Available values of license: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
 # You can set a language value if you prefer a translated version of CC license, e.g. deed.zh
 # CC licenses are available in 39 languages, you can find the specific and correct abbreviation you need on https://creativecommons.org
-# creative_commons:
-#   license: by-nc-sa
-#   sidebar: false
-#   post: false
-#   language:
+creative_commons:
+  license: by-nc-sa
+  sidebar: false
+  post: false
+  language:
 
-creative_commons: by
+# creative_commons: by
 
 post_copyright:
   enable: true
@@ -110,7 +109,6 @@ scheme: Muse
 
 # Dark Mode
 darkmode: false
-
 
 # ---------------------------------------------------------------
 # Menu Settings
@@ -135,7 +133,6 @@ menu:
 menu_settings:
   icons: true
   badges: false
-
 
 # ---------------------------------------------------------------
 # Sidebar Settings
@@ -231,7 +228,6 @@ chat:
   icon: fa fa-comment # Icon name in Font Awesome, set false to disable icon.
   text: Chat # Button text, change it as you wish.
 
-
 # ---------------------------------------------------------------
 # Post Settings
 # See: https://theme-next.org/docs/theme-settings/posts
@@ -309,7 +305,6 @@ post_edit:
 # Available values: left | right | false
 post_navigation: left
 
-
 # ---------------------------------------------------------------
 # Custom Page Settings
 # See: https://theme-next.org/docs/theme-settings/custom-pages
@@ -335,7 +330,6 @@ calendar:
   showDeleted: false
   singleEvents: true
   maxResults: 250
-
 
 # ---------------------------------------------------------------
 # Misc Theme Settings
@@ -399,7 +393,6 @@ github_banner:
   permalink: https://github.com/IDeepspace
   title: Follow me on GitHub
 
-
 # ---------------------------------------------------------------
 # Font Settings
 # See: https://theme-next.org/docs/theme-settings/#Fonts-Customization
@@ -414,44 +407,35 @@ github_banner:
 # ---------------------------------------------------------------
 
 font:
-  enable: false
+  enable: true
 
-  # Uri of fonts host, e.g. https://fonts.googleapis.com (Default).
+  # 外链字体库地址，例如 //fonts.googleapis.com (默认值)
   host:
 
-  # Font options:
-  # `external: true` will load this font family from `host` above.
-  # `family: Times New Roman`. Without any quotes.
-  # `size: x.x`. Use `em` as unit. Default: 1 (16px)
-
-  # Global font settings used for all elements inside <body>.
+  # 全局字体，应用在 body 元素上
   global:
     external: true
-    family: Lato
-    size:
+    family: Monda
 
-  # Font settings for site title (.site-title).
-  title:
-    external: true
-    family:
-    size:
-
-  # Font settings for headlines (<h1> to <h6>).
+  # 标题字体 (h1, h2, h3, h4, h5, h6)
   headings:
     external: true
-    family:
-    size:
+    family: Roboto Slab
 
-  # Font settings for posts (.post-body).
+  # 文章字体
   posts:
     external: true
     family:
 
-  # Font settings for <code> and code blocks.
-  codes:
+  # Logo 字体
+  logo:
     external: true
     family:
 
+  # 代码字体，应用于 code 以及代码块
+  codes:
+    external: true
+    family:
 
 # ---------------------------------------------------------------
 # SEO Settings
@@ -485,7 +469,6 @@ baidu_site_verification:
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
 baidu_push: false
-
 
 # ---------------------------------------------------------------
 # Third Party Plugins & Services Settings
@@ -559,7 +542,6 @@ quicklink:
   # For more flexibility you can add some patterns (RegExp, Function, or Array) to ignores.
   # See: https://github.com/GoogleChromeLabs/quicklink#custom-ignore-patterns
   ignores:
-
 
 # ---------------------------------------------------------------
 # Comments Settings
@@ -651,7 +633,6 @@ gitalk:
   # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
   language:
 
-
 # ---------------------------------------------------------------
 # Post Widgets & Content Sharing Services
 # See: https://theme-next.org/docs/third-party-services/post-widgets
@@ -661,13 +642,12 @@ gitalk:
 # To get your ID visit https://widgetpack.com
 rating:
   enable: false
-  id:     # <app_id>
-  color:  fc6423
+  id: # <app_id>
+  color: fc6423
 
 # AddThis Share. See: https://www.addthis.com
 # Go to https://www.addthis.com/dashboard to customize your tools.
 add_this_id:
-
 
 # ---------------------------------------------------------------
 # Statistics and Analytics
@@ -732,7 +712,6 @@ busuanzi_count:
   page_pv_header: <i class="fa fa-eye"></i>
   page_pv_footer:
 
-
 # ---------------------------------------------------------------
 # Search Services
 # See: https://theme-next.org/docs/third-party-services/search-services
@@ -766,7 +745,6 @@ local_search:
 # Swiftype Search API Key
 swiftype_key:
 
-
 # ---------------------------------------------------------------
 # Chat Services
 # See: https://theme-next.org/docs/third-party-services/chat-services
@@ -787,7 +765,6 @@ chatra:
 tidio:
   enable: false
   key: # Public Key, get it from dashboard. See: https://www.tidiochat.com/panel/settings/developer
-
 
 # ---------------------------------------------------------------
 # Tags Settings
@@ -828,7 +805,6 @@ mermaid:
   # Available themes: default | dark | forest | neutral
   theme: forest
 
-
 # ---------------------------------------------------------------
 # Animation Settings
 # ---------------------------------------------------------------
@@ -857,7 +833,7 @@ motion:
 # Dependencies: https://github.com/theme-next/theme-next-pace
 # For more information: https://github.com/HubSpot/pace
 pace:
-  enable: false
+  enable: true
   # Themes list:
   # big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple
   # corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal
@@ -879,7 +855,6 @@ canvas_ribbon:
   size: 300 # The width of the ribbon
   alpha: 0.6 # The transparency of the ribbon
   zIndex: -1 # The display level of the ribbon
-
 
 #! ---------------------------------------------------------------
 #! DO NOT EDIT THE FOLLOWING SETTINGS
@@ -1010,13 +985,14 @@ vendors:
 css: css
 js: js
 images: images
-
 # 自定义的一些配置
-CloudCalendar:
-  enable: true
-  language: zh-CN
-  single: true
-  root: /calendar/
-  calendarCdn: //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/calendar.min.js
-  langCdn: //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/languages.min.js
-  #disableSidebar: false
+
+evanyou: true
+
+# window woblle
+wobble:
+  enable: true # 是否开启边缘波动效果
+  radius: 50 # 波动半径
+  sidebar: true # 开启侧边栏边缘摆动
+  header: true # 开启头部边缘摆动
+  footer: true # 开启脚部边缘摆动

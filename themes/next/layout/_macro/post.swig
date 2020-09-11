@@ -239,7 +239,7 @@
           {%- endif %}
           <div class="post-tags">
             {%- for tag in post.tags.toArray() %}
-              <a href="{{ url_for(tag.path) }}" rel="tag">{{ tag_indicate }} {{ tag.name }}</a>
+              <a href="{{ url_for(tag.path) }}" rel="tag"><i class="fa fa-tags"></i> {{ tag.name }}</a>
             {%- endfor %}
           </div>
         {%- endif %}
@@ -257,3 +257,9 @@
   {######################}
   {### END POST BLOCK ###}
   {######################}
+
+{% if config.post_end_tag.enabled and not is_index %}
+  <div>
+    {% include 'post-end-tag.swig' %}
+  </div>
+{% endif %}
