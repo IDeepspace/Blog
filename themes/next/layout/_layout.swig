@@ -52,11 +52,11 @@
   {% include '_third-party/math/index.swig' %}
   {% include '_third-party/quicklink.swig' %}
 
-  {% include '_custom/custom.swig' %}
-
   {{- next_inject('bodyEnd') }}
   {%- if theme.pjax %}
     </div>
   {%- endif %}
+
+  {% include '_custom/custom.swig' %}
 </body>
 </html>

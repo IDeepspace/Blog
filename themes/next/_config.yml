@@ -599,8 +599,8 @@ changyan:
 # For more information: https://valine.js.org, https://github.com/xCss/Valine
 valine:
   enable: true
-  appid: CfctPDmhHbd4WOnmEI6bibKa-9Nh9j0Va # Your leancloud application appid
-  appkey: EfLiJEDccHHAe8waCqhY0SH7 # Your leancloud application appkey
+  appid: lIPAKDpDdarI5POSN6gt7fLf-gzGzoHsz # Your leancloud application appid
+  appkey: mYTOoVvXDnPhIP6vzGQLNgVI # Your leancloud application appkey
   notify: false # Mail notifier
   verify: false # Verification code
   placeholder: Just go go # Comment box placeholder
@@ -989,10 +989,4 @@ images: images
 
 evanyou: true
 
-# window woblle
-wobble:
-  enable: true # 是否开启边缘波动效果
-  radius: 50 # 波动半径
-  sidebar: true # 开启侧边栏边缘摆动
-  header: true # 开启头部边缘摆动
-  footer: true # 开启脚部边缘摆动
+cursor_effect: fireworks
