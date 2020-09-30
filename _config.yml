@@ -92,8 +92,8 @@ theme: next
 deploy:
   type: git
   repo:
-    # github: https://github.com/IDeepspace/IDeepspace.github.io.git
-    coding: git@e.coding.net:Deepspace/personal-blog/blog.git
+    github: https://github.com/IDeepspace/IDeepspace.github.io.git
+    # coding: git@e.coding.net:Deepspace/personal-blog/blog.git
   #    gitee: https://gitee.com/IDeepspace/IDeepspace.git
   branch: gh-pages
 
