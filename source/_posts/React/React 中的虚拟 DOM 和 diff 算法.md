@@ -93,13 +93,13 @@ const VitrualDOM = {
 
 在比较的过程中，只比较同级的节点，非同级的节点不在比较范围内，这样既可以满足更新视图的需求，又可以简化算法实现，这样算法复杂度就可以达到 `O(n)`。
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-diff-1.png" alt="diff 算法" style="zoom: 75%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-1.png" alt="diff 算法" style="zoom: 75%;" />
 
 <p align='center'>（图片来自网络）</p>
 
 比较新旧两棵树的差异时，首先会对树进行遍历。常用的有两种遍历算法，分别是深度优先遍历和广度优先遍历。一般的 `diff` 算法中都采用的是**深度优先遍历**。**对新旧两棵树进行一次深度优先的遍历，这样每个节点就都会有一个唯一的标记。**
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-diff-2.png" alt="diff 算法" style="zoom: 75%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-2.png" alt="diff 算法" style="zoom: 75%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -312,7 +312,7 @@ function updateElement($parent, newNode, oldNode, index = 0) {
 
 打开开发人员工具，观察当你按下“重新加载”按钮时，可以看到应用的变化：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
 
 > 实现的例子参考自完整代码：https://jsfiddle.net/cxin1427/cvdgtqup/
 

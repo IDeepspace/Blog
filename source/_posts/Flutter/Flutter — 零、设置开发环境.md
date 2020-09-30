@@ -203,7 +203,7 @@ Xcode couldn't find any iOS App Development provisioning profiles matching 'com.
 
 接下来我们重新执行 `flutter run` 运行，中间会要求输入密码，能够正常运行了，也支持热加载调试。
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Flutter/flutter-start-demo.gif" alt="Flutter Demo" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Flutter/flutter-start-demo.gif" alt="Flutter Demo" style="zoom: 50%;" />
 
 ### 四、Flutter 版本更新
 

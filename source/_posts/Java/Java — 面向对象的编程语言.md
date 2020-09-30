@@ -178,7 +178,7 @@ Dog myDog = new Dog();
 
 如下图打印机的例子：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/printer-polymorphism.jpg" alt="printer-polymorphism" style="zoom:40%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/printer-polymorphism.jpg" alt="printer-polymorphism" style="zoom:40%;" />
 
 我们把打印文件这个方法变成一个接口，让彩色打印机和黑白打印机都实现这个接口，同一个事件发生在不同的对象上会产生不同的结果。父类中定义的属性和方法被子类继承后，可以具有不同的属性或表现方式。这样就实现了系统的**可扩展性，可维护性**也会变强。
 

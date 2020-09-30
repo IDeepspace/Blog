@@ -142,7 +142,7 @@ e70ea0b4e610        mysql:5.7           "docker-entrypoint.s…"   28 seconds ag
 
 我们在浏览器中访问地址：http://localhost:8000/，会出现安装 `WordPress` 的界面：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/docker-compose-wordpress.png" alt="docker-compose-wordpress" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Docker/docker-compose-wordpress.png" alt="docker-compose-wordpress" style="zoom:50%;" />
 
 ### 四、Compose 常用服务配置
 

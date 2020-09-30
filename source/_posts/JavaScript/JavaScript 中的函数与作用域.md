@@ -386,7 +386,7 @@ console.log('Color is now ' + color);
 
 上面代码的作用域链简单图示如下：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-function-declaration-hoisting.jpg" alt="javascript-function-declaration-hoisting" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-function-declaration-hoisting.jpg" alt="javascript-function-declaration-hoisting" style="zoom:67%;" />
 
 ### 七、作用域链和代码优化
 

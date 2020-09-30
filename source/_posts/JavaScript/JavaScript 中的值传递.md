@@ -82,7 +82,7 @@ var person2 = { name: 'Deepspace' };
 var person3 = { name: '陈鑫' };
 ```
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
 
 所以引用传递传的其实是**栈内存当中的引用地址**。回到上面的例子中：
 

@@ -176,7 +176,7 @@ router.get('/list', (req, res, next) => {
 
 `res.render()` 方法接收两个参数：第一个参数为视图文件名，第二个参数是一个对象，用于向模板中传递数据，`user` 就是在这里传过去的。更改完路由之后我们重启服务器，访问 <http://localhost:3000/users/list> 就可以看到用户列表页面了。
 
-![用户列表](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/NodeJS/express-2.png)
+![用户列表](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/express-2.png)
 
 但是用户列表中的数据是写死的，我们应该从数据库中获取，下面我们来做这个工作。
 
@@ -258,7 +258,7 @@ var userSchema = new Schema({
 
 **Schema Types 内置类型如下：**
 
-![](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/NodeJS/Schema-Types.png)
+![](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/Schema-Types.png)
 
 #### 5. 生成 Model
 

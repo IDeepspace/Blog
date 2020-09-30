@@ -109,7 +109,7 @@ $ hexo init
 
 会生成如下图所示的文件结构 :
 
-![xhexo-folder](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Hexo/hexo-folder.png)
+![xhexo-folder](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Hexo/hexo-folder.png)
 
 下面对文件目录做个简单介绍 :
 
@@ -182,7 +182,7 @@ $ hexo s
 
 会看到 :
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Hexo/hexo-init-theme.png" alt="hexo-init-theme" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Hexo/hexo-init-theme.png" alt="hexo-init-theme" style="zoom:50%;" />
 
 ### 六.部署到 `Github` 上
 

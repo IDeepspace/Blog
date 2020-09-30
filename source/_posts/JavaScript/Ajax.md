@@ -34,7 +34,7 @@ urlname: javascript-ajax
 
 在 `Ajax` 出现之前，网页想要和服务器通信，最常用的方式是使用 `form` 表单。工作方式如下图：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/no-ajax.jpg" alt="no ajax" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/no-ajax.jpg" alt="no ajax" />
 
 <p align="center">(图片来自网络)</p>
 举个邮箱注册页面的例子。

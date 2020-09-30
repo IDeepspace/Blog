@@ -28,15 +28,15 @@ tags:
 
 1、使用 `github` 账号登录 `CircleCI`
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci.png" alt="Contiunous-Integration" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/circleci.png" alt="Contiunous-Integration" style="zoom:50%;" />
 
 `Add Project` ，将项目集成到 `CircleCI` 中：
 
-![circleci-set-up-project](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci-set-up-project.png)
+![circleci-set-up-project](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/circleci-set-up-project.png)
 
 选择对应的环境和语言：
 
-![circleci-select-env](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci-select-env.png)
+![circleci-select-env](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/circleci-select-env.png)
 
 选择 `Linux` 系统，由于我们是 `JavaScript` 的项目，所以这里选择 `Node` 就好了。
 
@@ -90,11 +90,11 @@ workflows:
 
 我们进入 `github` 中 `repo` 的 `commit` 界面，可以看到我们在 `CircleCI` 的构建状态，会标注出成功或失败的状态：
 
-![github-circleci-status](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/github-circleci-status.png)
+![github-circleci-status](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/github-circleci-status.png)
 
 进入 `CircleCI` 中，我们也可以在 `WORKDLOWS` 查看更详细的构建信息，包括 `CircleCI` 配置文件中的步骤和相关 `log` 信息等。
 
-![circleci-ci-status](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci-ci-status.png)
+![circleci-ci-status](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/circleci-ci-status.png)
 
 ### 五、最后
 

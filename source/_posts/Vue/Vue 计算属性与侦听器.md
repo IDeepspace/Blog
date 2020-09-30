@@ -178,7 +178,7 @@ methods: {
 
 **效果 ：**
 
-![match](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-computed.gif)
+![match](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-computed.gif)
 
 **代码：**
 

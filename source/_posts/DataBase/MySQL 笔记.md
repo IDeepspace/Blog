@@ -159,7 +159,7 @@ mysql> show databases;
 
 数据库的表之间的关系为：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/DB/MySQL-Sample-Database-Schema.png" alt="MySQL-Sample-Database-Schema" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/DB/MySQL-Sample-Database-Schema.png" alt="MySQL-Sample-Database-Schema" />
 
 接下来的 `SQL` 语句讲解都是基于上面所导入的数据。
 

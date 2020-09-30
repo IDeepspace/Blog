@@ -406,7 +406,7 @@ export default App;
 
 在浏览器中运行的效果如下：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
 
 如何避免这个问题呢？思路很简单，**需要一个方法去告诉 `Context.Provider`，告诉它子组件没有变化**。
 
@@ -724,7 +724,7 @@ const App = () => {
 
 虚拟列表是常见的「长列表」和「复杂组件树」优化方式，它优化的本质是减少渲染的节点。**虚拟列表只渲染当前可视窗口的可见元素**。如下图：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/virtualized-render.gif" alt="虚拟列表" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/virtualized-render.gif" alt="虚拟列表" style="zoom: 50%;" />
 
 <p align="center">（图片来自网络）</p>
 
@@ -756,7 +756,7 @@ const Example = () => (
 
 效果：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-window.gif" alt="效果" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-window.gif" alt="效果" style="zoom: 50%;" />
 
 关于更多 [react-window](https://github.com/bvaughn/react-window) 的使用方法，可以去官网查看。
 
@@ -810,7 +810,7 @@ const Example = () => (
 
 是的，合理设计组件也会提高性能。**组件的设计应该严格遵循职责单一原则**。看个例子：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -818,7 +818,7 @@ const Example = () => (
 
 基于职责单一的原则，我们可以这样来设计：
 
-<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
+<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
 
 <p align='center'>（图片来自网络）</p>
 

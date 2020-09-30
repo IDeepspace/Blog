@@ -749,6 +749,6 @@ export default new Router({
 
 学习完 `Vue` 的基础语法，我们可以写一个 `Todolist` 来检验一下自己：
 
-![vue-todolist](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-todolist.png)
+![vue-todolist](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-todolist.png)
 
 > 代码可参考：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-todolist
