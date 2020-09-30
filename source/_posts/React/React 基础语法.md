@@ -34,7 +34,7 @@ $ npm start
 
 执行完上述命令之后，你可以直接打开 http://localhost:3000，即可以看到你 `React APP` 的运行效果：
 
-<img src="/ImageHosting/React/create-react-app.png" alt="create-react-app" style="zoom: 25%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/create-react-app.png" alt="create-react-app" style="zoom: 25%;" />
 
 **目录结构：**
 
@@ -64,8 +64,6 @@ my-app
 ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('root'));
 ```
 
-
-
 ### 二、JSX 简介
 
 `JSX —— React.js` 描述页面 `UI` 的方式。看起来，`JSX` 有点像模板语言，其实它是由 `React` 内部实现的。我们在浏览器中看到的 `html` 是 `JSX` 内容经过转换显示出来的。
@@ -80,18 +78,16 @@ import ReactDOM from 'react-dom';
 
 const user = {
   firstName: 'React',
-  lastName: 'Hello'
+  lastName: 'Hello',
 };
 
-const formatName = user => `${user.firstName}  ${user.lastName}`;
+const formatName = (user) => `${user.firstName}  ${user.lastName}`;
 const element = <h1>Hello, {formatName(user)}</h1>;
 
 ReactDOM.render(element, document.getElementById('root'));
 ```
 
 推荐在 `JSX` 代码的外面扩上一个小括号，这样可以防止 [分号自动插入](http://stackoverflow.com/q/2846283) 的 `bug`。
-
-
 
 #### 2、JSX 本身其实也是一种表达式
 
@@ -105,12 +101,12 @@ import ReactDOM from 'react-dom';
 
 const user = {
   firstName: 'E2E',
-  lastName: 'team'
+  lastName: 'team',
 };
 
-const formatName = user => `${user.firstName}  ${user.lastName}`;
+const formatName = (user) => `${user.firstName}  ${user.lastName}`;
 
-const getGreeting = user => {
+const getGreeting = (user) => {
   if (user) {
     return <h1>Hello, {formatName(user)}!</h1>;
   }
@@ -121,8 +117,6 @@ const element = <div>{getGreeting(user)}!</div>;
 
 ReactDOM.render(element, document.getElementById('root'));
 ```
-
-
 
 #### 3、JSX 嵌套
 
@@ -145,14 +139,12 @@ const element = (
 
 注意：多行的 `JSX` 要用小括号包裹，里面如果有多个 `DOM` 节点，也需要用一个 `DOM` 节点包裹起来，所以这里加了最外面的 `div` 。
 
-
-
 #### 4、JSX 属性
 
 - 可以使用引号来定义以字符串为值的属性：
 
 ```jsx
-const element = <div tabIndex="0" />;
+const element = <div tabIndex='0' />;
 ```
 
 注意：由于相对`HTML` 而言，`JSX` 更加类似于`JavaScript`，`React DOM` 使用驼峰命名代替 `HTML` 中的属性名。
@@ -164,8 +156,6 @@ const element = <img src={user.avatarUrl} />;
 ```
 
 注意：使用了大括号包裹的 `JavaScript` 表达式时就不能再到外面套引号了，`JSX` 会将引号中的内容识别为字符串而不是表达式。
-
-
 
 #### 5、JSX 能够防注入攻击
 
@@ -185,8 +175,6 @@ render() {
 const element = <div dangerouslySetInnerHTML={{ __html: content }} />;
 ```
 
-
-
 #### 6、JSX 代表 Objects
 
 `Babel` 转译器会把 `JSX` 转换成一个名为 `React.createElement()` 的方法调用。
@@ -194,7 +182,7 @@ const element = <div dangerouslySetInnerHTML={{ __html: content }} />;
 下面两种代码的作用是完全相同的：
 
 ```jsx
-const element = <h1 className="greeting">Hello, world!</h1>;
+const element = <h1 className='greeting'>Hello, world!</h1>;
 ```
 
 ```jsx
@@ -213,14 +201,12 @@ const element = {
   type: 'h1',
   props: {
     className: 'greeting',
-    children: 'Hello, world'
-  }
+    children: 'Hello, world',
+  },
 };
 ```
 
 这样的对象被称为 **`React` 元素**。它代表所有可以在屏幕上看到的东西。`React` 通过读取这些对象来构建 `DOM` 并保持数据内容一致。
-
-
 
 ### 三、元素
 
@@ -245,8 +231,6 @@ ReactDOM.render(element, document.getElementById('root'));
 
 浏览器中，可以看到 `element` 元素显示到了页面上。
 
-
-
 #### 2、React 只会更新必要的内容
 
 `Index.js` :
@@ -268,7 +252,7 @@ const tick = () => {
 setInterval(tick, 1000);
 ```
 
-<img src="/ImageHosting/React/granular-dom-updates.gif" alt="更新必要部分" style="zoom: 67%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/granular-dom-updates.gif" alt="更新必要部分" style="zoom: 67%;" />
 
 ### 四、组件&Props
 
@@ -284,17 +268,15 @@ setInterval(tick, 1000);
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Welcome = props => {
+const Welcome = (props) => {
   return <h1>Hello, {props.name}</h1>;
 };
-const element = <Welcome name="Sara" />;
+const element = <Welcome name='Sara' />;
 
 ReactDOM.render(element, document.getElementById('root'));
 ```
 
 这个函数就是一个完整的 `React` 组件，因为它接收一个 `props` 对象作为参数，返回一个 `React` 元素。这样的组件叫做函数式组件。
-
-
 
 #### 2、class 式组件
 
@@ -312,14 +294,12 @@ class Welcome extends React.Component {
   }
 }
 
-const element = <Welcome name="Sara" />;
+const element = <Welcome name='Sara' />;
 
 ReactDOM.render(element, document.getElementById('root'));
 ```
 
 从 `React` 的角度，上面两个组件是等价的。不过 `class` 式组件功能会多一些。
-
-
 
 #### 3、组件的组合
 
@@ -342,9 +322,9 @@ class Welcome extends React.Component {
 const App = () => {
   return (
     <div>
-      <Welcome name="Sara" />
-      <Welcome name="Cahal" />
-      <Welcome name="Edite" />
+      <Welcome name='Sara' />
+      <Welcome name='Cahal' />
+      <Welcome name='Edite' />
     </div>
   );
 };
@@ -353,8 +333,6 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 浏览器中，显示了三个 `Welcome` 。
-
-
 
 ### 五、State&生命周期
 
@@ -389,8 +367,6 @@ ReactDOM.render(element, document.getElementById('root'));
 
 `Clock` 是一个 `class` 式组件。里面初始化了 `state` 值。然后 `render` 函数中，显示出了这个 `state` 值。
 
-
-
 #### 2、给 class 添加生命周期方法
 
 每当 `Clock` 组件第一次加载到 `DOM` 中的时候，我们都想[生成定时器](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval)，这在 `React` 中被称为`挂载`
@@ -419,7 +395,7 @@ class Clock extends Component {
 
   tick = () => {
     this.setState({
-      date: new Date()
+      date: new Date(),
     });
   };
 
@@ -443,8 +419,6 @@ ReactDOM.render(<Clock />, document.getElementById('root'));
 来定义关键的 `tick` 函数，里面的关键动作就是更新 `state` 值。注意一定要用 `this.setState` 来更新。
 
 浏览器中，可以看到每秒钟界面显示时间都会更新。
-
-
 
 ### 六、事件处理
 
@@ -471,8 +445,8 @@ class Toggle extends Component {
   }
 
   handleClick = () => {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
+    this.setState((prevState) => ({
+      isToggleOn: !prevState.isToggleOn,
     }));
   };
 
@@ -490,8 +464,6 @@ ReactDOM.render(<Toggle />, document.getElementById('root'));
 
 **注意**：类的方法默认是不会[绑定](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind) `this` 的。可以将 `handleClick` 直接赋值为一个 `es6` 箭头函数，这样的好处是里面直接使用 `this` 而无需绑定。由于 `this.setState` 的异步性，所以参数不能传入对象，而要传入一个函数，才能稳妥的基于之前的状态来获得最新状态值。
 
-
-
 #### 2、给事件处理函数传参
 
 通常我们会为事件处理程序传递额外的参数。例如，若是 `id` 是你要删除那一行的 `id`：
@@ -503,7 +475,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class List extends React.Component {
-  deleteRow = id => {
+  deleteRow = (id) => {
     console.log(id);
   };
 
@@ -531,8 +503,6 @@ ReactDOM.render(<List />, document.getElementById('root'));
 
 `ES6` 参数中拿到 `e` ，把它作为第二个参数传递给 `deleteRow` 即可。
 
-
-
 ### 七、条件渲染
 
 在 `React` 中，你可以创建不同的组件来封装各种你需要的行为。然后还可以根据应用的状态变化只渲染其中的一部分。
@@ -550,7 +520,7 @@ import ReactDOM from 'react-dom';
 const UserGreeting = () => <h1>Welcome back!</h1>;
 const GuestGreeting = () => <h1>Please sign up.</h1>;
 
-const Greeting = props => {
+const Greeting = (props) => {
   const isLoggedIn = props.isLoggedIn;
   if (isLoggedIn) {
     return <UserGreeting />;
@@ -568,8 +538,6 @@ ReactDOM.render(
 
 浏览器中，当 `isLoggedIn` 设置为 `true` 和 `false` ，会分别显示不同的打招呼信息。
 
-
-
 #### 2、元素变量
 
 你可以使用变量来储存元素。它可以帮助你有条件的渲染组件的一部分，而输出的其他部分不会更改。
@@ -582,10 +550,10 @@ import ReactDOM from 'react-dom';
 
 const UserGreeting = () => <h1>Welcome Back</h1>;
 const GuestGreeting = () => <h1>Please Sign Up</h1>;
-const LoginButton = props => <button onClick={props.onClick}>Login</button>;
-const LogoutButton = props => <button onClick={props.onClick}>Logout</button>;
+const LoginButton = (props) => <button onClick={props.onClick}>Login</button>;
+const LogoutButton = (props) => <button onClick={props.onClick}>Logout</button>;
 
-const Greeting = props => {
+const Greeting = (props) => {
   const { isLoggedIn } = props;
   if (isLoggedIn) {
     return <UserGreeting />;
@@ -595,17 +563,17 @@ const Greeting = props => {
 
 class LoginControl extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: false,
   };
 
   handleLoginClick = () => {
     this.setState({
-      isLoggedIn: true
+      isLoggedIn: true,
     });
   };
   handleLogoutClick = () => {
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
     });
   };
 
@@ -632,8 +600,6 @@ ReactDOM.render(<LoginControl />, document.getElementById('root'));
 
 添加两个按钮组件进来，一个是登录，一个是登出。创建一个 `LoginControl` 组件，初始化 `isLoggedIn` ，添加登录和登出对应的处理函数，里面对 `isLoggedIn` 状态值进行了修改。
 
-
-
 #### 3、与运算符 &&
 
 `JavaScript` 的逻辑与 `&&`，它可以方便地条件渲染一个元素。
@@ -644,7 +610,7 @@ ReactDOM.render(<LoginControl />, document.getElementById('root'));
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Mailbox = props => {
+const Mailbox = (props) => {
   const { unreadMessages } = props;
   return (
     <div>
@@ -664,8 +630,6 @@ ReactDOM.render(
 ```
 
 定义 `Mailbox` 组件，属性中拿到未读邮件的数组，下面用 `&&` 号实现 `if` 的效果，如果未读邮件数量大于 0，就显示未读邮件的数量；如果数量为 0，那么大括号里面内容就求值为 `undefined` ，也就是什么都不会显示了。
-
-
 
 #### 4、三目运算符
 
@@ -699,8 +663,6 @@ render() {
 }
 ```
 
-
-
 #### 5、阻止组件渲染
 
 在极少数情况下，你可能希望隐藏组件，即使它被其他组件渲染。让 `render` 方法返回 `null` 而不是它的渲染结果即可实现。
@@ -711,12 +673,12 @@ render() {
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const WarningBanner = props => {
+const WarningBanner = (props) => {
   if (!props.warn) {
     return null;
   }
 
-  return <div className="warning">Warning!</div>;
+  return <div className='warning'>Warning!</div>;
 };
 
 class Page extends React.Component {
@@ -727,7 +689,7 @@ class Page extends React.Component {
 
   handleToggleClick = () => {
     this.setState({
-      showWarning: !this.state.showWarning
+      showWarning: !this.state.showWarning,
     });
   };
 
@@ -746,8 +708,6 @@ class Page extends React.Component {
 ReactDOM.render(<Page />, document.getElementById('root'));
 ```
 
-
-
 ### 八、列表 & Keys
 
 #### 1、渲染多个组件
@@ -758,7 +718,7 @@ ReactDOM.render(<Page />, document.getElementById('root'));
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(number => number * 2);
+const doubled = numbers.map((number) => number * 2);
 console.log(doubled);
 ```
 
@@ -772,10 +732,10 @@ import ReactDOM from 'react-dom';
 
 const messages = ['hello', 'hi', 'how are you'];
 
-const List = props => {
+const List = (props) => {
   const { messages } = props;
 
-  const list = messages.map(t => <li>{t}</li>);
+  const list = messages.map((t) => <li>{t}</li>);
   return <ul>{list}</ul>;
 };
 
@@ -783,8 +743,6 @@ ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 ```
 
 注：此时打开浏览器控制台会有报错信息：`Warning: Each child in an array or iterator should have a unique "key" prop.` 。原因是每一个列表条目都应该有一个独一无二的 `key` 。
-
-
 
 #### 2、Key
 
@@ -799,21 +757,21 @@ import ReactDOM from 'react-dom';
 const messages = [
   {
     id: 1,
-    text: 'React'
+    text: 'React',
   },
   {
     id: 2,
-    text: 'Re: React'
+    text: 'Re: React',
   },
   {
     id: 3,
-    text: 'Re:Re: React'
-  }
+    text: 'Re:Re: React',
+  },
 ];
 
-const List = props => {
+const List = (props) => {
   const { messages } = props;
-  const list = messages.map(t => <li key={t.id}>{t.text}</li>);
+  const list = messages.map((t) => <li key={t.id}>{t.text}</li>);
 
   return <ul>{list}</ul>;
 };
@@ -825,8 +783,6 @@ ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 
 实际开发中的数据一般都是配有 `id` 的，将 `id` 作为 `key` 是一个很好的做法。如果用数组 `index` 作为 `key` 也是勉强可以的，但是由于 `index` 可能会随着数组元素的增减发生变化，如果列表可以重新排序，这会导致渲染变得很慢。
 
-
-
 ### 九、表单
 
 当用户提交表单时，`HTML` 的默认行为会使这个表单跳转到一个新页面。在 `React` 中亦是如此。
@@ -836,8 +792,6 @@ ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 #### 1、受控组件
 
 `<input>` 或 `<select>` 都要绑定一个 `change` 事件，每当表单的状态发生变化，都会被写入组件的 `state` 中,这种组件在 `React` 中被称为受控组件。
-
-
 
 #### 2、form 基本用法
 
@@ -853,13 +807,13 @@ class Form extends Component {
     this.state = { username: '' };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     console.log(this.state.username);
     e.preventDefault();
   };
@@ -869,7 +823,7 @@ class Form extends Component {
       <div>
         username:
         <input
-          type="text"
+          type='text'
           value={this.state.username}
           onChange={this.handleChange}
         />
@@ -883,8 +837,6 @@ ReactDOM.render(<Form />, document.getElementById('root'));
 ```
 
 由于 `value` 属性是在我们的表单元素上设置的，因此显示的值将始终为 `React` 数据源上`this.state.value` 的值。由于每次按键都会触发 `handleChange` 来更新当前 `React` 中的 `state`，所展示的值也会随着不同用户的输入而更新。
-
-
 
 #### 3、处理多个输入
 
@@ -900,15 +852,15 @@ class Form extends Component {
     this.state = { username: '', email: '' };
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { value, name } = event.target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     console.log(`${this.state.username} ${this.state.email}`);
     e.preventDefault();
   };
@@ -918,16 +870,16 @@ class Form extends Component {
       <div>
         Username:
         <input
-          name="username"
-          type="text"
+          name='username'
+          type='text'
           value={this.state.username}
           onChange={this.handleChange}
         />
         <br />
         Email:
         <input
-          name="email"
-          type="text"
+          name='email'
+          type='text'
           value={this.state.email}
           onChange={this.handleChange}
         />

@@ -34,15 +34,13 @@ urlname: javascript-memory-management
 
 3. 不需要时将其释放 / 归还
 
-像 `C` 语言这样的底层语言一般都有底层的内存管理接口，比如 `malloc()` 和 `free()`。相反，`JavaScript` 是在创建变量（对象，字符串等）时自动进行了分配内存，并且在不使用它们时**自动释放**。 释放的过程称为垃圾回收。这也让 `JavaScript`开发者错误的感觉可以不关心内存管理。 
-
-
+像 `C` 语言这样的底层语言一般都有底层的内存管理接口，比如 `malloc()` 和 `free()`。相反，`JavaScript` 是在创建变量（对象，字符串等）时自动进行了分配内存，并且在不使用它们时**自动释放**。 释放的过程称为垃圾回收。这也让 `JavaScript`开发者错误的感觉可以不关心内存管理。
 
 ### 二、内存分配
 
 **程序执行的时候内存空间会分为代码区和数据区，数据区又可以分为静态存储区和动态存储区，动态存储区又可以分为堆区和栈区。** 如下图：
 
-<img src="/ImageHosting/JavaScript/javascript-memory-management.jpg" alt="javascript-memory-management.png" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-memory-management.jpg" alt="javascript-memory-management.png" style="zoom:50%;" />
 
 以下面的代码为例，分别对几个名字做一下简单介绍：
 
@@ -58,7 +56,7 @@ for (let i = 0; i < 10; i++) {
 
 function fun() {
   // 字符串数据分配在栈区
-  let str = "";
+  let str = '';
   // 数组数据分配在堆区，数据的地址变量 arr 分配在栈区
   let arr = [];
   // 对象数据分配在堆区，数据的地址变量 obj 分配在栈区
@@ -66,12 +64,10 @@ function fun() {
 }
 ```
 
+- 代码区
 
-
--  代码区
-
-  - `Javascript` 代码要想被 `CPU` 执行，都要被编译处理成 `CPU` 可以读取运行的指令（`CPU` 都有自己硬件层面的指令集）。 
-  - 代码区存放的是 `for`、`if`、`while` 等程序结构经过解析编译处理后存放在内存中的程序指令，这些程序指令可以控制 `CPU` 的运行，`CPU` 中有相关的寄存器可以处理这些程序指令（具体的内部硬件原理我们可以不用管， 只需要知道代码区存储的二进制程序指令可以控制 `CPU` 的状态）。比如代码中定义的 `for` 循环结构，它的功能就是多次循环执行里面包裹的的加法运算。在初始化 `Javascript` 代码的时候， `for` 循环程序会被处理为一条一条的程序指令存放在内存的代码区，当 `CPU` 的程序计数器指向内存中代码区程序指令的时候，就会循环调用自己的硬件加法器完成相关的运算。
+- `Javascript` 代码要想被 `CPU` 执行，都要被编译处理成 `CPU` 可以读取运行的指令（`CPU` 都有自己硬件层面的指令集）。
+- 代码区存放的是 `for`、`if`、`while` 等程序结构经过解析编译处理后存放在内存中的程序指令，这些程序指令可以控制 `CPU` 的运行，`CPU` 中有相关的寄存器可以处理这些程序指令（具体的内部硬件原理我们可以不用管， 只需要知道代码区存储的二进制程序指令可以控制 `CPU` 的状态）。比如代码中定义的 `for` 循环结构，它的功能就是多次循环执行里面包裹的的加法运算。在初始化 `Javascript` 代码的时候， `for` 循环程序会被处理为一条一条的程序指令存放在内存的代码区，当 `CPU` 的程序计数器指向内存中代码区程序指令的时候，就会循环调用自己的硬件加法器完成相关的运算。
 
 - 数据区
 
@@ -98,7 +94,7 @@ function fun() {
     var city = 'Wuhan';
     ```
 
-    <img src="/ImageHosting/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
+    <img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
 
 - 堆
 
@@ -117,18 +113,16 @@ function fun() {
     ```
 
     `null` 是一个空值，空指针，一般用于释放堆区数据。`arr` 原本指向堆区的数组数据，但是你重新给 `arr` 赋值为空指针，不再指向 `arr` 数组，那么该数组占据的内存空间就会被释放。
-    
+
   - 示意图：
-  
+
     ```javascript
     var person1 = { name: '陈星星' };
     var person2 = { name: 'Deepspace' };
     var person3 = { name: '陈鑫' };
     ```
-  
-    <img src="/ImageHosting/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
-  
-    
+
+    <img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
 
 看下面的示例代码，比较基本类型数据与引用类型的数据有什么区别。
 

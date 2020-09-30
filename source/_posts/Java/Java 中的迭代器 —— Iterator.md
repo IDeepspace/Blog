@@ -9,9 +9,7 @@ date: 2017-06-29
 urlname: java-iterator
 ---
 
-
-
-### 一、  Iterator 是什么？
+### 一、 Iterator 是什么？
 
 #### 1、迭代器模式
 
@@ -25,9 +23,7 @@ urlname: java-iterator
 
 #### 2、Iterator 接口
 
-在 `Java` 中，提供了一个迭代器接口 `Iterator` ，把在集合对象中元素之间遍历的工作交给迭代器，而不是集合对象本身，迭代器为遍历不同的集合对象提供一个统一的接口。这就是 `Java` 集合框架中  `Iterable` 接口位于框架结构最顶层的原因。这其实也就是面向对象的思想。
-
-
+在 `Java` 中，提供了一个迭代器接口 `Iterator` ，把在集合对象中元素之间遍历的工作交给迭代器，而不是集合对象本身，迭代器为遍历不同的集合对象提供一个统一的接口。这就是 `Java` 集合框架中 `Iterable` 接口位于框架结构最顶层的原因。这其实也就是面向对象的思想。
 
 ### 二、Iterator 的使用
 
@@ -61,8 +57,6 @@ public interface Iterator<E> {
 - `E next()`：返回迭代中的下一个元素；
 - `default void remove()`：从集合中移除此迭代器返回的最后一个元素，它是一个可选的操作；
 - `default void forEachRemaining(Consumer action)` ：对每个剩余元素执行给定的操作，直到所有元素都已处理完毕或该操作引发异常。
-
-
 
 #### 2、Iterator 基本示例
 
@@ -163,8 +157,6 @@ public class Main {
 }
 ```
 
-
-
 ### 三、Iterator 内部是如何工作的？
 
 下面我们来了解下 `Java` 迭代器及其方法是如何在内部工作的。以 `LinkedList` 对象为例。
@@ -187,7 +179,7 @@ Iterator<String> namesIterator = names.iterator();
 
 可以用下面的图来表示 `nameIterator` ：
 
-<img src="/ImageHosting/Java/iterator1.png" alt="迭代器1" style="zoom:60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/iterator1.png" alt="迭代器1" style="zoom:60%;" />
 
 这里，`Iterator` 的 `Cursor` （光标）指向 `List` 的第一个元素之前。
 
@@ -200,7 +192,7 @@ namesIterator.next();
 
 这个时候，`Iterator` 的 `Cursor` 指向 `List` 中的第一个元素，如下图所示：
 
-<img src="/ImageHosting/Java/iterator2.png" alt="迭代器2" style="zoom:60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/iterator2.png" alt="迭代器2" style="zoom:60%;" />
 
 我们再运行一下刚才的两行代码：
 
@@ -211,23 +203,21 @@ namesIterator.next();
 
 `Iterator` 的 `Cursor` 会指向 `List` 中的第二个元素：
 
-<img src="/ImageHosting/Java/iterator3.png" alt="迭代器3" style="zoom:60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/iterator3.png" alt="迭代器3" style="zoom:60%;" />
 
 以此类推，重复执行此过程，可将 `Iterator` 的 `Cursor` 指向 `List` 中的最后一个元素。
 
-<img src="/ImageHosting/Java/iterator4.png" alt="迭代器4" style="zoom:60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/iterator4.png" alt="迭代器4" style="zoom:60%;" />
 
 当读取最后一个元素后，如果继续运行上面的代码片段，它将返回 `false` 。
 
-<img src="/ImageHosting/Java/iterator5.png" alt="迭代器5" style="zoom:60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/iterator5.png" alt="迭代器5" style="zoom:60%;" />
 
-从上面的描述可以看出，`Java` 迭代器只支持如下图所示的**前进方向迭代**。 
+从上面的描述可以看出，`Java` 迭代器只支持如下图所示的**前进方向迭代**。
 
-<img src="/ImageHosting/Java/iterator6.png" alt="迭代器6" style="zoom:60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/iterator6.png" alt="迭代器6" style="zoom:60%;" />
 
 所以在一些地方迭代器也称为单向光标。
-
-
 
 ### 四、Iterator 的优缺点
 
@@ -245,8 +235,6 @@ namesIterator.next();
 **什么是并行呢？**
 
 并行指的是以某种方式利用多核 `CPU` 单元进行编程。也就是说，要完成一项任务，可以将其分解为可以并行处理的单独的子任务，然后汇总所有已处理单元的结果以完成原始工作
-
-
 
 ### 五、ListIterator
 
@@ -379,16 +367,12 @@ E-2
 E-1
 ```
 
-
-
 #### 2、ListIterator 的局限性
 
 与 `Iterator` 相比，`ListIterator` 有许多优势。 但是它仍然存在一些局限性：
 
 - 它不适用于整个集合 `API`，只对 `List` 实现的类有用，而 `Iterator` 支持所有的集合类型；
 - 依然不支持元素的并行迭代；
-
-
 
 ### 六、Spliterator
 
@@ -397,8 +381,6 @@ E-1
 `Spliterator` 是 `Java8` 中新增的一个 `API`，除了支持顺序遍历之外，还支持高效的并行遍历。
 
 > 由于是 `Java8` 中新增的 `API`，所以在介绍它的使用上，读者需要具备 `Stream` 和 `Lambda` 表达式的一些知识。
-
-
 
 #### 1、Spliterator 中的方法
 
@@ -460,8 +442,6 @@ public int characteristics() {
 
 > 那该分成多少个线程呢？如果线程池中线程数量过多，最终它们会与处理其它任务的线程来竞争稀缺的处理器和内存资源，浪费大量的时间在上下文切换上。反之，如果线程的数目过少，那么多核处理器的一些核可能就无法充分利用。这个问题在这里暂不讨论，会在并发编程里讲解。
 
-
-
 #### 2、Spliterator 的基本示例
 
 下面我们将通过一个例子讨论 `Spliterator` 如何使用并行化更有效地遍历我们可以分解的 `Stream` 。
@@ -519,8 +499,6 @@ Wolverine
 Mystique
 ```
 
-
-
 #### 3、实现并行
 
 再看看使用 `trySplit()` 方法，实现并行：
@@ -572,8 +550,6 @@ Wolverine
 Mystique
 ```
 
-
-
 ### 七、Iterable 接口
 
 我们发现，在集合框架的最顶层就是 `Iterable` 接口，该接口中只有三个方法，源码如下：
@@ -605,13 +581,11 @@ public interface Iterable<T> {
 
 通过前面的讲解，我们知道 `Iterator` 接口的核心方法是 `next()` 和 `hasNext()` 方法，而这两个方法是**依赖于迭代器的当前迭代位置的**。如果 `Collection` 直接实现 `Iterator` 接口，那就会导致集合对象中包含当前迭代位置的数据（指针）。
 
-当集合在不同方法间被传递时，由于当前迭代位置不可预知，那么 `next()` 方法的结果也就会变成不可预知。 除非再为 `Iterator` 接口添加一个 `reset()` 方法，用来重置当前迭代位置。 但是即使这样做的话，`Collection` 也只能**同时存在一个当前迭代位置**。 
+当集合在不同方法间被传递时，由于当前迭代位置不可预知，那么 `next()` 方法的结果也就会变成不可预知。 除非再为 `Iterator` 接口添加一个 `reset()` 方法，用来重置当前迭代位置。 但是即使这样做的话，`Collection` 也只能**同时存在一个当前迭代位置**。
 
 而集合框架实现了 `Iterable` 接口，每次调用都会返回一个从头开始计数的迭代器，这样多个迭代器是互不干扰的。
 
 所以，基于上面的原因，集合框架实现的是 `Iterable` 接口，而不是直接实现 `Iterator` 接口。
-
-
 
 ### 八、编写自定义的 Iterator
 
@@ -710,8 +684,6 @@ name: xiaobai, age: 34.
 name: xiaohuang, age: 48.
 ```
 
-
-
 ### 九、Enumeration 接口
 
 `Enumeration` 接口也可以用于迭代，其中定义了一些方法，通过这些方法可以枚举（一次获得一个）对象集合中的元素。
@@ -744,11 +716,11 @@ public class Main {
     employees.add(2001);
     employees.add(3001);
     employees.add(4001);
-    
+
     company = employees.elements();
 
     while (company.hasMoreElements()) {
-      // get elements using nextElement() 
+      // get elements using nextElement()
       System.out.println("Emp ID = " + company.nextElement());
     }
   }
@@ -756,14 +728,13 @@ public class Main {
 ```
 
 #### 1、Enumeration 接口和 Iterator 接口的区别
+
 下面我们看看两者的区别：
 
 1）函数接口不同
 
 - `Enumeration` 只有 `2` 个函数接口；通过 `Enumeration`，我们只能读取集合的数据，而不能对数据进行修改；
 - 而 `Iterator` 接口中还有其他方法，除了能读取集合的数据之外，也能对数据进行删除操作。
-
-
 
 2）`Iterator` 支持 `fail-fast` 机制，而 `Enumeration` 不支持
 
@@ -776,8 +747,6 @@ public class Main {
 而 `Iterator` 是 `JDK 1.2` 才添加的接口，它也是为了 `HashMap`、`ArrayList` 等集合提供遍历接口。 `Iterator` 是支持 `fail-fast` 机制的，当多个线程对同一个集合的内容进行操作时，就可能会产生 `fail-fast` 事件。
 
 所以，使用 `Iterator` 更加安全。
-
-
 
 3）性能方面，对于 `Vector` 和 `Hashtable` 类型集合来说，`Enumeration` 的速度比 `Iterator` 接口快，同时所需的内存也远比 `Iterator` 低。
 
@@ -836,4 +805,3 @@ public class IteratorEnumeration {
   }
 }
 ```
-

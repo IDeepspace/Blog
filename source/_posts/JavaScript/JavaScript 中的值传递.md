@@ -9,8 +9,6 @@ date: 2018-07-03
 urlname: javascript-passing-by-value
 ---
 
-
-
 ## JavaScript 中函数参数的值传递
 
 `JavaScript` 中函数参数是按值传递，还是按引用传递呢？
@@ -21,8 +19,6 @@ urlname: javascript-passing-by-value
 - 引用类型
 
 下面我们分别通过例子来分析。
-
-
 
 ### 一、基本类型
 
@@ -39,8 +35,6 @@ console.log(value); // 1
 ```
 
 很好理解，当传递 `value` 到函数 `foo` 时中，相当于**拷贝**了一份 `value`，假设拷贝的这份叫 `_value`，函数中修改的都是 `_value` 的值，而不会影响原来的 `value` 值。所以，基本类型是按值传递的。
-
-
 
 ### 二、引用类型
 
@@ -88,7 +82,7 @@ var person2 = { name: 'Deepspace' };
 var person3 = { name: '陈鑫' };
 ```
 
-<img src="/ImageHosting/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
 
 所以引用传递传的其实是**栈内存当中的引用地址**。回到上面的例子中：
 
@@ -122,8 +116,6 @@ console.log(obj.value); // 1
 
 **当 `o` 被重新定义时，其引用的对象已经与 `obj` 不同，所以，`o` 的更改不会对 `obj` 引用的对象有任何影响**。
 
-
-
 ### 三、总结
 
 - 基本类型值存储于栈内存中，传递的就是当前值，修改不会影响原有变量的值；
@@ -151,4 +143,3 @@ console.log(webSite.siteUrl);
 ```javascript
 http://www.baidu.com
 ```
-

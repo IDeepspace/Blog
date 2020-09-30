@@ -8,14 +8,11 @@ date: 2018-06-29
 urlname: javascript-ajax
 ---
 
-
-`Ajax`，是对 `Asynchronous JavaScript + XML` 的简写，也就是 **异步 `JavaScript` + `XML`。** 
+`Ajax`，是对 `Asynchronous JavaScript + XML` 的简写，也就是 **异步 `JavaScript` + `XML`。**
 
 它并不是 `JavaScript` 的一部分，而是网页与服务器通信的一系列技术的总称。
 
 尽管 `X` 在 `Ajax` 中代表`XML`，但由于 `JSON` 的许多优势（更加轻量、可读性高等），并且 `JSON` 作为`Javascript`的一部分，所以现在使用 `JSON` 作为数据传输比 `XML` 更加普遍。
-
-
 
 ### 一、同步和异步
 
@@ -37,7 +34,7 @@ urlname: javascript-ajax
 
 在 `Ajax` 出现之前，网页想要和服务器通信，最常用的方式是使用 `form` 表单。工作方式如下图：
 
-<img src="/ImageHosting/JavaScript/no-ajax.jpg" alt="no ajax" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/no-ajax.jpg" alt="no ajax" />
 
 <p align="center">(图片来自网络)</p>
 举个邮箱注册页面的例子。
@@ -56,8 +53,6 @@ urlname: javascript-ajax
 
 当邮箱输入框失去焦点时，使用 `Ajax` 向服务器发送一个验证请求，来验证此邮箱的唯一性，该请求会根据验证结果返回不同的值。`JavaScript` 根据返回结果执行相应的操作（回调），更改页面上的元素。在这个过程中，页面并不会刷新，所以用户之前的操作状态也不会消失。同时，服务器端传输的只是数据而不是网页，数据量会变小很多，节约带宽。
 
-
-
 ### 三、XMLHttpRequest 对象
 
 浏览器为我们提供了 `XMLHttpRequest` 对象（低版本 `IE` 使用 `ActiveXObject` 对象），允许使用 `JavaScript` 发出 `HTTP` 请求。
@@ -65,8 +60,6 @@ urlname: javascript-ajax
 尽管名称中带有 `XML` 一词，但它可以对任何数据进行操作，而不仅限于 `XML` 格式。我们也可以上传/下载文件等操作。
 
 **`XMLHttpRequest` 具有两种操作模式：同步和异步。** 绝大多数情况下，我们只使用异步模式。
-
-
 
 #### 创建请求
 
@@ -83,7 +76,7 @@ urlname: javascript-ajax
 2. **初始化**
 
    ```javascript
-   xhr.open(method, URL, [async, user, password])
+   xhr.open(method, URL, [async, user, password]);
    ```
 
    这个方法指定请求的主要参数：
@@ -96,12 +89,10 @@ urlname: javascript-ajax
 3. **发送请求**
 
    ```javascript
-   xhr.send([body])
+   xhr.send([body]);
    ```
 
    `send` 方法打开连接并将请求发送到服务器。
-
-
 
 #### 监听事件
 
@@ -124,19 +115,19 @@ xhr.onload = function () {
   console.log(`Loaded: ${xhr.status} ${xhr.response}`);
 };
 
-xhr.onerror = function () { // only triggers if the request couldn't be made at all
+xhr.onerror = function () {
+  // only triggers if the request couldn't be made at all
   console.log('Network Error');
 };
 
-xhr.onprogress = function (event) { // triggers periodically
+xhr.onprogress = function (event) {
+  // triggers periodically
   // event.loaded - how many bytes downloaded
   // event.lengthComputable = true if the server sent Content-Length header
   // event.total - total number of bytes (if lengthComputable)
   console.log(`Received ${event.loaded} of ${event.total}`);
 };
 ```
-
-
 
 #### 完整的例子
 
@@ -156,9 +147,11 @@ xhr.send();
 
 // 4. This will be called after the response is received
 xhr.onload = function () {
-  if (xhr.status != 200) { // analyze HTTP status of the response
+  if (xhr.status != 200) {
+    // analyze HTTP status of the response
     console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-  } else { // show the result
+  } else {
+    // show the result
     console.log(`Done, got ${JSON.stringify(xhr.responseText)}`); // responseText is the server
   }
 };
@@ -177,7 +170,7 @@ xhr.onerror = function () {
 
 2. `statusText`
 
-   `Http` 状态消息，是一个字符串，与状态码形成对应。比如字符串  `OK` 代表 `200`。
+   `Http` 状态消息，是一个字符串，与状态码形成对应。比如字符串 `OK` 代表 `200`。
 
 3. `responseText`
 
@@ -196,8 +189,6 @@ xhr.timeout = 1000; // timeout in ms, 1 seconds
 - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
 - https://wangdoc.com/javascript/bom/xmlhttprequest.html
 
-
-
 #### 同步请求
 
 如果在 `open` 方法中将第三个参数 `async` 设置为 `false`，则同步发出请求。换句话说，`JavaScript` 在 `send()` 处执行暂停，并在收到响应时恢复执行。
@@ -209,7 +200,11 @@ let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 let xhr = new XMLHttpRequest();
 
 // 2. Configure it: GET-request for the URL
-xhr.open('GET', 'https://zhuanlan.zhihu.com/api/columns/biancheng/articles', false);
+xhr.open(
+  'GET',
+  'https://zhuanlan.zhihu.com/api/columns/biancheng/articles',
+  false
+);
 
 try {
   xhr.send();
@@ -218,14 +213,13 @@ try {
   } else {
     console.log(xhr.responseText);
   }
-} catch (err) { // instead of onerror
+} catch (err) {
+  // instead of onerror
   console.log('Request failed');
 }
 ```
 
 所以在上面的代码中，`console.log('Done');` 的执行会等到 `send()` 执行完毕之后再执行。
-
-
 
 ### 四、封装 ajax
 

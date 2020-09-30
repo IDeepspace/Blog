@@ -4,7 +4,7 @@ author: Deepspace
 categories: Vue
 tag:
   - vue
-  - vue 组件间通讯 
+  - vue 组件间通讯
 date: 2019-01-25
 urlname: vue-pass-data-in-components
 ---
@@ -18,8 +18,7 @@ urlname: vue-pass-data-in-components
 这篇文章会从两个方便介绍 `vue` 组件间的通讯：
 
 ```htm
-- 父子组件之间的通讯
-- 兄弟组件之间的通讯
+- 父子组件之间的通讯 - 兄弟组件之间的通讯
 ```
 
 <!-- more -->
@@ -39,35 +38,35 @@ urlname: vue-pass-data-in-components
 ```html
 <template>
   <div>
-    <ChildCom :list='list' :run='run' :home='this'></ChildCom>
+    <ChildCom :list="list" :run="run" :home="this"></ChildCom>
   </div>
 </template>
 
 <script>
-import ChildCom from './ChildCom';
+  import ChildCom from './ChildCom';
 
-export default {
-  data() {
-    return {
-      list: ['我是父组件里面的数据', '我来自父组件'],
-    };
-  },
-  components: {
-    ChildCom,
-  },
-  methods: {
-    run() {
-      alert('我是父组件里面的方法'); // eslint-disable-line
+  export default {
+    data() {
+      return {
+        list: ['我是父组件里面的数据', '我来自父组件'],
+      };
     },
-  },
-};
+    components: {
+      ChildCom,
+    },
+    methods: {
+      run() {
+        alert('我是父组件里面的方法'); // eslint-disable-line
+      },
+    },
+  };
 </script>
 ```
 
 我们在父组件 `ParentCom` 里面引入了子组件 `ChildCom` 。为了将数据从父组件传到子组件，我们在子组件 `ChildCom` 上绑定了几个属性：
 
 ```html
-<childCom :list='list' :run='run' :home='this'></childCom>
+<childCom :list="list" :run="run" :home="this"></childCom>
 ```
 
 绑定属性的时候，属性名前需要加冒号。这里我们绑定了三个属性，父组件的 `data` 中的 `list` 、`methods` 中的 `run` 方法以及指向父组件的 `this`。
@@ -76,62 +75,60 @@ export default {
 
 接下来，我们创建一个 `ChildCom` 组件，通过子组件的 `props` 选项来获得父组件传过来的数据：
 
- ```html
+```html
 <template>
   <div>
-    <div class='list'>
+    <div class="list">
       <ul>
-        <li v-for='item in list' :key='item'>{{ item }}</li>
+        <li v-for="item in list" :key="item">{{ item }}</li>
       </ul>
     </div>
-    <div class='buttons'>
-      <button @click='run'>执行父组件的方法</button>
-      <button @click='getParent()'>获取父组件的数据和方法</button>
+    <div class="buttons">
+      <button @click="run">执行父组件的方法</button>
+      <button @click="getParent()">获取父组件的数据和方法</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    getParent() {
-      alert(this.home); // eslint-disable-line
-      alert(this.home.list); // eslint-disable-line
-      alert(this.home.run); // eslint-disable-line
+  export default {
+    methods: {
+      getParent() {
+        alert(this.home); // eslint-disable-line
+        alert(this.home.list); // eslint-disable-line
+        alert(this.home.run); // eslint-disable-line
+      },
     },
-  },
-  props: ['list', 'run', 'home'],
-};
+    props: ['list', 'run', 'home'],
+  };
 </script>
 
 <style lang="postcss" scoped>
-.list {
-  margin-bottom: 10px;
-}
-li {
-  margin: 10px 0;
-  list-style: none;
-}
-button {
-  padding: 6px;
-  background-color: #35b880;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
+  .list {
+    margin-bottom: 10px;
+  }
+  li {
+    margin: 10px 0;
+    list-style: none;
+  }
+  button {
+    padding: 6px;
+    background-color: #35b880;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+  }
 </style>
- ```
+```
 
 子组件的 `props` 中接收了父组件传递下来的属性。**需要注意的是，`props` 字符串数组中的值（`prop`）要和在父组件中为子组件绑定属性的属性名保持一致。**
 
 这里我们加了一些样式，在 `App.vue` 中引入父组件 `ParentCom` ，打开浏览器会看到：
 
-![父组件向子组件传递](/ImageHosting/Vue/vue-pass-data-1.png)
+![父组件向子组件传递](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-pass-data-1.png)
 
 这样，在子组件中就拿到了父组件传递下来的数据和方法以及父组件本身，点击按钮就可以查看到父组件传递给子组件的数据。
-
-
 
 #### 2、子组件向父组件通讯
 
@@ -145,9 +142,11 @@ button {
 首先在子组件 `ChildCom` 的 `<template>` 中添加一个新的标签 `button`。在这个 `button` 上添加一个`click `事件：
 
 ```html
-<div class='buttons'>
+<div class="buttons">
   <!-- add this -->
-  <button @click='submit("我是子组件传递给父组件的数据")'>子组件触发更改父组件的数据</button>
+  <button @click='submit("我是子组件传递给父组件的数据")'>
+    子组件触发更改父组件的数据
+  </button>
 </div>
 ```
 
@@ -168,7 +167,7 @@ methods: {
 },
 ```
 
-触发事件时发出（`$emit`）自定义的事件： `addItem`  ，这里我们也给 `addItem` 事件传递了一个 `text` 参数。这样就完成了**子组件发出自定义事件**的过程。
+触发事件时发出（`$emit`）自定义的事件： `addItem` ，这里我们也给 `addItem` 事件传递了一个 `text` 参数。这样就完成了**子组件发出自定义事件**的过程。
 
 接下来需要在父组件中监听子组件传递的自定义事件 `addItem` 。怎么做呢？
 
@@ -177,39 +176,42 @@ methods: {
 ```html
 <template>
   <div>
-    <ChildCom :list='list' :run='run' :home='this' @addItem='addItem'></ChildCom>
+    <ChildCom
+      :list="list"
+      :run="run"
+      :home="this"
+      @addItem="addItem"
+    ></ChildCom>
   </div>
 </template>
 
 <script>
-import ChildCom from './ChildCom';
+  import ChildCom from './ChildCom';
 
-export default {
-  data() {
-    return {
-      list: ['我是父组件里面的数据', '我来自父组件'],
-    };
-  },
-  components: {
-    ChildCom,
-  },
-  methods: {
-    run() {
-      alert('我是父组件里面的方法'); // eslint-disable-line
+  export default {
+    data() {
+      return {
+        list: ['我是父组件里面的数据', '我来自父组件'],
+      };
     },
-    addItem(item) {
-      this.list.push(item);
+    components: {
+      ChildCom,
     },
-  },
-};
+    methods: {
+      run() {
+        alert('我是父组件里面的方法'); // eslint-disable-line
+      },
+      addItem(item) {
+        this.list.push(item);
+      },
+    },
+  };
 </script>
 ```
 
 在子组件上绑定监听子组件中自定义事件的方法需要使用 `@` 符号，在 `methods` 中添加了 `addItem` 方法。这时候，我们打开浏览器，点击第三个按钮，就会看到子组件向父组件传递的数据了。
 
-![子组件向父组件传递](/ImageHosting/Vue/vue-pass-data-2.gif)
-
-
+![子组件向父组件传递](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-pass-data-2.gif)
 
 ##### 2.2 传递 props
 
@@ -218,8 +220,13 @@ export default {
 我们依旧使用上面的代码，在 `ParentCom` 组件中将 `addItem` 方法传递给子组件：
 
 ```html
-<ChildCom :list='list' :run='run' :home='this' @addItem='addItem' :addItem='addItem'></ChildCom>
-
+<ChildCom
+  :list="list"
+  :run="run"
+  :home="this"
+  @addItem="addItem"
+  :addItem="addItem"
+></ChildCom>
 ```
 
 在子组件 `ChildCom` 中添加一个 `button` ，在它的点击事件中执行父组件的 `addItem` 方法，所以，我们也需要在子组件的 `props` 选项中把 `addItem` 方法添加进去：
@@ -227,52 +234,56 @@ export default {
 ```html
 <template>
   <div>
-    <div class='list'>
+    <div class="list">
       <ul>
-        <li v-for='item in list' :key='item'>{{ item }}</li>
+        <li v-for="item in list" :key="item">{{ item }}</li>
       </ul>
     </div>
-    <div class='buttons'>
-      <button @click='run'>执行父组件的方法</button>
-      <button @click='getParent()'>获取父组件的数据和方法</button>
-      <button @click='submit("我是子组件传递给父组件的数据")'>子组件触发更改父组件的数据</button>
+    <div class="buttons">
+      <button @click="run">执行父组件的方法</button>
+      <button @click="getParent()">获取父组件的数据和方法</button>
+      <button @click='submit("我是子组件传递给父组件的数据")'>
+        子组件触发更改父组件的数据
+      </button>
       <!-- add this -->
-      <button @click='addItem("我是通过子组件props方式传递给父组件的数据")'>子组件触发更改父组件的数据-2</button>
+      <button @click='addItem("我是通过子组件props方式传递给父组件的数据")'>
+        子组件触发更改父组件的数据-2
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  },
-  methods: {
-    getParent() {
-      alert(this.home); // eslint-disable-line
-      alert(this.home.list); // eslint-disable-line
-      alert(this.home.run); // eslint-disable-line
-      alert(this.home.appendToList); // eslint-disable-line
+  export default {
+    data() {
+      return {};
     },
-    submit(text) {
-      this.$emit('addItem', text);
+    methods: {
+      getParent() {
+        alert(this.home); // eslint-disable-line
+        alert(this.home.list); // eslint-disable-line
+        alert(this.home.run); // eslint-disable-line
+        alert(this.home.appendToList); // eslint-disable-line
+      },
+      submit(text) {
+        this.$emit('addItem', text);
+      },
     },
-  },
-  // add this
-  props: ['list', 'run', 'home', 'addItem'],
-};
+    // add this
+    props: ['list', 'run', 'home', 'addItem'],
+  };
 </script>
 ```
 
 打开浏览器，点击 `button` :
 
-![子组件向父组件传递](/ImageHosting/Vue/vue-pass-data-3.gif)
+![子组件向父组件传递](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-pass-data-3.gif)
 
 ### 二、兄弟组件之间的通讯
 
 在 `vue` 中实现兄弟组件间的通讯主要有两种方法：**通过父组件进行兄弟组件之间通讯、通过 `EventHub` 进行兄弟组件间通讯。**为了不和上面讲述的父子组件之间通讯的代码混淆，这里我们重新新建组件来演示：
 
-- 父组件： `ParentCard ` 
+- 父组件： `ParentCard `
 - 两个兄弟组件：`BrotherCard` 和 `SisterCard`
 
 #### 1、通过父组件进行兄弟组件之间通讯
@@ -283,64 +294,71 @@ export default {
 
 ```html
 <template>
-  <div class='container'>
+  <div class="container">
     <h2>父组件</h2>
-    <button @click='stopCommunicate' v-if='showButton'>停止通讯</button>
-    <div class='card-body'>
-      <brother-card :messageSon='messageson' @brotherSaid='messageDaughter' class='card-brother'></brother-card>
-      <sister-card :messageDaughter='messagedaughter' @sisterSaid='messageSon' class='card-sister'></sister-card>
+    <button @click="stopCommunicate" v-if="showButton">停止通讯</button>
+    <div class="card-body">
+      <brother-card
+        :messageSon="messageson"
+        @brotherSaid="messageDaughter"
+        class="card-brother"
+      ></brother-card>
+      <sister-card
+        :messageDaughter="messagedaughter"
+        @sisterSaid="messageSon"
+        class="card-sister"
+      ></sister-card>
     </div>
   </div>
 </template>
 
 <script>
-import BrotherCard from './BrotherCard';
-import SisterCard from './SisterCard';
+  import BrotherCard from './BrotherCard';
+  import SisterCard from './SisterCard';
 
-export default {
-  name: 'ParentCard',
-  data() {
-    return {
-      messagedaughter: '',
-      messageson: '',
-    };
-  },
-  components: { BrotherCard, SisterCard },
-  methods: {
-    messageDaughter(message) {
-      this.messagedaughter = message;
+  export default {
+    name: 'ParentCard',
+    data() {
+      return {
+        messagedaughter: '',
+        messageson: '',
+      };
     },
-    messageSon(message) {
-      this.messageson = message;
+    components: { BrotherCard, SisterCard },
+    methods: {
+      messageDaughter(message) {
+        this.messagedaughter = message;
+      },
+      messageSon(message) {
+        this.messageson = message;
+      },
+      showButton() {
+        return this.messagedaughter && this.messageson;
+      },
+      stopCommunicate() {
+        this.messagedaughter = '';
+        this.messageson = '';
+      },
     },
-    showButton() {
-      return this.messagedaughter && this.messageson;
-    },
-    stopCommunicate() {
-      this.messagedaughter = '';
-      this.messageson = '';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-.container {
-  width: 70%;
-  margin: 10px auto;
-  border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px rgba(50, 50, 93, 0.1),
-    0 5px 15px rgba(0, 0, 0, 0.07) !important;
-  padding: 30px;
-}
-.card-body {
-  display: flex;
-  justify-content: center;
-}
-.card-brother,
-.card-sister {
-  margin: 0 50px;
-}
+  .container {
+    width: 70%;
+    margin: 10px auto;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07) !important;
+    padding: 30px;
+  }
+  .card-body {
+    display: flex;
+    justify-content: center;
+  }
+  .card-brother,
+  .card-sister {
+    margin: 0 50px;
+  }
 </style>
 ```
 
@@ -351,22 +369,22 @@ export default {
   <div>
     <div>
       <p>我是子组件：Brother</p>
-      <button @click='messageSister'>给妹妹发消息</button>
-      <div v-if='messageSon' v-html='messageSon'></div>
+      <button @click="messageSister">给妹妹发消息</button>
+      <div v-if="messageSon" v-html="messageSon"></div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'BrotherCard',
-  props: ['messageSon'],
-  methods: {
-    messageSister() {
-      this.$emit('brotherSaid', 'Hi，妹妹');
+  export default {
+    name: 'BrotherCard',
+    props: ['messageSon'],
+    methods: {
+      messageSister() {
+        this.$emit('brotherSaid', 'Hi，妹妹');
+      },
     },
-  },
-};
+  };
 </script>
 ```
 
@@ -377,40 +395,38 @@ export default {
   <div>
     <div>
       <p>我是子组件：Sister</p>
-      <button @click='messageBrother'>给哥哥发消息</button>
-      <div v-if='messageDaughter' v-html='messageDaughter'></div>
+      <button @click="messageBrother">给哥哥发消息</button>
+      <div v-if="messageDaughter" v-html="messageDaughter"></div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'SisterCard',
-  props: ['messageDaughter'],
-  methods: {
-    messageBrother() {
-      this.$emit('sisterSaid', 'Hi，哥哥');
+  export default {
+    name: 'SisterCard',
+    props: ['messageDaughter'],
+    methods: {
+      messageBrother() {
+        this.$emit('sisterSaid', 'Hi，哥哥');
+      },
     },
-  },
-};
+  };
 </script>
 ```
 
 结果如下：
 
-![兄弟组件之间的通信](/ImageHosting/Vue/vue-pass-data-4.gif)
+![兄弟组件之间的通信](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-pass-data-4.gif)
 
 在学习完父子组件之间的通讯方法之后，通过父组件进行兄弟组件的通讯就很简单了，其实就是把兄弟之间需要共享的数据提升至他们最近的父组件当中进行管理，将他们的父组件作为中间媒介（在 `React` 中把这种方式被称为状态提升）。
 
-
-
-#### 2、通过EventHub进行兄弟间组件通讯
+#### 2、通过 EventHub 进行兄弟间组件通讯
 
 在 `vue1.0` 中，组件之间的通信主要通过 `$dispatch` 沿着父链向上传播和通过 `$broadcast` 向下广播来实现。但是在 `vue2.0` 中 `$dispatch` 和 `$broadcast` 已经被[弃用](https://cn.vuejs.org/v2/guide/migration.html#events-%E9%80%89%E9%A1%B9-%E7%A7%BB%E9%99%A4)。
 
 `vue` 中也提供了类似 `Redux` 的组件通信和状态管理方案：`vuex`。对于中大型的项目来说，使用 `vuex` 是一个很好的选择。但是对于小型的项目来说，如果一开始就引入了 `vuex` ，是完全没必要的。
 
-`vue` 官方文档中也给出了`$dispatch`  和 `$broadcast ` 最简单的升级方式就是：**通过使用事件中心，允许组件自由交流，无论组件处于组件树的哪一层。** `vue` 文档中把这个**事件中心**命名为 `eventHub`，也有很多其他教程中将其命名为 `eventBus` 。在本教程中，我们统一命名为 `eventHub` 。
+`vue` 官方文档中也给出了`$dispatch` 和 `$broadcast ` 最简单的升级方式就是：**通过使用事件中心，允许组件自由交流，无论组件处于组件树的哪一层。** `vue` 文档中把这个**事件中心**命名为 `eventHub`，也有很多其他教程中将其命名为 `eventBus` 。在本教程中，我们统一命名为 `eventHub` 。
 
 我们同样基于上面的示例来做修改：`ParentCard ` 组件包含了 `SisterCard` 和 `BrotherCard` 两个子组件，而且这两个子组件是兄弟组件。
 
@@ -435,38 +451,38 @@ new Vue({
 });
 ```
 
-接着我们要做的是让  `eventHub` 实例成为 `BrotherCard` 组件中发出事件的实例，使用 `eventHub.$emit ` 来替代上例中的 `this.$emit`（因为 `eventHub` 是一个 `vue` 实例，所以它可以使用 `$emit` 方法）。
+接着我们要做的是让 `eventHub` 实例成为 `BrotherCard` 组件中发出事件的实例，使用 `eventHub.$emit ` 来替代上例中的 `this.$emit`（因为 `eventHub` 是一个 `vue` 实例，所以它可以使用 `$emit` 方法）。
 
 ```html
 <template>
   <div>
     <p>我是Brother组件</p>
-    <button @click='messageSister'>给妹妹发消息</button>
+    <button @click="messageSister">给妹妹发消息</button>
 
-    <div v-if='fromSister' v-html='fromSister'></div>
+    <div v-if="fromSister" v-html="fromSister"></div>
   </div>
 </template>
 
 <script>
-import { eventHub } from '../../main';
+  import { eventHub } from '../../main';
 
-export default {
-  name: 'BrotherCard',
-  data: () => ({
-    fromSister: '',
-  }),
-  methods: {
-    messageSister() {
-      eventHub.$emit('brotherSaid', 'Hi，妹妹');
+  export default {
+    name: 'BrotherCard',
+    data: () => ({
+      fromSister: '',
+    }),
+    methods: {
+      messageSister() {
+        eventHub.$emit('brotherSaid', 'Hi，妹妹');
+      },
     },
-  },
-  /* eslint-disable */
-  created() {
-    eventHub.$on('sisterSaid', message => {
-      this.fromSister = message;
-    });
-  },
-};
+    /* eslint-disable */
+    created() {
+      eventHub.$on('sisterSaid', (message) => {
+        this.fromSister = message;
+      });
+    },
+  };
 </script>
 ```
 
@@ -478,31 +494,31 @@ export default {
 <template>
   <div>
     <p>我是Sister组件</p>
-    <button @click='messageBrother' class='btn'>给哥哥发消息</button>
-    <div v-if='fromBrother' v-html='fromBrother'></div>
+    <button @click="messageBrother" class="btn">给哥哥发消息</button>
+    <div v-if="fromBrother" v-html="fromBrother"></div>
   </div>
 </template>
 
 <script>
-import { eventHub } from '../../main';
+  import { eventHub } from '../../main';
 
-export default {
-  name: 'SisterCard',
-  data: () => ({
-    fromBrother: '',
-  }),
-  methods: {
-    messageBrother() {
-      eventHub.$emit('sisterSaid', 'Hi，哥哥');
+  export default {
+    name: 'SisterCard',
+    data: () => ({
+      fromBrother: '',
+    }),
+    methods: {
+      messageBrother() {
+        eventHub.$emit('sisterSaid', 'Hi，哥哥');
+      },
     },
-  },
-  /* eslint-disable */
-  created() {
-    eventHub.$on('brotherSaid', message => {
-      this.fromBrother = message;
-    });
-  },
-};
+    /* eslint-disable */
+    created() {
+      eventHub.$on('brotherSaid', (message) => {
+        this.fromBrother = message;
+      });
+    },
+  };
 </script>
 ```
 
@@ -510,26 +526,26 @@ export default {
 
 ```html
 <template>
-  <div class='container'>
+  <div class="container">
     <h2>父组件</h2>
-    <div class='card-body'>
-      <brother-card class='card-brother'></brother-card>
-      <sister-card class='card-sister'></sister-card>
+    <div class="card-body">
+      <brother-card class="card-brother"></brother-card>
+      <sister-card class="card-sister"></sister-card>
     </div>
   </div>
 </template>
 
 <script>
-import BrotherCard from './BrotherCard';
-import SisterCard from './SisterCard';
+  import BrotherCard from './BrotherCard';
+  import SisterCard from './SisterCard';
 
-export default {
-  name: 'ParentCard',
-  components: {
-    'brother-card': BrotherCard,
-    'sister-card': SisterCard,
-  },
-};
+  export default {
+    name: 'ParentCard',
+    components: {
+      'brother-card': BrotherCard,
+      'sister-card': SisterCard,
+    },
+  };
 </script>
 ```
 
@@ -554,7 +570,7 @@ export default store;
 
 在 `store` 的 `state` 中存放了一个 `numbers` 数组和一个 `addNumber` 方法。接下来我们创建两个组件：
 
--  `NumberDisplay ` 组件：用来显示来自 `store` 的 `numbers` 数组
+- `NumberDisplay ` 组件：用来显示来自 `store` 的 `numbers` 数组
 - `NumberSubmit` 组件：允许用户向数据数组中添加一个新的数字
 
 创建 `NumberDisplay ` 组件：
@@ -567,16 +583,16 @@ export default store;
 </template>
 
 <script>
-import store from './store';
+  import store from './store';
 
-export default {
-  name: 'NumberDisplay',
-  data() {
-    return {
-      storeState: store.state,
-    };
-  },
-};
+  export default {
+    name: 'NumberDisplay',
+    data() {
+      return {
+        storeState: store.state,
+      };
+    },
+  };
 </script>
 ```
 
@@ -584,28 +600,28 @@ export default {
 
 ```html
 <template>
-  <div class='form'>
-    <input v-model='numberInput' type='number'>
-    <button @click='addNumber(numberInput)'>Add new number</button>
+  <div class="form">
+    <input v-model="numberInput" type="number" />
+    <button @click="addNumber(numberInput)">Add new number</button>
   </div>
 </template>
 
 <script>
-import store from './store';
+  import store from './store';
 
-export default {
-  name: 'NumberSubmit',
-  data() {
-    return {
-      numberInput: 0,
-    };
-  },
-  methods: {
-    addNumber(numberInput) {
-      store.addNumber(Number(numberInput));
+  export default {
+    name: 'NumberSubmit',
+    data() {
+      return {
+        numberInput: 0,
+      };
     },
-  },
-};
+    methods: {
+      addNumber(numberInput) {
+        store.addNumber(Number(numberInput));
+      },
+    },
+  };
 </script>
 ```
 
@@ -614,34 +630,32 @@ export default {
 ```html
 <template>
   <div>
-    <NumberDisplay/>
-    <NumberSubmit/>
+    <NumberDisplay />
+    <NumberSubmit />
   </div>
 </template>
 
 <script>
-import NumberDisplay from '../components/pass-data-3/NumberDisplay';
-import NumberSubmit from '../components/pass-data-3/NumberSubmit';
+  import NumberDisplay from '../components/pass-data-3/NumberDisplay';
+  import NumberSubmit from '../components/pass-data-3/NumberSubmit';
 
-export default {
-  name: 'GlobalMode',
-  components: { NumberDisplay, NumberSubmit },
-};
+  export default {
+    name: 'GlobalMode',
+    components: { NumberDisplay, NumberSubmit },
+  };
 </script>
 ```
 
 效果如下：
 
-![全局模式](/ImageHosting/Vue/vue-pass-data-5.gif)
+![全局模式](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-pass-data-5.gif)
 
 可以看到，我们使用这种方式也可以实现组件间的通讯。
-
-
 
 ### 四、总结
 
 最后，我们画个图总结一下 `Vue` 组件间的通讯：
 
-![Vue组件间的通讯](/ImageHosting/Vue/vue-pass-data-in-components.png)
+![Vue组件间的通讯](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-pass-data-in-components.png)
 
 > 本节内容代码地址：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-component-communication

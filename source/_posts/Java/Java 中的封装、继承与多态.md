@@ -12,14 +12,14 @@ urlname: java-encapsulation-inheritance-polymorphism
 
 在前面的[《`Java` — 面向对象的编程语言》](https://togoblog.cn/java-oop-language/)里，介绍了面向对象的三大特征：封装、继承、多态，主要是概念上的讲解，本篇文章将从代码出发，看看 `Java` 中的封装、继承与多态。
 
-
-
 ### 一、封装
 
 在编程时，把数据（属性）和有关属性的一些操作（方法）绑定在一起，形成一个不可分开的集合（类），这个过程就是封装（`Encapsulation`）。
 
 封装时，我们需要隐藏对象的属性和实现细节，仅对外公开接口，并控制在程序中属性的读和写的**访问级别**。
+
 <!-- more -->
+
 一般情况下，我们会把所有的属性都**私有化**，对每个属性提供 `getter` （读） 和 `setter`（写） 方法，供外界使用：
 
 ```java
@@ -124,8 +124,6 @@ public class Person {
 
 这一点可以查看编译后的 `*.class` 文件来验证。
 
-
-
 #### 2、构造函数与普通函数的区别
 
 那构造函数和普通函数有什么区别呢？
@@ -134,8 +132,6 @@ public class Person {
 - 一般函数是用于定义对象应该具备的功能，而构造函数定义的是，对象在在创建时，应该具备的一些内容。也就是**对象的初始化内容**；
 - 构造函数是在对象建立时由 `jvm` 调用（不能被显示调用），用作对象初始化，不需要手动调用；而一般函数是对象建立后，当对象调用该功能时才会执行，需要手动调用；
 - 构造函数没有返回值类型，也就是说不能有返回值。
-
-
 
 #### 3、重载
 
@@ -162,8 +158,6 @@ double add(double a, double c)
 **这是重载出现的一个原因。**
 
 在 `Java` 里，**构造函数（也说构造器、构造方法）是强制重载方法出现的另一个原因。**构造函数的名字由类名决定，那么就只能有一个构造函数。但是，又想使用**多种方式用于初始化对象**该怎么办呢？那么就只有**重载构造函数，使得同名不同参的构造函数同时存在。**
-
-
 
 #### 4、构造函数的重载
 
@@ -195,8 +189,6 @@ public class Person {
   }
 }
 ```
-
-
 
 #### 4、构造代码块
 
@@ -240,8 +232,6 @@ public class Person {
 
 构造代码块的作用就是将所有构造函数中公共的信息进行抽取，用一对花括号包裹起来，**每次创建对象时，构造代码块会对所有对象进行统一初始化。**
 
-
-
 ### 二、继承
 
 我们先看看没有继承的时候，会怎样写代码。
@@ -273,8 +263,6 @@ class Student {
 分别定义了 `Teacher` 类和 `Student` 类，吃饭和睡觉是学生和老师共有的行为，但是却写了两遍；并且，如果需要给 `Teacher` 类和 `Student` 类再添加一个 `walk` 方法，则需要给两个类都分别添加，没有一点的复用性可言，随着逻辑变得复杂，代码的可维护性也会变差。
 
 有了继承，上面的问题就很好解决了。
-
-
 
 #### 1、extends
 
@@ -335,8 +323,6 @@ public class Main {
 
 所以，我们在编程的时候，需要**优先考虑组合，谨慎使用继承**。
 
-
-
 #### 2、单继承、多层继承
 
 `Java` 只支持单继承，不支持多继承。也就是说一个类只能有一个父类，不可以有多个父类。
@@ -354,8 +340,6 @@ class A {}
 class B extends A {}
 class C extends B {}
 ```
-
-
 
 #### 3、继承中成员变量之间的关系
 
@@ -401,8 +385,6 @@ public class ExtendsDemo {
 - 在子类的成员范围找，有就使用；
 - 在父类的成员范围找，有就使用；
 - 如果还找不到，就报错。
-
-
 
 #### 2、重写
 
@@ -495,8 +477,6 @@ public class App {
 
 重写时也**不可以将父类公开的方法或变量改成私有**（如将 `public` 改成 `private` ），否则也会报错。也就是说重写的时候，方法的访问控制权限不能比父类更严格。
 
-
-
 #### 3、super
 
 重写可以解决父类方法在子类不适用的问题，但是会有另外一个问题：子类若是重写了父类的方法，那么父类原来的这个方法还可以被调用吗？答案是可以的。**可以使用 `super` 关键字**。看下面的例子：
@@ -554,8 +534,6 @@ public class Cat extends Animal {
   }
 }
 ```
-
-
 
 **使用 `super` 调用父类的构造函数**
 
@@ -740,8 +718,6 @@ class Son extends Father {
 
 同时，同一个构造函数里面，是不能够同时出现 `super()` 和 `this()` 的，会发生冲突。
 
-
-
 #### 4、this
 
 很多时候，初学者会把 `Java` 中的 `super` 和 `this` 混淆，这里也介绍下它们两个的区别。
@@ -768,8 +744,6 @@ public class Teacher {
   }
 }
 ```
-
-
 
 **`this.<方法名>` ：**
 
@@ -804,8 +778,6 @@ public class Teacher {
 虽然可以省略调用 `teaching()` 方法之前的 `this`，但实际上这个 `this` 依然是存在的。
 
 **注意**：对于 `static` 修饰的方法而言，可以使用类来直接调用该方法；如果在 `static` 修饰的方法中使用 `this` 关键字，此时 `this` 就无法指向合适的对象。**所以，`static` 修饰的方法中不能使用 `this` 。并且 `Java` 语法规定，静态成员不能直接访问非静态成员。**
-
-
 
 **`this` 访问构造函数：**
 
@@ -842,8 +814,6 @@ public class Student {
 - `this()` 不能在普通方法中使用，只能写在构造函数中；
 - 在构造函数中使用时，必须是第一条语句。
 
-
-
 ### 三、多态
 
 先看看抽象类和接口这两个概念。
@@ -867,8 +837,6 @@ abstract void fun();
 由于抽象类中含有无具体实现的方法（抽象方法），所以**不能用抽象类创建对象**。
 
 因此，**抽象类就是为了继承而存在的**。如果定义了一个抽象类，却不去继承它，那么等于白白创建了这个抽象类，不能用它来做任何事情。
-
-
 
 **什么时候要用到抽象类？**
 
@@ -936,9 +904,7 @@ public class Main {
 }
 ```
 
-
-
-#### 2、接口 
+#### 2、接口
 
 接口是一种引用类型，和类很相似。接口是功能的集合，同样可看作是一种数据类型，是比抽象类更为抽象的 **”类”**。
 
@@ -957,8 +923,6 @@ public interface USB {
   public String getName();
 }
 ```
-
-
 
 ##### 2.2、接口和类的区别
 
@@ -981,8 +945,6 @@ public interface MyInterface {
   void getInfo();    // 方法声明，等同于 public abstract void getInfo();
 }
 ```
-
-
 
 ##### 2.3、接口的实现
 
@@ -1071,8 +1033,6 @@ public class Main {
 }
 ```
 
-
-
 ##### 2.4、接口的默认实现
 
 从 `JDK1.8` 开始，接口的方法可以有默认实现了，而且不需要实现类去实现其方法，这样的方法称为默认方法。
@@ -1092,8 +1052,6 @@ public interface InterfaceA {
 ```
 
 使用 `default` 修饰符，可以实现添加接口的默认实现。接口的默认实现也使得接口的功能跟抽象类更为接近。
-
-
 
 ##### 2.5、"多继承接口"
 
@@ -1130,8 +1088,6 @@ public class ImpClass implements InterfaceA, InterfaceB {
 
 使用接口可以实现 "多继承" 。但是这样会造成**菱形问题**，这也是 `Java` 没有提供多继承的原因。
 
-
-
 ##### 2.6、菱形问题
 
 `Java` 语言中一个类只能继承一个父类，但是一个类可以实现多个接口。这样就造成了**菱形问题**。
@@ -1140,7 +1096,7 @@ public class ImpClass implements InterfaceA, InterfaceB {
 
 假设我们有一个父接口 `A`，子接口 `B` 和 `C` 都重写了 `A` 中的方法 `test()`。此时又有一个 `D` 接口，同时继承了 `B` 和 `C`，那么当 `D` 调用 `test()` 时，继承的是哪个父接口的方法呢？如果没有给出进一步的说明，编译器是无法给出答案的。如图所示：
 
-<img src="/ImageHosting/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:70%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/multiple-inheritance-diamond.png" alt="multiple-inheritance-diamond" style="zoom:70%;" />
 
 为了解决这个问题，实现类必须**显示地指定要使用的方法**，当然也可以重写共享方法并提供自己的实现。
 
@@ -1181,8 +1137,6 @@ public class ImpClass implements InterfaceB, InterfaceC {
 
 `Java 8` 中引入了一种新的语法 `X.super.method()`，其中 `X` 是希望调用的 `method` 方法所在的父接口。
 
-
-
 #### 3、接口和抽象类的区别
 
 尽管抽象类和接口之间存在较大的相同点，甚至有时候还可以互换，但是它们两者的差异还是很大的。
@@ -1198,8 +1152,6 @@ public class ImpClass implements InterfaceB, InterfaceC {
   - 比如我们只有一个猫类在这里，如果这个时候就抽象成一个动物类，是不是设计有点儿过度？我们起码要有两个动物类 —— 猫、狗在这里，然后抽象它们的共同点形成动物抽象类，所以说抽象类往往都是通过重构而来的；
   - 但是接口就不同，比如说飞，我们根本就不知道会有什么东西来实现这个飞接口，怎么实现也不知道，我们要做的就是事前定义好飞的行为接口。所以接口是自顶向下设计出来的。
 
-
-
 #### 4、多态
 
 简单点说，**多态就是某一个事物，在不同时刻表现出来的不同状态。**比如：水在不同环境下的状态不同（液体，固体，气体）。
@@ -1213,15 +1165,11 @@ public class ImpClass implements InterfaceB, InterfaceC {
 
 而我们通常所说的多态指的都是**运行时多态**，也就是编译时不确定究竟调用哪个具体方法，一直到运行时才能确定。这也是为什么有时候多态方法又被称为**延迟方法**的原因。
 
-
-
 **怎么理解运行时才能确定呢？**
 
 一个引用变量到底会指向哪个类的实例对象，该引用变量发出的方法调用到底是哪个类中实现的方法，必须在由程序运行期间才能决定。
 
 这样，我们不用修改源代码，就可以**让引用变量绑定到各种不同的类上，从而让该引用调用的具体方法随之改变**，让程序可以选择多个运行状态，这就是多态性。
-
-
 
 **那要怎么让引用变量绑定到不同的类上呢？**
 
@@ -1233,16 +1181,12 @@ Father son = new Son();
 
 定义了一个对象 `son` ，它在编译时的类型是 `Father`，而实际运行时的类型是 `Son`。这样就相当于把引用变量 `son` 绑定到了两个不同的类上面 —— `Father` 类 和 `Son` 类。
 
-
-
 `Java` 中实现多态有两种方式：
 
 - 基于继承实现的多态
 - 基于接口实现的多态
 
 下面我们通过具体的例子继续理解多态。
-
-
 
 ##### 3.1、基于继承实现的多态
 
@@ -1341,8 +1285,6 @@ Animal正在奔跑...
 
 那为什么程序无法调用 `Cat` 中的 `catchMouse()` 方法呢？因为我们声明的对象 `miao` 是 `Animal` 类型，到了运行时期，`miao` 调用 `catchMouse` 方法时，`Animal` 中没有这个方法，所以就会编译不通过，而 `eat` 方法和 `sleep` 方法是存在的，所以不会报错。也就是：**声明时的类型决定你「能不能调」那个方法。**
 
-
-
 **结论：**
 
 所以，当父类引用指向子类对象时，只能调用那些父类中存在的方法，如果子类中对该方法进行了重写，那么在运行时就会动态调用子类中的方法，这样一来，这个父类引用就既可以调用父类中的方法，也可以调用子类中的方法了（**前提是重写**）。这就是多态的体现。
@@ -1352,8 +1294,6 @@ Animal正在奔跑...
 - 继承
 - 重写
 - 父类引用指向子类对象（向上转型）
-
-
 
 **多态的缺点：**
 
@@ -1376,8 +1316,6 @@ public class Main {
   }
 }
 ```
-
-
 
 ##### 3.2、基于接口实现的继承
 
@@ -1408,7 +1346,7 @@ public class Dog implements Animal {
   public void walk() {
     System.out.println("狗在走！！");
   }
-  
+
   public void sleep() {
     System.out.println("狗睡觉！！");
   }
@@ -1430,8 +1368,6 @@ public class Main {
 ```
 
 充分体现了 **"一个接口，多个实现"** 的特点。
-
-
 
 #### 5、经典例子
 
@@ -1474,15 +1410,15 @@ public class Main {
     C c = new C();
     D d = new D();
 
-    System.out.println(a1.show(b)); // 1 
-    System.out.println(a1.show(c)); // 2 
-    System.out.println(a1.show(d)); // 3 
-    System.out.println(a2.show(b)); // 4 
-    System.out.println(a2.show(c)); // 5 
-    System.out.println(a2.show(d)); // 6 
-    System.out.println(b.show(b)); // 7 
-    System.out.println(b.show(c)); // 8 
-    System.out.println(b.show(d)); // 9 
+    System.out.println(a1.show(b)); // 1
+    System.out.println(a1.show(c)); // 2
+    System.out.println(a1.show(d)); // 3
+    System.out.println(a2.show(b)); // 4
+    System.out.println(a2.show(c)); // 5
+    System.out.println(a2.show(d)); // 6
+    System.out.println(b.show(b)); // 7
+    System.out.println(b.show(c)); // 8
+    System.out.println(b.show(d)); // 9
   }
 }
 ```
@@ -1490,14 +1426,13 @@ public class Main {
 输出结果是：
 
 ```java
-A and A 
-A and A 
-A and D 
-B and A 
-B and A 
-A and D 
-B and B 
-B and B 
+A and A
+A and A
+A and D
+B and A
+B and A
+A and D
+B and B
+B and B
 A and D
 ```
-

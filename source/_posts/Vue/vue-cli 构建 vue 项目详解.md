@@ -4,7 +4,7 @@ author: Deepspace
 categories: Vue
 tag:
   - vue
-  - vue-cli 
+  - vue-cli
 date: 2019-01-21
 urlname: vue-cli-init-project-intro
 ---
@@ -29,7 +29,9 @@ $ npm install -g vue-cli
 $ vue --version
 3.3.0
 ```
+
 <!-- more -->
+
 #### 2、构建项目
 
 ```shell
@@ -75,7 +77,7 @@ $ npm run dev
 
 项目默认会在 8080 端口启动，如果端口有占用，会自动调整端口。打开浏览器输入：`http://localhost:8080`，会看到构建的项目的主页：
 
-<img src="/ImageHosting/Vue/vue-init-project.png" alt="vue-init-project" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-init-project.png" alt="vue-init-project" style="zoom: 50%;" />
 
 #### 4、目录结构
 
@@ -85,15 +87,15 @@ $ npm run dev
 
 ```json
 {
-    "scripts": {
-        "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-        "start": "npm run dev",
-        "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-        "e2e": "node test/e2e/runner.js",
-        "test": "npm run unit && npm run e2e",
-        "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-        "build": "node build/build.js"
-    }
+  "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "e2e": "node test/e2e/runner.js",
+    "test": "npm run unit && npm run e2e",
+    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "build": "node build/build.js"
+  }
 }
 ```
 
@@ -109,11 +111,9 @@ $ npm run dev
 
 **`build` ：**里面保存一些 `webpack` 的初始化配置。
 
-**`index.html` :  **是我们的首页。`index` 很多时候都被预设为首页，像 `index.htm`，`index.php` 等。
+**`index.html` : **是我们的首页。`index` 很多时候都被预设为首页，像 `index.htm`，`index.php` 等。
 
 **`src` : ** 保存项目源代码的地方，我们下面会详细分析该文件夹里的文件。
-
-
 
 ### 二、代码分析
 
@@ -121,16 +121,16 @@ $ npm run dev
 
 #### 1、入口文件
 
-如果我们打开项目根目录下 `build` 目录中的 `webpack.base.conf.js`，会看到这样的代码(第22行)：
+如果我们打开项目根目录下 `build` 目录中的 `webpack.base.conf.js`，会看到这样的代码(第 22 行)：
 
 ```javascript
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
   },
   // ...
-}    
+};
 ```
 
 说明我们的入口文件就是 `src` 目录下的 `main.js` 文件。看看代码：
@@ -226,9 +226,9 @@ export default new Router({
 
 当我访问根路由 `http://localhost:8080/#/` 时，`App.vue` 中的 `<router-view/>` 就会把引入的 `HelloWorld` 组件分配给我，放在了 `img` 标签的下面，打开 `components` 目录下的 `HelloWorld.vue` 就可以看到具体内容了。
 
-> 我们在看到浏览器中的 `url`  的时候会觉得奇怪，为什么在后面加了一个 `#` 号呢？这是因为 `vue-router` 默认 `hash` 模式 —— 使用 `URL` 的 `hash` 来模拟一个完整的 `URL`，当 URL 改变时，页面不会重新加载。详见：https://router.vuejs.org/zh/guide/essentials/history-mode.html 。这里可先跳过这点内容。
+> 我们在看到浏览器中的 `url` 的时候会觉得奇怪，为什么在后面加了一个 `#` 号呢？这是因为 `vue-router` 默认 `hash` 模式 —— 使用 `URL` 的 `hash` 来模拟一个完整的 `URL`，当 URL 改变时，页面不会重新加载。详见：https://router.vuejs.org/zh/guide/essentials/history-mode.html 。这里可先跳过这点内容。
 
-现在，我们在浏览器访问 `http://localhost:8080/#/vue` 这个地址，会发现只出现了  `Vue` 的 `logo`。这是因为我们并没有配置 `/vue` 这个路由，找不到路由，那`<router-view/>` 这个标签就不会加载出来。
+现在，我们在浏览器访问 `http://localhost:8080/#/vue` 这个地址，会发现只出现了 `Vue` 的 `logo`。这是因为我们并没有配置 `/vue` 这个路由，找不到路由，那`<router-view/>` 这个标签就不会加载出来。
 
 到这里，我们就知道路由是如何根据 `url` 来分配不同的组件了。配置多个路由就很简单了：
 
@@ -238,20 +238,20 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
-	},
+      component: HelloWorld,
+    },
     {
       path: '/about',
       name: 'about',
-      component: About
-	},
+      component: About,
+    },
     {
       path: '/vue',
       name: 'vue',
-      component: Vue
-	}
-  ]
-})
+      component: Vue,
+    },
+  ],
+});
 ```
 
 那如果要访问 `http://localhost:8080/#/vue/demo` 怎么办呢？
@@ -294,8 +294,6 @@ export default new Router({
 
 用来存放一些图片、样式等静态文件。
 
-
-
 ### 三、总结
 
-<img src="/ImageHosting/Vue/vue-core-structure.png" alt="vue-core-structure" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-core-structure.png" alt="vue-core-structure" style="zoom:50%;" />

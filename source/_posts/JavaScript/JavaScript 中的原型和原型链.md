@@ -6,7 +6,7 @@ tags:
   - 原型链
 categories: JavaScript
 date: 2018-07-03
-urlname: javascript-prototypes-and-prototype-chains 
+urlname: javascript-prototypes-and-prototype-chains
 ---
 
 ### 一、通过 new 创建对象
@@ -23,7 +23,9 @@ person.sayName = function () {
   console.log(this.name);
 };
 ```
+
 <!-- more -->
+
 并且，`JavaScript` 中的原始类型都包含内置构造函数，在运行时会自动出现在执行环境中。如：
 
 ```javascript
@@ -37,8 +39,6 @@ console.log(d instanceof Date); // true
 除了这些内置的构造函数，我们也可以自定义构造函数来初始化一个新对象。
 
 > 注意，构造函数也是函数，不存在定义构造函数的特殊语法。任何函数，只要通过 `new` 操作符来调用，那它就可以作为构造函数；如果不通过 `new` 操作符来调用，那它跟普通函数是一样的。
-
-
 
 ### 二、为什么是 new？
 
@@ -77,8 +77,6 @@ const person1 = new Person('Deepspace', 23);
 
 构造函数中的 `this` 关键字代表了新创建的实例对象，也就是 `person1`。
 
-
-
 ### 三、new 的缺点
 
 用构造函数生成实例对象，有一个缺点，那就是无法共享属性和方法。
@@ -108,8 +106,6 @@ console.log(person1.sayName === person2.sayName); // false
 并且，因为创建的实例对象都是独立的，所以每个方法都要被创建一次。在上面的例子中，多个实例的 `sayName` 方法都是实现一样的效果，但是却存储了很多次（两个对象实例的 `sayName` 方法是不同的，因为存放的地址不同）。
 
 所以，基于这个原因，作者为构造函数设置一个 `prototype` 属性。
-
-
 
 ### 四、prototype
 
@@ -146,15 +142,13 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 下面用一张图表示构造函数和实例原型之间的关系：
 
-<img src="/ImageHosting/JavaScript/prototype1.png" alt="构造函数和实例原型的关系图" style="zoom:88%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype1.png" alt="构造函数和实例原型的关系图" style="zoom:88%;" />
 
 重复一遍前面开头的描述，加深理解：
 
 > 当创建函数时，`JavaScript` 会为这个函数自动添加 `prototype` 属性。这个属性是一个指针，指向**另外一个对象**，这个对象是**调用构造函数而创建的实例的原型，我们称之为原型对象。**
 
 图中的 `Person.prototype` 就是实例的原型 —— 原型对象。
-
-
 
 ### 五、`__proto__`
 
@@ -166,7 +160,7 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 所以，我们可以把上面的图更新成下面这样：
 
-<img src="/ImageHosting/JavaScript/prototype2.png" alt="实例与实例原型的关系图" style="zoom:88%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype2.png" alt="实例与实例原型的关系图" style="zoom:88%;" />
 
 问题来了，既然实例对象（`person`）和构造函数（`Person`）都可以指向原型（`Person.prototype`），那原型（`Person.prototype`）是否有属性指向构造函数（`Person`）或者实例（`person`）呢？
 
@@ -178,8 +172,6 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 但是原型指向构造函数倒是有的：`constructor` 属性。
 
-
-
 ### 六、constructor
 
 每个原型都有一个 `constructor` 属性指向关联的构造函数。
@@ -187,24 +179,21 @@ console.log(person1.sayHello === person2.sayHello); // true
 可以使用代码来验证：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 console.log(Person === Person.prototype.constructor); // true
 ```
 
 所以，我们可以再更新一下上面的图：
 
-<img src="/ImageHosting/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
 
 这个图可以用代码描述如下：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
-function Dog() {
-}
+function Dog() {}
 
 const person1 = new Person();
 const person2 = new Person();
@@ -225,8 +214,6 @@ console.log(Person.prototype.isPrototypeOf(person1)); // true
 console.log(Dog.prototype.isPrototypeOf(person1)); // false
 ```
 
-
-
 ### 七、实例上的属性与原型上的属性
 
 每当代码读取某个对象的某个属性时，都会执行一次搜索，目标是具有给定名字的属性。
@@ -234,8 +221,7 @@ console.log(Dog.prototype.isPrototypeOf(person1)); // false
 搜索首先从对象实例本身开始。如果在实例中找到了具有给定名字的属性，则返回该属性的值；如果没有找到， 则继续搜索指针（`__proto__`）指向的原型对象，在原型对象中查找具有给定名字的属性。如果在原型对象中找到了这个属性，则返回该属性的值。
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 
@@ -249,8 +235,7 @@ console.log(person.name); // 原型上的属性 Deepspace
 如果我们在实例中添加了一个属性，并且**该属性是实例的原型上已经有的一个属性**，这个时候新添加的属性会屏蔽掉原型上的那个属性：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -271,8 +256,7 @@ console.log(person2.name); // Deepspace -- 来自原型
 使用 `delete` 操作符则可以删除实例属性，让我们能够重新访问原型上的属性：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -295,8 +279,6 @@ console.log(person1.name); // Deepspace -- 恢复访问原型属性
 
 那么新问题又来了，如果在原型上没找到会怎么办呢？原型也是对象，那原型有原型吗？
 
-
-
 ### 八、原型的原型
 
 原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它：
@@ -313,7 +295,7 @@ console.log(obj.name); // Deepspace
 
 我们可以把图更新成下面这样：
 
-<img src="/ImageHosting/JavaScript/prototype4.png" alt="原型的原型关系图" style="zoom:88%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype4.png" alt="原型的原型关系图" style="zoom:88%;" />
 
 问题又来了，原型的原型还有原型吗？也就是 `Object.prototype` 的原型是什么呢？
 
@@ -325,9 +307,7 @@ console.log(Object.prototype.__proto__ === null); // true
 
 我们可以再更新一下图：
 
-![原型链示意图](/ImageHosting/JavaScript/prototype5.png)
-
-
+![原型链示意图](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype5.png)
 
 ### 九、原型链
 
@@ -345,4 +325,3 @@ obj.name = 'Deepspace';
 
 console.log(obj.valueOf());
 ```
-

@@ -48,7 +48,7 @@ const state = store.getState();
 ```javascript
 const action = {
   type: 'ADD_ONE',
-  num: 1
+  num: 1,
 };
 ```
 
@@ -57,7 +57,7 @@ const action = {
 ```javascript
 const action = {
   type: 'ADD_ONE',
-  num: 1
+  num: 1,
 };
 store.dispatch(action);
 ```
@@ -84,22 +84,20 @@ const reducer = (state = 10, action) => {
 
 当 `store.dispatch` 发送过来一个新的 `action` ，`store` 就会自动调用 `reducer`，得到新的 `state` 。
 
-
-
 ### 二、简单实例
 
 ```javascript
 //第一步，创建action
 const addOne = {
   type: 'ADD',
-  num: 1
+  num: 1,
 };
 const addTwo = {
   type: 'ADD',
-  num: 2
+  num: 2,
 };
 const square = {
-  type: 'SQUARE'
+  type: 'SQUARE',
 };
 
 //第二步，创建reducer
@@ -131,11 +129,9 @@ store.dispatch(addTwo); //发起'+2'的action
 console.log(store.getState()); //当前值为121+2=123
 ```
 
-
-
 ### 三、Redux 工作流
 
-<img src="/ImageHosting/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
 
@@ -145,7 +141,7 @@ console.log(store.getState()); //当前值为121+2=123
 
 - State：Store 对象包含所有数据，如果想得到某个时点的数据，就要对 Store 生成快照，这种时点的数据集合，就叫做 State。
 
-- Action：State 的变化，会导致 View 的变化。但是，用户接触不到 State，只能接触到 View。所以，State 的变化必须是 View导 致的。Action 就是 View 发出的通知，表示 State 应该要发生变化了。
+- Action：State 的变化，会导致 View 的变化。但是，用户接触不到 State，只能接触到 View。所以，State 的变化必须是 View 导 致的。Action 就是 View 发出的通知，表示 State 应该要发生变化了。
 
 - Action Creator：View 要发送多少种消息，就会有多少种 Action。如果都手写，会很麻烦，所以我们定义一个函数来生成 Action，这个函数就叫 Action Creator。
 
@@ -160,8 +156,6 @@ console.log(store.getState()); //当前值为121+2=123
 - 然后，Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action，Reducer 会返回新的 State。
 
 - State 一旦有变化，Store 就会调用监听函数，来更新 View。
-
-
 
 ### 四、代码组织目录结构
 
@@ -181,7 +175,7 @@ export const SQUARE = 'SQUARE';
 // action/math.js
 import { ADD, SQUARE } from '../constants/ActionTypes';
 
-export const add = num => ({ type: ADD, num });
+export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
 ```
 
@@ -210,7 +204,7 @@ import { combineReducers } from 'redux';
 import math from './math';
 
 const rootReducer = combineReducers({
-  math
+  math,
 });
 export default rootReducer;
 ```
@@ -245,9 +239,7 @@ console.log(store.getState()); //当前值为121+2=123
 
 最终的目录结构：
 
-![目录结构](/ImageHosting/React/redux-directory-structure.png)
-
-
+![目录结构](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/redux-directory-structure.png)
 
 ### 四、UI 层
 
@@ -262,9 +254,9 @@ import { add, square } from './action/math';
 ReactDOM.render(
   <div store={store}>
     <p>{store.getState().math}</p>
-    <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
-    <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
-    <input type="button" onClick={() => store.dispatch(square)} value="乘方" />
+    <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
+    <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
+    <input type='button' onClick={() => store.dispatch(square)} value='乘方' />
   </div>,
   document.getElementById('root')
 );
@@ -288,12 +280,12 @@ const render = () =>
   ReactDOM.render(
     <div store={store}>
       <p>{store.getState().math}</p>
-      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
-      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
+      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
+      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
       <input
-        type="button"
+        type='button'
         onClick={() => store.dispatch(square)}
-        value="乘方"
+        value='乘方'
       />
     </div>,
     document.getElementById('root')
@@ -302,8 +294,6 @@ const render = () =>
 render();
 store.subscribe(render);
 ```
-
-
 
 ### 五、异步
 
@@ -334,9 +324,9 @@ export const SET = 'SET';
 
 // action/math.js
 import { ADD, SQUARE, SET } from '../constants/ActionTypes';
-export const add = num => ({ type: ADD, num });
+export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
-export const setNum = num => ({ type: SET, num });
+export const setNum = (num) => ({ type: SET, num });
 
 // reduce/math.js
 import { ADD, SQUARE, SET } from '../constants/ActionTypes';
@@ -366,20 +356,20 @@ const render = () =>
     <div store={store}>
       <p>{store.getState().math}</p>
       <input
-        type="button"
+        type='button'
         onClick={() => {
-          axios.get(uri).then(res => {
+          axios.get(uri).then((res) => {
             store.dispatch(setNum(res.data.id));
           });
         }}
-        value="设置Num"
+        value='设置Num'
       />
-      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
-      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
+      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
+      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
       <input
-        type="button"
+        type='button'
         onClick={() => store.dispatch(square)}
-        value="乘方"
+        value='乘方'
       />
     </div>,
     document.getElementById('root')
@@ -391,8 +381,6 @@ store.subscribe(render);
 但是，虽然 `API` 是异步操作，但 `store.dispatch` 并不是异步，而 `axios` 通过 `get` 方法请求回来数据后，`store.dispatch` 在 `axios` 中的 `then` 方法中同步取得数据。
 
 如果要使用真正的异步操作，即把 `axios` 方法封装到 `store.dispatch` 中，需要使用 `redux-thunk` 中间件。
-
-
 
 #### 1. redux-thunk
 
@@ -420,13 +408,13 @@ export default createStore(rootReducer, applyMiddleware(thunk));
 import { ADD, SQUARE, SET } from '../constants/ActionTypes';
 import axios from 'axios';
 const uri = 'https://jsonplaceholder.typicode.com/posts/2';
-export const add = num => ({ type: ADD, num });
+export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
 export const setNum = () => (dispatch, getState) => {
-  return axios.get(uri).then(res => {
+  return axios.get(uri).then((res) => {
     dispatch({
       type: SET,
-      num: res.data.id
+      num: res.data.id,
     });
   });
 };
@@ -441,16 +429,16 @@ const render = () =>
     <div store={store}>
       <p>{store.getState().math}</p>
       <input
-        type="button"
+        type='button'
         onClick={() => store.dispatch(setNum())}
-        value="设置Num"
+        value='设置Num'
       />
-      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
-      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
+      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
+      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
       <input
-        type="button"
+        type='button'
         onClick={() => store.dispatch(square)}
-        value="乘方"
+        value='乘方'
       />
     </div>,
     document.getElementById('root')
@@ -467,15 +455,15 @@ store.subscribe(render);
 // action/fetch.js
 import {
   SET_FETCH_MESSAGE,
-  HIDE_FETCH_MESSAGE
+  HIDE_FETCH_MESSAGE,
 } from '../constants/ActionTypes';
 export const startFetch = {
   type: SET_FETCH_MESSAGE,
-  message: '开始发送异步请求'
+  message: '开始发送异步请求',
 };
 export const successFetch = {
   type: SET_FETCH_MESSAGE,
-  message: '成功接收数据'
+  message: '成功接收数据',
 };
 export const failFetch = { type: SET_FETCH_MESSAGE, message: '接收数据失败' };
 export const hideFetchMessage = { type: HIDE_FETCH_MESSAGE };
@@ -487,7 +475,7 @@ import { ADD, SQUARE, SET } from '../constants/ActionTypes';
 import { startFetch, successFetch, failFetch, hideFetchMessage } from './fetch';
 import axios from 'axios';
 const uri = 'https://jsonplaceholder.typicode.com/posts/2';
-export const add = num => ({ type: ADD, num });
+export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
 export const setNum = () => (dispatch, getState) => {
   dispatch(startFetch);
@@ -496,7 +484,7 @@ export const setNum = () => (dispatch, getState) => {
   }, 500);
   return axios
     .get(uri)
-    .then(res => {
+    .then((res) => {
       setTimeout(() => {
         dispatch(successFetch);
         setTimeout(() => {
@@ -505,7 +493,7 @@ export const setNum = () => (dispatch, getState) => {
         dispatch({ type: SET, num: res.data.id });
       }, 1000);
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch(failFetch);
       setTimeout(() => {
         dispatch(hideFetchMessage);
@@ -527,11 +515,11 @@ export const HIDE_FETCH_MESSAGE = 'HIDE_FETCH_MESSAGE';
 // reduce/fetch.js
 import {
   SET_FETCH_MESSAGE,
-  HIDE_FETCH_MESSAGE
+  HIDE_FETCH_MESSAGE,
 } from '../constants/ActionTypes';
 const initState = {
   message: '',
-  isShow: false
+  isShow: false,
 };
 const fetch = (state = initState, action) => {
   switch (action.type) {
@@ -557,16 +545,16 @@ const render = () =>
     <div store={store}>
       <p>{store.getState().math}</p>
       <input
-        type="button"
+        type='button'
         onClick={() => store.dispatch(setNum())}
-        value="设置Num"
+        value='设置Num'
       />
-      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
-      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
+      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
+      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
       <input
-        type="button"
+        type='button'
         onClick={() => store.dispatch(square)}
-        value="乘方"
+        value='乘方'
       />
       {store.getState().fetch.isShow && <p>{store.getState().fetch.message}</p>}
     </div>,
@@ -575,8 +563,6 @@ const render = () =>
 render();
 store.subscribe(render);
 ```
-
-
 
 ### 六、React-Redux 基础知识点
 
@@ -607,8 +593,6 @@ ReactDOM.render(
 
 按照组件拆分规范，将原来 `index.js` 中相关代码，分拆到 `container/MathContainer` 和 `component/Math` 这两个组件中。
 
-
-
 #### 2. connect
 
 `react-redux` 提供 `connect` 方法，用于从展示组件生成容器组件。`connect` 的意思就是将这两种组件(容器组件和展示组件)连接起来：
@@ -630,24 +614,19 @@ const MathContainer = connect()(Math);
 
 ```javascript
 import { connect } from 'react-redux';
-const MathContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Math);
+const MathContainer = connect(mapStateToProps, mapDispatchToProps)(Math);
 ```
 
 上面代码中，`connect` 方法接受两个参数：`mapStateToProps` 和 `mapDispatchToProps`。它们定义了展示组件的业务逻辑。前者负责输入逻辑，即将 `state` 映射到 `UI` 组件的参数(`props`)，后者负责输出逻辑，即将用户对展示组件的操作映射成 `Action`，下面分别介绍这两个参数。
-
-
 
 #### 3. mapStateToProps()
 
 `mapStateToProps` 建立一个从外部的 `state` 对象到展示组件的 `props` 对象的映射关系。作为参数，`mapStateToProps` 执行后应该返回一个对象，里面的每一个键值对就是一个映射。
 
 ```javascript
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    num: getNum(state)
+    num: getNum(state),
   };
 };
 ```
@@ -657,14 +636,12 @@ const mapStateToProps = state => {
 ```javascript
 const mapStateToProps = (state, ownProps) => {
   return {
-    num: getNum(state)
+    num: getNum(state),
   };
 };
 ```
 
 `mapStateToProps` 会订阅 `Store` ，每当 `state` 更新的时候，就会自动执行，重新计算展示组件的参数，从而触发展示组件的重新渲染。`connect` 方法可以省略 `mapStateToProps` 参数，那样，展示组件就不会订阅 `Store`，就是说 `Store` 的更新不会引起展示组件的更新。
-
-
 
 #### 4. mapDispatchToProps
 
@@ -675,7 +652,7 @@ const mapStateToProps = (state, ownProps) => {
 ```javascript
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onSetNumClick: () => dispatch(setNum())
+    onSetNumClick: () => dispatch(setNum()),
   };
 };
 ```
@@ -688,10 +665,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 ```javascript
 const mapDispatchToProps = {
-  onsetNumClick: () => setNum()
+  onsetNumClick: () => setNum(),
 };
 ```
 
 所以，最终的目录结构就变成下面这个样子（你也可以把 `store.js` 放在单独的 `store` 文件夹里面）：
 
-<img src="/ImageHosting/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />

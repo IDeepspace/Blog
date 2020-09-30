@@ -9,7 +9,6 @@ tags:
   - Docker
 ---
 
-
 ### 一、安装
 
 网络上已经有很多讲述如何在 `Windows`、`Mac`、和 `Ubuntu` 等环境上安装 `MySQL` 的教程了，这里就不再赘述。
@@ -36,8 +35,6 @@ $ docker --version
 
 输出所安装的 `Docker` 版本。
 
-
-
 #### 2、拉取 MySQL 镜像
 
 这里我们拉取最新版本的镜像：
@@ -45,8 +42,6 @@ $ docker --version
 ```bash
 $ docker pull mysql
 ```
-
-
 
 #### 3、启动 MySQL 容器
 
@@ -105,8 +100,6 @@ mysql> show databases;
 mysql> exit;
 ```
 
-
-
 #### 4、通过客户端来连接
 
 由于前面我们已经把数据库容器的端口映射出来了，所以我们也可以通过一些「数据库可视化客户端」或者「程序代码」进行数据库连接：
@@ -124,13 +117,11 @@ Password: 123456
 - `DBeaver`：功能强大，免费；
 - `Navicat`：收费。
 
-
-
 ### 二、导入演示数据
 
 为了便于演示，这里需要先导入一份数据库数据：
 
-> 链接:https://pan.baidu.com/s/1brD2UJKWgpO0GKicFkyyiA  密码:4nqz
+> 链接:https://pan.baidu.com/s/1brD2UJKWgpO0GKicFkyyiA 密码:4nqz
 
 如何导入？
 
@@ -168,11 +159,9 @@ mysql> show databases;
 
 数据库的表之间的关系为：
 
-<img src="/ImageHosting/DB/MySQL-Sample-Database-Schema.png" alt="MySQL-Sample-Database-Schema" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/DB/MySQL-Sample-Database-Schema.png" alt="MySQL-Sample-Database-Schema" />
 
 接下来的 `SQL` 语句讲解都是基于上面所导入的数据。
-
-
 
 ### 二、查询
 
@@ -210,8 +199,6 @@ SELECT
 FROM
     employees;
 ```
-
-
 
 ### 三、排序
 
@@ -258,8 +245,6 @@ ORDER BY
    quantityOrdered * priceEach DESC;
 ```
 
-
-
 #### 2、FIELD
 
 分类排序：
@@ -279,8 +264,6 @@ ORDER BY
         'Disputed',
         'Shipped');
 ```
-
-
 
 ### 四、过滤
 
@@ -400,14 +383,14 @@ WHERE
 
 过滤时也可以使用数学比较符：
 
-| Operator | Description                                                  |
-| :------- | :----------------------------------------------------------- |
-| =        | Equal to. You can use it with almost any data types.         |
-| <> or != | Not equal to                                                 |
+| Operator | Description                                                            |
+| :------- | :--------------------------------------------------------------------- |
+| =        | Equal to. You can use it with almost any data types.                   |
+| <> or != | Not equal to                                                           |
 | <        | Less than. You typically use it with numeric and date/time data types. |
-| >        | Greater than.                                                |
-| <=       | Less than or equal to                                        |
-| >=       | Greater than or equal to                                     |
+| >        | Greater than.                                                          |
+| <=       | Less than or equal to                                                  |
+| >=       | Greater than or equal to                                               |
 
 如：
 
@@ -434,8 +417,6 @@ FROM
 WHERE
     jobtitle <> 'Sales Rep';
 ```
-
-
 
 #### 2、DISTINCT
 
@@ -504,8 +485,6 @@ LIMIT 5;
 
 `LIMIT` 可用于限制查询的数量。
 
-
-
 #### 3、GROUP BY
 
 `GROUP BY` 的效果和 `DISTINCT` 类似，也可以去重。当然 `GROUP BY` 还可以支持更多的表达式。
@@ -519,8 +498,6 @@ GROUP BY state;
 ```
 
 `GROUP BY` 的作用是按照指定的规则对数据进行分组，下面会讲到。
-
-
 
 ### 五、联表查询
 
@@ -570,8 +547,6 @@ HAVING
     total > 60000;
 ```
 
-
-
 #### 2、JOIN
 
 下面我们来看一下如何在两张或者两张以上的表中查询数据。
@@ -620,11 +595,9 @@ WHERE o.orderNumber = od.orderNumber;
 
 当然，这里也可以省略 `INNER` 使用 `JOIN`，效果是一样的。
 
-
-
 #### 3、LEFT JOIN
 
-`LEFT JOIN` 与 `JOIN` 有所不同。`LEFT JOIN` 以左表为基准，会读取左表的全部数据，如果右表无对应数据则显示  `Null`。
+`LEFT JOIN` 与 `JOIN` 有所不同。`LEFT JOIN` 以左表为基准，会读取左表的全部数据，如果右表无对应数据则显示 `Null`。
 
 ```mysql
 SELECT
@@ -637,12 +610,10 @@ FROM
 LEFT JOIN orders o
     ON c.customerNumber = o.customerNumber;
 ```
-
-
 
 #### 4、RIGHT JOIN
 
-和左连接刚好相反，以右表为基准，会读取右表的全部数据，如果左表无对应数据则显示  `Null`。
+和左连接刚好相反，以右表为基准，会读取右表的全部数据，如果左表无对应数据则显示 `Null`。
 
 ```mysql
 SELECT
@@ -655,8 +626,6 @@ FROM
 LEFT JOIN orders o
     ON c.customerNumber = o.customerNumber;
 ```
-
-
 
 #### 5、CROSS JOIN
 
@@ -672,8 +641,6 @@ CROSS JOIN employees
     ON salesRepEmployeeNumber = employeeNumber
 LIMIT 20;
 ```
-
-
 
 ### 六、分组
 
@@ -704,8 +671,6 @@ GROUP BY
 ORDER BY
     status DESC;
 ```
-
-
 
 #### 2、HAVING
 
@@ -749,8 +714,6 @@ ORDER BY
     total
 LIMIT 10;
 ```
-
-
 
 ### 七、修改数据
 
@@ -847,8 +810,6 @@ VALUES('john.doe@gmail.com'),
       ('john.doe@gmail.com');
 ```
 
-
-
 #### 2、UPDATE
 
 `UPDATE` 语句用于修改表中的现有数据。
@@ -903,8 +864,6 @@ FROM
 WHERE
     employeeNumber = 1056;
 ```
-
-
 
 #### 3、UPDATE JOIN
 
@@ -961,8 +920,6 @@ SET
     salary = salary + salary * percentage;
 ```
 
-
-
 #### 4、DELETE
 
 删除表中的数据。
@@ -975,8 +932,6 @@ LIMIT 5;
 ```
 
 如果有外键约束，则无法删除数据，需要先删除外键约束。
-
-
 
 #### 5、DELETE JOIN
 
@@ -1001,8 +956,6 @@ FROM
 WHERE
     orderNumber IS NULL;
 ```
-
-
 
 #### 6、REPLACE
 
@@ -1031,7 +984,7 @@ REPLACE INTO cities(id,population)
 VALUES(2,3696820);
 ```
 
-因为 `2` 已经存在，所以先删除这一条数据，因为没有设置 `name` 的值，所以插入后的第二条数据 `name` 为  `null`。
+因为 `2` 已经存在，所以先删除这一条数据，因为没有设置 `name` 的值，所以插入后的第二条数据 `name` 为 `null`。
 
 使用 `REPLACE` 更新一条数据：
 
@@ -1054,8 +1007,6 @@ FROM
    cities
 WHERE id = 1;
 ```
-
-
 
 ### 八、最后
 

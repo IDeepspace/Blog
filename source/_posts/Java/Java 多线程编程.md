@@ -12,11 +12,7 @@ date: 2017-06-29
 urlname: java-multithreading-program
 ---
 
-
-
 在学习 `Java` 中的多线程编程之前，我们需要先了解一下**进程和线程**的概念。
-
-
 
 ### 一、概念
 
@@ -42,15 +38,11 @@ urlname: java-multithreading-program
 
 但是多进程间的通信会比较麻烦，需要很多步骤，效率低。
 
-
-
 #### 3、线程
 
 线程与进程相似，但线程是一个比进程更小的执行单位。**一个进程在其执行的过程中可以产生多个线程**。
 
 与进程不同的是：**同类的多个线程共享同一块内存空间和一组系统资源**，所以系统在产生一个线程，或是在各个线程之间作切换工作时，负担要比进程小得多 —— 因为不需要操作系统层面来划分新的资源。也正因为如此，线程也被称为轻量级进程。
-
-
 
 #### 4、多线程
 
@@ -59,8 +51,6 @@ urlname: java-multithreading-program
 线程之间的交互的方式可以分为**互斥和同步**两种。怎么理解呢？
 
 类比班级，在同一班级之内，同学之间通过相互的协作才能完成某些任务，有时这种协作是需要竞争的。比如学习，班级里的公共学习资料是有限的，需要竞争，当一个同学使用完了之后另一个同学才可以使用，如果一个同学正在使用，那么其他新来的同学只能等待。另一方面也需要同步协作，比如拔河比赛，同学们需要齐心协力相互配合，才能取得胜利。这就是线程交互。
-
-
 
 #### 5、并发与并行
 
@@ -74,8 +64,6 @@ urlname: java-multithreading-program
 
 如果线程数非常多，`CPU` 就会在 `n` 个线程之间切换，消耗大量的 `CPU` 资源；这时，每个线程被调度的次数就会降低，线程的执行效率也会降低。
 
-
-
 ##### 5.2、并行
 
 并行的概念是：**在同一时刻发生若干事件**。
@@ -84,10 +72,9 @@ urlname: java-multithreading-program
 
 可以用下面的一张图来描述**并发与并行的区别**：
 
-<img src="/ImageHosting/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/java-concurrency-parallel.jpg" alt="Java 并发与并行" />
 
 <p align="center">（图片来自 Joe Armstrong）</p>
-
 
 #### 6、多进程与多线程的区别
 
@@ -97,19 +84,15 @@ urlname: java-multithreading-program
 - 需要进行大量计算的优先使用线程；
 - 强相关的处理用线程，弱相关的处理用进程；
 
-
-
 #### 7、什么是线程安全
 
 如果代码在多线程下执行和在单线程下执行永远都能获得一样的结果，那么这个代码就是线程安全的。
-
-
 
 ### 二、线程的状态
 
 `Java` 中线程的生命周期由 `JVM` 控制，线程的状态分为 `6` 种，可以用下面的图来表示：
 
-<img src="/ImageHosting/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/java-thread-lifecycle.jpg" alt="Java 线程的状态" />
 
 1. 初始（`NEW`）：新创建了一个线程对象，但还没有调用 `start()` 方法；
 
@@ -124,8 +107,6 @@ urlname: java-multithreading-program
 5. 超时等待（`TIMED_WAITING`）：该状态不同于 `WAITING`，它可以在指定的时间后自行返回；
 
 6. 终止（`TERMINATED`）：表示该线程已经执行完毕。
-
-
 
 ### 三、多线程的多种实现方式
 
@@ -152,8 +133,6 @@ public class ThreadDemo {
 - `Callable` 接口和 `Future` 接口。
 
 其中前两种方式线程执行完后都没有返回值，后面一种是带返回值的。下面我们通过例子来详细介绍这几种方式。
-
-
 
 #### 1、继承 `Thread` 类
 
@@ -232,8 +211,6 @@ i:14
 
 **注意**，如果调用了 `sleep()` 方法，必须捕获 `InterruptedException` 异常或者将该异常向上层抛出。当线程休眠时间到达后，不一定会立即得到执行，因为此时可能 `CPU` 正在执行其他的任务。所以说调用 `sleep()` 方法相当于让线程进入**阻塞**状态。
 
-
-
 我们也可以看到，**主线程比子线程早结束**，如果想要主线程一定会等子线程都结束了才结束该怎么办呢？使用 `join()` 方法：
 
 ```java
@@ -305,8 +282,6 @@ join(long millis);
 
 **这是一个非常常见的场景。**在很多情况下，主线程生成并起动了子线程，如果子线程里要进行大量的耗时的运算，主线程往往将于子线程之前结束，但是如果主线程处理完其他的事务后，需要用到子线程的处理结果，也就是主线程需要等待子线程执行完成之后再结束，这个时候就要用到 `join()` 方法了。
 
-
-
 **`Thread.yield()` 方法**
 
 这里再介绍另外一个方法：`Thread.yield()` 方法，它的作用是：暂停当前正在执行的线程对象，并执行其他线程。它做的其实是让当前运行线程回到可运行状态，以允许具有相同优先级的其他线程获得运行机会。
@@ -341,8 +316,6 @@ public class YieldTest extends Thread {
 ```
 
 **线程暂停之后，接着轮到谁执行是不确定的。**可以多运行几次上述代码，来验证 `yield()` 的特性（一般在开发中，`yield()` 不常用）。
-
-
 
 #### 2、实现 `Runnable` 接口
 
@@ -401,13 +374,9 @@ public void run() {
 }
 ```
 
-
-
 #### 3、缺陷
 
 前面介绍的两种方式都有一个缺陷：在执行完任务之后无法获取执行结果。 如果需要获取执行结果，就必须通过共享变量或者使用线程通信的方式来达到效果，这样使用起来就比较麻烦。 所以从 `Java 1.5` 开始，`Java` 就提供了 `Callable` 和 `Future`，通过它们可以在任务执行完毕之后得到任务执行结果。
-
-
 
 #### 4、使用 `Callable` 接口
 
@@ -425,8 +394,6 @@ public interface Callable<V> {
 
 - 通过 `FutureTask`；
 - 通过线程池获取
-
-
 
 ##### 4.1、通过 `FutureTask`
 
@@ -533,8 +500,6 @@ public class TestCallable {
 }
 ```
 
-
-
 ##### 4.2、通过线程池实现多线程
 
 在开发中，我们经常会遇到这样的场景：服务器需要接受并处理请求，所以会为一个请求来分配一个线程来进行处理。如果为每次请求都新创建一个线程的话实现起来非常简便，但是存在一个问题：
@@ -570,13 +535,11 @@ public ThreadPoolExecutor(int corePoolSize,
 - `unit`： 线程空闲存活时间单位；
 - `workQueue`： 存放任务的阻塞队列；
 - `threadFactory`： 用于设置创建线程的工厂，可以给创建的线程设置有意义的名字，方便排查问题；
-- `handler`：  线城池的饱和策略事件（拒绝策略）；用于处理当任务来不及处理的情况。主要有四种类型。
+- `handler`： 线城池的饱和策略事件（拒绝策略）；用于处理当任务来不及处理的情况。主要有四种类型。
 
 **线程池的执行流程**可以用下图来表示：
 
-<img src="/ImageHosting/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
-
-
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/java-thread-pool-flow.png" alt="Java 线程池的执行流程" style="zoom:87%;" />
 
 **创建线程池**
 
@@ -648,9 +611,6 @@ public class ThreadPoolDemo {
 ----------
 ```
 
-
-
 ### 四、总结
 
 `Java` 多线程编程的内容是非常多的，足够写一本书；并且在不同的应用场景有不同的最佳解决方案，本文的主要目的是为了帮助初学者初步理解及简单使用多线程，关于更多内容还需要不断学习、总结。
-

@@ -8,8 +8,6 @@ tags:
   - Docker
 ---
 
-
-
 ### 一、什么是 Docker
 
 `Docker` 是一种虚拟化容器技术，其设计理念是 「 `build once, run anywhere` 」（一次构建，到处运行），和 `Java` 的跨平台特点 —— 「 `wirte once, run anywhere` 」（一次编写，到处运行）很像。
@@ -22,7 +20,7 @@ tags:
 
 第一步肯定是要先**准备一台物理服务器**，然后在物理服务器上**安装一个操作系统**（`Operating System`），有了操作系统之后，就可以在操作系统上**安装并运行我们的应用程序**。这个过程可以用下面的图来表示：
 
-<img src="/ImageHosting/Docker/deploy-application-without-virtualization.png" alt="deploy-application-without-virtualization" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/deploy-application-without-virtualization.png" alt="deploy-application-without-virtualization" style="zoom:50%;" />
 <!-- more -->
 这种方式有几个缺点：
 
@@ -36,8 +34,6 @@ tags:
 
 那有什么办法可以解决这些问题呢？答案就是**虚拟化技术**。
 
-
-
 #### 2、使用虚拟机部署应用程序的年代
 
 什么是虚拟化技术？
@@ -46,7 +42,7 @@ tags:
 
 虚拟机允许我们在一台物理计算机上模拟出多台机器。简单地理解，虚拟化技术就是在一台物理计算机上，通过中间虚拟软件层 `Hypervisor` 隔离 `CPU`、内存等硬件资源，虚拟出多台虚拟服务器，这样做的话，一台物理服务器就可以安装多个应用程序，达到资源利用的最大化，而且多个应用之间相互隔离，如下图所示：
 
-<img src="/ImageHosting/Docker/deploy-application-with-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/deploy-application-with-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
 
 使用虚拟机有这些优点：
 
@@ -60,8 +56,6 @@ tags:
 
 并且，虚拟机一般都是一个完整的用户操作系统以及其中安装好的大量应用程序，它是非常笨重的。每一个虚拟机上也都需要再去安装许多依赖。在实际生产开发环境里，我们更关注的其实是自己部署的应用程序，如果每次部署发布都得搞一个完整操作系统和附带的依赖环境，这是很麻烦且影响效率的，非常容易出错。所以我们经常会听到开发者这样的抱怨 —— **"明明我本地是好的，怎么一到服务器就不行了呢？"**。
 
-
-
 #### 3、容器化技术
 
 那有没有一种方式，能让开发者更加关注部署的应用程序本身，让底层操作系统和依赖环境可以共享和复用呢？简单来说就是：当部署好一个服务后，再想移植到另外一个地方，可以不用再安装一套操作系统和依赖环境。容器（`Container`）化技术很好地解决了这个问题。
@@ -72,17 +66,15 @@ tags:
 
 我们看一下 `Docker` 官网的图示：
 
-<img src="/ImageHosting/Docker/container-vs-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/container-vs-vm.png" alt="deploy-application-with-vm" style="zoom:50%;" />
 
 虚拟机有 `Hypervisor` 层，`Hypervisor` 是整个虚拟机的核心所在，它为虚拟机提供了虚拟的运行平台，管理虚拟机的操作系统运行。而容器没有 `Hypervisor` 这一层，**并且每个容器是和宿主机共享硬件资源及操作系统，那么由 `Hypervisor` 带来性能的损耗，在 `linux` 容器这边是不存在的。**
 
 传统虚拟化技术是对硬件资源的虚拟，**而容器化技术则是对进程的虚拟**，在用户空间**以分离的进程运行**，从而可提供更轻量级的虚拟化，实现进程和资源的隔离。因此容器化比完整虚拟机使用更少的资源，减轻主机内存的压力，更加轻量，启动速度也更加迅速（通常都是秒级）。
 
-
-
 #### 4、Docker 的优点
 
-这种容器化技术 ——  `Linux Container` （简称 `LXC`）其实很早就已经诞生了。那么为什么 `Docker` 的出现会快速吸引到技术业界的注意？
+这种容器化技术 —— `Linux Container` （简称 `LXC`）其实很早就已经诞生了。那么为什么 `Docker` 的出现会快速吸引到技术业界的注意？
 
 `Docker` 相比于其它容器化技术，有以下优点：
 
@@ -91,17 +83,13 @@ tags:
 - `Docker Hub`：它相当于 `Docker` 镜像的应用商店。`Docker Hub` 提供了成千上万由社区开发的公共镜像，我们可以轻松地根据需要搜索到合适的镜像，将其提取并稍加修改即可使用；
 - 模块性与可扩展性：`Docker` 允许我们轻松地将应用程序的功能拆分成多个独立容器。举例来说，我们可以将自己的 `Postgres` 数据库运行在一套容器当中，并将 `Redis` 服务器运行在另一容器内，而 `Node.js` 也拥有自己的容器系统。在 `Docker` 的帮助上，大家能够轻松将这些容器对接起来以创建完整的应用程序，这就让未来的规模伸缩或者组件更新得以通过相互独立的方式完成。
 
-
-
 #### 5、Docker 的版本
 
 `Docker` 分为社区版（`CE`）和企业版（`EE`）两个版本，社区版本可以免费使用，而企业版则需要付费使用。对于我们个人开发者或小企业来说，一般使用社区版就足够了。
 
-
-
 ### 二、Docker 架构一瞥
 
-<img src="/ImageHosting/Docker/docker-architecture.jpg" alt="Docker Architecture" style="zoom: 62%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/docker-architecture.jpg" alt="Docker Architecture" style="zoom: 62%;" />
 
 <p align="center">（图片来自网络）</p>
 
@@ -111,8 +99,6 @@ tags:
 
 3. 右边为 `Docler` 注册表存储 `Docker` 镜像，是一个所有 `Docker` 用户共享 `Docker` 镜像的服务，`Docker daemon` 与之进行交互。
 
-
-
 ### 三、基本概念
 
 #### 1、镜像
@@ -120,8 +106,6 @@ tags:
 `Docker` 会把应用程序及依赖打包进镜像（`Images`）里，提供了容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等），通过这个镜像文件可生成 `Docker` 容器。
 
 我们也可以自己制作镜像，例如我们可以在 `Ubuntu` 镜像基础之上安装 `Redis`、`Mysql` 等其它应用程序，然后将其制作成一个镜像。制作好的镜像文件可以拷贝到其它机器使用。镜像的制作可以基于 `Dockerfile` 构建（后面会讲解）。
-
-
 
 #### 2、容器
 
@@ -131,15 +115,11 @@ tags:
 
 容器由其镜像以及在创建或启动容器时提供的配置选项来定义。当容器被删除时，未对容器状态做持久化存储的更改都会消失。
 
-
-
 #### 3、仓库
 
 镜像构建完成后，可以很容易的在当前宿主机上运行。但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，[Docker Hub](https://hub.docker.com/) 就是这样的服务，我们把这个服务叫作**仓库**（ `Docker Registry` ）。仓库的概念与 `Git` 类似，可以理解为 `GitHub` 这样的托管服务。
 
 一个 `Docker Registry` 中可以包含多个仓库（`Repository`）；每个仓库可以包含多个 标签（`Tag`）；每个标签对应一个镜像。通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本。我们可以通过 `<仓库名>:<标签>` 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 `latest` 作为默认标签。
-
-
 
 ### 四、安装
 
@@ -160,8 +140,6 @@ $ docker --version
 ```
 
 输出所安装的 `Docker` 版本。
-
-
 
 ### 五、使用镜像
 
@@ -195,8 +173,6 @@ $ docker pull library/centos:latest
 $ docker pull mysql/mysql-server:latest
 ```
 
-
-
 #### 2、运行镜像
 
 使用 `docker run` 命令，可以通过镜像创建一个容器：
@@ -206,8 +182,6 @@ $ docker run -it centos /bin/bash
 ```
 
 具体格式会在容器一节进行详细讲解。
-
-
 
 #### 3、列出镜像
 
@@ -230,8 +204,6 @@ $ docker images java
 ```bash
 $ docker images java:8
 ```
-
-
 
 #### 4、删除本地镜像
 
@@ -261,10 +233,6 @@ $ docker rmi $(docker images -q)
 $ docker rmi -f $(docker images -q)
 ```
 
-
-
-
-
 ### 六、操作容器
 
 #### 1、启动容器
@@ -279,17 +247,13 @@ $ docker run hello-world
 
 如果本地环境中没有 `hello-world` 镜像，会从远程仓库中拉取镜像；如果有，则使用本地的镜像。
 
-> 注意：命令执行之后，`hello-world`  这个容器会自动停止，但并不是所有的容器运行之后都会停止的。
-
-
+> 注意：命令执行之后，`hello-world` 这个容器会自动停止，但并不是所有的容器运行之后都会停止的。
 
 **重新启动停止的容器：**
 
 ```bash
 $ docker start CONTAINER_ID
 ```
-
-
 
 #### 2、查看容器
 
@@ -317,8 +281,6 @@ $ docker ps --all
 $ docker ps -a
 ```
 
-
-
 #### 3、停止容器
 
 可以使用 `docker container stop` 来终止一个运行中的容器。也可以使用快捷命令：
@@ -328,8 +290,6 @@ $ docker stop container_id
 ```
 
 此外，`docker container restart` 命令会将一个运行态的容器终止，然后再重新启动它。
-
-
 
 #### 4、删除容器
 
@@ -352,8 +312,6 @@ $ docker rm $(docker ps -q)
 ```bash
 $ docker container prune
 ```
-
-
 
 #### 5、进入容器
 
@@ -380,15 +338,12 @@ bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
 boot  etc  lib   media  opt  root  sbin  sys  usr
 ```
 
-
-
 ### 七、访问仓库
 
-仓库（`Repository`）是集中存放镜像的地方。	
+仓库（`Repository`）是集中存放镜像的地方。
 
 `Docker Hub` 有很多官方或其他开发者提供的高质量镜像供我们使用。当然，我们也可以把自己在本地构建的镜像发送到 `Docker Hub` 的仓库当中。
 
 注意，这里有一个比较容易混淆的概念 —— 注册服务器 `Docker Registry` 。注册服务器是管理仓库的具体服务器，每个服务器上可以有多个仓库（`Repository`），而每个仓库下面有多个镜像，每个仓库对应多个标签，不同标签对应一个软件的不同版本。
 
 大部分时候，我们并不需要严格区分这两者的概念。
-

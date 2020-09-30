@@ -8,13 +8,9 @@ date: 2017-08-12
 urlname: react-virtual-dom-and-diff
 ---
 
-
-
 ## React 中的虚拟 DOM 和 diff 算法
 
 本篇内容将会探究 `React` 中的虚拟 `DOM` 和 `diff` 算法，明白大致原理，并了解如何简单实现 虚拟 `DOM` 树。
-
-
 
 ### 一、真实的 DOM
 
@@ -23,10 +19,10 @@ urlname: react-virtual-dom-and-diff
 假设页面上有一个列表，我们一般会这样写：
 
 ```html
-<ul id='list'>
-  <li class='item'>1</li>
-  <li class='item'>2</li>
-  <li class='item'>3</li>
+<ul id="list">
+  <li class="item">1</li>
+  <li class="item">2</li>
+  <li class="item">3</li>
 </ul>
 ```
 
@@ -44,14 +40,12 @@ urlname: react-virtual-dom-and-diff
 var div = document.createElement('div');
 var str = '';
 for (const key in div) {
-  str = str += key + ' '
+  str = str += key + ' ';
 }
 console.log(str);
 ```
 
 可以在浏览器中查看打印结果。在 `div` 这个元素上，会**默认挂载大量的属性和方法**（这没办法改变，因为标准就是这么设计的），但是很多时候，我们其实并不关心也不会使用到这些内容。
-
-
 
 ### 二、什么是虚拟 DOM？
 
@@ -62,10 +56,12 @@ console.log(str);
 ```javascript
 const VitrualDOM = {
   tagName: 'ul', // 节点标签名
-  props: { // DOM的属性，用一个对象存储键值对
+  props: {
+    // DOM的属性，用一个对象存储键值对
     id: 'list',
   },
-  children: [ // 该节点的子节点
+  children: [
+    // 该节点的子节点
     { tagName: 'li', props: { class: 'item' }, children: ['1'] },
     { tagName: 'li', props: { class: 'item' }, children: ['2'] },
     { tagName: 'li', props: { class: 'item' }, children: ['3'] },
@@ -83,8 +79,6 @@ const VitrualDOM = {
 
 然后给节点实现渲染方法，就可以实现虚拟节点到真是 `DOM` 的转化，将 `VitrualDOM` 对象渲染成真实 `DOM`。这就是虚拟 `DOM` 的概念。
 
-
-
 ### 三、diff 算法是什么？
 
 使用虚拟 `DOM` 之后，我们只需要告诉 `React` 当前的视图处于什么状态，`React` 则会通过虚拟 `DOM` 的转化来确保真实的 `DOM` 与该状态相匹配。那该怎么处理状态的变化呢？
@@ -99,13 +93,13 @@ const VitrualDOM = {
 
 在比较的过程中，只比较同级的节点，非同级的节点不在比较范围内，这样既可以满足更新视图的需求，又可以简化算法实现，这样算法复杂度就可以达到 `O(n)`。
 
-<img src="/ImageHosting/React/react-diff-1.png" alt="diff 算法" style="zoom: 75%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-diff-1.png" alt="diff 算法" style="zoom: 75%;" />
 
 <p align='center'>（图片来自网络）</p>
 
 比较新旧两棵树的差异时，首先会对树进行遍历。常用的有两种遍历算法，分别是深度优先遍历和广度优先遍历。一般的 `diff` 算法中都采用的是**深度优先遍历**。**对新旧两棵树进行一次深度优先的遍历，这样每个节点就都会有一个唯一的标记。**
 
-<img src="/ImageHosting/React/react-diff-2.png" alt="diff 算法" style="zoom: 75%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-diff-2.png" alt="diff 算法" style="zoom: 75%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -127,8 +121,6 @@ const VitrualDOM = {
 - `setAttribute()` / `removeAttribute()`
 - `textContent`
 
-
-
 ### 四、虚拟 DOM 真的更快吗？
 
 虚拟 `DOM` 可以提升性能，这个说法是不那么准确的。直接操作 `DOM` 是非常耗费性能的，这一点毋庸置疑。但是 `React` 使用虚拟 `DOM` 也是无法避免操作 `DOM` 的。
@@ -139,8 +131,6 @@ const VitrualDOM = {
 
 但是，使用虚拟 `DOM` 时，首次渲染 `DOM` 时候由于多了一层虚拟 `DOM` 计算，所以可能比 `html` 渲染慢。
 
-
-
 ### 五、如何简单实现虚拟 DOM 树？
 
 有了前面的描述，下面我们来简单实现一个虚拟 `DOM`。有三个步骤：
@@ -150,8 +140,6 @@ const VitrualDOM = {
 - 当状态变更时，重新构建一个新的虚拟 `DOM` 树，然后用这个新的树和旧的树作对比，记录两个树的差异；
 
 - 把差异应用在步骤一所构建的真正的 `DOM` 树上，视图就更新了。
-
-
 
 #### 1、构建虚拟 DOM 树
 
@@ -192,9 +180,7 @@ function h(type, props, ...children) {
 然后就可以像下面这样表示：
 
 ```javascript
-h('ul', { class: 'list' },
-  h('li', {}, 'item 1'),
-  h('li', {}, 'item 2'));
+h('ul', { class: 'list' }, h('li', {}, 'item 1'), h('li', {}, 'item 2'));
 ```
 
 这样看起来清晰了很多，当 `h(...)` 执行之后，将会返回纯的 `JavaScript` 对象，即我们的虚拟 `DOM`。
@@ -211,10 +197,12 @@ h('ul', { class: 'list' },
 编译成：
 
 ```javascript
-React.createElement('ul', { className: 'list' },
+React.createElement(
+  'ul',
+  { className: 'list' },
   React.createElement('li', {}, 'item 1'),
-  React.createElement('li', {}, 'item 2'),
-)
+  React.createElement('li', {}, 'item 2')
+);
 ```
 
 如果我们能够用我们的 `h(...)` 函数代替 `React.createElement(…)`，那么我们也能使用 `JSX` 语法了。其实，我们只需要在源文件头部加上这么一句注释：
@@ -225,8 +213,6 @@ React.createElement('ul', { className: 'list' },
 
 `Babel` 就会帮我们开始编译了。
 
-
-
 #### 2、运用虚拟 DOM 构建真实的 DOM
 
 我们需要一个真实的 `DOM` 节点：
@@ -235,7 +221,7 @@ React.createElement('ul', { className: 'list' },
 <div id="root"></div>
 ```
 
-然后写一个 `createElement(…)` 函数把虚拟  `DOM` 转换成真实的 `DOM`：
+然后写一个 `createElement(…)` 函数把虚拟 `DOM` 转换成真实的 `DOM`：
 
 ```javascript
 function createElement(node) {
@@ -243,10 +229,7 @@ function createElement(node) {
     return document.createTextNode(node);
   }
   const $el = document.createElement(node.type);
-  node
-    .children
-    .map(createElement)
-    .forEach($el.appendChild.bind($el));
+  node.children.map(createElement).forEach($el.appendChild.bind($el));
   return $el;
 }
 ```
@@ -271,10 +254,7 @@ function createElement(node) {
     return document.createTextNode(node);
   }
   const $el = document.createElement(node.type);
-  node
-    .children
-    .map(createElement)
-    .forEach($el.appendChild.bind($el));
+  node.children.map(createElement).forEach($el.appendChild.bind($el));
   return $el;
 }
 
@@ -291,17 +271,17 @@ $root.appendChild(createElement(a));
 
 就像在 `React` 中，你仅仅只有一个 `root` 节点，其他所有的节点都将会在它里面。
 
-
-
 #### 3、比较两棵虚拟 DOM 树的差异
 
 **节点变化**
 
 ```javascript
 function changed(node1, node2) {
-  return typeof node1 !== typeof node2
-    || typeof node1 === 'string' && node1 !== node2
-    || node1.type !== node2.type;
+  return (
+    typeof node1 !== typeof node2 ||
+    (typeof node1 === 'string' && node1 !== node2) ||
+    node1.type !== node2.type
+  );
 }
 ```
 
@@ -310,18 +290,11 @@ function changed(node1, node2) {
 ```javascript
 function updateElement($parent, newNode, oldNode, index = 0) {
   if (!oldNode) {
-    $parent.appendChild(
-      createElement(newNode),
-    );
+    $parent.appendChild(createElement(newNode));
   } else if (!newNode) {
-    $parent.removeChild(
-      $parent.childNodes[index],
-    );
+    $parent.removeChild($parent.childNodes[index]);
   } else if (changed(newNode, oldNode)) {
-    $parent.replaceChild(
-      createElement(newNode),
-      $parent.childNodes[index],
-    );
+    $parent.replaceChild(createElement(newNode), $parent.childNodes[index]);
   } else if (newNode.type) {
     const newLength = newNode.children.length;
     const oldLength = oldNode.children.length;
@@ -330,7 +303,7 @@ function updateElement($parent, newNode, oldNode, index = 0) {
         $parent.childNodes[index],
         newNode.children[i],
         oldNode.children[i],
-        i,
+        i
       );
     }
   }
@@ -339,15 +312,13 @@ function updateElement($parent, newNode, oldNode, index = 0) {
 
 打开开发人员工具，观察当你按下“重新加载”按钮时，可以看到应用的变化：
 
-<img src="/ImageHosting/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
 
 > 实现的例子参考自完整代码：https://jsfiddle.net/cxin1427/cvdgtqup/
 
-
-
 ### 六、扩展阅读
 
-以下几篇文章很不错，可以帮助我们更好地理解虚拟 `DOM` 和 `diff`  算法，推荐阅读。
+以下几篇文章很不错，可以帮助我们更好地理解虚拟 `DOM` 和 `diff` 算法，推荐阅读。
 
 - https://www.infoq.cn/article/react-dom-diff
 - https://segmentfault.com/a/1190000018891454

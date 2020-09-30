@@ -24,8 +24,10 @@ urlname: react-new-api-in-16
 
 ### 一、Render 方法优化
 
-为了符合 `React` 的 `component tree` 和 `diff` 结构设计，在组件的 `render`  方法中，顶层必须包裹为单节点，因此我们在实际组件的设计和使用中，需要注意尽量避免嵌套后的层级变深。
+为了符合 `React` 的 `component tree` 和 `diff` 结构设计，在组件的 `render` 方法中，顶层必须包裹为单节点，因此我们在实际组件的设计和使用中，需要注意尽量避免嵌套后的层级变深。
+
 <!-- more -->
+
 比如下面的内容结构就必须再嵌套一个 `div` 使其变成单节点再返回：
 
 ```jsx
@@ -40,7 +42,7 @@ render() {
 }
 ```
 
-`React v16` 之后，这个问题得到了改进，`render` 方法支持返回数组和字符串了: 
+`React v16` 之后，这个问题得到了改进，`render` 方法支持返回数组和字符串了:
 
 ```jsx
 render() {
@@ -114,7 +116,7 @@ render() {
 function Glossary(props) {
   return (
     <dl>
-      {props.items.map(item => (
+      {props.items.map((item) => (
         // Without the `key`, React will fire a key warning
         <Fragment key={item.id}>
           <dt>{item.term}</dt>
@@ -126,15 +128,13 @@ function Glossary(props) {
 }
 ```
 
-
-
 ### 二、错误边界
 
 `UI` 部分的一个 `JavaScript` 错误不应该破坏整个程序。为了解决这个问题，`React v16` 引入了**错误边界**的新概念。
 
 错误边界是**用于捕获其子组件树 `JavaScript` 异常，记录错误并展示一个回退的 UI** 的 `React` 组件，而不是整个组件树的异常。错误边界在渲染期间、生命周期方法内、以及整个组件树构造函数内捕获错误。
 
-下面的例子是通过一个 `ErrorBoundary` 组件对其内的内容进行保护和错误捕捉，并在发生错误时进行回退的UI展示：
+下面的例子是通过一个 `ErrorBoundary` 组件对其内的内容进行保护和错误捕捉，并在发生错误时进行回退的 UI 展示：
 
 ```jsx
 class ErrorBoundary extends Component {
@@ -224,7 +224,7 @@ function App() {
 }
 ```
 
-错误边界工作机制类似于 `JavaScript`  中的 `catch {}` 。注意：仅有类组件可以成为错误边界。
+错误边界工作机制类似于 `JavaScript` 中的 `catch {}` 。注意：仅有类组件可以成为错误边界。
 
 在实际开发中，大多数情况下，我们可以只定义一个错误边界组件，并将它贯穿整个应用。
 
@@ -235,11 +235,9 @@ function App() {
 > - 服务端渲染
 > - 错误边界自身抛出来的错误 （而不是其子组件）
 
-
-
 ### 三、Portals
 
-`createPortal `  这个 `Api` 用于将子节点渲染到父组件以外的 `DOM` 节点上。`createPortal` 的出现为弹窗、对话框等脱离文档流的组件开发提供了很大的便利。
+`createPortal ` 这个 `Api` 用于将子节点渲染到父组件以外的 `DOM` 节点上。`createPortal` 的出现为弹窗、对话框等脱离文档流的组件开发提供了很大的便利。
 
 现在我们来想一下，如果需要显示一个对话框(`Dialog`)，该怎么做呢？
 
@@ -247,8 +245,8 @@ function App() {
 
 ```jsx
 <div>
-   <div> ... </div>
-   { needDialog ? <Dialog /> : null }
+  <div> ... </div>
+  {needDialog ? <Dialog /> : null}
 </div>
 ```
 
@@ -256,8 +254,8 @@ function App() {
 
 ```jsx
 <div>
-   <div> ... </div>
-   <div class="dialog">Dialog Content</div>
+  <div> ... </div>
+  <div class='dialog'>Dialog Content</div>
 </div>
 ```
 
@@ -267,18 +265,18 @@ function App() {
 
 解决这个问题，我们可以在 `React` 组件树的最顶层创建一个专属于 `Dialog` 的元素，然后通过 `Redux` 或者其他什么通讯方式给这个 `Dialog` 发送信号，来控制 `Dialog` 显示或者不显示。但是这样又会造成 "杀鸡焉用牛刀" 的问题：我们只是为了一个 `Dialog` 却引入了 `Redux` 。
 
-在 `React 16` 之前，也有实现 "传送门" 的方式，但是官方一直并不鼓励使用，所以这里也不作深入讨论。`React 16` 后，使用 `createPortal Api` 创建 `Dialog` 组件就简单多了，不需要牵扯到 `componentDidMount`、`componentDidUpdate` 等生命周期问题，也不用调用 `API` 清理 `Portal`，关键代码在 `render` 中，我们看一下 [官方给的 `demo` ](<https://codepen.io/gaearon/pen/yzMaBd>) :
+在 `React 16` 之前，也有实现 "传送门" 的方式，但是官方一直并不鼓励使用，所以这里也不作深入讨论。`React 16` 后，使用 `createPortal Api` 创建 `Dialog` 组件就简单多了，不需要牵扯到 `componentDidMount`、`componentDidUpdate` 等生命周期问题，也不用调用 `API` 清理 `Portal`，关键代码在 `render` 中，我们看一下 [官方给的 `demo` ](https://codepen.io/gaearon/pen/yzMaBd) :
 
 首先在 `public/index.html` 中新建一个根节点：
 
 ```jsx
 <body>
-	<div id="root"></div>
-	<div id="modal-root"></div>
+  <div id='root'></div>
+  <div id='modal-root'></div>
 </body>
 ```
 
-通过  `createPortal Api`  创建一个 "传送门"：
+通过 `createPortal Api` 创建一个 "传送门"：
 
 ```jsx
 import { Component } from 'react';
@@ -312,7 +310,7 @@ class Modal extends Component {
       // Any valid React child: JSX, strings, arrays, etc.
       this.props.children,
       // A DOM element
-      this.el,
+      this.el
     );
   }
 }
@@ -344,7 +342,7 @@ class App extends Component {
     // This will fire when the button in Child is clicked,
     // updating Parent's state, even though button
     // is not direct descendant in the DOM.
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       clicks: prevState.clicks + 1,
     }));
   };
@@ -376,17 +374,13 @@ class App extends Component {
 export default App;
 ```
 
-上面的代码中，`App` 组件通过 `Portal` 把里面的内容渲染到了一个独立的节点上，在实际的 `DOM` 结构中，`modal` 里面的内容已经脱离了 `App` 组件本身的 `DOM` 树而存在于另一个独立节点。对于要通过 `createPortal()  ` "分离" 出去的内容，它的数据传递，生命周期，甚至事件冒泡，依然存在于原本的抽象组件树结构当中。这里实际依赖于 `React` 代理和重写了整套事件系统，让整个抽象组件树的逻辑得以保持同步。
+上面的代码中，`App` 组件通过 `Portal` 把里面的内容渲染到了一个独立的节点上，在实际的 `DOM` 结构中，`modal` 里面的内容已经脱离了 `App` 组件本身的 `DOM` 树而存在于另一个独立节点。对于要通过 `createPortal() ` "分离" 出去的内容，它的数据传递，生命周期，甚至事件冒泡，依然存在于原本的抽象组件树结构当中。这里实际依赖于 `React` 代理和重写了整套事件系统，让整个抽象组件树的逻辑得以保持同步。
 
 运行上面的代码可以查看效果。
-
-
 
 ### 四、Context API
 
 参考：<https://togoblog.cn/react-component-communication/#toc-heading-5>
-
-
 
 ### 五、新的生命周期
 
@@ -394,7 +388,7 @@ export default App;
 
 我们先看看 `React 16` 之前的生命周期图：
 
-<img src="/ImageHosting/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
 
 <p align="center">(图片来自网络)</p>
 如上图所示，可以把组件的生命周期大致分为三个阶段：
@@ -406,19 +400,24 @@ export default App;
 ##### 1.1、挂载阶段
 
 - **`constructor()`**
+
   - 挂载之前调用一次，可以初始化 `state`。
 
 - **`getDefaultProps()`**
+
   - 设置默认的 `props` ，也可以用 `dufaultProps` 设置组件的默认属性。
 
 - **getInitialState()**
+
   - 初始化 `state`，可以直接在 `constructor` 中定义 `this.state`（推荐方式）。
 
 - **componentWillMount()**
+
   - `componentWillMount` 方法的调用在 `constructor` 之后，在 `render` 之前，在这方法里的代码调用 `setState` 方法不会触发重渲染，所以它一般不会用来作加载数据之用，它也很少被使用到（在 `React 16.9` 中也被废弃）；
   - 这是服务端渲染（`server render`）中唯一调用的钩子（`hook`）。
 
 - **render()**
+
   - `react` 中最重要的步骤，创建虚拟 `dom`、进行 `diff` 算法，更新 `dom` 树都在此进行；
   - 在 `componentWillMount()` 方法之后执行；
   - 在 `componentWillReceive(nextProps, nextState)` 方法之后执行。
@@ -430,24 +429,26 @@ export default App;
 
 > 注：把 `Ajax` 请求放在 `componentWillMount` 函数中也是可以的，但是官方推荐放在 `componentDidMount` 这个生命周期函数中发起 `Ajax` 请求，因为执行这个生命周期时，`DOM` 已经挂载完了，这样做可以拿到 `Ajax` 请求返回的数据并通过 `setState` 来更新组件。
 
-
-
 ##### 1.2、更新阶段
 
 - **componentWillReceivePorps(nextProps)**
+
   - 在已经挂载的组件接收到一个新的 `prop` 时被执行。这个方法在初始化 `render` 时不会被调用；
   - 如果你需要在 `props` 发生变化时来更新 `state`，你可能需要比较 `this.props` 和 `nextProps`，然后根据比较结果，使用 `this.setState()` 方法来改变 `this.state`；
 
 - **shouldComponentUpdate(nextProps, nextState)**
+
   - 组件接收到新的 `props` 或者 `state` 发生改变时被调用，在初始化时或者使用 `forceUpdate` 时不被执行；
   - `return true` 就会更新 `dom`（使用 `diff` 算法更新），`return false` 能阻止更新（不调用 `render`）；
   - 可以在你确认不需要更新组件时使用，提升性能。
 
 - **componentWillUpdate(nextProps, nextState)**
+
   - 组件挂载时不调用，只有在组件将要更新时才调用。也就是说：在 `props` 或 `state` 发生改变或者 `shouldComponentUpdate(nextProps, nextState)` 触发后，在 `render()` 之前执行；
   - 要特别注意，`componentWillUpdate` 生命周期钩子每次更新前都会执行，所以在这里调用 `this.setState ` 非常危险，有可能会没完没了。
 
 - **render()**
+
   - `react` 中最重要的步骤，创建虚拟 `dom`、进行 `diff` 算法，更新 `dom` 树都在此进行；
   - 在 `componentWillMount()` 方法之后执行；
   - 在 `componentWillReceive(nextProps, nextState)` 方法之后执行。
@@ -458,8 +459,6 @@ export default App;
   - 如果 `shouldComponentUpdate(nextProps, nextState)` 返回 `false`，那么 `componentDidUpdate(prevProps, prevState)` 不会被触发；
   - 因为 `componentDidUpdate` 生命周期钩子每次更新后都会被执行，所以在这里调用 `this.setState` 也非常危险，有可能会没完没了；
   - 搭配 `getSnapshotBeforeUpdate` 生命周期钩子（`React 16` 中的新生命周期）使用的时候，第三个参数是 `getSnapshotBeforeUpdate` 的返回值。
-
-
 
 ##### 1.3、卸载阶段
 
@@ -487,13 +486,11 @@ export default App;
 
 下面我们再看看新的生命周期。
 
-
-
 #### 2、新的生命周期
 
 再来看下 `React v16.4` 的生命周期图：
 
-![Reactv16.4生命周期图](/ImageHosting/React/reactv16.4-lifecycle.jpg)
+![Reactv16.4生命周期图](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/reactv16.4-lifecycle.jpg)
 
 <p align="center">(图片来自网络)</p>
 `React16` 废弃的三个生命周期函数：
@@ -524,8 +521,6 @@ export default App;
 - 在异步渲染中，它的表现不稳定。
 - 初始化 `this.state` 应该在 `constructor` 生命周期钩子中完成，请求数据应该在 `componentDidMount` 生命周期钩子中完成，所以本来它就没什么用。可能当初创造它是为了成双成对吧，所以才被完全废弃了。
 
-
-
 ##### 2.2、废除 componentWillReceiveProps
 
 `componentWillReceiveProps` 生命周期钩子只有一个参数，更新后的 `props`。
@@ -539,8 +534,6 @@ export default App;
 
 因为 `Fiber ` 机制的引入，这个生命周期钩子有可能会多次触发。
 
-
-
 ##### 2.3、componentWillUpdate
 
 `shouldComponentUpdate` 生命周期钩子返回 `true`，或者调用 `this.forceUpdate` 之后，会立即执行该生命周期钩子。
@@ -548,8 +541,6 @@ export default App;
 要特别注意，`componentWillUpdate` 生命周期钩子每次更新前都会执行，所以在这里调用 `this.setState` 非常危险，有可能会没完没了。
 
 同样，因为 `Fiber` 机制的引入，这个生命周期钩子有可能会多次调用。
-
-
 
 新增加了两个新的生命周期函数
 
@@ -646,8 +637,6 @@ export default B;
 1. 无条件的根据 `props` 更新 `state`
 2. 当 `props` 和 `state` 的不匹配情况更新 `state`
 
-
-
 ##### 2.5、新增 getSnapshotBeforeUpdate
 
 顾名思义，保存状态快照用的。
@@ -662,10 +651,6 @@ export default B;
 
 意思就是说呀，开发者一般用不到它。
 
-
-
 ### 六、最后
 
 本篇内容代码：<https://github.com/IDeepspace/React-Workshop/tree/master/react-16-api>
-
-

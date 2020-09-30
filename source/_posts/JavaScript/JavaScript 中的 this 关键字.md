@@ -12,8 +12,6 @@ urlname: javascript-this
 
 学习 `this` 之前，我们先思考一个问题：`JavaScript` 中为什么会有 `this ` ？
 
-
-
 ### 一、为什么要用 this？
 
 #### 1、一个通俗的例子
@@ -45,10 +43,10 @@ urlname: javascript-this
 ```
 
 只在说话的开始，保留第一个名词，后面重复用到时，都用**这**来代替。现在读起来就顺口多了，其实写代码也是一样的。
+
 <!-- more -->
+
 现在我们把上面的例子转化为代码语言。
-
-
 
 #### 2、用代码语言来描述
 
@@ -64,7 +62,7 @@ const person = {
   },
   sayBye: function () {
     // ...
-  }
+  },
 };
 ```
 
@@ -86,8 +84,10 @@ const person = {
     console.log(`你好，我是 ${name}，今年 ${age} 岁。`);
   },
   sayBye: function (name, phone) {
-    console.log(`再见，记得我叫 ${name} 哦，想约我的话打电话给我，我的电话是 ${phone}。`);
-  }
+    console.log(
+      `再见，记得我叫 ${name} 哦，想约我的话打电话给我，我的电话是 ${phone}。`
+    );
+  },
 };
 ```
 
@@ -109,8 +109,10 @@ const person = {
     console.log(`你好，我是 ${self.name}，今年 ${self.age} 岁。`);
   },
   sayBye: function (self) {
-    console.log(`再见，记得我叫 ${self.name} 哦，想约我的话打电话给我，我的电话是 ${self.phone}。`);
-  }
+    console.log(
+      `再见，记得我叫 ${self.name} 哦，想约我的话打电话给我，我的电话是 ${self.phone}。`
+    );
+  },
 };
 ```
 
@@ -131,8 +133,8 @@ person.sayBye(person);
 
 有两种实现方案：
 
-- 方法1：依然把第一个参数 `self` 当作 `person`，这样形参就会永远比实参多出一个 `self` 。
-- 方法2：隐藏 `self`，然后用关键字 `this` 来访问 `self`。
+- 方法 1：依然把第一个参数 `self` 当作 `person`，这样形参就会永远比实参多出一个 `self` 。
+- 方法 2：隐藏 `self`，然后用关键字 `this` 来访问 `self`。
 
 `Python` 选择了第一种实现方案，`JavaScript` 选择了第二种实现方案。
 
@@ -149,8 +151,8 @@ class Dog:
 
     def roll_over(self):
         print(self.name.title() + " rolled over!")
-        
-        
+
+
 my_dog = Dog('willie', 6)
 # 访问属性
 print("My dog's name is " + my_dog.name.title() + '.')
@@ -172,8 +174,10 @@ const person = {
     console.log(`你好，我是 ${this.name}，今年 ${this.age} 岁。`);
   },
   sayBye: function () {
-    console.log(`再见，记得我叫 ${this.name} 哦，想约我的话打电话给我，我的电话是 ${this.phone}。`);
-  }
+    console.log(
+      `再见，记得我叫 ${this.name} 哦，想约我的话打电话给我，我的电话是 ${this.phone}。`
+    );
+  },
 };
 ```
 
@@ -186,8 +190,6 @@ person.sayBye();
 
 这就是 `JavaScript` 中 `this` 的由来。
 
-
-
 ### 二、this 的绑定规则
 
 `JavaScript` 中的 `this` 有四种绑定规则。
@@ -199,7 +201,7 @@ person.sayBye();
 ```javascript
 function defaultBind() {
   console.log(this === window);
-};
+}
 
 defaultBind(); // true
 ```
@@ -213,7 +215,7 @@ var name = 'Deepspace';
 
 function box() {
   console.log(this.name);
-};
+}
 
 box(); // Deepspace
 ```
@@ -224,8 +226,8 @@ box(); // Deepspace
 >
 > ```javascript
 > var a = 12;
-> function f(){};
-> 
+> function f() {}
+>
 > console.log(window.a); // 12
 > console.log(window.f); // f(){}
 > ```
@@ -235,16 +237,16 @@ box(); // Deepspace
 > ```javascript
 > let a = 1;
 > const f = function () {
->     return 1;
+>   return 1;
 > };
-> 
+>
 > console.log(window.a); // undefined
 > console.log(window.f); // undefined
 > ```
 >
 > 在全局作用域中，用 `let` 和 `const` 声明的全局变量并没有在全局对象中，只是一个块级作用域（`Script`）中（可以在浏览器中设置断点查看）。
 >
-> ![let debug](/ImageHosting/FrontEnd/let-const-debug.png)
+> ![let debug](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/let-const-debug.png)
 >
 > 所以，要想访问用 `let` 和 `const` 声明的全局变量，就不可以使用 `window`。所以在上面演示 `this` 的默认绑定的时候，使用 `var` 来初始化变量。
 
@@ -256,7 +258,7 @@ function box() {
     console.log(this === window);
   }
   innerBox();
-};
+}
 
 box(); // true
 ```
@@ -272,15 +274,13 @@ var obj = {
       console.log(this === window);
     }
     innerBox();
-  }
+  },
 };
 
 obj.box(); // true
 ```
 
 结果依旧是 `true`，这里其实也用到了默认绑定。
-
-
 
 #### 2、隐式绑定
 
@@ -297,7 +297,7 @@ const obj = {
   name: 'Deepspace',
   sayHi: function () {
     console.log(this.name);
-  }
+  },
 };
 
 obj.sayHi(); // Deepspace
@@ -314,7 +314,7 @@ function sayHi() {
 
 const obj = {
   name: 'Deepspace',
-  sayHi: sayHi
+  sayHi: sayHi,
 };
 
 obj.sayHi(); // Deepspace
@@ -329,7 +329,7 @@ const obj = {
   name: 'Deepspace',
   sayHi: function () {
     console.log(this.name);
-  }
+  },
 };
 
 var name = 'globe name';
@@ -344,7 +344,7 @@ hello(); // globe name
 
 **当使用 `this` 的函数被包含在对象中时，这个函数对于对象来说是独立的，并不被这个对象所完全拥有。 它和在对象外部声明函数，然后在对象内部通过属性名称的方式取得函数的引用是完全等价的。定义在对象内部的函数只是“恰好可以被这个对象调用”而已，而不是“生来就是为这个对象所调用”的。**
 
-所以，当把 `obj.sayHi` 这个函数赋值给变量 `hello` 时，`hello` 这个函数引用就和 `obj` 这个对象完全没有关系了。此时的 `this` 指向的是 `window` 而不是 `obj` ，所以会输出  `globe name` 。
+所以，当把 `obj.sayHi` 这个函数赋值给变量 `hello` 时，`hello` 这个函数引用就和 `obj` 这个对象完全没有关系了。此时的 `this` 指向的是 `window` 而不是 `obj` ，所以会输出 `globe name` 。
 
 再看个复杂点的例子：
 
@@ -355,7 +355,7 @@ const obj = {
   name: 'Deepspace',
   sayHi: function () {
     console.log(this.name);
-  }
+  },
 };
 
 function sayHello(fn) {
@@ -376,23 +376,21 @@ var obj = {
       a: 3,
       getA: function () {
         console.log(this.a);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
-obj.obj2.obj3.getA();  // 输出3
+obj.obj2.obj3.getA(); // 输出3
 ```
 
 这个时候，`this` 绑定的是最内层的对象，也就是离得最近的对象。
 
-
-
 #### 3、显示绑定
 
-##### call 
+##### call
 
-在上面的隐式绑定的例子中，当把 `obj.sayHi` 这个函数赋值给变量 `hello` 时，此时的 `this` 指向的是 `window` 而不是 `obj` ，所以会输出  `globe name` ，那如果一定要把 `this` 指向 `obj` 该怎么做呢？`call` 函数就派上用场了。
+在上面的隐式绑定的例子中，当把 `obj.sayHi` 这个函数赋值给变量 `hello` 时，此时的 `this` 指向的是 `window` 而不是 `obj` ，所以会输出 `globe name` ，那如果一定要把 `this` 指向 `obj` 该怎么做呢？`call` 函数就派上用场了。
 
 `call` 函数的语法：
 
@@ -415,7 +413,7 @@ const obj = {
   name: 'Deepspace',
   sayHi: function () {
     console.log(this.name);
-  }
+  },
 };
 
 var name = 'globe name';
@@ -433,7 +431,7 @@ const obj = {
   name: 'Deepspace',
   sayHi: function () {
     console.log(this.name);
-  }
+  },
 };
 
 var name = 'globe name';
@@ -442,7 +440,7 @@ const hello = obj.sayHi;
 hello(); // globe name
 
 const greet = function () {
-  hello.call(obj);   //硬绑定
+  hello.call(obj); //硬绑定
 };
 
 hello.call(obj); // Deepspace
@@ -460,7 +458,7 @@ const obj = {
   name: 'Deepspace',
   sayHi: function () {
     console.log(this.name);
-  }
+  },
 };
 
 var name = 'globe name';
@@ -487,14 +485,12 @@ function getAge(gap) {
 var chenxingxing = {
   name: '陈星星',
   birth: 1995,
-  age: getAge
+  age: getAge,
 };
 
 console.log(chenxingxing.age(1)); // 23
 console.log(getAge.apply(chenxingxing, [1])); // 23, this 指向 chenxingxing, 参数为 1
 ```
-
-
 
 #### 4、new 绑定
 
@@ -524,7 +520,7 @@ console.log(a4.a); // 4
 function foo(a) {
   this.a = a;
   return {
-    m: 99
+    m: 99,
   };
 }
 
@@ -535,8 +531,6 @@ console.log(a1.a); // undefined
 console.log(a2.a); // undefined
 console.log(a2.m); // 99
 ```
-
-
 
 ### 三、不好的实践
 
@@ -554,7 +548,7 @@ var o = {
       console.log(this);
     }
     return temp;
-  }
+  },
 };
 
 var c = o.f1();
@@ -575,7 +569,7 @@ var o = {
   f1: function () {
     console.log(this);
     return temp;
-  }
+  },
 };
 
 var c = o.f1();
@@ -596,7 +590,7 @@ var o = {
       console.log(that);
     }
     return temp;
-  }
+  },
 };
 
 var c = o.f1();
@@ -630,8 +624,6 @@ a();
 // undefined
 ```
 
-
-
 #### 2、避免数组处理方法中的 `this`
 
 数组的 `map ` 和 `foreach` 方法，允许提供一个函数作为参数。这个函数内部不应该使用 `this`。
@@ -646,7 +638,7 @@ const o = {
     this.p.forEach(function (item) {
       console.log(this.v + ' ----- ' + item);
     });
-  }
+  },
 };
 
 o.f();
@@ -669,15 +661,13 @@ const o = {
     this.p.forEach(function (item) {
       console.log(that.v + ' ---- ' + item);
     });
-  }
+  },
 };
 
 o.f();
 // hello a1
 // hello a2
 ```
-
-
 
 #### 3、避免回调函数中的 `this`
 
@@ -695,8 +685,6 @@ $('#button').on('click', o.f); // false
 ```
 
 上面代码中，点击按钮以后，控制台会显示 `false` 。原因是此时 `this` 不再指向 `o` 对象，而是指向按钮的 `DOM` 对象，因为 `f` 方法是在按钮对象的环境中被调用的。
-
-
 
 ### 四、最后
 
@@ -723,7 +711,7 @@ const b = {
     return function () {
       console.log(this.name);
     };
-  }
+  },
 };
 
 var nickname = 'The Window';
@@ -736,7 +724,7 @@ var object = {
     return function () {
       return that.nickname;
     };
-  }
+  },
 };
 
 const c = b.detail;

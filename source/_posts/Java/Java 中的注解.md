@@ -8,8 +8,6 @@ tags:
   - 注解
 ---
 
-
-
 ### 一、什么是注解
 
 `Java` 注解（`Annotation`）是 `JDK 1.5` 引入的特性，与类、接口、枚举是在同一等级。它可以作用在类、属性、方法、局部变量、方法参数上，用于对这些元素进行说明、解释。
@@ -65,7 +63,7 @@ public @interface Override {
 
 ```java
 public interface Override extends Annotation {
-    
+
 }
 ```
 
@@ -76,11 +74,9 @@ public interface Override extends Annotation {
 - 一种是编译期扫描；
 - 一种是运行期反射。
 
-编译器的扫描指的是：编译器在对 `Java` 代码编译成字节码的过程中，会检测到某个类或者方法被一些注解修饰，这时它就会对于这些注解进行某些处理。前面我们说的重写的注解 ——  `@Override` ，它就是在编译编译期扫描的例子。一旦编译器检测到某个方法被 `@Override` 注解修饰了，编译器就会检查当前方法的方法签名是否真正重写了父类的某个方法，也就是比较父类中是否具有一个同样的方法签名。
+编译器的扫描指的是：编译器在对 `Java` 代码编译成字节码的过程中，会检测到某个类或者方法被一些注解修饰，这时它就会对于这些注解进行某些处理。前面我们说的重写的注解 —— `@Override` ，它就是在编译编译期扫描的例子。一旦编译器检测到某个方法被 `@Override` 注解修饰了，编译器就会检查当前方法的方法签名是否真正重写了父类的某个方法，也就是比较父类中是否具有一个同样的方法签名。
 
 而另外一种方式「反射」，待会再介绍，下面我们来看看 `Java` 内置的一些注解。
-
-
 
 ### 二、基本注解
 
@@ -90,9 +86,7 @@ public interface Override extends Annotation {
 
 `@Override` 是重写注解，它的作用就是告诉编译器要**检查当前方法的方法签名是否真正重写了父类的某个方法**，也就是比较父类中是否具有一个同样的方法签名。可以帮我们避免一些低级的错误。
 
-比如，我们在子类中实现 `sayHello()` 方法的时候，把  `sayHello()` 方法写成了  `sayHolle()` ，那么编译器就会按照注解的要求去检查，发现该方法并不是实现父类的，与注解 `@Override` 冲突，就会报出错误。
-
-
+比如，我们在子类中实现 `sayHello()` 方法的时候，把 `sayHello()` 方法写成了 `sayHolle()` ，那么编译器就会按照注解的要求去检查，发现该方法并不是实现父类的，与注解 `@Override` 冲突，就会报出错误。
 
 #### 2、Deprecated
 
@@ -123,11 +117,9 @@ public class Dog extends Animal {
 
 这个时候，继承 `Animal` 类时，会发出警告，`IDE` 会划出一个中横线：
 
-<img src="/ImageHosting/Java/annotation-deprecated.png" alt="Deprecated" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/annotation-deprecated.png" alt="Deprecated" style="zoom:50%;" />
 
 由于已经被标注了 `@Deprecated` ，但是 `Animal` 依然在被使用，所以 `Animal` 类会报出一个 `Deprecated member 'Animal' is still used` 的警告。如果没有被使用，则不会发出警告。
-
-
 
 #### 3、SuppressWarnings
 
@@ -146,8 +138,6 @@ public class Main {
   }
 }
 ```
-
-
 
 #### 4、FunctionalInterface
 
@@ -180,21 +170,17 @@ public interface MyFunction {
 
 接口中的方法中**没有声明为默认或静态的方法**是隐式抽象的，所以一般 `abstract` 修饰符不用于修饰接口方法，可以使用，但没有必要。
 
-
-
 #### 5、SafeVarargs
 
 堆污染警告。什么是堆污染呢？
 
 当一个 **可变泛型参数** 指向一个 **无泛型参数** 时，这个时候就很容易发生堆污染（`Heap Pollution`）。不是很常用。
 
-
-
 ### 三、元注解
 
 作用于其他注解的注解称为**元注解** 。在 `java.lang.annotation` 中定义了几个元注解类型：
 
-1、`@Retention` 
+1、`@Retention`
 
 指定标记注解的存储方式：
 
@@ -202,13 +188,9 @@ public interface MyFunction {
 - `RetentionPolicy.CLASS` - 标记的注解由编译器在编译时保留，但被 `Java` 虚拟机（`JVM`）忽略。
 - `RetentionPolicy.RUNTIME` - 标记的注解由 `JVM` 保留，因此可以由运行时环境使用。
 
-
-
 2、`@Documented`
 
 注解是否应当被包含在 `JavaDoc` 文档中，默认情况下，注解不包括在 `Javadoc` 中。
-
-
 
 3、`@Target`
 
@@ -223,19 +205,13 @@ public interface MyFunction {
 - `ElementType.PARAMETER` 可以应用于一个方法的参数。
 - `ElementType.TYPE` 可以应用于类的任何元素。
 
-
-
 4、`@Inherited`
 
 表示注解类型可以从超级类继承（默认情况下不是这样）。当用户查询注解类型并且类没有此类型的注解时，会为该类的超类查询注解类型。此注解仅适用于类声明。
 
-
-
 5、`@Repeatable`
 
 在 `Java SE 8` 中引入，表示标记的注解可以被多次应用于相同的声明或类型使用。
-
-
 
 ### 四、自定义注解
 
@@ -299,14 +275,12 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 public @interface FieldInfo {
   String type();
-  
+
   String name();
 }
 ```
 
 这个自定义的注解 `MethodInfo` 是作用于字段的，在程序运行中时候，这个注解也会存在；里面有两个注解参数。
-
-
 
 #### 2、注解的参数类型
 
@@ -318,8 +292,6 @@ public @interface FieldInfo {
 - `enum` 类型
 - `Annotation` 类型
 - 以上所有类型的数组
-
-
 
 #### 3、使用注解
 
@@ -347,8 +319,6 @@ public class AnnotationDemo {
   }
 }
 ```
-
-
 
 #### 4、获取注解信息
 
@@ -409,8 +379,6 @@ firstMethod method in AnnotationDemo
 secondMethod method in AnnotationDemo
 ```
 
-
-
 ### 五、总结
 
 其实，就算在实际开发中，使用注解的场景也并不是非常多的，如果不用，也并不会造成很大的麻烦。那为什么要引入注解呢？
@@ -428,4 +396,3 @@ secondMethod method in AnnotationDemo
 但是也并不是说 `XML` 就没有优势了，得看实际的使用场景。假如你想为应用设置很多的常量或参数，这种情况下，`XML` 是一个很好的选择，因为它不会同特定的代码相连。
 
 目前，许多框架将 `XML` 和 `Annotation` 两种方式结合使用，我们在开发程序时，也需要平衡两者之间的利弊。
-

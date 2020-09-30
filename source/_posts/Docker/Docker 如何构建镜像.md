@@ -32,8 +32,6 @@ tags:
 
 分层存储的特征还使得镜像的复用、定制变的更为容易。甚至可以用之前构建好的镜像作为基础层，然后进一步添加新的层，以定制自己所需的内容，构建新的镜像。
 
-
-
 #### 2、利用 commit 理解镜像构成
 
 现在我们通过定制一个 `Web` 服务器为例子，来讲解镜像是如何构建的。
@@ -53,9 +51,9 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 46b0732981d1        nginx               "nginx -g 'daemon of…"   11 minutes ago      Up 11 minutes       0.0.0.0:80->80/tcp                    webserver
 ```
 
-这条命令会拉取一个 `nginx` 镜像，并基于镜像启动一个容器，命名为 `webserver`，并且映射了 `80` 端口，这样我们可以用浏览器去访问这个 `nginx` 服务器。`-d`  的作用是让容器可以保持后台运行，并返回容器 `ID`。
+这条命令会拉取一个 `nginx` 镜像，并基于镜像启动一个容器，命名为 `webserver`，并且映射了 `80` 端口，这样我们可以用浏览器去访问这个 `nginx` 服务器。`-d` 的作用是让容器可以保持后台运行，并返回容器 `ID`。
 
-<img src="/ImageHosting/Docker/docker-welcome-to-nginx.png" alt="docker-welcome-to-nginx" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/docker-welcome-to-nginx.png" alt="docker-welcome-to-nginx" style="zoom:50%;" />
 
 直接用浏览器访问的 http://localhost:80， 我们会看到默认的 `Nginx` 欢迎页面。
 
@@ -146,15 +144,11 @@ $ docker run --name webserver2 -d -p 81:80 nginx:v2
 74dd9866b7ba14998f539f3c91da976cf4f5631d3c1b84bb1b6e00348a437258
 ```
 
-<img src="/ImageHosting/Docker/docker-welcome-to-nginx-1.png" alt="docker-welcome-to-nginx-1" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/docker-welcome-to-nginx-1.png" alt="docker-welcome-to-nginx-1" style="zoom:50%;" />
 
 访问 [http://localhost:81](http://localhost:81/) 看到结果，其内容和之前修改后的 `webserver` 是一样的。
 
-
-
 现在，我们使用 `docker commit` 命令，手动操作给旧的镜像添加了新的一层，形成新的镜像，对镜像的多层存储设计应该有了更直观的感觉。但是在实际开发环境中，我们并不会这样使用。
-
-
 
 #### 3、docker commit 的缺点
 
@@ -165,8 +159,6 @@ $ docker run --name webserver2 -d -p 81:80 nginx:v2
 另外，使用 `docker commit` 意味着所有对镜像的操作都是黑箱操作，除了制作镜像的开发人员知道执行过什么命令、怎么生成的镜像，其他人根本无从得知。而且，即使是这个制作镜像的人，过一段时间后也无法记清具体的操作。这种黑箱操作构建的镜像的维护工作是非常痛苦的。
 
 所以，更好的方式就是 —— **基础设施代码化**。如果我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，用这个脚本来构建镜像，那前面所说的问题都会被解决。这个脚本就是 `Dockerfile`。
-
-
 
 ### 二、使用 Dockerfile 构建镜像
 
@@ -202,7 +194,7 @@ RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' > /usr/share/nginx/html/index.htm
   - `exec` 格式：`RUN ["可执行文件", "参数1", "参数2"]`，这更像是函数调用中的格式，例如：
 
     ```bash
-    $ RUN ["./test.js", "dev", "offline"] 
+    $ RUN ["./test.js", "dev", "offline"]
     ```
 
     等价于 `shell` 格式的：
@@ -254,8 +246,6 @@ RUN buildDeps='gcc libc6-dev make wget' \
 
 此外，还可以看到这一组命令的最后添加了清理工作的命令，删除了为了编译构建所需要的软件，清理了所有下载、展开的文件，并且还清理了 `apt` 缓存文件。这是很重要的一步，我们之前说过，镜像是多层存储，每一层的东西并不会在下一层被删除，会一直跟随着镜像。**因此镜像构建时，一定要确保每一层只添加真正需要添加的东西，任何无关的东西都应该清理掉**。
 
-
-
 #### 2、构建镜像
 
 现在我们来通过 `Dockerfile` 构建这个镜像，在 `Dockerfile` 文件所在目录执行：
@@ -300,8 +290,6 @@ cc6cd57fb1d8d627abf0f47f5415ff9f10a6f0cba0e45cf4973cc54c02515bc2
 
 访问 [http://localhost:82](http://localhost:82/) 可以看到结果，其内容和之前使用 `docker commit` 的方式构建的镜像是一样的。
 
-
-
 #### 3、镜像构建上下文
 
 `docker` 的运行模式是 `C/S`（`Client/Service`）架构的。我们本机是 `C`，`docker` 引擎是 `S`。实际上的构建过程并不是在我们的本机环境中完成的，而是在 `docker` 引擎下完成的。
@@ -321,8 +309,6 @@ Sending build context to Docker daemon  2.048kB
 ```
 
 **注意**：上下文路径下不要放无用的文件，因为会一起打包发送给 `Docker` 引擎，如果文件过多会造成过程缓慢。
-
-
 
 ### 三、Dockerfile 指令详解
 
@@ -354,8 +340,6 @@ COPY --chown=1 files* /mydir/
 COPY --chown=10:11 files* /mydir/
 ```
 
-
-
 #### 2、ADD
 
 `ADD` 指令和 `COPY` 的使用格式一致，功能也类似，不同之处在于：
@@ -363,8 +347,6 @@ COPY --chown=10:11 files* /mydir/
 如果 `<源路径>` 为一个 `tar` 压缩文件，压缩格式为 `gzip`, `bzip2` 以及 `xz` 的情况下，`ADD` 指令将会自动解压缩这个压缩文件到 `<目标路径>` 去。在某些情况下，这个自动解压缩的功能非常有用。
 
 但在某些情况下，如果我们真的是希望复制个压缩文件进去，而不解压缩，这时就不可以使用 `ADD` 命令了。在 `Docker` 官方的最佳实践中，要求尽可能的使用 `COPY`，因为 `COPY` 的语义很明确，就是复制文件而已，而 `ADD` 则包含了更复杂的功能，其行为也不一定很清晰。最适合使用 `ADD` 的场合，就是所提及的需要自动解压缩的场合。
-
-
 
 #### 3、CMD
 
@@ -379,8 +361,6 @@ COPY --chown=10:11 files* /mydir/
 
 注意：在 `Dockerfile` 中，如果有多个 `CMD` 指令，则以最后一个为准。
 
-
-
 #### 4、ENTRYPOINT
 
 `ENTRYPOINT` 指令和 `CMD` 指令都可以设置容器启动时要执行的命令，但用途是有略微不同的。
@@ -389,21 +369,15 @@ COPY --chown=10:11 files* /mydir/
 
 如果 `Dockerfile` 中如果存在多个 `ENTRYPOINT` 指令，仅最后一个生效。
 
-
-
 #### 5、ENV
 
 这个指令用于设置环境变量，**无论是后面的其它指令，还是运行时的应用**，都可以直接使用这里定义的环境变量。
-
-
 
 #### 6、ARG
 
 `ARG` 构建参数指令和 `ENV` 的效果一样，都是设置环境变量。不同的是，`ARG` 所设置的构建环境的环境变量，**在将来容器运行时是不会存在这些环境变量的。**
 
 这里要特别注意：不要因此就使用 `ARG` 保存密码之类的信息，因为 `docker history` 还是可以看到的。
-
-
 
 #### 7、VOLUME
 
@@ -415,8 +389,6 @@ COPY --chown=10:11 files* /mydir/
 
 关于卷的使用，后面我会单独写一篇文章来介绍。
 
-
-
 #### 8、EXPOSE
 
 如果外界要和 `Docker` 容器进行通讯，就需要使用端口了。`EXPOSE` 指令的功能就是暴露容器运行时的监听端口给外部。
@@ -425,19 +397,13 @@ COPY --chown=10:11 files* /mydir/
 
 当然，我们也可以不暴露端口，使用手动映射，这就需要在启动容器的时候加上 `-p <宿主端口>:<容器端口>` 参数。
 
-
-
 #### 9、WORKDIR
 
 使用 `WORKDIR` 指令可以指定工作目录（或者称为当前目录），以后构建镜像的每一层的当前目录就会被改为所指定的目录。如果该目录不存在，`WORKDIR` 会帮你建立目录。
 
-
-
 #### 10、USER
 
 用于指定执行后续命令的用户和用户组。注意，这只是切换后续命令执行的用户，用户和用户组必须提前已经存在，否则无法切换。
-
-
 
 #### 11、HEALTHCHECK
 
@@ -454,19 +420,15 @@ HEALTHCHECK --interval=5s --timeout=3s \
 
 这里我们设置了每 5 秒检查一次（这里为了试验所以间隔非常短，实际应该相对较长），如果健康检查命令超过 3 秒没响应就视为失败，并且使用 `curl -fs http://localhost/ || exit 1` 作为健康检查命令。
 
-
-
 #### 12、ONBUILD
 
 `ONBUILD` 指令用于延迟构建命令的执行。该指令在当前镜像构建时并不会被执行。只有当以当前镜像为基础镜像，去构建下一级镜像的时候才会被执行。
 
 简单的说，就是 `Dockerfile` 里用 `ONBUILD` 指定的命令，在本次构建镜像的过程中不会执行（假设镜像为 `test-build`）。当有新的 `Dockerfile` 使用了之前构建的镜像 `FROM test-build`，执行新镜像的 `Dockerfile` 构建时候，会执行 `test-build` 的 `Dockerfile` 里的 `ONBUILD` 指定的命令。这有点像 `Java` 中的抽象类的概念。
 
-
-
 ### 四、Dockerfile 实践
 
-下面我们通过一个 `Node.js` 的简单项目为例，介绍下如何编写 `Dockerfile` 文件、如何在 `Docker` 容器里运行  `Node.js` 项目。
+下面我们通过一个 `Node.js` 的简单项目为例，介绍下如何编写 `Dockerfile` 文件、如何在 `Docker` 容器里运行 `Node.js` 项目。
 
 #### 1、项目准备
 
@@ -510,8 +472,6 @@ app.listen(port, () => console.log(`Running on http://localhost:${port}`));
 }
 ```
 
-
-
 #### 2、编写 Dockerfile
 
 ```dockerfile
@@ -533,15 +493,11 @@ EXPOSE 30010
 CMD [ "node", "server.js" ]
 ```
 
-
-
 #### 3、构建镜像
 
 ```bash
 $ docker build -t hello-docker .
 ```
-
-
 
 #### 4、启动容器
 
@@ -558,8 +514,6 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                 NAMES
 70746429068a        hello-docker        "node server.js"         2 minutes ago       Up 2 minutes        0.0.0.0:30000->30010/tcp              modest_brown
 ```
-
-
 
 #### 5、访问服务
 
@@ -578,12 +532,9 @@ Connection: keep-alive
 Hello Docker!%
 ```
 
-
-
 ### 五、总结
 
 更多内容可以参考：
 
 - https://docs.docker.com/engine/reference/builder/
 - https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
-

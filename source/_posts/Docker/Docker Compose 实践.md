@@ -12,7 +12,7 @@ tags:
 
 有个 `Compose` 的支持，我们只需要定义一个 `YAML` 格式的配置文件（`docker-compose.yml`），来编写一个项目所需要的多个容器配置及调用关系，通过简单的命令即可同时开始或者关闭这些容器。
 
-下面我们演示一下如何使用 `Docker Compose` 来设置和运行一个简单的 `Wordpress / MySQL` 应用程序。 
+下面我们演示一下如何使用 `Docker Compose` 来设置和运行一个简单的 `Wordpress / MySQL` 应用程序。
 
 <!-- more -->
 
@@ -22,7 +22,7 @@ tags:
 
 在桌面系统上，如 `Mac` 和 `Windows` ，在安装 `Docker Desktop` 的时候，`Docker Compose` 作为桌面安装的一部分已经包括在内了。如果已经安装，你可以跳过这部分。
 
-如果是在 `Linux` 的机器上，我们可以从 `GitHub` 上的 `Compose` 库发布页面下载 `Docker Compose` 二进制文件。 按照链接中的说明操作。 
+如果是在 `Linux` 的机器上，我们可以从 `GitHub` 上的 `Compose` 库发布页面下载 `Docker Compose` 二进制文件。 按照链接中的说明操作。
 
 #### 1、下载
 
@@ -32,8 +32,6 @@ tags:
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-
-
 #### 2、添加权限
 
 对二进制文件添加可执行权限：
@@ -42,16 +40,12 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-
-
 #### 3、测试安装
 
 ```bash
 $ docker-compose --version
 docker-compose version 1.25.4, build 1110ad01
 ```
-
-
 
 ### 二、搭建 WordPress 个人博客
 
@@ -66,8 +60,6 @@ $ sudo mkdir WordPress-Blog && cd WordPress-Blog
 $ sudo touch docker-compose.yml
 ```
 
-
-
 #### 1、编写 docker-compose.yml
 
 编辑 `docker-compose.yml` ，将如下内容保存在里面：
@@ -76,31 +68,31 @@ $ sudo touch docker-compose.yml
 version: '3.3'
 
 services:
-   db:
-     image: mysql:5.7
-     volumes:
-       - db_data:/var/lib/mysql
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: somewordpress
-       MYSQL_DATABASE: wordpress
-       MYSQL_USER: wordpress
-       MYSQL_PASSWORD: wordpress
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
 
-   wordpress:
-     depends_on:
-       - db
-     image: wordpress:latest
-     ports:
-       - "8000:80"
-     restart: always
-     environment:
-       WORDPRESS_DB_HOST: db:3306
-       WORDPRESS_DB_USER: wordpress
-       WORDPRESS_DB_PASSWORD: wordpress
-       WORDPRESS_DB_NAME: wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - '8000:80'
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
 volumes:
-    db_data: {}
+  db_data: {}
 ```
 
 有两个 `service`，`db` 和 `wordpress`，其中 `wordpress` 依赖于 `db` 。
@@ -108,8 +100,6 @@ volumes:
 创建了一个卷 `db_data` ，用于保存 `WordPress` 对数据库的任何更新。
 
 > 注：`WordPress` 只能在 `80` 和 `443` 端口使用。
-
-
 
 #### 2、构建应用
 
@@ -148,15 +138,11 @@ e70ea0b4e610        mysql:5.7           "docker-entrypoint.s…"   28 seconds ag
 
 启动了两个容器。`hello-compose_wordpress_1` 这个容器的和宿主机的端口映射为：`0.0.0.0:8000->80`。
 
-
-
 ### 三、访问应用
 
 我们在浏览器中访问地址：http://localhost:8000/，会出现安装 `WordPress` 的界面：
 
-<img src="/ImageHosting/Docker/docker-compose-wordpress.png" alt="docker-compose-wordpress" style="zoom:50%;" />
-
-
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Docker/docker-compose-wordpress.png" alt="docker-compose-wordpress" style="zoom:50%;" />
 
 ### 四、Compose 常用服务配置
 
@@ -164,31 +150,21 @@ e70ea0b4e610        mysql:5.7           "docker-entrypoint.s…"   28 seconds ag
 
 指定本 `yml` 依从的 `compose` 哪个版本制定的。
 
-
-
 #### 2、build
 
 指定构建镜像上下文路径。
-
-
 
 #### 3、image
 
 指定容器运行的镜像。
 
-
-
 #### 4、expose
 
 暴露端口，但不映射到宿主机，只被连接的服务访问。
 
-
-
 #### 5、volumes
 
 将主机的数据卷或着文件挂载到容器里。
-
-
 
 #### 6、secrets
 
@@ -210,8 +186,6 @@ secrets:
     file: ./my_secret.txt
 ```
 
-
-
 #### 7、restart
 
 - `no`：是默认的重启策略，在任何情况下都不会重启容器。
@@ -226,10 +200,6 @@ restart: on-failure
 restart: unless-stopped
 ```
 
-
-
-
-
 #### 8、healthcheck
 
 用于检测 `docker` 服务是否健康运行。
@@ -243,9 +213,6 @@ healthcheck:
   start_period: 40s # 启动后，多少秒开始启动检测程序
 ```
 
-
-
 ### 五、总结
 
 更多内容请参考：https://docs.docker.com/compose/
-

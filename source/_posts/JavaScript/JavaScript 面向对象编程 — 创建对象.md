@@ -43,7 +43,7 @@ console.log(typeof obj); // object
 在 `JavaScript` 中，有很多种创建对象的方式，我们先看下面两种：
 
 - 对象字面量
--  `Object` 构造函数
+- `Object` 构造函数
 
 下面做一个简单介绍。
 
@@ -58,8 +58,8 @@ const o = {
     return 1;
   },
   obj: {
-    b: 2
-  }
+    b: 2,
+  },
 };
 ```
 
@@ -77,8 +77,6 @@ person.sayName = function () {
   console.log(this.name);
 };
 ```
-
-
 
 ### 三、工厂模式
 
@@ -126,17 +124,15 @@ function createPerson(name, age, job) {
 const person1 = createPerson('Deepspace', 24, 'Software Engineer');
 const person2 = createPerson('chenxingxing', 23, 'Teacher');
 
-console.log(person1); 
+console.log(person1);
 // { name: 'Deepspace', age: 24, job: 'Software Engineer', sayName: [Function] }
-console.log(person2); 
+console.log(person2);
 // { name: 'chenxingxing', age: 23, job: 'Teacher', sayName: [Function] }
 ```
 
 函数 `createPerson()` 返回一个对象，函数接受的参数用来构建对象。调用这个函数时，会返回一个包含三个属性、一个方法的对象。这种创建对象的方式就叫作**工厂模式** —— **使用统一的方法（函数）来描述对象创建的细节。**
 
 也就是说把这个对象封装起来，每次创建类似的对象时，都使用这个工厂函数来创建。它抽象了创建一个对象的过程。
-
-
 
 #### 2、缺点
 
@@ -170,8 +166,6 @@ console.log(person2.constructor); // [Function: Object]
 ```
 
 `person1` 和 `person2` 之间没有内在联系。
-
-
 
 ### 四、构造函数模式
 
@@ -207,15 +201,13 @@ person2.sayName(); // 24
 - 没有 `return` ；
 - 执行 `new` 操作符来调用函数，这个时候将会创建一个新的对象，并且将函数的 `this` 指向所创建的新对象；
 
-
-
 #### 1、constructor
 
 **什么是实例？**
 
 由构造函数创建的对象称为这个构造函数的实例，我们也经常叫作实例对象。
 
-在实例对象上会存在一个 `constructor` 属性，这个属性指向创造它的构造函数（证明自己从哪里来）。**也就是说 `constructor` 属性返回创建实例对象的构造函数的引用。** 
+在实例对象上会存在一个 `constructor` 属性，这个属性指向创造它的构造函数（证明自己从哪里来）。**也就是说 `constructor` 属性返回创建实例对象的构造函数的引用。**
 
 所以，我们可以通过 `constructor` 属性来识别对象的类别：
 
@@ -259,24 +251,20 @@ let d = new Number(3);
 console.log(d.constructor === Number); // true
 ```
 
-
-
 #### 2、instanceof
 
 检测对象类型，我们也可以使用 `instanceof` 操作符：
 
 ```javascript
-console.log(person1 instanceof Object);  // true
-console.log(person1 instanceof Person);  // true
-console.log(person2 instanceof Object);  // true
-console.log(person2 instanceof Person);  // true
+console.log(person1 instanceof Object); // true
+console.log(person1 instanceof Person); // true
+console.log(person2 instanceof Object); // true
+console.log(person2 instanceof Person); // true
 ```
 
 创建的对象既是 `Person` 的实例，同时也是 `Object` 的实例（因为所有对象均继承自 `Object` ，这个我们待会讨论）。
 
 **构造函数模式**最大的优点就是可以通过 `contructor` 或者 `instanceof` 可以识别对象实例的类别（即它的构造函数），解决了工厂模式不能识别对象类型的问题。
-
-
 
 #### 3、将构造函数当作函数来使用
 
@@ -298,8 +286,6 @@ const person1 = Person('Deepspace', 23);
 window.name; // Deepspace
 window.sayName(); // 23
 ```
-
-
 
 #### 4、缺点
 
@@ -344,8 +330,6 @@ console.log(person1.sayName === person2.sayName); // true
 - 在全局作用域中定义的函数实际上只能被某个对象调用，这让全局作用域有点名不副实；
 - 如果对象需要定义很多方法，那么就要定义很多个全局函数。
 
-
-
 ### 五、原型模式
 
 #### 1、prototype
@@ -353,8 +337,7 @@ console.log(person1.sayName === person2.sayName); // true
 每个函数都有一个 `prototype` 属性（只有函数有）：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 
@@ -372,8 +355,7 @@ console.log(person2.name); // Deepspace
 这就意味着，我们可以把那些不变的属性和方法，直接定义在 `prototype` 上。
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -393,15 +375,12 @@ console.log(person1.sayName === person2.sayName); // true
 
 将 `sayName()` 方法和所有属性直接添加到了 `Person` 的 `prototype` 属性中，这些属性和方法将由所有实例共享。也就是说 `person1` 和 `person2` 访问的都是同一组属性和同一个 `sayName()` 函数（内存地址一样）。
 
-
-
 #### 2、实例的属性和方法
 
 如果我们在实例中添加了一个属性，并且**该属性是实例的原型上已经有的一个属性**，这个时候新添加的属性会屏蔽掉原型上的那个属性：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -422,8 +401,7 @@ console.log(person2.name); // Deepspace -- 来自原型
 使用 `delete` 操作符则可以删除实例属性，让我们能够重新访问原型上的属性：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -444,8 +422,6 @@ delete person1.name;
 console.log(person1.name); // Deepspace -- 恢复访问原型属性
 ```
 
-
-
 #### 3、prototype 的验证方法
 
 为了配合 `prototype` 属性，`Javascript` 中定义了一些辅助方法，帮助我们使用它。
@@ -453,8 +429,7 @@ console.log(person1.name); // Deepspace -- 恢复访问原型属性
 使用 `hasOwnProperty()` 方法可以检测一个属性是存在于实例中，还是存在于原型中。**给定属性存在于对象实例中时，会返回 `true`，存在于原型中时，返回 `false`：**
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -475,8 +450,6 @@ delete person1.name;
 console.log(person1.hasOwnProperty('name')); // false 恢复访问原型属性
 ```
 
-
-
 #### 3、原型模式的缺点
 
 由于原型模式中，所有的属性和方法都是共享的，因为**不能传递初始化参数，所有实例默认情况下都将取得相同的属性值，**会在某些情况下带来一些不便，这是其中的一个缺点。
@@ -484,8 +457,7 @@ console.log(person1.hasOwnProperty('name')); // false 恢复访问原型属性
 原型模式的这种共享对于函数（引用类型）来说非常合适，对于那些属性值是**基本数据类型的属性**来说，也说得过去。但是对于那些**属性值是引用类型的属性**来说，就会出现问题了：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype.name = 'Deepspace';
 Person.prototype.age = 29;
@@ -510,22 +482,19 @@ console.log(person2.friends); // [ 'xiaoming', 'daming' ]
 
 所以，如果我们需要实例拥有自己的属性时，单纯的原型模式显然是不合适的。
 
-
-
 #### 4、封装性优化
 
 在上面的代码里，通过 `prototype` 添加属性和方法时，代码的**封装性很差**，我们可以**重写原型**来优化：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype = {
   name: 'Deepspace',
   age: 23,
   sayName: function () {
     console.log(this.name);
-  }
+  },
 };
 
 const person1 = new Person();
@@ -537,22 +506,21 @@ console.log(person1.age); // 23
 既然重写了原型，那么实例上会存在一个 `constructor` 属性自然而然就改变了：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype = {
   name: 'Deepspace',
   age: 23,
   sayName: function () {
     console.log(this.name);
-  }
+  },
 };
 
 const person1 = new Person();
 
 console.log(person1.name); // Deepspace
 console.log(person1.age); // 23
-console.log(person1.constructor); 
+console.log(person1.constructor);
 // 这里打印的是 object,它的 constructor 不指向构造函数 Person 了
 
 console.log(person1.constructor === Person); // false
@@ -561,8 +529,7 @@ console.log(person1.constructor === Person); // false
 对于这个问题，我们可以手动指定 `constructor` 的指向：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype = {
   constructor: Person, // <---
@@ -570,7 +537,7 @@ Person.prototype = {
   age: 23,
   sayName: function () {
     console.log(this.name);
-  }
+  },
 };
 
 const person1 = new Person();
@@ -583,15 +550,12 @@ console.log(person1.constructor === Person); // true
 
 但是，原型模式该有的缺点还是存在，上面只是对封装性做了优化而已。
 
-
-
 #### 5、原型的动态性
 
 在上面的优化中，我们重写了整个原型对象，但这也会带来一些问题，看个例子：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 const friend = new Person();
 
@@ -599,9 +563,10 @@ Person.prototype = {
   constructor: Person,
   name: 'Nicholas',
   age: 29,
-  job: 'Software Engineer', sayName: function () {
+  job: 'Software Engineer',
+  sayName: function () {
     console.log(this.name);
-  }
+  },
 };
 
 console.log(friend.name); // undefined
@@ -614,21 +579,21 @@ friend.sayName(); // TypeError: friend.sayName is not a function
 
 前面我们介绍 `prototype` 的时候提到过，`prototype` 指向的是原型，而不是构造函数。而把原型修改为另外一个对象就等于切断了构造函数与最初原型之间的联系。因为 `person1` 指向的原型中不包含 `name` 和 `sayName`，所以会报错。如下图所示：
 
-<img src="/ImageHosting/JavaScript/oo.png" style="zoom: 67%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/oo.png" style="zoom: 67%;" />
 
 重写原型对象切断了现有原型与任何之前已经存在的对象实例之间的联系，实例引用的仍然是最初的原型。那怎么解决这个问题呢？很简单，把调用构造函数的代码放在往 `prototype` 上添加属性和方法的后面就可以了：
 
 ```javascript
-function Person() {
-}
+function Person() {}
 
 Person.prototype = {
   constructor: Person,
   name: 'Nicholas',
   age: 29,
-  job: 'Software Engineer', sayName: function () {
+  job: 'Software Engineer',
+  sayName: function () {
     console.log(this.name);
-  }
+  },
 };
 
 const friend = new Person();
@@ -638,8 +603,6 @@ friend.sayName(); // Nicholas
 ```
 
 把 `new` 关键字的顺序从重写原型构建之前调整在重写原型构建之后，就没这个问题了。
-
-
 
 ### 六、构造函数和原型的组合模式
 
@@ -662,14 +625,13 @@ Person.prototype.sayName = function () {
   console.log(this.name);
 };
 
-
 const person1 = new Person('xiaobai', 29);
 const person2 = new Person('dabai', 27);
 
 person1.friends.push('chenxingxing');
 
 console.log(person1.friends); // [ 'xiaoming', 'daming', 'chenxingxing' ]
-console.log(person2.friends); // [ 'xiaoming', 'daming' ] 
+console.log(person2.friends); // [ 'xiaoming', 'daming' ]
 console.log(person1.friends === person2.friends); // false
 console.log(person1.sayName === person2.sayName); // true
 ```
@@ -682,13 +644,9 @@ console.log(person1.sayName === person2.sayName); // true
 
 **这样，每个实例都会有自己的一份实例属性的拷贝，但同时又共享着对方法的引用，最大限度地节省了内存。**
 
-
-
 #### 2、封装性差的缺点
 
 当然，缺点也是有的。我们可以发现上面的代码封装性很差，**构造函数和原型方式是分开的**。
-
-
 
 ### 七、动态原型模式
 
@@ -717,10 +675,8 @@ person1.sayName(); // Deepspace
 对于采用这种模式创建的对象，还可以使 用 `instanceof` 操作符确定它的类型：
 
 ```javascript
-console.log(person1 instanceof Person);  // true
+console.log(person1 instanceof Person); // true
 ```
-
-
 
 #### 2、缺点
 
@@ -734,7 +690,7 @@ function Person(name) {
       constructor: Person,
       sayName: function () {
         console.log(this.name);
-      }
+      },
     };
   }
 }
@@ -777,7 +733,7 @@ function Person(name) {
       constructor: Person,
       sayName: function () {
         console.log(this.name);
-      }
+      },
     };
     return new Person(name);
   }
@@ -789,8 +745,6 @@ const person2 = new Person('chenxingxing');
 person1.sayName(); // Deepspace
 person2.sayName(); // chenxingxing
 ```
-
-
 
 ### 八、寄生构造函数模式
 
@@ -836,7 +790,6 @@ function SpecialArray() {
 const colors = new SpecialArray('red', 'blue', 'green');
 const colors2 = SpecialArray('red2', 'blue2', 'green2');
 
-
 console.log(colors); // [ 'red', 'blue', 'green', toPipedString: [Function] ]
 console.log(colors.toPipedString()); // red|blue|green
 
@@ -845,8 +798,6 @@ console.log(colors2.toPipedString()); // red2|blue2|green2
 ```
 
 虽然把 `SpecialArray` 当成函数也一样能用，但是作者可能是希望能像使用普通 `Array` 一样使用 `SpecialArray`，让代码变得更加优雅。所以，在可以使用其他模式的情况下，不要使用这种模式。
-
-
 
 ### 九、稳妥构造函数模式
 
@@ -879,8 +830,6 @@ console.log(person1.name); // chenxingxing
 
 稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型。它非常适合在某些安全执行环境下使用。
 
-
-
 ### 十、Object.create
 
 `Object.create` 是 `ECMAScript 5` 新增的一个静态方法，用来创建一个实例对象。
@@ -890,7 +839,7 @@ console.log(person1.name); // chenxingxing
 具体用法如下：
 
 ```javascript
-Object.create(prototype, descriptors)
+Object.create(prototype, descriptors);
 ```
 
 参数说明如下：
@@ -915,7 +864,7 @@ const person = {
   isHuman: false,
   printIntroduction: function () {
     console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
-  }
+  },
 };
 
 // 使用 Object.create 创建新对象
@@ -941,7 +890,7 @@ console.dir(a); // {}
 console.log(a.__proto__); // undefined
 console.log(a.__proto__ === Object.prototype); // false
 console.log(a instanceof Object); // false 没有继承 Object.prototype 上的任何属性和方法，所以原型链上不会出现 Object
-console.log(Object.getPrototypeOf(a));  // null
+console.log(Object.getPrototypeOf(a)); // null
 ```
 
 如果要获取对象的属性描述符，可以使用 `Object.getOwnPropertyDescriptor()` 函数查看：
@@ -968,5 +917,3 @@ console.log(Object.getOwnPropertyDescriptor(o, 'f'));
         configurable: true
 } */
 ```
-
-

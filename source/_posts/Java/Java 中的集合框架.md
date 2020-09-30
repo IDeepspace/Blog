@@ -44,31 +44,25 @@ urlname: java-collection-framework
 
 下面看看集合框架中基于 `Collection` 接口的结构层次：
 
-<img src="/ImageHosting/Java/java-collection-hierarchy.png" alt="Java 集合框架的结构" style="zoom:80%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/java-collection-hierarchy.png" alt="Java 集合框架的结构" style="zoom:80%;" />
 
 在 `Collection` 接口中声明了许多方法，具体方法及作用可以在 `Collection` 接口中查看。
 
 上图中，我们发现 `Collection` 接口的上方还有一个 `Iterable` 接口，`Iterable` 接口是 `java` 集合框架的顶级接口，它的作用就是提供了统一的语法进行集合对象（`Collection`）遍历操作。
 
-
-
 #### 2、Map 接口
 
 `Map` 接口提供了一种映射关系，所有的元素都是以**键值对**的方式存储的，所以能够根据 `key` 快速查找 `value`，`key` 是映射关系的索引，`value` 是 `key` 所指向的对象。
 
-`Map` 接口中，它有两个接口用于实现 ：`Map` 和 `SortedMap` 接口，以及三个类: `HashMap`、 `LinkedHashMap` 和  `TreeMap`。` Java` 中 `Map` 分支下的层次结构如下:
+`Map` 接口中，它有两个接口用于实现 ：`Map` 和 `SortedMap` 接口，以及三个类: `HashMap`、 `LinkedHashMap` 和 `TreeMap`。` Java` 中 `Map` 分支下的层次结构如下:
 
-<img src="/ImageHosting/Java/java-map-hierarchy.png" alt="Java 集合框架的结构" style="zoom:70%;" />
-
-
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/java-map-hierarchy.png" alt="Java 集合框架的结构" style="zoom:70%;" />
 
 `Collection` 接口和 `Map` 接口之间并不是完全独立的，也有一些联系，用来创建一个其他的数据结构，稍后会讲到。
 
-<img src="/ImageHosting/Java/java-collection.png" alt="Java 集合框架的结构" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/java-collection.png" alt="Java 集合框架的结构" />
 
 下面我们来具体看看集合框架中的一些常见的类。
-
-
 
 ### 三、List
 
@@ -356,8 +350,6 @@ Collections.addAll(arrayList, cityNames);
 
 `Collections.addAll()` 方法性能更好。
 
-
-
 #### 2、LinkedList
 
 与 `Java` 中的数组类似，`LinkedList` （链表）是线性数据结构。但是，`LinkedList` 元素不存储在像数组这样的连续位置中，它们使用指针相互链接。
@@ -369,7 +361,7 @@ Collections.addAll(arrayList, cityNames);
 
 如下图：
 
-<img src="/ImageHosting/Java/singly-linked-list.png" alt="Java 单链表" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/singly-linked-list.png" alt="Java 单链表" />
 
 **注意：**
 
@@ -380,7 +372,7 @@ Collections.addAll(arrayList, cityNames);
   - 元素的内容；
   - 指向链表的下一个节点的指针。
 
-<img src="/ImageHosting/Java/doubly-linked-list.png" alt="Java 双链表"  />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/doubly-linked-list.png" alt="Java 双链表"  />
 
 为什么会出现 `LinkedList` 这样的一个数据结构呢？也就是为什么需要链表呢？
 
@@ -397,8 +389,6 @@ Collections.addAll(arrayList, cityNames);
 1. 链表允许**动态内存分配**，这意味着内存的分配在运行时由编译器完成，在链表声明中我们不需要声明列表的大小；
 2. 链表元素**不需要连续的存储单元**，因为列表中的节点（元素）使用包含列表的下一个节点（元素）的地址相互链接；
 3. 在链表中插入和删除操作的性能并不昂贵，因为从链表中添加和删除元素不需要元素移位，只需要更改前一个节点和下一个节点的指针。
-
-
 
 下面介绍下 `LinkedList` 类的方法。
 
@@ -572,7 +562,7 @@ public class Main {
 
 11）`isEmpty()` 方法用于检查列表是否为空
 
-12）将 `LinkedList` 转换为 `ArrayList` 
+12）将 `LinkedList` 转换为 `ArrayList`
 
 ```java
 LinkedList<String> linkedList = new LinkedList<String>();
@@ -592,19 +582,15 @@ linkedList.add("Jack");
 String[] array = linkedList.toArray(new String[linkedList.size()]);
 ```
 
-
-
 #### 3、ArrayList 和 LinkedList 的区别
 
 总结一下二者的区别：
 
-操作方面，`ArrayList` 搜索操作非常快，而 `LinkedList` 元素删除更快，插入性能也是  `LinkedList` 较好，原因在前面已经解释过了。
+操作方面，`ArrayList` 搜索操作非常快，而 `LinkedList` 元素删除更快，插入性能也是 `LinkedList` 较好，原因在前面已经解释过了。
 
 而在内存开销上面，`ArrayList` 维护索引和元素数据，而 `LinkedList` 维护元素数据和相邻节点的两个指针，因此 `LinkedList` 中的内存消耗比较高。
 
 所以，在开发过程中，我们需要根据具体的需求来选择哪种集合。
-
-
 
 #### 3、Vector
 
@@ -618,11 +604,11 @@ String[] array = linkedList.toArray(new String[linkedList.size()]);
   - `vector` 大部分方法都使用了 `synchronized` 修饰符，所以它是**线程安全**的集合类。
   - 如下图所示：
 
-<img src="/ImageHosting/Java/ArrayList-vs-Vector-Java.png" alt="Java Vector vs ArrayList" style="zoom:87%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Java/ArrayList-vs-Vector-Java.png" alt="Java Vector vs ArrayList" style="zoom:87%;" />
 
 - 性能（`Performance`）
   - `ArrayList` 更快，因为它是非同步的，而向量操作因为是同步的（线程安全的） ，所以性能更慢；
-  -  如果一个线程处理一个向量，那么它就获得了一个向量的锁，这迫使任何其他想要处理它的线程必须等待，直到锁被释放。
+  - 如果一个线程处理一个向量，那么它就获得了一个向量的锁，这迫使任何其他想要处理它的线程必须等待，直到锁被释放。
 - 数据增长（`Data Growth`）
   - `ArrayList` 和 `Vector` 都会动态地增长和缩小以保持存储空间的最佳使用 —— 但是它们的调整方式是不同的；
   - 如果元素的数量超过了当前数组的容量，`ArrayList` 的增量为当前数组大小的 `50%` ，而矢量的增量为 `100%`。
@@ -699,7 +685,7 @@ public class Main {
 打印结果：
 
 ```
-Vector elements are(Enumeration): 
+Vector elements are(Enumeration):
 Mango
 Orange
 Apple
@@ -762,8 +748,6 @@ public class Main {
   }
 }
 ```
-
-
 
 #### 4、Stack
 
@@ -850,8 +834,6 @@ Element not found
 - `boolean empty()`：如果堆栈顶部没有任何内容，则返回 `true`， 否则，返回 `false`
 - `int search(Object element)` : 它确定堆栈中是否存在某对象。 如果找到该元素，则返回该元素在堆栈中的索引，否则，它返回 `-1`。
 
-
-
 ### 四、Queue
 
 `Queue` （队列）接口与 `List`、`Set` 同一级别，都是继承了 `Collection` 接口。
@@ -866,8 +848,6 @@ Element not found
 
 - 一个是以 `ConcurrentLinkedQueue` 为代表的高性能非阻塞队列；
 - 一个是以 `BlockingQueue` 接口为代表的阻塞队列，无论哪种都继承自 `Queue`。
-
-
 
 #### 1、阻塞队列与非阻塞队列
 
@@ -886,8 +866,6 @@ Element not found
 这里需要注意，看了上面的解释之后，你可能会把阻塞调用和同步调用等同起来，实际上它们是不同的。对于同 步调用来说，很多时候当前线程还是激活的，只是从逻辑上当前函数没有返回而已，当前线程还会继续处理各种各样的消息。
 
 而在阻塞状态下， 如果没有数据的情况下调用该函数，则当前线程就会被挂起，直到有数据为止。
-
-
 
 #### 2、Queue 中的方法
 
@@ -943,21 +921,17 @@ head of queue-1
 Size of queue-4
 ```
 
-
-
 ### 五、Set
 
 `Set` 也是 `Collection` 的子接口，它的特点是：**无序**，**不允许包含重复元素**，重复元素会覆盖掉。当不考虑顺序，且没有重复元素时，`Set` 集合和 `List` 集合可以互相替换的。
 
-**注意**：元素虽然无放入顺序，但是元素在 `Set` 中的位置是有该元素的 `HashCode` 决定的，其位置其实是固定的，加入 `Set` 的 `Object` 必须定义 `equals()` 方法 ，另外 `List` 支持 `for` 循环、下标和迭代器来遍历，但是 `Set`  只能用迭代器和 `foreach` 循环方法来遍历，因为它无序，无法用下标来取得想要的值。
+**注意**：元素虽然无放入顺序，但是元素在 `Set` 中的位置是有该元素的 `HashCode` 决定的，其位置其实是固定的，加入 `Set` 的 `Object` 必须定义 `equals()` 方法 ，另外 `List` 支持 `for` 循环、下标和迭代器来遍历，但是 `Set` 只能用迭代器和 `foreach` 循环方法来遍历，因为它无序，无法用下标来取得想要的值。
 
-所以，与 `List` 相比，`Set` 的检索元素效率低下，删除和插入效率高，插入和删除时不会引起元素位置改变。而 `List` 查找元素效率高，插入和删除元素效率低，因为会引起其他元素位置改变。 
+所以，与 `List` 相比，`Set` 的检索元素效率低下，删除和插入效率高，插入和删除时不会引起元素位置改变。而 `List` 查找元素效率高，插入和删除元素效率低，因为会引起其他元素位置改变。
 
 基于 `Set` 接口类有三个：`HashSet`、`LinkedHashSet`、`TreeSet`。
 
 基本上，`Set` 的方法和 `List` 都是一致的，这里就不再赘述。
-
-
 
 #### 1、HashSet
 
@@ -1021,8 +995,6 @@ Strawberry
 Mango
 ```
 
-
-
 那 `HashSet` 如何保证唯一性呢？我们看看 `HashSet` 的源码中的一部分：
 
 ```java
@@ -1050,8 +1022,6 @@ public boolean add(E e) {
 当向 `HashSet` 中添加元素时，将元素作为 `map` 的 `key`，而 `value` 则是用一个虚假的值 `PRESENT`。由于 `HashMap` 中的 `Key` 是唯一的，而 `HashSet` 中的元素是作为 `Key` 储存在 `HashMap` 中的，这样就保证了 `HashSet`元素中没有重复的值。
 
 > 那如何能够确保 `HashMap` 中 `Key` 的唯一性呢？`HashMap` 中有 `hashCode()` 和 `equals()` 两个方法，用来保证唯一性。
-
-
 
 #### 2、TreeSet
 
@@ -1094,8 +1064,6 @@ public class Main {
 
 可以看到 `TreeSet` 已经按隐式升序排序了。
 
-
-
 #### 3、LinkedHashSet
 
 `LinkedHashSet` 也是 `Set` 接口的一个实现，它的特点是：维护插入顺序，元素按照添加到 `Set` 中的顺序进行排序。`LinkedHashSet` 支持 `null`。
@@ -1129,8 +1097,6 @@ public class Main {
 
 可以看到，两种类型的 `LinkedHashSet` 都保留了插入顺序。
 
-
-
 #### 4、小结
 
 所以，三者都保证了元素的唯一性，怎么选择呢？
@@ -1141,11 +1107,9 @@ public class Main {
 
 如果想插入、删除立即排序或者按照一定规则排序可以选用 `TreeSet`。
 
-
-
 ### 六、HashMap
 
-`HashMap  ` 是一个基于 `Map` 的集合类，用于存储键值对。
+`HashMap ` 是一个基于 `Map` 的集合类，用于存储键值对。
 
 #### 1、Map 接口的特点
 
@@ -1153,7 +1117,7 @@ public class Main {
 
 `Map` 接口并不直接继承于 `Collection` 接口，因为它包装的是一组成对的 **"键—值"** 对象的集合，而且在 `Map` 接口的集合中也不能有重复的 `key` 出现，因为每个键只能与一个成员元素相对应。
 
- `Map` 接口的特点有： 
+`Map` 接口的特点有：
 
 - `Map` 接口提供了一种映射关系，其中的元素是以键值对（`key-value`）的形式存储的，能够实现根据`key` 快速查找 `value`；
 - `Map` 中的键值对以 `Entry` 类型的对象实例形式存在；`key` 值不可重复，`value` 值可以；
@@ -1161,15 +1125,11 @@ public class Main {
 - `Map` 接口提供了分别返回 `key` 值集合，`value` 值集合以及 `Entry`（键值对）集合的方法；
 - `Map` 同样也支持泛型，形式如：`Map<K,V>`；
 
-
-
-**`HashMap`** 
+**`HashMap`**
 
 `HashMap` 不是有序集合，这意味着它**不会按照插入的顺序返回键和值**，也不会对存储的键和值进行排序。它是一个**线程不安全**的集合对象。
 
 `HashMap` 的键和值都允许有 `null` 值存在。
-
-
 
 #### 2、HashMap 中的方法
 
@@ -1206,20 +1166,20 @@ public class Main {
     import java.util.HashMap;
     import java.util.Iterator;
     import java.util.Map;
-    
+
     public class Main {
       public static void main(String[] args) {
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
         // Adding elements to HashMap
         hmap.put(11, "AB");
         hmap.put(2, "CD");
-    
+
         // FOR LOOP
         System.out.println("For Loop:");
         for (Map.Entry me : hmap.entrySet()) {
           System.out.println("Key: " + me.getKey() + " & Value: " + me.getValue());
         }
-    
+
         // WHILE LOOP & ITERATOR
         System.out.println("While Loop:");
         Iterator iterator = hmap.entrySet().iterator();
@@ -1231,9 +1191,7 @@ public class Main {
     }
     ```
 
-
-
-### 七、TreeMap 
+### 七、TreeMap
 
 `TreeMap` 存储是会进行默认排序的，会根据 `key` 来排序。
 
@@ -1256,7 +1214,7 @@ public class Main {
 
     Set set = treemap.entrySet();
     Iterator i = set.iterator();
-    
+
     while (i.hasNext()) {
       Map.Entry me = (Map.Entry) i.next();
       System.out.print(me.getKey() + ": ");
@@ -1265,8 +1223,6 @@ public class Main {
   }
 }
 ```
-
-
 
 #### 2、按照值来排序
 
@@ -1330,11 +1286,9 @@ Key1: Steve
 Key4: Tom
 ```
 
-
-
 #### 3、获取子映射
 
-从 `TreeMap` 获取子映射，需要用到  `subMap` 方法：
+从 `TreeMap` 获取子映射，需要用到 `subMap` 方法：
 
 ```java
 import java.util.*;
@@ -1353,7 +1307,7 @@ public class Main {
 
     // Displaying TreeMap elements
     System.out.println("TreeMap Contains : " + treeMap);
-    
+
     SortedMap<String, String> sortedMap = treeMap.subMap("Key2", "Key5");
     System.out.println("SortedMap Contains : " + sortedMap);
 
@@ -1374,8 +1328,6 @@ TreeMap Contains : {Key1=Jack, Key2=Rick, Key3=Kate, Key5=Steve, Key6=Ram}
 ```
 
 可以看到，子映射会影响到源映射。
-
-
 
 ### 八、LinkedHashMap
 
@@ -1416,8 +1368,6 @@ Key is: 100& Value is: Jim
 ```
 
 可以看到，值的返回顺序与插入的顺序相同。
-
-
 
 ### 九、总结
 

@@ -16,9 +16,7 @@ urlname: javascript-object-oriented-programming-2
 > - [《`JavaScript` 中的原型和原型链》](https://togoblog.cn/javascript-prototypes-and-prototype-chains/)
 > - [《`JavaScript` 面向对象编程（一）— 创建对象》](https://togoblog.cn/javascript-object-oriented-programming-1/)
 
- `JavaScript` 将原型链作为实现继承的主要方法。其基本思想就是利用原型让一个引用类型继承另一个引用类型的属性和方法。
-
-
+`JavaScript` 将原型链作为实现继承的主要方法。其基本思想就是利用原型让一个引用类型继承另一个引用类型的属性和方法。
 
 ### 一、构造函数、原型和实例的关系
 
@@ -29,17 +27,17 @@ urlname: javascript-object-oriented-programming-2
 
 如下图：
 
-<img src="/ImageHosting/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
 
 ### 二、原型链
 
 那么，假如我们让原型对象等于另一个类型的实例，结果会怎么样呢？显然，此时的原型对象将包含一个指向另一个原型的指针（`__proto__`）；相应地，另一个原型中也包含着一个指向另一个构造函数的指针（`constructor`）。假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓原型链的基本概念。
 
-<img src="/ImageHosting/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
 
 图中蓝色的线条就是原型链。
-<!-- more -->
 
+<!-- more -->
 
 ### 三、实现原型链继承
 
@@ -55,8 +53,7 @@ SuperType.prototype.getSuperValue = function () {
   return this.superValue;
 };
 // 子类型
-function SubType() {
-}
+function SubType() {}
 
 // 继承了 SuperType
 SubType.prototype = new SuperType();
@@ -64,8 +61,6 @@ SubType.prototype = new SuperType();
 const instance = new SubType();
 console.log(instance.getSuperValue()); // 'superValue' --- 继承自 SuperType 的方法
 ```
-
-
 
 #### 1、给子类型添加方法
 
@@ -95,8 +90,6 @@ console.log(instance.getSubValue()); // 'subValue' --- SubType 的方法
 console.log(instance.getSuperValue()); // 'superValue' --- 继承自 SuperType 的方法
 ```
 
-
-
 #### 2、重写超类型的方法
 
 子类型有时候需要重写超类型中的某个方法，或者需要添加超类型中不存在的某个方法。
@@ -122,7 +115,7 @@ SubType.prototype.getSubValue = function () {
   return this.subValue;
 };
 
-// 重写超类型中的方法 
+// 重写超类型中的方法
 SubType.prototype.getSuperValue = function () {
   return 'newValue';
 };
@@ -133,8 +126,6 @@ console.log(instance.getSuperValue()); // 'newValue' --- 重写了 SuperType 的
 ```
 
 **这里要特别注意，给原型添加方法的代码一定要放在继承（替换原型）的语句之后。** 因为如果继承的语句在后面的话，会把前面添加方法的代码覆盖掉。
-
-
 
 #### 3、不能使用对象字面量创建原型方法
 
@@ -157,13 +148,14 @@ function SubType() {
 SubType.prototype = new SuperType();
 
 // 使用对象字面量的形式为原型添加新方法，会导致上一行代码无效
-SubType.prototype = {  // <---
+SubType.prototype = {
+  // <---
   getSubValue: function () {
     return this.subValue;
   },
   someOtherMethod: function () {
     return 'something';
-  }
+  },
 };
 
 const instance = new SubType();
@@ -172,8 +164,6 @@ console.log(instance.getSuperValue()); // TypeError: instance.getSuperValue is n
 ```
 
 首先将 `SuperType` 的实例对象赋值给原型 `SubType.prototype`，紧接着又将原型替换成一个对象字面量，那现在的原型包含的就是一个新的的对象了，而非 `SuperType` 的实例，原型链已经被切断 —— `SubType` 和 `SuperType` 之间已经没有关系了。所以这个时候新的原型包含的对象上没有 `getSuperValue` 方法，就报错了。
-
-
 
 ### 四、原型链的问题
 
@@ -188,10 +178,9 @@ function SuperType() {
   this.colors = ['red', 'blue', 'green'];
 }
 
-function SubType() {
-}
+function SubType() {}
 
-//继承了 SuperType 
+//继承了 SuperType
 SubType.prototype = new SuperType();
 
 const instance1 = new SubType();
@@ -206,13 +195,9 @@ console.log(instance2.colors); // [ 'red', 'blue', 'green', 'black' ]
 
 这样，`SubType` 的所有实例都会共享这一个 `colors` 属性。而我们对 `instance1.colors` 的修改也会在 `instance2.colors` 反映出来，因为 `colors` 属性指向的是同一块存储区域。
 
-
-
 #### 2、不能传递参数
 
 由于原型模式中，所有的属性和方法都是共享的，因为**不能传递初始化参数，所有实例默认情况下都将取得相同的属性值，**会在某些情况下带来一些不便，这也是其中的一个缺点。
-
-
 
 ### 五、借助构造函数(经典继承)
 
@@ -244,8 +229,6 @@ console.log(instance2.colors); // [ 'red', 'blue', 'green' ]
 
 通过使用 `call()` 方法（或 `apply()` 方法），当创建 `SubType` 实例时，就会调用了 `SuperType` 构造函数，执行 `SuperType()` 函数中定义的所有对象初始化代码。这样一来， `SubType` 的每个实例就都会具有自己的 `colors` 属性了，彼此互不干扰。
 
-
-
 #### 2、传递参数
 
 借助构造函数来实现继承，也有另一个好处，我们可以在子类型构造函数中向超类型构造函数传递参数。
@@ -255,18 +238,16 @@ function SuperType(name) {
   this.name = name;
 }
 function SubType() {
-  // 继承了 SuperType，同时还传递了参数 
+  // 继承了 SuperType，同时还传递了参数
   SuperType.call(this, 'Deepspace');
   // 实例属性
   this.age = 29;
 }
 
 const instance = new SubType();
-console.log(instance.name); // Deepspace; 
+console.log(instance.name); // Deepspace;
 console.log(instance.age); //29
 ```
-
-
 
 #### 3、缺点
 
@@ -275,8 +256,6 @@ console.log(instance.age); //29
 并且，方法都在构造函数中定义，因此函数复用就无从谈起了。
 
 所以，我们也不会单独使用构造函数来实现继承。
-
-
 
 ### 六、组合继承
 
@@ -293,7 +272,7 @@ SuperType.prototype.sayName = function () {
 };
 
 function SubType(name, age) {
-  // 继承属性 
+  // 继承属性
   SuperType.call(this, name);
   this.age = age;
 }
@@ -339,8 +318,6 @@ console.log(SubType.prototype.isPrototypeOf(instance2)); // true
 
 组合继承是 `JavaScript` 中最常用的继承模式。
 
-
-
 ### 七、原型式继承
 
 这种继承方式的思想是：
@@ -353,14 +330,14 @@ console.log(SubType.prototype.isPrototypeOf(instance2)); // true
 
 ```javascript
 function createObj(o) {
-  function F() { }
+  function F() {}
   F.prototype = o;
   return new F();
 }
 
 const person = {
   name: 'Deepspace',
-  friends: ['chenxingxing']
+  friends: ['chenxingxing'],
 };
 
 const anotherPerson = createObj(person);
@@ -392,8 +369,6 @@ console.log(yetAnotherPerson.friends); // [ 'chenxingxing', 'Bob', 'Barbie' ]
 
 如果只想让一个对象与另一个对象保持类似的情况下，原型式继承是完全可以胜任的。
 
-
-
 ### 八、寄生式继承
 
 寄生式继承（`parasitic`）的思路与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该 函数在内部以某种方式来增强对象，最后再返回对象。
@@ -401,15 +376,16 @@ console.log(yetAnotherPerson.friends); // [ 'chenxingxing', 'Bob', 'Barbie' ]
 ```javascript
 function createAnother(original) {
   const clone = Object.create(original); // 通过调用函数创建一个新对象
-  clone.sayHi = function () {            // 以某种方式来增强这个对象
+  clone.sayHi = function () {
+    // 以某种方式来增强这个对象
     console.log('hi');
   };
-  return clone;                          // 返回这个对象
+  return clone; // 返回这个对象
 }
 
 const person = {
   name: 'Deepspace',
-  friends: ['xiaohong', 'xiaobai']
+  friends: ['xiaohong', 'xiaobai'],
 };
 
 const anotherPerson = createAnother(person);
@@ -428,8 +404,6 @@ console.log(anotherPerson.friends); // [ 'xiaohong', 'xiaobai', 'xiaohuang' ]
 ```
 
 缺陷：包含引用类型的属性值始终都会共享相应的值，并且，创建时每个方法都会新建一遍。
-
-
 
 ### 九、寄生组合式继承
 
@@ -486,7 +460,7 @@ function SubType(name, age) {
 }
 
 // 添加下面三行代码
-const F = function () { };
+const F = function () {};
 F.prototype = SuperType.prototype;
 SubType.prototype = new F();
 
@@ -511,7 +485,7 @@ instance2.sayAge(); // 27
 
 ```javascript
 function object(o) {
-  function F() { }
+  function F() {}
   F.prototype = o;
   return new F();
 }

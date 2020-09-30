@@ -3,7 +3,7 @@ title: Vue 基础语法
 author: Deepspace
 categories: Vue
 tag:
-  - vue 
+  - vue
 date: 2019-01-22
 urlname: vue-basic
 ---
@@ -14,36 +14,38 @@ urlname: vue-basic
 
 这篇文章以使用 `vue-cli` 生成的项目为基础，以完整 `demo` 的形式讲解 `Vue` 的基础语法。关于 `vue-cli` 生成项目的讲解，可以参考：[vue-cli 构建 vue 项目详解](https://togoblog.cn/vue-cli-init-project-intro/) 。
 
-在  `vue-cli` 生成的项目中，我们打开 `src/components` 文件夹下 `HelloWorld.vue` 组件，为便于演示，删减了一部分内容（本文中的例子都将改造 `HelloWorld.vue` 组件来演示 `Vue` 语法）：
+在 `vue-cli` 生成的项目中，我们打开 `src/components` 文件夹下 `HelloWorld.vue` 组件，为便于演示，删减了一部分内容（本文中的例子都将改造 `HelloWorld.vue` 组件来演示 `Vue` 语法）：
 
 ```html
 <template>
-  <div class='hello'>
+  <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        msg: 'Welcome to Your Vue.js App',
+      };
+    },
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
+  h1,
+  h2 {
+    font-weight: normal;
+  }
 </style>
 ```
+
 <!-- more -->
+
 ### 一、创建组件
 
 > 在 `vue` 中，有好几种方式用来创建组件，后面会单独写一篇文章来介绍。
@@ -51,24 +53,20 @@ h2 {
 `HelloWord.vue` 文件中的内容分为三个部分：
 
 ```html
-<template>
-  ...
-</template>
+<template> ... </template>
 
 <script>
   ...
 </script>
 
 <style>
- ...
+  ...;
 </style>
 ```
 
 分别在这三类标签里面写入**结构、脚本、样式**。 这个文件以 `.vue` 结尾（注意：其他创建组件方式是以 `.js` 结尾），这是 `vue` 中创建组件的一种方式：**单文件组件**。换句话说就是每个 `.vue` 文件就是一个组件。
 
-**有一点需要注意：`template` 只能允许一个子元素。** 
-
-
+**有一点需要注意：`template` 只能允许一个子元素。**
 
 ### 二、导入组件
 
@@ -96,27 +94,27 @@ export default new Router({
 
 ```html
 <template>
-  <div id='app'>
-    <img src='./assets/logo.png'>
-    <HelloWorld/>
+  <div id="app">
+    <img src="./assets/logo.png" />
+    <HelloWorld />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+  import HelloWorld from './components/HelloWorld';
 
-export default {
-  name: 'App',
-  components: { HelloWorld },
-};
+  export default {
+    name: 'App',
+    components: { HelloWorld },
+  };
 </script>
 
 <style>
-#app {
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>
 ```
 
@@ -126,30 +124,28 @@ export default {
 
 ```html
 <template>
-  <div id='app'>
-    <img src='./assets/logo.png'>
-    <hello-world/>
-    <demo/>
+  <div id="app">
+    <img src="./assets/logo.png" />
+    <hello-world />
+    <demo />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-import Demo from './components/Demo';
+  import HelloWorld from './components/HelloWorld';
+  import Demo from './components/Demo';
 
-export default {
-  name: 'App',
-  components: {
-    'hello-world': HelloWorld,
-    demo: Demo,
-  },
-};
+  export default {
+    name: 'App',
+    components: {
+      'hello-world': HelloWorld,
+      demo: Demo,
+    },
+  };
 </script>
 ```
 
 在 `components` 对象中定义多个属性，指向引入的组件即可。
-
-
 
 ### 三、插值和指令
 
@@ -163,21 +159,21 @@ export default {
 
 ```html
 <template>
-    <div>
-    	<h1>{{ msg }}</h1>
-    	<span v-once>这个将不会改变: {{ msg }}</span>
-    </div>  
+  <div>
+    <h1>{{ msg }}</h1>
+    <span v-once>这个将不会改变: {{ msg }}</span>
+  </div>
 </template>
 
 <script>
-export default {
-  // ...
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    };
-  },
-};
+  export default {
+    // ...
+    data() {
+      return {
+        msg: 'Welcome to Your Vue.js App',
+      };
+    },
+  };
 </script>
 ```
 
@@ -189,23 +185,23 @@ export default {
 
 ```html
 <template>
-    <div>
-        // ...
-        <button v-bind:disabled='btnState'>{{ name }}</button>
-	</div>
+  <div>
+    // ...
+    <button v-bind:disabled="btnState">{{ name }}</button>
+  </div>
 </template>
 
 <script>
-export default {
-  // ...
-  data() {
-    return {
-      name: 'Vue',
-      btnState: true, // Add this
-    };
-  },
-};
-</script>        
+  export default {
+    // ...
+    data() {
+      return {
+        name: 'Vue',
+        btnState: true, // Add this
+      };
+    },
+  };
+</script>
 ```
 
 在属性中插值，需要通过字符串的形式读取 `data` 中的值，不可以使用双大括号。现在，这个 `button` 就被 `disable` 掉了。
@@ -216,12 +212,12 @@ export default {
 
 ```html
 <template>
-    <div>
-    	<!-- Add this -->
-    	{{ btnState ? 'The button is disabled' : 'The button is active'}}
-        
-    	<button v-bind:disabled='btnState'>{{ name }}</button>
-    </div>
+  <div>
+    <!-- Add this -->
+    {{ btnState ? 'The button is disabled' : 'The button is active'}}
+
+    <button v-bind:disabled="btnState">{{ name }}</button>
+  </div>
 </template>
 ```
 
@@ -235,27 +231,27 @@ export default {
 
 ```html
 <tamplate>
-    <div>
-        <ul>
-          <li v-for='todo in todos' :key='todo.key'>{{ todo.text }}</li>
-        </ul>
-    </div>
+  <div>
+    <ul>
+      <li v-for="todo in todos" :key="todo.key">{{ todo.text }}</li>
+    </ul>
+  </div>
 </tamplate>
 
 <script>
-export default {
-  // ...
-  data() {
-    return {
-      todos: [
-        { text: '学习 JavaScript' },
-        { text: '学习 Vue' },
-        { text: '学习 前端' },
-      ],
-    };
-  },
-};
-</script> 
+  export default {
+    // ...
+    data() {
+      return {
+        todos: [
+          { text: '学习 JavaScript' },
+          { text: '学习 Vue' },
+          { text: '学习 前端' },
+        ],
+      };
+    },
+  };
+</script>
 ```
 
 `v-for` 指令可以绑定数组的数据来渲染一个项目列表：
@@ -270,22 +266,20 @@ export default {
 
 ```html
 <tamplate>
-    <div>
-        <ul>
-          <li v-for='todo in todos' :key='todo.key'>{{ todo.text }}</li>
-        </ul>
-		// add this
-        <p v-if='todos.length >= 1'>You have more than 1 todo</p>
-		<p v-else>You have no todos</p>
-    </div>
+  <div>
+    <ul>
+      <li v-for="todo in todos" :key="todo.key">{{ todo.text }}</li>
+    </ul>
+    // add this
+    <p v-if="todos.length >= 1">You have more than 1 todo</p>
+    <p v-else>You have no todos</p>
+  </div>
 </tamplate>
 ```
 
-这里，`v-if` 指令将根据表达式的值的真假来插入/移除 `<p>` 元素。 
+这里，`v-if` 指令将根据表达式的值的真假来插入/移除 `<p>` 元素。
 
 关于更多 `vue` 指令，可以查看 [vue 指令 api](https://cn.vuejs.org/v2/api/#%E6%8C%87%E4%BB%A4)，这里不再一一讲述。
-
-
 
 ### 四、事件处理
 
@@ -297,48 +291,48 @@ export default {
 <template>
   <div>
     <span>{{ counter }}</span>
-    <button v-on:click='counter += 1'>+ 1</button>
+    <button v-on:click="counter += 1">+ 1</button>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      counter: 0,
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        counter: 0,
+      };
+    },
+  };
 </script>
 ```
 
 点击 `button` , 计数器递增 `+1`。`+1` 的逻辑写在了 `v-on` 指令里面，显然这是不可取的，许多事件处理逻辑会更为复杂。
 
-在 `Vue` 组件中，都有一个 `data` 属性，也有一个 `methods` 属性。该属性是一个对象，我们可以在对象中定义方法。对于上面的例子，我们可以把点击 `button` 之后的处理逻辑放在  `methods` 中，`click` 事件调用 `methods` 中的方法：
+在 `Vue` 组件中，都有一个 `data` 属性，也有一个 `methods` 属性。该属性是一个对象，我们可以在对象中定义方法。对于上面的例子，我们可以把点击 `button` 之后的处理逻辑放在 `methods` 中，`click` 事件调用 `methods` 中的方法：
 
 ```html
 <template>
   <div>
     <span>{{ counter }}</span>
-    <button v-on:click='add'>+ 1</button>
+    <button v-on:click="add">+ 1</button>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      counter: 0,
-    };
-  },
-  methods: {
-    add() {
-      this.counter += 1;
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        counter: 0,
+      };
     },
-  },
-};
+    methods: {
+      add() {
+        this.counter += 1;
+      },
+    },
+  };
 </script>
 ```
 
@@ -379,8 +373,6 @@ export default {
 
 > 注意：使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 `v-on:click.prevent.self` 会阻止**所有的点击**，而 `v-on:click.self.prevent` 只会阻止对元素自身的点击。注意这一点对我们定位 `bug` 时很关键。
 
-
-
 ### 五、处理用户输入
 
 我们可以用 `v-model` 指令来处理用户输入。 `v-model` 指令可以在表单 `<input>`、`<textarea>` 及 `<select>` 元素上创建双向数据绑定，它会根据控件类型自动选取正确的方法来更新元素。`v-model` 本质上是语法糖，它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。
@@ -392,20 +384,20 @@ export default {
 ```html
 <template>
   <div>
-    <input type='text' placeholder='Enter a todo..' v-model='todo'>
+    <input type="text" placeholder="Enter a todo.." v-model="todo" />
     <div>{{ todo }}</div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      todo: '',
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        todo: '',
+      };
+    },
+  };
 </script>
 ```
 
@@ -418,35 +410,35 @@ export default {
   <div>
     // ...
     <!-- <textarea placeholder='add multiple lines'>{{ todo }}</textarea> // 不生效 -->
-    <textarea v-model='todo' placeholder='add multiple lines'></textarea>
+    <textarea v-model="todo" placeholder="add multiple lines"></textarea>
   </div>
 </template>
 ```
 
-#### 3、单选按钮 
+#### 3、单选按钮
 
 ```html
 <template>
   <div>
-    <input type='radio' id='one' value='One' v-model='picked'>
-    <label for='one'>One</label>
-    <br>
-    <input type='radio' id='two' value='Two' v-model='picked'>
-    <label for='two'>Two</label>
-    <br>
+    <input type="radio" id="one" value="One" v-model="picked" />
+    <label for="one">One</label>
+    <br />
+    <input type="radio" id="two" value="Two" v-model="picked" />
+    <label for="two">Two</label>
+    <br />
     <span>Picked: {{ picked }}</span>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      picked: '',
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        picked: '',
+      };
+    },
+  };
 </script>
 ```
 
@@ -459,20 +451,20 @@ export default {
 ```html
 <template>
   <div>
-    <input type='checkbox' id='checkbox' v-model='checked'>
-    <label for='checkbox'>{{ checked }}</label>
+    <input type="checkbox" id="checkbox" v-model="checked" />
+    <label for="checkbox">{{ checked }}</label>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      checked: '',
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        checked: '',
+      };
+    },
+  };
 </script>
 ```
 
@@ -483,26 +475,26 @@ export default {
 ```html
 <template>
   <div>
-    <input type='checkbox' id='jack' value='Jack' v-model='checkedNames'>
-    <label for='jack'>Jack</label>
-    <input type='checkbox' id='john' value='John' v-model='checkedNames'>
-    <label for='john'>John</label>
-    <input type='checkbox' id='mike' value='Mike' v-model='checkedNames'>
-    <label for='mike'>Mike</label>
-    <br>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+    <label for="mike">Mike</label>
+    <br />
     <span>Checked names: {{ checkedNames }}</span>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      checkedNames: [],
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        checkedNames: [],
+      };
+    },
+  };
 </script>
 ```
 
@@ -513,7 +505,7 @@ export default {
 ```html
 <template>
   <div>
-    <select v-model='selected'>
+    <select v-model="selected">
       <option disabled value>请选择</option>
       <option>A</option>
       <option>B</option>
@@ -524,14 +516,14 @@ export default {
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      selected: '',
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        selected: '',
+      };
+    },
+  };
 </script>
 ```
 
@@ -540,25 +532,25 @@ export default {
 ```html
 <template>
   <div>
-    <select v-model='selected' multiple style='width: 50px;'>
+    <select v-model="selected" multiple style="width: 50px;">
       <option>A</option>
       <option>B</option>
       <option>C</option>
     </select>
-    <br>
+    <br />
     <span>Selected: {{ selected }}</span>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      selected: [],
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        selected: [],
+      };
+    },
+  };
 </script>
 ```
 
@@ -569,35 +561,35 @@ export default {
 ```html
 <template>
   <div>
-    <select v-model='selected'>
+    <select v-model="selected">
       <option
-        v-for='option in options'
-        v-bind:value='option.value'
-        v-bind:key='option.value'
-      >{{ option.text }}</option>
+        v-for="option in options"
+        v-bind:value="option.value"
+        v-bind:key="option.value"
+      >
+        {{ option.text }}
+      </option>
     </select>
     <span>Selected: {{ selected }}</span>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      selected: 'A',
-      options: [
-        { text: 'One', value: 'A' },
-        { text: 'Two', value: 'B' },
-        { text: 'Three', value: 'C' },
-      ],
-    };
-  },
-};
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        selected: 'A',
+        options: [
+          { text: 'One', value: 'A' },
+          { text: 'Two', value: 'B' },
+          { text: 'Three', value: 'C' },
+        ],
+      };
+    },
+  };
 </script>
 ```
-
-
 
 ### 六、样式
 
@@ -606,7 +598,7 @@ export default {
 ```html
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-// ...
+  // ...
 </style>
 ```
 
@@ -616,7 +608,7 @@ export default {
 
 ```html
 <style src="./style.css" scoped>
-// ...
+  // ...
 </style>
 ```
 
@@ -627,33 +619,33 @@ export default {
 ```html
 <template>
   <div>
-    <div v-bind:class='{ banner: showBanner}'></div>
+    <div v-bind:class="{ banner: showBanner}"></div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      showBanner: true,
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        showBanner: true,
+      };
+    },
+  };
 </script>
 
-<style scoped >
-.banner {
-  background-color: purple;
-  width: 100%;
-  height: 30px;
-}
+<style scoped>
+  .banner {
+    background-color: purple;
+    width: 100%;
+    height: 30px;
+  }
 </style>
 ```
 
 打开浏览器，我们会看到一个紫色的长方形。如果想在 `showBanner` 为 `false` 的时候显示长方形，只需要对 `showBanner` 取反即可：
 
 ```html
-<div v-bind:class='{ banner: !showBanner}'></div>
+<div v-bind:class="{ banner: !showBanner}"></div>
 ```
 
 那如果需要绑定多个 `class` ，要怎么办呢？
@@ -669,37 +661,37 @@ export default {
 ```html
 <template>
   <div>
-    <div v-bind:class='classObject'></div>
+    <div v-bind:class="classObject"></div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      classObject: {
-        banner: true,
-        bannerBorder: true,
-        // More classes here if you want..
-      },
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        classObject: {
+          banner: true,
+          bannerBorder: true,
+          // More classes here if you want..
+        },
+      };
+    },
+  };
 </script>
 
-<style scoped >
-.banner {
-  background-color: purple;
-  width: 100%;
-  height: 30px;
-}
-.bannerBorder {
-  border: 3px solid yellow;
-}
+<style scoped>
+  .banner {
+    background-color: purple;
+    width: 100%;
+    height: 30px;
+  }
+  .bannerBorder {
+    border: 3px solid yellow;
+  }
 </style>
 ```
 
- `class` 绑定的数据对象不必内联定义在模板里，抽离出来放在 `data` 函数的返回值里面。
+`class` 绑定的数据对象不必内联定义在模板里，抽离出来放在 `data` 函数的返回值里面。
 
 #### 3、style 绑定
 
@@ -708,20 +700,22 @@ export default {
 ```html
 <template>
   <div>
-    <div v-bind:style='{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }'></div>
+    <div
+      v-bind:style="{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }"
+    ></div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      bgColor: 'yellow',
-      bgWidth: '100%',
-      bgHeight: '30px',
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        bgColor: 'yellow',
+        bgWidth: '100%',
+        bgHeight: '30px',
+      };
+    },
+  };
 </script>
 ```
 
@@ -730,33 +724,31 @@ export default {
 ```html
 <template>
   <div>
-    <div v-bind:style='styleObject'></div>
+    <div v-bind:style="styleObject"></div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      styleObject: {
-        backgroundColor: 'yellow',
-        width: '100%',
-        height: '30px',
-      },
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        styleObject: {
+          backgroundColor: 'yellow',
+          width: '100%',
+          height: '30px',
+        },
+      };
+    },
+  };
 </script>
 ```
 
 > 注意：`css` 属性名可以用驼峰式 (`camelCase`) 或短横线分隔 (`kebab-case`) 来命名。使用短横线分割时，需要用单引号把属性名括起来。
 
-
-
 ### 七、 Todolist
 
 学习完 `Vue` 的基础语法，我们可以写一个 `Todolist` 来检验一下自己：
 
-![vue-todolist](/ImageHosting/Vue/vue-todolist.png)
+![vue-todolist](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-todolist.png)
 
 > 代码可参考：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-todolist

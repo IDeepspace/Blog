@@ -10,7 +10,6 @@ tags:
   - Github
 ---
 
-
 ### 一、CircleCI 介绍
 
 首先介绍一下 `CircleCI`：https://circleci.com。
@@ -29,21 +28,19 @@ tags:
 
 1、使用 `github` 账号登录 `CircleCI`
 
-<img src="/ImageHosting/FrontEnd/circleci.png" alt="Contiunous-Integration" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci.png" alt="Contiunous-Integration" style="zoom:50%;" />
 
- `Add Project` ，将项目集成到 `CircleCI` 中：
+`Add Project` ，将项目集成到 `CircleCI` 中：
 
-![circleci-set-up-project](/ImageHosting/FrontEnd/circleci-set-up-project.png)
+![circleci-set-up-project](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci-set-up-project.png)
 
 选择对应的环境和语言：
 
-![circleci-select-env](/ImageHosting/FrontEnd/circleci-select-env.png)
+![circleci-select-env](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci-select-env.png)
 
 选择 `Linux` 系统，由于我们是 `JavaScript` 的项目，所以这里选择 `Node` 就好了。
 
 因为我们没有提前编写 `CircleCI` 配置文件，所以创建之后，不会构建成功。接下来我们看看如何编写 `CircleCI` 配置文件。
-
-
 
 ### 三、编写 CircleCI 配置文件
 
@@ -76,7 +73,6 @@ jobs:
           name: run test
           command: npm test
 
-
 workflows:
   version: 2
   test-deploy:
@@ -88,21 +84,17 @@ workflows:
 
 关于更多配置，可以参考 `CircelCI` 的文档：https://circleci.com/docs/
 
-
-
 ### 四、提交代码进行持续集成
 
 我们可以将本地开发分支代码提交到仓库，当 `push` 事件发生时，`Github` 会发送 `Webhook` 请求到 `CircleCI`，`CircleCI` 根据项目中的 `.circleci/config.yml` 配置文件初始化环境并对项目进行构建和测试，这个请求是异步进行的，这种设计也比较合理，因为环境初始化、构建和测试都比较耗时。
 
-我们进入 `github` 中 `repo`  的 `commit` 界面，可以看到我们在 `CircleCI` 的构建状态，会标注出成功或失败的状态：
+我们进入 `github` 中 `repo` 的 `commit` 界面，可以看到我们在 `CircleCI` 的构建状态，会标注出成功或失败的状态：
 
-![github-circleci-status](/ImageHosting/FrontEnd/github-circleci-status.png)
+![github-circleci-status](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/github-circleci-status.png)
 
 进入 `CircleCI` 中，我们也可以在 `WORKDLOWS` 查看更详细的构建信息，包括 `CircleCI` 配置文件中的步骤和相关 `log` 信息等。
 
-![circleci-ci-status](/ImageHosting/FrontEnd/circleci-ci-status.png)
-
-
+![circleci-ci-status](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/circleci-ci-status.png)
 
 ### 五、最后
 

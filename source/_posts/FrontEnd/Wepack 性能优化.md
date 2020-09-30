@@ -8,19 +8,15 @@ date: 2019-11-28
 urlname: webpack-performance-enhancement
 ---
 
-
-
 ## Wepack 性能优化
 
 本篇文章我们一起来看看 `Webpack` 的性能优化相关内容。在这之前，再简单介绍下 `Webpack` 的一些相关概念。
-
-
 
 ### 一、webpack 是什么？
 
 `webpack` 是一种前端资源构建工具，它是一个**静态模块打包器**（`module bundler`）。在 `webpack` 中，前端的所有资源文件（`javascript/json/css/img/less/...`）都会作为模块处理，当 `webpack` 处理应用程序时,它会递归地构建一个依赖关系图（`dependency graph`），其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 `bundle`。
 
-<img src="/ImageHosting/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
 
 <p align='center'>（图片来自网络）</p>
 <!-- more -->
@@ -34,14 +30,10 @@ urlname: webpack-performance-enhancement
 - **代码校验**：在代码被提交到仓库前需要校验代码是否符合规范，以及单元测试是否通过。
 - **自动发布**：更新完代码后，自动构建出线上发布代码并传输给发布系统。
 
-
-
 #### 2、打包原理
 
 - 识别入口文件，分析代码，获取模块依赖，并且将代码打包为浏览器可以识别的代码；
 - 递归地构建一个依赖关系图（`dependency graph`），其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 `bundle`。
-
-
 
 ### 二、核心概念
 
@@ -49,37 +41,25 @@ urlname: webpack-performance-enhancement
 
 入口（`Entry`）：指示 `webpack` 应该以哪个文件（模块）为入口起点开始打包，分析构建内部依赖图。
 
-
-
 #### 2、output
 
 输出（`Output`）：指示 `Webpack` 打包后的资源（ `bundles ` ）输出到哪里去，以及如何命名。基本上，整个应用程序结构,都会被编译到你指定的输出路径的文件夹中。
-
-
 
 #### 3、module
 
 模块，在 `Webpack` 里一切皆模块，**一个模块对应着一个文件**。`Webpack` 会从配置的 `entry` 开始递归找出所有依赖的模块。
 
-
-
 #### 4、chunk
 
 代码块，一个 `chunk` 由多个模块组合而成，用于**代码合并与分割**。
-
-
 
 #### 5、loader
 
 **`Loader ` 是模块转换器，用于把模块原内容按照需求转换成新内容**。例如：我们会使用 `Loader` 让 `Webpack` 能够去处理那些非 `JavaScript` 文件（`Webpack 自身只理解 JavaScript`）。然后就可以利用 `webpack` 的打包能力，对它们进行处理。
 
-
-
 #### 6、plugins
 
 用于扩展 `Webpack` 功能，在 `Webpack` 构建流程中的特定时机会广播出对应的事件，插件可以监听这些事件的发生，在特定时机做对应的事情。
-
-
 
 #### 7、mode
 
@@ -95,8 +75,6 @@ urlname: webpack-performance-enhancement
   - 不暴露源代码和源文件的路径
   - 快速的静态资源输出
 
-
-
 #### 8、devServer
 
 通过 `devServer` 启动的 `Webpack` 会开启监听模式，当发生变化时重新执行构建，然后通知 `devServer` 会让 `Webpack` 在构建出的 `JavaScript` 代码里注入一个代理客户端用于控制网页，网页和 `devServer` 之间通过 `WebSocket` 协议通信，以方便 `devServer` 主动向客户端发送命令。`devServer` 在收到来自 `Webpack` 的文件变化通知时，通过注入的客户端控制网页刷新。
@@ -104,8 +82,6 @@ urlname: webpack-performance-enhancement
 - 提供 `HTTP` 服务，而非使用本地文件预览
 - 监听文件的变化并自动刷新网页，做到实时预览
 - 支持 `SourceMap` 方便调试
-
-
 
 ### 三、构建流程
 
@@ -123,8 +99,6 @@ urlname: webpack-performance-enhancement
 
 - 在整个流程中 `webpack` 会在恰当的时机执行 `plugin` 里定义的逻辑
 
-
-
 ### 四、开发环境性能优化
 
 - 优化打包构建速度
@@ -141,20 +115,14 @@ urlname: webpack-performance-enhancement
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/HMR
 
-
-
 #### 2、source-map
 
 `source-map` 是一种 提供源代码到构建后代码映射技术，如果构建后代码出错了，通过映射可以追踪源代码错误。
-
-
 
 **内联和外部的区别：**
 
 - 外部生成了文件，内联没有
 - 内联构建速度更快
-
-
 
 **用法区别：**
 
@@ -168,14 +136,13 @@ urlname: webpack-performance-enhancement
 - `cheap-source-map`：外部，显示错误代码准确信息和源代码的错误位置，只能精确到行；
 - `cheap-module-source-map`：外部，错误代码准确信息 和 源代码的错误位置，`module` 会将 `loader` 的 `source map` 加入。
 
-
-
 **如何选择**
 
 - 开发环境：速度快（`eval>inline>cheap>...`），调试更友好（可以显示源代码信息）
+
   - 速度快：`eval-cheap-source-map`、`eval-source-map`
   - 调试更友好：`source-map`、`cheap-module-source-map`、`cheap-source-map`
-  - 平衡点：`eval-source-map`  / `eval-cheap-module-source-map`
+  - 平衡点：`eval-source-map` / `eval-cheap-module-source-map`
 
 - 生产环境：隐藏源代码？调试要不要更友好？
   - 内联会让代码体积变大，所以在生产环境不用内联
@@ -184,8 +151,6 @@ urlname: webpack-performance-enhancement
   - 也需要平衡：`source-map` / `cheap-module-source-map`
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/source-map
-
-
 
 ### 五、生产环境性能优化
 
@@ -202,8 +167,6 @@ urlname: webpack-performance-enhancement
   - 懒加载/预加载
   - `pwa` 渐进式网络开发应用程序（离线可访问）
 
-
-
 #### 1、oneOf
 
 每个不同类型的文件在 `loader` 转换时，都会被命中，遍历 `module` 中 `rules` 中所有 `loader`，这也会影响性能。使用 `oneOf` 之后，当规则匹配时，只使用第一个匹配规则。
@@ -218,16 +181,16 @@ module.exports = {
         oneOf: [
           {
             resourceQuery: /inline/, // foo.css?inline
-            use: 'url-loader'
+            use: 'url-loader',
           },
           {
             resourceQuery: /external/, // foo.css?external
-            use: 'file-loader'
-          }
-        ]
-      }
-    ]
-  }
+            use: 'file-loader',
+          },
+        ],
+      },
+    ],
+  },
 };
 ```
 
@@ -238,8 +201,6 @@ module.exports = {
 - 可以配置 `enforce: 'pre',` 指定优先执行。
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/oneOf
-
-
 
 #### 2、缓存
 
@@ -258,8 +219,6 @@ module.exports = {
 
 这样在第二次构建的时候，会读取之前的缓存，加快打包速度。
 
-
-
 ##### 文件资源缓存
 
 > 一般情况下，对于前端静态资源，浏览器访问的时候希望资源都能够进行缓存，当第二次及以后进入页面的时候，页面就可以直接使用缓存资源，这样的话，页面打开速度很快，提高了用户体验同时也节省了带宽资源。而其中最为常见的一种最大化利用缓存的形式就是为静态资源加上 `hash`，使用一个不会重复的标识符来达到资源可以永久缓存的目的。
@@ -267,16 +226,16 @@ module.exports = {
 在 `Webpack` 打包的时候，我们可以给打包的文件名加上一个 `hash` 值，有两种方式：
 
 - `hash`：每次 `wepack` 构建时会生成一个唯一的 `hash` 值
+
   - 问题：因为 `js` 和 `css` 同时使用一个 `hash` 值；如果重新打包，会导致所有缓存失效（可能我却只改动一个文件）
 
 - `chunkhash`：根据 `chunk` 生成的 `hash` 值。如果打包来源于同一个 `chunk`，那么 `hash` 值就一样
+
   - 如何 `css` 是在 `js` 中被引入的，所以同属于一个 `chunk`，`js` 和 `css` 的 `hash` 值还是一样的。
 
 - `contenthash`：根据文件的内容生成 `hash` 值。不同文件 `hash` 值一定不一样，这会让代码上线运行缓存更好使用（上线代码性能优化）。
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/cache
-
-
 
 #### 3、多进程打包
 
@@ -331,8 +290,6 @@ module.exports = {
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/thread-loader
 
-
-
 #### 4、externals
 
 `externals` 的作用是防止将某一些包打包到我们的输出中。假设我们的项目中使用了 `JQuery`，我们不希望将它打包到输出文件中，而是使用外部的 `CDN` 链接。
@@ -342,15 +299,13 @@ module.exports = {
 externals: {
   // 拒绝jQuery被打包进来
   // 忽略库名 -- npm 包名
-  jquery: 'jQuery'
+  jquery: 'jQuery';
 }
 ```
 
 注意，当我们忽略打包文件需要在 `HTML` 中使用 `script` 标签将其引入进来的。
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/externals
-
-
 
 #### 5、dll
 
@@ -365,10 +320,6 @@ externals: {
 **缺点**：配置很麻烦。
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/dll
-
-
-
-
 
 #### 5、tree shaking
 
@@ -386,10 +337,6 @@ externals: {
 ```
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/tree-shaking
-
-
-
-
 
 #### 6、code splitting
 
@@ -409,15 +356,13 @@ externals: {
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/code-splitting
 
-
-
 #### 7、懒加载和预加载
 
 - 懒加载（延迟加载）：当文件需要使用时才加载。
 
   ```javascript
-  document.getElementById('btn').onclick = function() {
-    import(/* webpackChunkName: 'test' */'./test').then(({ mul }) => {
+  document.getElementById('btn').onclick = function () {
+    import(/* webpackChunkName: 'test' */ './test').then(({ mul }) => {
       console.log(mul(4, 5));
     });
   };
@@ -426,16 +371,16 @@ externals: {
 - 预加载 `prefetch`：会在使用之前，提前加载 `js` 文件，等其他资源加载完毕，浏览器空闲了，再偷偷加载资源（兼容性比较差）。
 
   ```javascript
-  document.getElementById('btn').onclick = function() {
-    import(/* webpackChunkName: 'test', webpackPrefetch: true */'./test').then(({ mul }) => {
-      console.log(mul(4, 5));
-    });
+  document.getElementById('btn').onclick = function () {
+    import(/* webpackChunkName: 'test', webpackPrefetch: true */ './test').then(
+      ({ mul }) => {
+        console.log(mul(4, 5));
+      }
+    );
   };
   ```
 
 > https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/lazy-loading
-
-
 
 #### 8、PWA
 
@@ -451,8 +396,8 @@ new WorkboxWebpackPlugin.GenerateSW({
       2. 删除旧的 serviceworker，生成一个 serviceworker 配置文件
   */
   clientsClaim: true,
-  skipWaiting: true
-})
+  skipWaiting: true,
+});
 ```
 
 2、注册 `serviceWorker`，并处理兼容性问题：
@@ -476,11 +421,9 @@ if ('serviceWorker' in navigator) {
 
 > 例子：https://github.com/IDeepspace/webpack-performance-enhancement-example/tree/master/pwa
 
-
-
 ### 六、更多
 
 - [深入浅出 Webpack](https://webpack.wuhaolin.cn/)
-- [Webpack小书](https://www.timsrc.com/article/2/webpack-book)
+- [Webpack 小书](https://www.timsrc.com/article/2/webpack-book)
 - [Webpack Guidebook](https://tsejx.github.io/webpack-guidebook/)
 - [Webpack 中文官网](https://webpack.docschina.org/concepts/)

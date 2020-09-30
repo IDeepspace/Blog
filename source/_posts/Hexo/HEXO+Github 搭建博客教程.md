@@ -10,7 +10,7 @@ urlname: create-blog-site-with-hexo
 
 <!-- ## Hexo+Github 搭建博客教程 -->
 
->  github 有一个非常强大的功能 —— **GitHub Page**
+> github 有一个非常强大的功能 —— **GitHub Page**
 
 GitHub Pages 有以下几个优点：
 
@@ -29,8 +29,10 @@ GitHub Pages 有以下几个优点：
 要想搭建漂亮的 blog，还需要模板系统，官方推荐的是 jekyll，但是配置稍复杂，我们使用另一个选择 —— [hexo](https://hexo.io/)，一个简单地、轻量地、基于 Node 的一个静态博客框架。
 
 下面介绍下如何使用 hexo + github pages 搭建个人博客 。
+
 <!-- more -->
-### 一. 安装GIt
+
+### 一. 安装 GIt
 
 #### 1. for windows :
 
@@ -40,7 +42,7 @@ https://github.com/git-for-windows/git/releases/tag/v2.14.1.windows.1
 
 ```shell
 $ sudo apt-get update
-$ sudo apt-get install git  
+$ sudo apt-get install git
 ```
 
 安装下载完成后，可以使用下面的命令行，确认`git`的版本：
@@ -49,9 +51,7 @@ $ sudo apt-get install git
 $ git --version
 ```
 
-
-
-### 二.安装node
+### 二.安装 node
 
 #### 1. for windows
 
@@ -59,7 +59,7 @@ https://nodejs.org/en/download/
 
 #### 2. for linux
 
-1 . 先装一个 nvm (  [https://github.com/creationix/nvm](https://github.com/creationix/nvm) )
+1 . 先装一个 nvm ( [https://github.com/creationix/nvm](https://github.com/creationix/nvm) )
 
 ```shell
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.2/install.sh | bash
@@ -67,7 +67,7 @@ $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.2/install.sh |
 
 nvm 的全称是 **Node Version Manager**，之所以需要这个工具，是因为 Node.js 的各种特性都没有稳定下来，所以我们经常由于老项目或尝新的原因，需要切换各种版本。
 
-安装完成后，你的 shell 里面应该就有个 nvm 命令了，调用它试试 , 有输出 ,  则 nvm 安装成功
+安装完成后，你的 shell 里面应该就有个 nvm 命令了，调用它试试 , 有输出 , 则 nvm 安装成功
 
 ```shell
 $ nvm
@@ -91,21 +91,17 @@ nvm use node
 Now using node v6.11.0 (npm v3.10.10)
 ```
 
-
-
 ### 三. 安装 hexo
 
 ```shell
 $ npm install hexo-cli -g
 ```
 
-
-
 ### 四. 初始化 hexo 博客项目
 
 1.新建一个文件夹 ( 我是在桌面创建的 HEXO )
 
-2.在Hexo文件下，右键运行Git Bash，输入命令：
+2.在 Hexo 文件下，右键运行 Git Bash，输入命令：
 
 ```shell
 $ hexo init
@@ -113,17 +109,17 @@ $ hexo init
 
 会生成如下图所示的文件结构 :
 
-![xhexo-folder](/ImageHosting/Hexo/hexo-folder.png)
+![xhexo-folder](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Hexo/hexo-folder.png)
 
 下面对文件目录做个简单介绍 :
 
-**1. _config.yml**
+**1. \_config.yml**
 
 全局配置文件，网站的很多信息都在这里配置，诸如网站名称，副标题，描述，作者，语言，主题，部署等等参数, 这个文件下面会做较为详细的介绍 。
 
 **2. scaffolds**
 
-`scaffolds` 是“ 脚手架、骨架 ”的意思，当你新建一篇文章（`hexo new  'title'`）的时候，`hexo `是根据这个目录下的文件进行构建的 。
+`scaffolds` 是“ 脚手架、骨架 ”的意思，当你新建一篇文章（`hexo new 'title'`）的时候，`hexo `是根据这个目录下的文件进行构建的 。
 
 **3. package.json**
 
@@ -165,15 +161,13 @@ $ hexo init
 
 **5. themes**
 
-网站主题目录，hexo有非常好的主题拓展，支持的主题也很丰富。该目录下，每一个子目录就是一个主题
+网站主题目录，hexo 有非常好的主题拓展，支持的主题也很丰富。该目录下，每一个子目录就是一个主题
 
 **6. 我们打开 `theme` 文件夹下的主题文件夹, 会发现也有一个 `_config.yml` 文件**
 
 `_config.yml` 文件中的内容，是主题的一个配置信息
 
-`_config.yml` 采用YAML语法格式，具体配置可以参考[官方文档](https://hexo.io/zh-cn/docs/configuration.html)
-
-
+`_config.yml` 采用 YAML 语法格式，具体配置可以参考[官方文档](https://hexo.io/zh-cn/docs/configuration.html)
 
 ### 五.本地浏览博客
 
@@ -188,15 +182,13 @@ $ hexo s
 
 会看到 :
 
-<img src="/ImageHosting/Hexo/hexo-init-theme.png" alt="hexo-init-theme" style="zoom:50%;" />
-
-
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Hexo/hexo-init-theme.png" alt="hexo-init-theme" style="zoom:50%;" />
 
 ### 六.部署到 `Github` 上
 
-1. 申请Github账号 ( 别忘了邮箱验证 )
+1. 申请 Github 账号 ( 别忘了邮箱验证 )
 
-2. 新建一个 ` Repository`  , 注意仓库的名字前缀必须和自己 `github` 的用户名保持严格一致，如 `IDeepspace.github.io`
+2. 新建一个 ` Repository` , 注意仓库的名字前缀必须和自己 `github` 的用户名保持严格一致，如 `IDeepspace.github.io`
 
 3. 在 `_config.yml` 进行配置
 
@@ -218,7 +210,7 @@ deploy:
 $  npm install hexo-deployer-git -–save
 ```
 
-5. 发布到Github
+5. 发布到 Github
 
 输入如下命令 :
 
@@ -228,4 +220,4 @@ $ hexo clean && hexo g && hexo d
 
 然后输入自己的 `Github` 用户名和密码即可
 
-6. 在浏览器中输入  https://IDeepspace.github.io/ 便可以打开自己的博客啦 !
+6. 在浏览器中输入 https://IDeepspace.github.io/ 便可以打开自己的博客啦 !

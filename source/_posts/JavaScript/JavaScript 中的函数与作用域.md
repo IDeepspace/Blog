@@ -47,8 +47,6 @@ console.log(a); // 2
 
 函数是完成某个特定功能的一组语句。如果没有函数，完成任务可能需要五行、十行、甚至更多的代码。这时我们就可以把完成特定功能的代码块放到一个函数里，直接调用这个函数，就省去了重复输入大量代码的麻烦。
 
-
-
 ### 三、函数的定义与调用
 
 #### 1、函数的定义
@@ -77,8 +75,6 @@ function sum(num1, num2) {
 }
 ```
 
-
-
 ##### 函数表达式
 
 使用函数表达式定义函数的方式几乎和函数声明的方式是一致的：
@@ -91,8 +87,6 @@ var sum = function (num1, num2) {
 
 `function` 关键字后面没有函数名。这是因为在使用函数表达式定义函数时，没有必要使用函数名 —— 通过变量 `sum` 即可以引用函数。另外，还要注意函数末尾有一个分号，就像声明其他变量时一样。
 
-
-
 ##### 使用 `Function` 构造函数
 
 `Function` 构造函数可以接收任意数量的参数， 但最后一个参数始终都被看成是函数体，而前面的参数则枚举出了新函数的参数。如：
@@ -104,8 +98,6 @@ var sum = new Function('num1', 'num2', 'return num1 + num2');
 从技术角度讲，这是一个函数表达式。但是，不推荐使用这种方法定义函数，因为这种语法会导致解析两次代码：第一次是解析常规 `ECMAScript` 代码，第二次是解析传入构造函数中的字符串，这样会影响性能。
 
 不过这种定义函数的方式对于理解 **“函数是对象，函数名是指针”** 的概念倒是非常直观的。
-
-
 
 由于函数名仅仅是指向函数的指针，因此函数名与包含对象指针的其他变量没有什么不同。换句话说，一个函数可以有多个名字：
 
@@ -122,8 +114,6 @@ sum = null;
 console.log(anotherSum(10, 10)); // 20
 console.log(sum(10, 10)); // TypeError: sum is not a function
 ```
-
-
 
 ##### 区别
 
@@ -160,10 +150,13 @@ foo(); // "b"
 var a = true;
 
 if (a) {
-  function foo() { console.log("a"); }
-}
-else {
-  function foo() { console.log("b"); }
+  function foo() {
+    console.log('a');
+  }
+} else {
+  function foo() {
+    console.log('b');
+  }
 }
 ```
 
@@ -185,8 +178,6 @@ else {
 
 所以对于函数的声明提升，我们需要**谨慎使用**。
 
-
-
 #### 2、函数的调用
 
 函数定义好之后，是不会自动执行的。定义了函数仅仅是赋予函数一个名称并明确函数被调用时该做些什么。调用函数才会以给定的参数真正执行这些动作（这里暂不讨论立即执行函数）。
@@ -198,11 +189,9 @@ function sum(num1, num2) {
 console.log(sum(10, 10)); //20
 ```
 
-
-
 ### 四、函数与变量的优先级
 
-**函数声明和变量声明都会被提升。** 
+**函数声明和变量声明都会被提升。**
 
 **那如果在多个重复声明的代码中，是函数会首先被提升，还是变量呢？结论是优先提升函数。**
 
@@ -256,8 +245,6 @@ function foo() {
 }
 ```
 
-
-
 ### 五、没有重载
 
 重载：方法名字相同，而参数（参数的个数或者类型）不同，返回类型可以相同也可以不同。
@@ -276,8 +263,6 @@ function addSomeNumber(num) {
 console.log(addSomeNumber(100)); //300
 ```
 
-
-
 ### 六、作用域
 
 #### 1、什么是作用域
@@ -286,15 +271,11 @@ console.log(addSomeNumber(100)); //300
 
 `JavaScript` 中的作用域分为全局作用域（`Global context`）和局部作用域（`Local Scope`），局部作用域又称为函数作用域（`Function context`）。
 
-
-
 #### 2、作用域链
 
 由很多个（`N`个）作用域按照相应的规则组成的链叫作**作用域链**。作用域链决定了函数作用域内标识符查找后返回的值。
 
 **标识符解析是沿着作用域链一级一级地搜索标识符的过程。**搜索过程始终从作用域链的前端开始， 然后逐级地向后回溯，直至找到标识符为止(如果找不到标识符，通常会导致错误发生)。
-
-
 
 #### 3、全局作用域
 
@@ -330,15 +311,15 @@ if (a < 10) {
   var b = a;
 }
 
-console.log(b);  // 1
+console.log(b); // 1
 ```
 
 - **所有末定义直接赋值的变量自动声明为拥有全局作用域；**
 
 ```javascript
 function test() {
-  variable = "未定义直接赋值的变量";
-  var inVariable2 = "内层变量2";
+  variable = '未定义直接赋值的变量';
+  var inVariable2 = '内层变量2';
   func = function () {
     return 1;
   };
@@ -346,7 +327,7 @@ function test() {
 
 test(); // 要先执行这个函数
 console.log(variable); // 未定义直接赋值的变量
-console.log(inVariable2);  // ReferenceError: inVariable2 is not defined
+console.log(inVariable2); // ReferenceError: inVariable2 is not defined
 console.log(func); // [Function: func]
 ```
 
@@ -360,15 +341,13 @@ console.log(func); // [Function: func]
 
 如果看过 `jQuery` 源码的话，会发现所有的代码都会放在 `(function(){....})()` 中，因为放在里面的所有变量，都不会被暴露，不会污染到外面的环境，对其他的库或者 `JavaScript` 代码造成影响。这是函数作用域的一个体现。https://cdn.bootcss.com/jquery/3.4.1/jquery.js
 
-
-
 #### 5、函数作用域
 
 和全局作用域相反，局部作用域（函数作用域）一般只在固定的代码片段内（函数内部）可访问到。看下面的例子：
 
 ```javascript
 function getUsername() {
-  var username = "陈星星";
+  var username = '陈星星';
   function innerFunc() {
     console.log(username);
   }
@@ -379,7 +358,7 @@ getUsername(); // 陈星星
 console.log(username); // ReferenceError: username is not defined
 ```
 
-**函数作用域是分层的，内层作用域可以访问外层作用域的变量，反之则不行。** 
+**函数作用域是分层的，内层作用域可以访问外层作用域的变量，反之则不行。**
 
 ```javascript
 var color = 'blue';
@@ -407,9 +386,7 @@ console.log('Color is now ' + color);
 
 上面代码的作用域链简单图示如下：
 
-<img src="/ImageHosting/JavaScript/javascript-function-declaration-hoisting.jpg" alt="javascript-function-declaration-hoisting" style="zoom:67%;" />
-
-
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/javascript-function-declaration-hoisting.jpg" alt="javascript-function-declaration-hoisting" style="zoom:67%;" />
 
 ### 七、作用域链和代码优化
 
@@ -419,8 +396,8 @@ console.log('Color is now ' + color);
 
 ```javascript
 function changeColor() {
-  document.getElementById("btnChange").onclick = function () {
-    document.getElementById("targetCanvas").style.backgroundColor = "red";
+  document.getElementById('btnChange').onclick = function () {
+    document.getElementById('targetCanvas').style.backgroundColor = 'red';
   };
 }
 ```
@@ -430,15 +407,13 @@ function changeColor() {
 ```javascript
 function changeColor() {
   var doc = document;
-  doc.getElementById("btnChange").onclick = function () {
-    doc.getElementById("targetCanvas").style.backgroundColor = "red";
+  doc.getElementById('btnChange').onclick = function () {
+    doc.getElementById('targetCanvas').style.backgroundColor = 'red';
   };
 }
 ```
 
 这段代码比较简单，重写后不会显示出巨大的性能提升，但是如果程序中有大量的全局变量被从反复访问，那么重写后的代码性能会有显著改善。
-
-
 
 ### 八、闭包
 
@@ -449,7 +424,7 @@ function changeColor() {
 ```javascript
 function A() {
   function B() {
-    console.log("Hello Closure!");
+    console.log('Hello Closure!');
   }
   return B;
 }
@@ -474,8 +449,6 @@ c(); // Hello Closure!
 总结成一句话就是：函数 `A` 的内部函数 `B` 被函数 `A` 外的一个变量 `c` 引用。
 
 所以，闭包的定义就是：**当一个内部函数被其外部函数之外的变量引用时，就形成了一个闭包。**
-
-
 
 #### 2、闭包的作用
 
@@ -522,7 +495,7 @@ function Person(name) {
   return {
     name: name,
     setAge: setAge,
-    getAge: getAge
+    getAge: getAge,
   };
 }
 
@@ -535,8 +508,6 @@ console.log(p1.getAge()); // 18
 
 注意，外层函数每次运行，都会生成一个新的闭包，而这个闭包又会保留外层函数的内部变量，所以内存消耗很大。因此不能滥用闭包，否则会造成网页的性能问题。
 
-
-
 **再看一个闭包的常见应用场景：**
 
 有一个组件，这个组件的功能是：可以初始化一个容器，可以给这个容器添加子容器，也可以移除一个容器。
@@ -546,14 +517,14 @@ console.log(p1.getAge()); // 18
   var viewport;
   var obj = {
     init: function (id) {
-      viewport = document.querySelector("#" + id);
+      viewport = document.querySelector('#' + id);
     },
     addChild: function (child) {
       viewport.appendChild(child);
     },
     removeChild: function (child) {
       viewport.removeChild(child);
-    }
+    },
   };
   window.jView = obj;
 })(document); // 这里用到了立即执行函数
@@ -567,14 +538,14 @@ var f = function (document) {
 
   var obj = {
     init: function (id) {
-      viewport = document.querySelector("#" + id);
+      viewport = document.querySelector('#' + id);
     },
     addChild: function (child) {
       viewport.appendChild(child);
     },
     removeChild: function (child) {
       viewport.removeChild(child);
-    }
+    },
   };
 
   window.jView = obj; // <---
@@ -592,8 +563,6 @@ window.jView = obj;
 `obj` 是在函数 `f` 中定义的一个对象，这个对象中定义了一系列方法。
 
 执行 `window.jView = obj` 就是在 `window` 全局对象定义了一个变量 `jView`，并将这个变量指向 `obj` 对象，也就是说全局变量 `jView` 引用了 `obj` 。而 `obj` 对象中的函数又引用了 `f` 中的变量 `viewport` ，因此 `f` 中的 `viewport` 不会被回收，会一直保存到内存中，所以这种写法满足闭包的条件。
-
-
 
 #### 3、闭包的回收
 
@@ -613,8 +582,6 @@ f(); // 1000
 f = null; // 回收闭包
 ```
 
- 
-
 最后，为了检验自己是否理解了闭包，看看下面两道题（如果你不清楚 `this`，请看这里：https://togoblog.cn/javascript-this/）：
 
 ```javascript
@@ -627,7 +594,7 @@ var object = {
     return function () {
       return this.name;
     };
-  }
+  },
 };
 
 console.log(object.getNameFunc()()); // 'The Window' (浏览器环境下)
@@ -644,13 +611,11 @@ var object = {
     return function () {
       return that.name;
     };
-  }
+  },
 };
 
 console.log(object.getNameFunc()()); // 'My Object'
 ```
-
-
 
 ### 九、块级作用域
 
@@ -669,7 +634,7 @@ function outputNumbers(count) {
 outputNumbers(5);
 ```
 
-在 `for` 循环外部插入了一个块级作用域。**在匿名函数中定义的任何变量，都会在执行结束时被销毁**。因此，变量 `i` 只能在循环中使用，使用后即被销毁。 
+在 `for` 循环外部插入了一个块级作用域。**在匿名函数中定义的任何变量，都会在执行结束时被销毁**。因此，变量 `i` 只能在循环中使用，使用后即被销毁。
 
 而在匿名函数中能够访问变量 `count`，是因为这个匿名函数是一个闭包，它能够访问包含作用域中的所有变量。
 
@@ -688,9 +653,6 @@ outputNumbers(5);
 
 把上面这段代码放在全局作用域中，可以用来确定哪一天是 `1` 月 `1` 日；如果到了这一天，就会打印一条祝贺新年的消息。其中的变量 `now` 现在是匿名函数中的局部变量，不必在全局作用域中创建它。
 
-
-
 ### 十、ES6 块级作用域
 
 这部分内容请参考：https://togoblog.cn/es6-let-const/
-

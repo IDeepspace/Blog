@@ -4,7 +4,7 @@ author: Deepspace
 categories: Vue
 tag:
   - vue
-  - vue 生命周期 
+  - vue 生命周期
 date: 2019-01-26
 urlname: vue-lifecycle
 ---
@@ -18,6 +18,7 @@ urlname: vue-lifecycle
 这里可能会有个小疑惑，怎么突然又说是 `Vue` 实例呢？实例和组件有什么区别吗？
 
 在 `SPA（Single Page Application）` 应用中，我们只会创建一个 `Vue` 根实例，整个应用都是通过这个根实例启动的。在通过 `vue-cli` 脚手架生成的项目中， `main.js` 里创建了 `Vue` 根实例：
+
 <!-- more -->
 
 ```javascript
@@ -38,15 +39,15 @@ new Vue({
 Vue.component('button-counter', {
   data: function () {
     return {
-      count: 0
-    }
+      count: 0,
+    };
   },
-  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-})
+  template:
+    '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
+});
 ```
 
-可以发现，和创建 `Vue` 实例非常的类似，**所有的 `Vue` 组件同时都是 `Vue` 的实例**。所以我们说：**实例的生命周期也叫做组件的生命周期。** 
-
+可以发现，和创建 `Vue` 实例非常的类似，**所有的 `Vue` 组件同时都是 `Vue` 的实例**。所以我们说：**实例的生命周期也叫做组件的生命周期。**
 
 ### 二、Vue 实例的生命周期
 
@@ -57,12 +58,10 @@ Vue.component('button-counter', {
 
 **生命周期图示：**
 
-<img src="/ImageHosting/Vue/vue-lifecycle.png" alt="lifecycle" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/Vue/vue-lifecycle.png" alt="lifecycle" style="zoom: 50%;" />
 
 <p align="center">(图片来自网络)</p>
 图中，红色矩形框代表着在生命周期对应阶段的钩子函数。
-
-
 
 ### 三、生命周期函数
 
@@ -78,72 +77,71 @@ Vue.component('button-counter', {
 
 ```html
 <template>
-  <div class='container'>
+  <div class="container">
     <h3>单组件的生命周期（打开控制台查看）</h3>
-    <button @click='dataVar += 1'>更新 {{dataVar}}</button>
-    <button @click='handleDestroy'>销毁</button>
+    <button @click="dataVar += 1">更新 {{dataVar}}</button>
+    <button @click="handleDestroy">销毁</button>
   </div>
 </template>
 
 <script>
-const compName = 'single';
+  const compName = 'single';
 
-export default {
-  name: 'SingleComLifecycle',
-  data() {
-    return {
-      dataVar: 1,
-    };
-  },
-  beforeCreate() {
-    console.log(`--${compName}--beforeCreate`); // eslint-disable-line
-  },
-  created() {
-    console.log(`--${compName}--created`); // eslint-disable-line
-  },
-  beforeMount() {
-    console.log(`--${compName}--beforeMount`); // eslint-disable-line
-  },
-  mounted() {
-    console.log(`--${compName}--mounted`); // eslint-disable-line
-  },
-  beforeUpdate() {
-    console.log(`--${compName}--beforeUpdate`); // eslint-disable-line
-  },
-  updated() {
-    console.log(`--${compName}--updated`); // eslint-disable-line
-  },
-  beforeDestroy() {
-    console.log(`--${compName}--beforeDestroy`); // eslint-disable-line
-  },
-  destroyed() {
-    console.log(`--${compName}--destroyed`); // eslint-disable-line
-  },
-  methods: {
-    handleDestroy() {
-      this.$destroy();
+  export default {
+    name: 'SingleComLifecycle',
+    data() {
+      return {
+        dataVar: 1,
+      };
     },
-  },
-};
+    beforeCreate() {
+      console.log(`--${compName}--beforeCreate`); // eslint-disable-line
+    },
+    created() {
+      console.log(`--${compName}--created`); // eslint-disable-line
+    },
+    beforeMount() {
+      console.log(`--${compName}--beforeMount`); // eslint-disable-line
+    },
+    mounted() {
+      console.log(`--${compName}--mounted`); // eslint-disable-line
+    },
+    beforeUpdate() {
+      console.log(`--${compName}--beforeUpdate`); // eslint-disable-line
+    },
+    updated() {
+      console.log(`--${compName}--updated`); // eslint-disable-line
+    },
+    beforeDestroy() {
+      console.log(`--${compName}--beforeDestroy`); // eslint-disable-line
+    },
+    destroyed() {
+      console.log(`--${compName}--destroyed`); // eslint-disable-line
+    },
+    methods: {
+      handleDestroy() {
+        this.$destroy();
+      },
+    },
+  };
 </script>
 
-
 <style lang="postcss" scoped>
-.container {
-  width: 70%;
-  margin: 0 auto;
-  background-color: aliceblue;
-  padding: 50px;
-  text-align: center;
-}
-button {
-  padding: 6px;
-  background-color: #35b880;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
+  .container {
+    width: 70%;
+    margin: 0 auto;
+    background-color: aliceblue;
+    padding: 50px;
+    text-align: center;
+  }
+  button {
+    padding: 6px;
+    background-color: #35b880;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+  }
 </style>
 ```
 
@@ -180,84 +178,81 @@ button {
 
 - 初始化和销毁时的生命钩子函数均只会执行一次，`beforeUpdate/updated` 可多次执行
 
-
-
 #### 2、父子组件的生命周期
 
 创建一个父组件：
 
 ```html
 <template>
-  <div class='container'>
+  <div class="container">
     <h3>父子组件的生命周期（打开控制台查看）</h3>
-    <child-com :compName='dataVar.toString()'></child-com>
-    <button @click='dataVar += 1'>父组件更新 {{dataVar}}</button>
-    <button @click='handleDestroy'>父组件销毁</button>
+    <child-com :compName="dataVar.toString()"></child-com>
+    <button @click="dataVar += 1">父组件更新 {{dataVar}}</button>
+    <button @click="handleDestroy">父组件销毁</button>
   </div>
 </template>
 
 <script>
-import ChildCom from './ChildCom';
+  import ChildCom from './ChildCom';
 
-const COMPONENT_NAME = 'parent';
-export default {
-  data() {
-    return {
-      dataVar: 1,
-    };
-  },
-  components: {
-    'child-com': ChildCom,
-  },
-  beforeCreate() {
-    console.log(`--${COMPONENT_NAME}--beforeCreate`); // eslint-disable-line
-  },
-  created() {
-    console.log(`--${COMPONENT_NAME}--created`); // eslint-disable-line
-  },
-  beforeMount() {
-    console.log(`--${COMPONENT_NAME}--beforeMount`); // eslint-disable-line
-  },
-  mounted() {
-    console.log(`--${COMPONENT_NAME}--mounted`); // eslint-disable-line
-  },
-  beforeUpdate() {
-    console.log(`--${COMPONENT_NAME}--beforeUpdate`); // eslint-disable-line
-  },
-  updated() {
-    console.log(`--${COMPONENT_NAME}--updated`); // eslint-disable-line
-  },
-  beforeDestroy() {
-    console.log(`--${COMPONENT_NAME}--beforeDestroy`); // eslint-disable-line
-  },
-  destroyed() {
-    console.log(`--${COMPONENT_NAME}--destroyed`); // eslint-disable-line
-  },
-  methods: {
-    handleDestroy() {
-      this.$destroy();
+  const COMPONENT_NAME = 'parent';
+  export default {
+    data() {
+      return {
+        dataVar: 1,
+      };
     },
-  },
-};
+    components: {
+      'child-com': ChildCom,
+    },
+    beforeCreate() {
+      console.log(`--${COMPONENT_NAME}--beforeCreate`); // eslint-disable-line
+    },
+    created() {
+      console.log(`--${COMPONENT_NAME}--created`); // eslint-disable-line
+    },
+    beforeMount() {
+      console.log(`--${COMPONENT_NAME}--beforeMount`); // eslint-disable-line
+    },
+    mounted() {
+      console.log(`--${COMPONENT_NAME}--mounted`); // eslint-disable-line
+    },
+    beforeUpdate() {
+      console.log(`--${COMPONENT_NAME}--beforeUpdate`); // eslint-disable-line
+    },
+    updated() {
+      console.log(`--${COMPONENT_NAME}--updated`); // eslint-disable-line
+    },
+    beforeDestroy() {
+      console.log(`--${COMPONENT_NAME}--beforeDestroy`); // eslint-disable-line
+    },
+    destroyed() {
+      console.log(`--${COMPONENT_NAME}--destroyed`); // eslint-disable-line
+    },
+    methods: {
+      handleDestroy() {
+        this.$destroy();
+      },
+    },
+  };
 </script>
 
-
 <style lang="postcss" scoped>
-.container {
-  width: 70%;
-  margin: 20px auto;
-  background-color: aliceblue;
-  padding: 50px;
-  text-align: center;
-}
-button {
-  padding: 6px;
-  background-color: #2196f3;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
+  .container {
+    width: 70%;
+    margin: 20px auto;
+    background-color: aliceblue;
+    padding: 50px;
+    text-align: center;
+  }
+  button {
+    padding: 6px;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+  }
 </style>
 ```
 
@@ -267,65 +262,65 @@ button {
 <template>
   <div>
     <div>父组件传递的props：{{compName}}</div>
-    <button @click='dataVar += 1'>子组件更新 {{dataVar}}</button>
-    <button @click='handleDestroy'>子组件销毁</button>
+    <button @click="dataVar += 1">子组件更新 {{dataVar}}</button>
+    <button @click="handleDestroy">子组件销毁</button>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      dataVar: 1,
-    };
-  },
-  props: {
-    compName: {
-      type: String,
-      default: 'single',
+  export default {
+    data() {
+      return {
+        dataVar: 1,
+      };
     },
-  },
-  beforeCreate() {
-    console.log(` --此时data未初始化--child--beforeCreate`); // eslint-disable-line
-  },
-  created() {
-    console.log(`--${this.compName}--child--created`); // eslint-disable-line
-  },
-  beforeMount() {
-    console.log(`--${this.compName}--child--beforeMount`); // eslint-disable-line
-  },
-  mounted() {
-    console.log(`--${this.compName}--child--mounted`); // eslint-disable-line
-  },
-  beforeUpdate() {
-    console.log(`--${this.compName}--child--beforeUpdate`); // eslint-disable-line
-  },
-  updated() {
-    console.log(`--${this.compName}--child--updated`); // eslint-disable-line
-  },
-  beforeDestroy() {
-    console.log(`--${this.compName}--child--beforeDestroy`); // eslint-disable-line
-  },
-  destroyed() {
-    console.log(`--${this.compName}--child--destroyed`); // eslint-disable-line
-  },
-  methods: {
-    handleDestroy() {
-      this.$destroy();
+    props: {
+      compName: {
+        type: String,
+        default: 'single',
+      },
     },
-  },
-};
+    beforeCreate() {
+      console.log(` --此时data未初始化--child--beforeCreate`); // eslint-disable-line
+    },
+    created() {
+      console.log(`--${this.compName}--child--created`); // eslint-disable-line
+    },
+    beforeMount() {
+      console.log(`--${this.compName}--child--beforeMount`); // eslint-disable-line
+    },
+    mounted() {
+      console.log(`--${this.compName}--child--mounted`); // eslint-disable-line
+    },
+    beforeUpdate() {
+      console.log(`--${this.compName}--child--beforeUpdate`); // eslint-disable-line
+    },
+    updated() {
+      console.log(`--${this.compName}--child--updated`); // eslint-disable-line
+    },
+    beforeDestroy() {
+      console.log(`--${this.compName}--child--beforeDestroy`); // eslint-disable-line
+    },
+    destroyed() {
+      console.log(`--${this.compName}--child--destroyed`); // eslint-disable-line
+    },
+    methods: {
+      handleDestroy() {
+        this.$destroy();
+      },
+    },
+  };
 </script>
 
 <style lang="postcss" scoped>
-button {
-  padding: 6px;
-  background-color: #35b880;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
+  button {
+    padding: 6px;
+    background-color: #35b880;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+  }
 </style>
 ```
 
@@ -380,82 +375,79 @@ button {
 - 父子组件在 `data` 变化中是分别监控的，但是在更新 `props` 中的数据是关联的
 - 销毁父组件时，先将子组件销毁后才会销毁父组件
 
-
-
 #### 3、兄弟组件的生命周期
 
 创建一个单组件：
 
 ```html
 <template>
-  <div class='container'>
-    <button @click='dataVar += 1'>更新 {{dataVar}}</button>
-    <button @click='handleDestroy'>销毁</button>
+  <div class="container">
+    <button @click="dataVar += 1">更新 {{dataVar}}</button>
+    <button @click="handleDestroy">销毁</button>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      dataVar: 1,
-    };
-  },
-  props: {
-    compName: {
-      type: String,
-      default: 'single',
+  export default {
+    data() {
+      return {
+        dataVar: 1,
+      };
     },
-  },
-  beforeCreate() {
-    console.log(`--此时data未初始化--beforeCreate`); // eslint-disable-line
-  },
-  created() {
-    console.log(`--${this.compName}--created`); // eslint-disable-line
-  },
-  beforeMount() {
-    console.log(`--${this.compName}--beforeMount`); // eslint-disable-line
-  },
-  mounted() {
-    console.log(`--${this.compName}--mounted`); // eslint-disable-line
-  },
-  beforeUpdate() {
-    console.log(`--${this.compName}--beforeUpdate`); // eslint-disable-line
-  },
-  updated() {
-    console.log(`--${this.compName}--updated`); // eslint-disable-line
-  },
-  beforeDestroy() {
-    console.log(`--${this.compName}--beforeDestroy`); // eslint-disable-line
-  },
-  destroyed() {
-    console.log(`--${this.compName}--destroyed`); // eslint-disable-line
-  },
-  methods: {
-    handleDestroy() {
-      this.$destroy();
+    props: {
+      compName: {
+        type: String,
+        default: 'single',
+      },
     },
-  },
-};
+    beforeCreate() {
+      console.log(`--此时data未初始化--beforeCreate`); // eslint-disable-line
+    },
+    created() {
+      console.log(`--${this.compName}--created`); // eslint-disable-line
+    },
+    beforeMount() {
+      console.log(`--${this.compName}--beforeMount`); // eslint-disable-line
+    },
+    mounted() {
+      console.log(`--${this.compName}--mounted`); // eslint-disable-line
+    },
+    beforeUpdate() {
+      console.log(`--${this.compName}--beforeUpdate`); // eslint-disable-line
+    },
+    updated() {
+      console.log(`--${this.compName}--updated`); // eslint-disable-line
+    },
+    beforeDestroy() {
+      console.log(`--${this.compName}--beforeDestroy`); // eslint-disable-line
+    },
+    destroyed() {
+      console.log(`--${this.compName}--destroyed`); // eslint-disable-line
+    },
+    methods: {
+      handleDestroy() {
+        this.$destroy();
+      },
+    },
+  };
 </script>
 
-
 <style lang="postcss" scoped>
-.container {
-  width: 70%;
-  margin: 0 auto;
-  background-color: aliceblue;
-  padding: 10px;
-  text-align: center;
-}
-button {
-  padding: 6px;
-  background-color: #35b880;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
+  .container {
+    width: 70%;
+    margin: 0 auto;
+    background-color: aliceblue;
+    padding: 10px;
+    text-align: center;
+  }
+  button {
+    padding: 6px;
+    background-color: #35b880;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+  }
 </style>
 ```
 
@@ -463,83 +455,85 @@ button {
 
 ```html
 <template>
-  <div class='container'>
+  <div class="container">
     <h3>兄弟组件的生命周期（打开控制台查看）</h3>
-    <div>兄弟1
-      <single compName='cihld1'></single>
+    <div>
+      兄弟1
+      <single compName="cihld1"></single>
     </div>
-    <div>兄弟2
-      <single compName='child2'></single>
+    <div>
+      兄弟2
+      <single compName="child2"></single>
     </div>
     <div>
       <p>兄弟两个的父亲</p>
-      <button @click='dataVar += 1'>更新 {{dataVar}}</button>
-      <button @click='handleDestroy'>销毁</button>
+      <button @click="dataVar += 1">更新 {{dataVar}}</button>
+      <button @click="handleDestroy">销毁</button>
     </div>
   </div>
 </template>
 
 <script>
-import Single from './Single';
+  import Single from './Single';
 
-const COMPONENT_NAME = 'parent';
-export default {
-  data() {
-    return {
-      dataVar: 1,
-    };
-  },
-  components: {
-    single: Single,
-  },
-  beforeCreate() {
-    console.log(`--${COMPONENT_NAME}--beforeCreate`); // eslint-disable-line
-  },
-  created() {
-    console.log(`--${COMPONENT_NAME}--created`); // eslint-disable-line
-  },
-  beforeMount() {
-    console.log(`--${COMPONENT_NAME}--beforeMount`); // eslint-disable-line
-  },
-  mounted() {
-    console.log(`--${COMPONENT_NAME}--mounted`); // eslint-disable-line
-  },
-  beforeUpdate() {
-    console.log(`--${COMPONENT_NAME}--beforeUpdate`); // eslint-disable-line
-  },
-  updated() {
-    console.log(`--${COMPONENT_NAME}--updated`); // eslint-disable-line
-  },
-  beforeDestroy() {
-    console.log(`--${COMPONENT_NAME}--beforeDestroy`); // eslint-disable-line
-  },
-  destroyed() {
-    console.log(`--${COMPONENT_NAME}--destroyed`); // eslint-disable-line
-  },
-  methods: {
-    handleDestroy() {
-      this.$destroy();
+  const COMPONENT_NAME = 'parent';
+  export default {
+    data() {
+      return {
+        dataVar: 1,
+      };
     },
-  },
-};
+    components: {
+      single: Single,
+    },
+    beforeCreate() {
+      console.log(`--${COMPONENT_NAME}--beforeCreate`); // eslint-disable-line
+    },
+    created() {
+      console.log(`--${COMPONENT_NAME}--created`); // eslint-disable-line
+    },
+    beforeMount() {
+      console.log(`--${COMPONENT_NAME}--beforeMount`); // eslint-disable-line
+    },
+    mounted() {
+      console.log(`--${COMPONENT_NAME}--mounted`); // eslint-disable-line
+    },
+    beforeUpdate() {
+      console.log(`--${COMPONENT_NAME}--beforeUpdate`); // eslint-disable-line
+    },
+    updated() {
+      console.log(`--${COMPONENT_NAME}--updated`); // eslint-disable-line
+    },
+    beforeDestroy() {
+      console.log(`--${COMPONENT_NAME}--beforeDestroy`); // eslint-disable-line
+    },
+    destroyed() {
+      console.log(`--${COMPONENT_NAME}--destroyed`); // eslint-disable-line
+    },
+    methods: {
+      handleDestroy() {
+        this.$destroy();
+      },
+    },
+  };
 </script>
 
 <style lang="postcss" scoped>
-.container {
-  width: 70%;
-  margin: 5px auto;
-  background-color: aliceblue;
-  padding: 50px;
-  text-align: center;
-}
-button {
-  padding: 6px;
-  background-color: #2196f3;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
+  .container {
+    width: 70%;
+    margin: 5px auto;
+    background-color: aliceblue;
+    padding: 50px;
+    text-align: center;
+  }
+  button {
+    padding: 6px;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+  }
 </style>
 ```
 
@@ -593,5 +587,3 @@ button {
 
 - 组件的初始化（`mounted` 之前）分开进行，挂载是从上到下依次进行
 - 当没有数据关联时，兄弟组件之间的更新和销毁是互不关联的
-
-

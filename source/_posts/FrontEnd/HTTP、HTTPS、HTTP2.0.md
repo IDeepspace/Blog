@@ -8,13 +8,9 @@ tags:
   - HTTP
 ---
 
-
-
 ## HTTP、HTTPS、HTTP2.0
 
 本篇博客将介绍 `HTTP` 的相关概念。
-
-
 
 ### 一、基本概念
 
@@ -22,17 +18,13 @@ tags:
 
 `HTTP`（`HyperText Transfer Protocol`：超文本传输协议）是从 `WWW` 服务器传输超文本到本地浏览器的传输协议，设计 `HTTP` 最初的目的是为了提供一种发布和接收 `HTML` 页面的方法。
 
-`HTTP` 默认工作在 `TCP` （`Transmission Control Protocol`，面向连接的协议） `80` 端口，用户访问网站 `http://` 打头的都是标准 `HTTP` 服务。 
-
-
+`HTTP` 默认工作在 `TCP` （`Transmission Control Protocol`，面向连接的协议） `80` 端口，用户访问网站 `http://` 打头的都是标准 `HTTP` 服务。
 
 #### 2、HTTP 1.0
 
 `HTTP` 协议老的标准是 `HTTP/1.0`。为了提高系统的效率，**`HTTP 1.0` 规定浏览器与服务器只保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 `TCP` 连接，服务器完成请求处理后立即断开 `TCP` 连接**，服务器不跟踪每个客户，也不记录过去的请求。
 
 但是这样会造成一些性能上的缺陷，**客户端和服务器端每次建立和关闭连接都是一个相对比较费时的过程，并且会严重影响客户端和服务器的性能**。
-
-
 
 #### 3、HTTP 1.1
 
@@ -48,13 +40,9 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 但服务端必须按照接收到客户端请求的先后顺序依次回送响应结果，也就是说客户端还是要按照发送请求的顺序来接收响应，这样可以保证客户端能够区分出每次请求的响应内容。
 
-
-
 **什么是线头阻塞？**
 
 服务器是要按照顺序处理请求的，如果前一个请求非常耗时，那么后续请求都会受到影响，这就是所谓的线头阻塞（Head of line blocking）。
-
-
 
 #### 4、常见的请求方式
 
@@ -62,21 +50,19 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 `HTTP1.1` 新增了六种请求方法：`OPTIONS`、`PUT`、`PATCH`、`DELETE`、`TRACE` 和 `CONNECT` 方法。
 
-| 序号 |  方法   |                             描述                             |
-| :--: | :-----: | :----------------------------------------------------------: |
-|  1   |   GET   |             请求指定的页面信息，并返回实体主体。             |
-|  2   |  HEAD   | 类似于 GET 请求，只不过返回的响应中没有具体的内容，用于获取报头 |
+| 序号 |  方法   |                                                                   描述                                                                   |
+| :--: | :-----: | :--------------------------------------------------------------------------------------------------------------------------------------: |
+|  1   |   GET   |                                                   请求指定的页面信息，并返回实体主体。                                                   |
+|  2   |  HEAD   |                                     类似于 GET 请求，只不过返回的响应中没有具体的内容，用于获取报头                                      |
 |  3   |  POST   | 向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST 请求可能会导致新的资源的建立和/或已有资源的修改。 |
-|  4   |   PUT   |       从客户端向服务器传送的数据取代指定的文档的内容。       |
-|  5   | DELETE  |                  请求服务器删除指定的页面。                  |
-|  6   | CONNECT |  HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器。   |
-|  7   | OPTIONS |                 允许客户端查看服务器的性能。                 |
-|  8   |  TRACE  |          回显服务器收到的请求，主要用于测试或诊断。          |
-|  9   |  PATCH  |      是对 PUT 方法的补充，用来对已知资源进行局部更新 。      |
+|  4   |   PUT   |                                             从客户端向服务器传送的数据取代指定的文档的内容。                                             |
+|  5   | DELETE  |                                                        请求服务器删除指定的页面。                                                        |
+|  6   | CONNECT |                                        HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器。                                         |
+|  7   | OPTIONS |                                                       允许客户端查看服务器的性能。                                                       |
+|  8   |  TRACE  |                                                回显服务器收到的请求，主要用于测试或诊断。                                                |
+|  9   |  PATCH  |                                            是对 PUT 方法的补充，用来对已知资源进行局部更新 。                                            |
 
 > 摘自《菜鸟教程》
-
-
 
 #### 5、HTTP 的状态码
 
@@ -88,7 +74,7 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 - `201 Created` 请求已经被实现，而且有一个新的资源已经依据请求的需要而建立 👏
 - `202 Accepted` 请求已接受，但是还没执行，不保证完成请求
 - `204 No content`，表示请求成功，但响应报文不含实体的主体部分 👏
-- `206 Partial Content`，进行范围请求 
+- `206 Partial Content`，进行范围请求
 
 `3XX` 重定向
 
@@ -111,10 +97,8 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 - `500 internal sever error`，表示服务器端在执行请求时发生了错误 👏
 - `501 Not Implemented` 请求超出服务器能力范围，例如服务器不支持当前请求所需要的某个功能，或者请求是服务器不支持的某个方法
-- `503 service unavailable`，表明服务器暂时处于超负载或正在停机维护，无法处理请求👏
+- `503 service unavailable`，表明服务器暂时处于超负载或正在停机维护，无法处理请求 👏
 - `505 http version not supported` 服务器不支持，或者拒绝支持在请求中使用的 `HTTP` 版本
-
-
 
 #### 6、无状态
 
@@ -122,13 +106,11 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 这项技术需要在首部字段加上 `Cookie` 信息，这样就能够实现保持登录状态了。
 
-
-
 #### 7、为什么有了 HTTP 为什么还要 HTTPS ？
 
-`HTTP` 协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了 `Web` 浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此，`HTTP` 协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。 
+`HTTP` 协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了 `Web` 浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此，`HTTP` 协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。
 
-`HTTPS`（`Hypertext Transfer Protocol Secure`：超文本传输安全协议）是一种透过计算机网络进行安全通信的传输协议。`HTTPS` 经由 `HTTP` 进行通信，但利用 `SSL/TLS` 来加密数据包。`HTTPS` 开发的主要目的，是提供对网站服务器的身份认证，保护交换数据的隐私与完整性。 
+`HTTPS`（`Hypertext Transfer Protocol Secure`：超文本传输安全协议）是一种透过计算机网络进行安全通信的传输协议。`HTTPS` 经由 `HTTP` 进行通信，但利用 `SSL/TLS` 来加密数据包。`HTTPS` 开发的主要目的，是提供对网站服务器的身份认证，保护交换数据的隐私与完整性。
 
 `HTTPS` 默认工作在 `TCP` 协议 `443` 端口，它的工作流程一般如以下方式：
 
@@ -142,8 +124,6 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 - 网页以加密的方式传输，用协商的对称加密算法和密钥加密，保证数据机密性；用协商的 `hash` 算法进行数据完整性保护，保证数据不被篡改。
 
-
-
 #### 8、HTTP 与 HTTPS 区别
 
 - `HTTP` 明文传输，数据都是未加密的，安全性较差，`HTTPS`（`SSL+HTTP`）数据传输过程是加密的，安全性较好。
@@ -156,19 +136,13 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 - `HTTPS` 其实就是建构在 `SSL/TLS` 之上的 `HTTP` 协议，所以，`HTTPS` 比 `HTTP` 要更耗费服务器资源。
 
-
-
 #### 9、HTTP 2 相对于 HTTP1.x 有什么优势和特点？
 
 `HTTP/2`（超文本传输协议第 2 版，最初命名为 `HTTP2.0`），是 `HTTP` 协议的第二个主要版本。它的目的是在不改动 `HTTP` 语义、方法、状态码、`URI` 及首部字段的情况下，大幅度提高了 `web` 性能。`HTTP 2` 主要基于 `SPDY` 协议。
 
-
-
 **什么是 SPDY 协议？**
 
 `SPDY` 是 `Speedy` 的昵音，意为“更快”。它是 `Google` 开发的基于 `TCP` 协议的应用层协议。目标是优化 `HTTP` 协议的性能，通过压缩、多路复用和优先级等技术，缩短网页的加载时间并提高安全性。`SPDY` 协议的核心思想是尽量减少 `TCP` 连接数。`SPDY` 并不是一种用于替代 `HTTP` 的协议，而是对 `HTTP` 协议的增强。
-
-
 
 **HTTP 2.0 特点**
 
@@ -177,8 +151,6 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 3. `Header` 压缩
 4. 服务端推送
 5. 更安全
-
-
 
 **多路复用**
 
@@ -192,13 +164,9 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 所以，在 `HTTP/2` 中，有两个非常重要的概念，分别是帧（`frame`）和流（`stream`）。 帧代表着最小的数据单位，每个帧会标识出该帧属于哪个流，流也就是多个帧组成的数据流。 **多路复用，就是在一个 `TCP` 连接中可以存在多条流**。换句话说，也就是**可以同时发送多个请求**，对端可以通过帧中的标识知道属于哪个请求。通过这个技术，可以避免 `HTTP` 旧版本中的队头阻塞问题，极大地提高传输性能。
 
-
-
 **服务端推送（`Server Push`）**
 
 在 `HTTP/2` 中，服务器可以对客户端的一个请求发送多个响应。
-
-
 
 ### 二、TCP 三次握手和四次挥手
 
@@ -206,7 +174,7 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 #### 1、三次握手
 
-<img src="/ImageHosting/FrontEnd/what-is-a-tcp-3-way-handshake-process-three-way-handshaking-establishing-connection.jpg" style="zoom: 60%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/what-is-a-tcp-3-way-handshake-process-three-way-handshaking-establishing-connection.jpg" style="zoom: 60%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -218,15 +186,13 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 > ”已失效的连接请求报文段”的产生在这样一种情况下：client 发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达 server。本来这是一个早已失效的报文段。但 server 收到此失效的连接请求报文段后，就误认为是 client 再次发出的一个新的连接请求。于是就向 client 发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要 server 发出确认，新的连接就建立了。由于现在 client 并没有发出建立连接的请求，因此不会理睬 server 的确认，也不会向 server 发送数据。但 server 却以为新的运输连接已经建立，并一直等待 client 发来数据。这样，server 的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client 不会向 server 的确认发出确认。server 由于收不到确认，就知道 client 并没有要求建立连接。—— 谢希仁版《计算机网络》
 
-
-
 #### 2、四次挥手
 
 `TCP` 的连接的断开需要发送四个包，因此称为四次挥手（`Four-way handshake`），也叫做改进的三次握手。
 
 客户端或服务器均可主动发起挥手动作，在 `socket` 编程中，任何一方执行 `close()` 操作即可产生挥手操作。
 
-<img src="/ImageHosting/FrontEnd/tcp-connection-closed-four-way-handshake.png" alt="tcp-connection-closed-four-way-handshake" style="zoom:77%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/tcp-connection-closed-four-way-handshake.png" alt="tcp-connection-closed-four-way-handshake" style="zoom:77%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -240,33 +206,25 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
   客户端等待了某个固定时间（两个最大段生命周期，`2MSL`，`2 Maximum Segment Lifetime`）之后，没有收到服务器端的 `ACK` ，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入 `CLOSED` 状态。
 
-
-
 这里有一张简单图示，可以帮助理解三次握手和四次挥手：
 
-<img src="/ImageHosting/FrontEnd/three-four-handshake.png" alt="three-four-handshake.png" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/three-four-handshake.png" alt="three-four-handshake.png" style="zoom: 50%;" />
 
 <p align='center'>（图片来自网络）</p>
-
-
 
 #### 3、为什么握手需要三次，而挥手却需要四次？
 
 握手的时候，`A` 和 `B` 打个招呼，`B `可以直接把自己的 `SYN` 信息和对 `A` 的回应 `ACK` 信息一起带上，但是挥手的时候，`A` 说我要断开了，`B` 还没发完最后的数据，因此需要先回应一下 `A`，我收到你的断开的请求了，但是你要等我把最后的内容给你，所以这里分开了 `2` 步：
 
-（1）回应 `A`； 
+（1）回应 `A`；
 
 （2）发送自己的最后一个数据。
-
-
 
 #### 4、为什么 A 进入 TIME_WAIT 需要等待最大报文段生存的时间后，才能关闭？
 
 （1）第一，**为了保证 `A` 发送的最后一个 `ACK` 报文能够到达 `B`**。这个 `ACK` 报文段有可能丢失，因而使处在 `LAST-ACK` 状态的 `B` 收不到对已发送的 `FIN+ACK` 报文段的确认。`B` 会超时重传这个 `FIN+ACK` 报文段，而 `A` 就能在 `2MSL` 时间内收到这个重传的 `FIN+ACK` 报文段。如果 `A` 在 `TIME-WAIT` 状态不等待一段时间，而是在发送完 `ACK` 报文段后就立即释放连接，就无法收到 `B` 重传的 `FIN+ACK` 报文段，因而也不会再发送一次确认报文段。这样，`B` 就无法按照正常的步骤进入 `CLOSED` 状态。
 
 （2）`A` 在发送完 `ACK` 报文段后，再经过 `2MSL` 时间，就可以使本连接持续的时间所产生的所有报文段都从网络中消失。这样就可以使下一个新的连接中不会出现这种旧的连接请求的报文段。
-
-
 
 ### 三、UDP 是什么？
 
@@ -280,8 +238,6 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 
 基于以上三点，`UDP` 在数据传输方面「 速度更快 」，「 延迟更低 」，「 实时性更好 」， 因此被广泛地用于通信领域和视频网站当中。
 
-
-
 #### 1、TCP/UDP 的区别
 
 - `TCP` 是面向连接的，`UDP` 是无连接的。
@@ -289,4 +245,3 @@ HTTP 管线化是将多个 HTTP 要求（request）整批提交的技术，而�
 - `TCP` 保证了数据的可靠传输，`UDP` 是有可能丢包的。
 - `TCP` 的结构比较复杂，`UDP` 简单。
 - `TCP` 慢，`UDP` 快。
-

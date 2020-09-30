@@ -13,7 +13,7 @@ tags:
 
 如果在一个比较高的抽象层面来看待这个问题的话，**`Web` 开发就是在处理客户端请求及服务端响应这两件事**。
 
-<img src="/ImageHosting/FrontEnd/web-development.jpg" alt="Web 开发" style="zoom:58%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/web-development.jpg" alt="Web 开发" style="zoom:58%;" />
 
 当然，这是抽象。在实际的 `Web` 开发中，我们会有很多东西需要关注。
 
@@ -30,11 +30,11 @@ tags:
 
 后端主要做的事情是从数据库中拉取数据，在 `Server` 端生成 `html` 模板，然后将生成的模板发送到客户端。客户端收到模板后，在客户端注入 `js` 和 `css`，生成 `dom` 树，然后渲染成页面呈现给用户。如下图示：
 
-<img src="/ImageHosting/FrontEnd/traditional-web-development.jpg" alt="Web 传统开发模式" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/traditional-web-development.jpg" alt="Web 传统开发模式" style="zoom: 50%;" />
 
 这种开发模式被称为**传统开发模式**或者**前后端混合开发模式**，现在也有一些企业的 `Web` 应用依然在使用这种开发模式。
 
-这种开发模式的特点是：页面的模板由后端生成，甚至生成的模板会带有样式和交互，前端仅仅是将模板丢给浏览器渲染成 `dom` 树生成页面而已。当然，有时候，前端也会注入一些  `JavaScript` 代码为页面的动态交互提供支持。
+这种开发模式的特点是：页面的模板由后端生成，甚至生成的模板会带有样式和交互，前端仅仅是将模板丢给浏览器渲染成 `dom` 树生成页面而已。当然，有时候，前端也会注入一些 `JavaScript` 代码为页面的动态交互提供支持。
 
 在这种开发模式下工作，你就会发现，同一个开发者需要扮演好几种不同的角色，不仅需要写 `server` 端的代码，同时也需要写一些模板代码，甚至还需要会写一些 `JavaScript` 和 `CSS` 代码，开发者需要在不同角色间切换。往往大多数专注于 `server` 端的开发者都不怎么喜欢（或者不怎么擅长）写这些模板、交互和样式代码。
 
@@ -46,13 +46,11 @@ tags:
 
 这就是前后端分离开发模式。
 
-
-
 ### 三、前后端分离开发模式
 
 前后端分离的开发模式图示如下：
 
-<img src="/ImageHosting/FrontEnd/frontend-backend-development.jpg" alt="前后端分离开发模式" style="zoom:55%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/frontend-backend-development.jpg" alt="前后端分离开发模式" style="zoom:55%;" />
 
 **在前后端分离的开发模式下，`Server` 端从数据库拿到元数据后，经过处理直接吐出数据（而不是页面模板），`Client` 端拿到数据后，在客户端进行模板渲染生成页面，最终呈现给用户。**
 
@@ -62,11 +60,9 @@ tags:
 
 显而易见的是，前后端分离之后，前端开发需要做更多的事了。随着业务的增加和不断的变化，代码也会变得越来越复杂，代码量越来越多，这样就会催生出各种各样的前端框架，使得前端生态圈呈现大爆炸式的发展。
 
-并且，随着移动互联网的快速发展，**大前端**也诞生出来了。简单来说，大前端就是所有前端的统称，比如`Android`、`iOS`、`Web`、`Watch` 等，然后将其最接近用户的那一层（ `UI` 层）统一起来，就是大前端。	
+并且，随着移动互联网的快速发展，**大前端**也诞生出来了。简单来说，大前端就是所有前端的统称，比如`Android`、`iOS`、`Web`、`Watch` 等，然后将其最接近用户的那一层（ `UI` 层）统一起来，就是大前端。
 
 由于 `NodeJS` 平台的崛起，前端开发可能已经不仅仅限于浏览器端的开发工作，借助 `NodeJS` 平台，以及[Express](http://expressjs.com/)、[Koa](http://koajs.com/)等框架，前端开发者也可以涉足服务端开发，这就要求我们具备一些后端开发思维。
-
-
 
 ### 四、前后端分离需要考虑的事
 
@@ -78,52 +74,44 @@ tags:
 
 这里贴上淘宝前端团队提出的中途岛 （`Midway Framework`）架构图：
 
-<img src="/ImageHosting/FrontEnd/taobao-midway-framework.png" alt="Midway Framework" style="zoom: 67%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/taobao-midway-framework.png" alt="Midway Framework" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
 不同的需求，架构也需要做不同程度的相应的调整。
 
-
-
 #### 2、接口设计规范
 
-不管是瀑布模式的前后端分离，还是敏捷模式下的前后端分离，都需要从业务逻辑出发，从业务的角度来说，`Web`  应用的前后端是一个整体，它们无法独立运行。于是，我们的开发模式（也可以说是交互形式）就变成了下面这样：
+不管是瀑布模式的前后端分离，还是敏捷模式下的前后端分离，都需要从业务逻辑出发，从业务的角度来说，`Web` 应用的前后端是一个整体，它们无法独立运行。于是，我们的开发模式（也可以说是交互形式）就变成了下面这样：
 
-<img src="/ImageHosting/FrontEnd/fe-be-alternate.jpg" alt="前后端交互" style="zoom:45%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/fe-be-alternate.jpg" alt="前后端交互" style="zoom:45%;" />
 
 图中的 `API` 文档，可以是一个模拟后端接口的 `JSON API`，也可以是文档编写的 `API` 。在这个过程中，前后端需要根据业务逻辑需要展示的内容，一起细致化接口的每个字段名，直至接口确认完毕，当各种开发完成时，需要在测试环境进行集成。如果遇到 `API` 变更，我们需要重复这个过程。
 
 `API` 的设计、规范、安全、管理等，也都是我们需要认真考虑的问题（这部分内容会比较多，我打算后面单独写一篇来总结）。
 
-
-
 #### 3、代码组织方式
 
-在传统架构模式中，前后端代码存放于同一个代码库中，甚至是同一工程目录下，页面中还夹杂着后端代码。前后端工程师进行开发时，都必须把整个项目导入到开发工具中。 
+在传统架构模式中，前后端代码存放于同一个代码库中，甚至是同一工程目录下，页面中还夹杂着后端代码。前后端工程师进行开发时，都必须把整个项目导入到开发工具中。
 
 而前后端分离模式在代码组织形式上，有以下两种:
 
-- **半分离** 
+- **半分离**
 
   前后端共用一个代码库，但是代码分别存放在两个工程目录中。后端基本上不关心前端的东西。前端不需要知道后端的技术架构，后端也不需要知道前端的技术架构，前后端都有充分的自由采用各种技术来进行系统的性能优化。
 
   但是这种形式有一个缺点，前后端不能独立部署。
 
-- **分离**  
+- **分离**
 
   前后端代码库分离，前后端并行可发。在后端未准备好的情况下，可以使用 `Mock Server` （用于仿造后端接口的模拟 `HTTP` 服务器），为前端提供一个可用的 `API` 服务，支持前端的独立开发和测试。前后端可以独立部署。
 
   那么是由前端还是后端来维护 `Mock Server` 呢？相对于前端开发人员来维护 `Mock Server`，由后端开发人员维护则会更加方便。因为后端是接口的提供方，他们是经验丰富的 `API` 编写者。当然，这中间也会有很多前后端的沟通工作，在维护 `Mock Server` 时，往往前后端开发者都有参与。
-
-
 
 #### 4、测试
 
 前后端分离之后，前端需要承担更多的工作了。代码量和复杂度都会上升，为了保证代码质量，我们需要增加更多的前端测试，搭建好测试服务。对于后端，测试也同样必不可少。
 
 并且，我们可以为前后端增加契约测试。业务修改会带来一定量的 `API` 修改，一旦 `API` 修改了，就需要通知使用方（前端或者上下游第三方系统）。那么，**最好的通知方式是什么呢？答案是持续集成失败。** 持续集成一失败，它会以直接的状态（红色）告知你当前的构建是有问题的。
-
-
 
 ### 五、总结
 

@@ -10,8 +10,6 @@ tags:
   - MVVM
 ---
 
-
-
 ## 谈谈前端开发中的 MVC、MVP、MVVM 模式
 
 在前端开发中，我们经常会听到 `MVC`、`MVP`、`MVVM` 这些名词。
@@ -32,7 +30,7 @@ tags:
 
 例如用户对一个电子表格进行重新排序的操作，应用程序需要响应用户操作，对数据进行排序，然后需要再同步到界面上。
 
-<img src="/ImageHosting/FrontEnd/gui.png" alt="GUI" style="zoom:75%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/gui.png" alt="GUI" style="zoom:75%;" />
 
 下面我们来看一些 `GUI` 应用会面临的设计问题。
 
@@ -40,16 +38,12 @@ tags:
 
 通常，界面的变化更加频繁，而我们希望一方的变化不至于影响另一方的逻辑。
 
-
-
 #### 2、测试难度大
 
 `GUI` 界面是相对难以测试的。直接测试 `GUI` 的测试工具都面临以下问题：
 
 - 测试耗时长， 因为要启动真实的应用；
 - 测试比较脆弱， 无论是可靠性还是可维护性，都会比较脆弱；因为界面元素的变化很频繁， 而通过编程来控制界面和用户真实操作经常有细微的差别， 尤其是时序相关的问题。
-
-
 
 所以，在开发 `GUI` 应用程序的时候，为了降低应用的复杂度，提高可维护性，开发人员基于职责分离（`Speration of Duties`）的思想，对应用程序进行了分层：
 
@@ -63,15 +57,13 @@ tags:
 
 下面我们带着这个问题来去探究 `MVC、MVP、MVVM` 这三种模式。
 
-
-
 ### 二、MVC
 
 `MVC` （ `Model-View-Controller`）模式里，除了把应用程序分成 `View`、`Model` 层，还额外的加了一个 `Controller` （控制器）层。
 
 `Controller` 的职责就是充当 `View` 和 `Model` 之间的中介者。`Controller` 负责处理传入的请求。 它通过 `Model` 处理用户的数据，并将结果传递回 `View`。
 
-<img src="/ImageHosting/FrontEnd/mvc.jpg" alt="mvc" style="zoom: 55%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/mvc.jpg" alt="mvc" style="zoom: 55%;" />
 
 在 `MVC` 的模式里：
 
@@ -93,13 +85,11 @@ tags:
 1. **`Controller` 的测试比较困难**。因为 `View` 只能在有 `UI` 的环境下运行，在没有 `UI` 环境下对 `Controller` 进行单元测试的时候，应用逻辑正确性是无法验证的，即： `Model` 更新的时候，无法对 `View` 的更新操作进行断言；
 2. **`View` 无法组件化**。`View` 是强依赖特定的 `Model` 的，如果需要把这个 `View` 抽出来作为一个另外一个应用程序可复用的组件，就比较困难了，因为不同程序的的 `Domain Model` 是不一样的。
 
-
-
 ### 三、MVP
 
 `MVP` 模式是 `MVC` 模式的改良。`MVP` 模式把 `MVC` 模式中的 `Controller` 换成了 `Presenter`。
 
-<img src="/ImageHosting/FrontEnd/mvp.jpg" alt="mvp" style="zoom: 55%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/mvp.jpg" alt="mvp" style="zoom: 55%;" />
 
 `MVP` 打破了 `View` 原来对于 `Model` 的依赖，其余的依赖关系和 `MVC` 模式一致。那么问题来了，`View` 如何同步 `Model` 的变更呢？
 
@@ -121,13 +111,11 @@ tags:
 
 1. `Presenter` 中除了应用逻辑以外，还有大量的 `View` 和 `Model` 之间的手动同步映射逻辑，造成 `Presenter` 比较笨重，维护起来会比较困难。
 
-
-
 ### 四、MVVM
 
-`MVVM` 可以看作是一种特殊的 `MVP`  模式，它将 `Presenter` 改名为 `ViewModel`。
+`MVVM` 可以看作是一种特殊的 `MVP` 模式，它将 `Presenter` 改名为 `ViewModel`。
 
-<img src="/ImageHosting/FrontEnd/mvvm.jpg" alt="mvvm" style="zoom: 55%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/FrontEnd/mvvm.jpg" alt="mvvm" style="zoom: 55%;" />
 
 唯一的区别是，它采用双向绑定（`data-binding`），即：**`View` 的变动，自动反映在 `ViewModel`，反之亦然**。也就是说，`MVVM` 把 `View` 和 `Model` 的同步逻辑自动化了，以前 `Presenter` 负责的 `View` 和 `Model` 同步不再需要手动地进行操作。
 
@@ -145,9 +133,6 @@ tags:
 1. 对于大型的图形应用程序，视图状态较多，`ViewModel` 的构建和维护的成本都会比较高。
 2. 数据绑定的声明是通过指令的方式写在 `View` 的模版当中的，这些内容是没办法去打断点 `debug` 的。
 
-
-
 ### 五、最后
 
 `MV*` 的目的都是为了把应用程序的数据、业务逻辑和界面这三块进行解耦，分离关注点，这样更利于团队协作和测试，方便维护和管理。
-

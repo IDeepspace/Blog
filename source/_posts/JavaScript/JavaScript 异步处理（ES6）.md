@@ -16,13 +16,13 @@ urlname: javascript-async
 
 我们先看看 `Promise` 是什么。先在浏览器中使用 `console.dir(Promise)` 打印出 `Promise` 对象的所的属性和方法：
 
-![Promise](/ImageHosting/JavaScript/promise.png)
+![Promise](https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/JavaScript/promise.png)
 
 从打印结果可以看出，`Promise` 是一个构造函数，它自己本身有 `all`、`reject`、`resolve` 等方法，原型上有 `catch`、`finally`、`then` 等方法。所以 `new` 出来的 `Promise` 对象也就自然拥有 `catch`、`finally`、`then` 这些方法。从上图中可以看到，`then` 方法返回的是一个新的 `Promise` 实例（注意，不是原来那个 `Promise` 实例）。因此可以采用链式写法，即 `then` 方法后面再调用另一个 `then` 方法。
 
 `Promise` 的中文意思是承诺，这种**“承诺将来会执行”**的对象在 `JavaScript` 中称为 `Promise` 对象。简单说就是一个容器，里面保存着某个未来才会执行的事件（通常是一个异步操作）的结果。
-<!-- more -->
 
+<!-- more -->
 
 **`Promise` 对象有两个特点：**
 
@@ -30,20 +30,16 @@ urlname: javascript-async
 
    > `Promise` 对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`（已成功）和 `rejected`（已失败）。**只有异步操作的结果可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。** 这也是 `Promise` 这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变。
 
-
-
 2. 一旦状态发生了改变，就不会再变，并且任何时候都可以得到这个结果。
 
    > Promise 对象的状态的改变，只有两种可能：
    >
-   > - 从 `pending` 变为 `fulfilled` 
+   > - 从 `pending` 变为 `fulfilled`
    > - 从 `pending` 变为 `rejected`
    >
    > 只要这两种状况发生，状态就凝固了，不会再变，会一直保持这个结果，这时就称为 `resolved` （已定型）。
    >
    > 如果状态已经发生改变，再对 `Promise` 对象添加回调函数，也会立即得到这个结果。这与事件（`Event`）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
-
-
 
 **`Promise` 也有一些缺点：**
 
@@ -51,18 +47,16 @@ urlname: javascript-async
 2. 如果不设置回调函数，`Promise` 内部抛出的错误，不会反应到外部；
 3. 当 `Promise` 对象处于 `Pending` 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
 
+### 二、Promise 的使用
 
-
-### 二、Promise的使用
-
-#### 1、创建Promise
+#### 1、创建 Promise
 
 那如何创建一个 `Promise` 呢，下面看一个简单的例子：
 
 ```javascript
-const p = new Promise(function(resolve, reject) {
+const p = new Promise(function (resolve, reject) {
   //Do some Async
-  setTimeout(function() {
+  setTimeout(function () {
     console.log('执行完成');
     resolve('数据');
   }, 2000);
@@ -80,9 +74,9 @@ const p = new Promise(function(resolve, reject) {
 
 ```javascript
 function runAsync() {
-  const p = new Promise(function(resolve, reject) {
+  const p = new Promise(function (resolve, reject) {
     //Do some Async
-    setTimeout(function() {
+    setTimeout(function () {
       console.log('执行完成');
       resolve('数据');
     }, 2000);
@@ -96,9 +90,9 @@ runAsync();
 
 ```javascript
 function runAsync() {
-  const p = new Promise(function(resolve, reject) {
+  const p = new Promise(function (resolve, reject) {
     //Do some Async
-    setTimeout(function() {
+    setTimeout(function () {
       console.log('执行完成');
       resolve('数据');
       // reject('数据');
@@ -107,13 +101,13 @@ function runAsync() {
   return p;
 }
 runAsync().then(
-  function(data) {
+  function (data) {
     // success
     console.log(`成功拿到${data}`);
     //后面可以用传过来的数据做些其他操作
     // ......
   },
-  function(error) {
+  function (error) {
     // failure
     console.log(error);
   }
@@ -123,11 +117,14 @@ runAsync().then(
 `Promise` 实例生成以后，可以用 `then` 方法分别指定 `resolved` 状态和 `rejected` 状态的回调函数。`Promise`实例的状态变为 `resolved` 或 `rejected`，就会触发 `then` 方法绑定的回调函数。
 
 ```javascript
-promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
-});
+promise.then(
+  function (value) {
+    // success
+  },
+  function (error) {
+    // failure
+  }
+);
 ```
 
 `then` 方法可以接受两个回调函数作为参数。第一个回调函数是 `Promise` 对象的状态变为 `resolved` 时调用，第二个回调函数是 `Promise` 对象的状态变为 `rejected` 时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受 `Promise` 对象传出的值作为参数。
@@ -138,18 +135,16 @@ promise.then(function(value) {
 
 下面我们再具体看看 `Promise` 相比于回调嵌套的写法的好处。
 
-
-
-#### 2、回调嵌套与Promise
+#### 2、回调嵌套与 Promise
 
 从表面上看，`Promise` 只是能够简化层层回调的写法，而实质上，`Promise` 的精髓是“状态”，用维护状态、传递状态的方式来使得回调函数能够及时调用，它比传递 `callback` 函数要简单、灵活的多。我们来看看这种简化解决了什么问题：
 
 以往使用回调嵌套的方式来处理异步的代码是怎么实现的呢？
 
 ```javascript
-doA(function() {
+doA(function () {
   doB();
-  doC(function() {
+  doC(function () {
     doD();
   });
   doE();
@@ -170,13 +165,13 @@ doF();
 回调嵌套：
 
 ```javascript
-request(url, function(err, res, body) {
-    if (err) handleError(err);
-    fs.writeFile('1.txt', body, function(err) {
-        request(url2, function(err, res, body) {
-            if (err) handleError(err)
-        })
-    })
+request(url, function (err, res, body) {
+  if (err) handleError(err);
+  fs.writeFile('1.txt', body, function (err) {
+    request(url2, function (err, res, body) {
+      if (err) handleError(err);
+    });
+  });
 });
 ```
 
@@ -184,20 +179,18 @@ request(url, function(err, res, body) {
 
 ```javascript
 request(url)
-.then(function(result) {
-    return writeFileAsynv('1.txt', result)
-})
-.then(function(result) {
-    return request(url2)
-})
-.catch(function(e){
-    handleError(e)
-});
+  .then(function (result) {
+    return writeFileAsynv('1.txt', result);
+  })
+  .then(function (result) {
+    return request(url2);
+  })
+  .catch(function (e) {
+    handleError(e);
+  });
 ```
 
 使用 `Promise` 的好处就非常明显了。
-
-
 
 #### 3、catch 方法
 
@@ -207,14 +200,14 @@ request(url)
 
 ```javascript
 runAsync()
-.then(function(data){
+  .then(function (data) {
     console.log('resolved');
     console.log(data);
-})
-.catch(function(error){
+  })
+  .catch(function (error) {
     console.log('rejected');
     console.log(error);
-});
+  });
 ```
 
 **`catch` 还有另外一个作用：在执行 `resolve` 的回调（也就是上面 `then` 中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会程序报错卡死，而是会进到这个 `catch` 方法中，而 `then` 里面的第二个函数捕获不到。**
@@ -223,13 +216,16 @@ runAsync()
 
 ```javascript
 runAsync()
-  .then(function (data) {
-    console.log('resolved');
-    console.log(data);
-    console.log(somedata); //此处的somedata未定义
-  }, function (err) {
-    console.log(`then 里面第二个参数捕获不到错误${err}`);
-  })
+  .then(
+    function (data) {
+      console.log('resolved');
+      console.log(data);
+      console.log(somedata); //此处的somedata未定义
+    },
+    function (err) {
+      console.log(`then 里面第二个参数捕获不到错误${err}`);
+    }
+  )
   .catch(function (error) {
     console.log('rejected');
     console.log(error);
@@ -243,8 +239,6 @@ runAsync()
 ```
 
 在 `resolve` 的回调中，`somedata` 这个变量是没有被定义的。如果我们不用 `catch`，代码运行到这里就直接报错了，不往下运行了。但是在这里，会得到这样的结果。也就是说，程序执行到 `catch` 方法里面去了，而且把错误原因传到了 `error` 参数中。即便是有错误的代码也不会报错了，这与 `try/catch` 语句有相同的功能。**所以，如果想捕获错误，就可以使用 `catch` 方法。**
-
-
 
 #### 4、Promise.all()
 
@@ -340,11 +334,14 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 加上 `then` 第二个参数：
 
 ```javascript
-Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
-  console.log('results' + results);
-}, function (error) {
-  console.log('error' + error);
-});
+Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(
+  function (results) {
+    console.log('results' + results);
+  },
+  function (error) {
+    console.log('error' + error);
+  }
+);
 
 // 执行完成3
 // 执行完成1
@@ -355,11 +352,13 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 所以，当 `Promise.all()` 中的异步请求有错误时，是不会走到 `then` 方法中指定 `resolved` 状态的函数中的，我们需要加上指定 `rejected` 状态的函数或者 `catch` 方法：
 
 ```javascript
-Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
-  console.log('results' + results);
-}).catch((err) => {
-  console.log('catch' + err);
-});
+Promise.all([runAsync1(), runAsync2(), runAsync3()])
+  .then(function (results) {
+    console.log('results' + results);
+  })
+  .catch((err) => {
+    console.log('catch' + err);
+  });
 
 // 执行完成3
 // 执行完成1
@@ -369,14 +368,12 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 
 **也就是说：`Promise.all()` 中的异步请求只要有一个被 `rejected` ，`Promise.all([runAsync1(), runAsync2(), runAsync3()])` 的状态就会变成 ` rejected` 。**
 
-
-
 #### 5、Promise.race()
 
 `race` 是竞赛、赛跑的意思。它的用法也就是它的字面意思：**谁跑的快，就以谁为准，执行回调**。其实再看看`Promise.all` 方法，和 `race` 方法恰恰相反。还是用 `Promise.all` 的例子，但是把 `runAsync1` 的方法 `timeout` 时间调成 `1000ms`。
 
 ```javascript
-Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function(results) {
+Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
   console.log(results);
 });
 
@@ -424,11 +421,13 @@ function runAsync3() {
   return p;
 }
 
-Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
-  console.log(results);
-}).catch((error) => {
-  console.log(error);
-});
+Promise.race([runAsync1(), runAsync2(), runAsync3()])
+  .then(function (results) {
+    console.log(results);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 // 执行完成1
 // 数据1
@@ -440,23 +439,21 @@ Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 
 上面的这些方法就是 `Promise` 比较常用的几个方法了。
 
-
-
 ### 三、红绿灯问题
 
-题目：红灯3秒亮一次，绿灯1秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 `Promse` 实现）
+题目：红灯 3 秒亮一次，绿灯 1 秒亮一次，黄灯 2 秒亮一次；如何让三个灯不断交替重复亮灯？（用 `Promse` 实现）
 
 三个亮灯函数已经存在：
 
 ```javascript
-function red(){
-    console.log('red');
+function red() {
+  console.log('red');
 }
-function green(){
-    console.log('green');
+function green() {
+  console.log('green');
 }
-function yellow(){
-    console.log('yellow');
+function yellow() {
+  console.log('yellow');
 }
 ```
 
@@ -473,35 +470,33 @@ function yellow() {
   console.log('yellow');
 }
 
-const light = function(timmer, color) {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
+const light = function (timmer, color) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
       color();
       resolve();
     }, timmer);
   });
 };
 
-const step = function() {
+const step = function () {
   Promise.resolve()
-    .then(function() {
+    .then(function () {
       return light(3000, red);
     })
-    .then(function() {
+    .then(function () {
       return light(2000, green);
     })
-    .then(function() {
+    .then(function () {
       return light(1000, yellow);
     })
-    .then(function() {
+    .then(function () {
       step();
     });
 };
 
 step();
 ```
-
-
 
 ### 四、async/await 简介
 
@@ -528,15 +523,18 @@ function* ascReadFile() {
 }
 
 let g = ascReadFile();
-g.next().value.then(data => {
-  console.log(data.toString());
-  return g.next().value;
-}).then(data => {
-  console.log(data.toString());
-  return g.next().value;
-}).then(data => {
-  console.log(data.toString());
-});
+g.next()
+  .value.then((data) => {
+    console.log(data.toString());
+    return g.next().value;
+  })
+  .then((data) => {
+    console.log(data.toString());
+    return g.next().value;
+  })
+  .then((data) => {
+    console.log(data.toString());
+  });
 ```
 
 上面代码的函数 `gen` 可以写成 `async` 函数：
@@ -560,8 +558,6 @@ asyncReadFile();
 
 `await` 只能出现在 `async` 函数中，`async` 用于申明一个 `function` 是异步的，而 `await` 用于等待一个异步方法执行完成。下面我们单独对 `async` 和 `await` 做一些介绍，帮助理解。
 
-
-
 ### 五、async
 
 `async` 函数是怎么处理它的返回值的呢？我们先写段代码来试试，看它到底会返回什么：
@@ -570,7 +566,7 @@ asyncReadFile();
 
 ```javascript
 async function testAsync() {
-  return "hello async";
+  return 'hello async';
 }
 
 const result = testAsync();
@@ -590,19 +586,17 @@ Promise { 'hello async' }
 
 ```javascript
 async function testAsync() {
-  return "hello async";
+  return 'hello async';
 }
 
-testAsync().then(v => {
-  console.log(v);    // hello async
+testAsync().then((v) => {
+  console.log(v); // hello async
 });
 ```
 
 那如果 `async` 函数没有返回值，会怎么样呢？很容易想到，它会返回 `Promise.resolve(undefined)`。
 
 联想一下 `Promise` 的特点——无等待，所以在没有 `await` 的情况下执行 `async` 函数，它会立即执行，返回一个 `Promise` 对象，并且不会阻塞后面的语句。这和普通返回 `Promise` 对象的函数是一样的。
-
-
 
 ### 六、await
 
@@ -616,11 +610,11 @@ testAsync().then(v => {
 
 ```javascript
 function getSomething() {
-  return "something";
+  return 'something';
 }
 
 async function testAsync() {
-  return Promise.resolve("hello async");
+  return Promise.resolve('hello async');
 }
 
 async function test() {
@@ -636,8 +630,6 @@ test();
 
 - 如果 `await` 等到的不是一个 `Promise` 对象，那 `await` 表达式的运算结果就是它等到的东西。
 - 如果它等到的是一个 `Promise` 对象，`await` 就忙起来了，它会阻塞后面的代码，等着 `Promise` 对象 `resolve`，然后得到 `resolve` 的值，作为 `await` 表达式的运算结果。这就是 `await` 必须用在 `async` 函数中的原因，`async` 函数调用不会造成阻塞，它内部所有的阻塞都被封装在一个 `Promise` 对象中异步执行。
-
-
 
 ### 七、async/await 的优势
 
@@ -659,7 +651,7 @@ test();
 ```javascript
 const makeRequest = () => {
   try {
-    getJSON().then(result => {
+    getJSON().then((result) => {
       // JSON.parse可能会出错
       const data = JSON.parse(result);
       console.log(data);
@@ -694,9 +686,9 @@ const makeRequest = async () => {
 
 ```javascript
 const makeRequest = () => {
-  return getJSON().then(data => {
+  return getJSON().then((data) => {
     if (data.needsAnotherRequest) {
-      return makeAnotherRequest(data).then(moreData => {
+      return makeAnotherRequest(data).then((moreData) => {
         console.log(moreData);
         return moreData;
       });
@@ -730,15 +722,13 @@ const makeRequest = async () => {
 
 ```javascript
 const makeRequest = () => {
-  return promise1()
-    .then(value1 => {
+  return promise1().then((value1) => {
+    // do something
+    return promise2(value1).then((value2) => {
       // do something
-      return promise2(value1)
-        .then(value2 => {
-          // do something          
-          return promise3(value1, value2);
-        });
+      return promise3(value1, value2);
     });
+  });
 };
 ```
 
@@ -747,15 +737,15 @@ const makeRequest = () => {
 ```javascript
 const makeRequest = () => {
   return promise1()
-    .then(value1 => {
+    .then((value1) => {
       // do something
-      return Promise.all([value1, promise2(value1)])
+      return Promise.all([value1, promise2(value1)]);
     })
     .then(([value1, value2]) => {
-      // do something          
-      return promise3(value1, value2)
-    })
-}
+      // do something
+      return promise3(value1, value2);
+    });
+};
 ```
 
 代码看起来减少了嵌套，但是为了可读性却牺牲了语义。除了避免嵌套，并没有其他理由将 `value1` 和 `value2` 放在一个数组中。
@@ -767,7 +757,7 @@ const makeRequest = async () => {
   const value1 = await promise1();
   const value2 = await promise2(value1);
   return promise3(value1, value2);
-}
+};
 ```
 
 #### 5、错误栈
@@ -786,12 +776,11 @@ const makeRequest = () => {
     });
 };
 
-makeRequest()
-  .catch(err => {
-    console.log(err);
-    // output
-    // Error: oops at callAPromise.then.then.then.then.then (index.js:8:13)
-  });
+makeRequest().catch((err) => {
+  console.log(err);
+  // output
+  // Error: oops at callAPromise.then.then.then.then.then (index.js:8:13)
+});
 ```
 
 `Promise` 链中返回的错误栈不会给出错误发生位置的详细原因。更糟糕的是，它会误导我们：错误栈中唯一的函数名为 `callAPromise`，然而它和错误没有关系。(当然文件名和行号还是有用的)。
@@ -800,20 +789,19 @@ makeRequest()
 
 ```javascript
 const makeRequest = async () => {
-  await callAPromise()
-  await callAPromise()
-  await callAPromise()
-  await callAPromise()
-  await callAPromise()
-  throw new Error("oops");
-}
+  await callAPromise();
+  await callAPromise();
+  await callAPromise();
+  await callAPromise();
+  await callAPromise();
+  throw new Error('oops');
+};
 
-makeRequest()
-  .catch(err => {
-    console.log(err);
-    // output
-    // Error: oops at makeRequest (index.js:7:9)
-  })
+makeRequest().catch((err) => {
+  console.log(err);
+  // output
+  // Error: oops at makeRequest (index.js:7:9)
+});
 ```
 
 在开发环境中，这一点优势可能并不大。但是，当我们分析生产环境的错误日志时，它将非常有用。
@@ -843,15 +831,13 @@ const makeRequest = () => {
 
 ```javascript
 const makeRequest = async () => {
-  await callAPromise()
-  await callAPromise()
-  await callAPromise()
-  await callAPromise()
-  await callAPromise()
-}
+  await callAPromise();
+  await callAPromise();
+  await callAPromise();
+  await callAPromise();
+  await callAPromise();
+};
 ```
-
-
 
 ### 八、总结
 
@@ -860,8 +846,6 @@ const makeRequest = async () => {
 - `async/await` 与 `Promise` 一样，是非阻塞的。
 - `async/await` 使得异步代码看起来像同步代码，看起来更加清楚明了。
 - `async/await` 相比于 `Promise` ，更加有优势。
-
-
 
 ### 九、await in loops
 
@@ -904,10 +888,10 @@ showColumnInfo();
 运行结果：
 
 ```
-Name: 前端周刊 
-Intro: 在前端领域跟上时代的脚步，广度和深度不断精进 
-Name: tooling bits 
-Intro: 工欲善其事必先利其器 
+Name: 前端周刊
+Intro: 在前端领域跟上时代的脚步，广度和深度不断精进
+Name: tooling bits
+Intro: 工欲善其事必先利其器
 showColumnInfo: 2446.938ms
 ```
 
@@ -919,7 +903,7 @@ const showColumnInfo = async () => {
 
   const names = ['feweekly', 'toolingtips'];
 
-  const promises = names.map(name => getZhihuColumn(name));
+  const promises = names.map((name) => getZhihuColumn(name));
 
   for (const promise of promises) {
     const column = await promise;
@@ -936,16 +920,14 @@ showColumnInfo();
 运行结果：
 
 ```javascript
-Name: 前端周刊 
-Intro: 在前端领域跟上时代的脚步，广度和深度不断精进 
-Name: tooling bits 
-Intro: 工欲善其事必先利其器 
+Name: 前端周刊
+Intro: 在前端领域跟上时代的脚步，广度和深度不断精进
+Name: tooling bits
+Intro: 工欲善其事必先利其器
 showColumnInfo: 1255.428ms
 ```
 
 可以看到运行时间节省了不少。
-
-
 
 ### 十、forEach 的问题
 
@@ -960,21 +942,21 @@ showColumnInfo: 1255.428ms
 ```javascript
 // 生成数据
 const getNumbers = () => {
-  return Promise.resolve([1, 2, 3])
-}
+  return Promise.resolve([1, 2, 3]);
+};
 
 // 异步处理
-const doMulti = num => {
+const doMulti = (num) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (num) {
-        resolve(num * num)
+        resolve(num * num);
       } else {
-        reject(new Error('num not specified'))
+        reject(new Error('num not specified'));
       }
-    }, 2000)
-  })
-}
+    }, 2000);
+  });
+};
 
 // 主函数
 const main = async () => {
@@ -1011,8 +993,6 @@ const main = async () => {
 
 执行结果完全符合了预期：依次输出：`start`、`1`， `4`， `9`， `end` 。
 
-
-
 #### 2、问题分析
 
 思路都是一样的，只是使用的遍历方式不一样而已，为什么会出现这样的情况呢？在 `MDN` 上查找了一下 `forEach` 的 `polyfill` 参考 [MDN-Array.prototype.forEach()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) :
@@ -1021,9 +1001,7 @@ const main = async () => {
 // Production steps of ECMA-262, Edition 5, 15.4.4.18
 // Reference: http://es5.github.io/#x15.4.4.18
 if (!Array.prototype.forEach) {
-
-  Array.prototype.forEach = function(callback, thisArg) {
-
+  Array.prototype.forEach = function (callback, thisArg) {
     var T, k;
 
     if (this == null) {
@@ -1039,9 +1017,9 @@ if (!Array.prototype.forEach) {
     // 3. Let len be toUint32(lenValue).
     var len = O.length >>> 0;
 
-    // 4. If isCallable(callback) is false, throw a TypeError exception. 
+    // 4. If isCallable(callback) is false, throw a TypeError exception.
     // See: http://es5.github.com/#x9.11
-    if (typeof callback !== "function") {
+    if (typeof callback !== 'function') {
       throw new TypeError(callback + ' is not a function');
     }
 
@@ -1056,7 +1034,6 @@ if (!Array.prototype.forEach) {
 
     // 7. Repeat, while k < len
     while (k < len) {
-
       var kValue;
 
       // a. Let Pk be ToString(k).
@@ -1066,7 +1043,6 @@ if (!Array.prototype.forEach) {
       //    This step can be combined with c
       // c. If kPresent is true, then
       if (k in O) {
-
         // i. Let kValue be the result of calling the Get internal
         // method of O with argument Pk.
         kValue = O[k];
@@ -1091,7 +1067,7 @@ Array.prototype.forEach = function (callback) {
   for (let index = 0; index < this.length; index++) {
     // We call the callback for each entry
     callback(this[index], index, this);
-  };
+  }
 };
 ```
 
@@ -1106,16 +1082,14 @@ const main = async () => {
   //   console.log(res);
   // });
   for (let index = 0; index < nums.length; index++) {
-    (async x => {
-      const res = await doMulti(x)
-      console.log(res)
-    })(nums[index])
+    (async (x) => {
+      const res = await doMulti(x);
+      console.log(res);
+    })(nums[index]);
   }
   console.log('end');
 };
 ```
-
-
 
 #### 3、解决方案
 
@@ -1126,22 +1100,20 @@ const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }
-}
+};
 
 const main = async () => {
   console.log('start');
   const nums = await getNumbers();
-  await asyncForEach(nums, async x => {
-    const res = await doMulti(x)
-    console.log(res)
-  })
+  await asyncForEach(nums, async (x) => {
+    const res = await doMulti(x);
+    console.log(res);
+  });
   console.log('end');
 };
 
 main();
 ```
-
-
 
 #### 4、Eslint 问题
 

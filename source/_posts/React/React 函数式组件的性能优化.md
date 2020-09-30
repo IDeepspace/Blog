@@ -8,8 +8,6 @@ date: 2020-04-01
 urlname: react-functional-component-performance-enhancement
 ---
 
-
-
 ## React 函数式组件的性能优化
 
 不论是类组件还是函数式组件，`React` 性能优化的主要方向有下面几个：
@@ -18,8 +16,6 @@ urlname: react-functional-component-performance-enhancement
 - 减少计算量
 - 减少渲染的节点、降低渲染量
 - 合理设计组件
-
-
 
 ### 一、减少重新 render 的次数
 
@@ -44,18 +40,15 @@ const App = () => {
   const [title, setTitle] = useState('这是一个 title');
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>{title}</h1>
       <button onClick={() => setTitle('title 已经改变')}>改名字</button>
-      <Child name="陈星星" />
+      <Child name='陈星星' />
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 其中包含了一个子组件 `Child`。
@@ -91,7 +84,7 @@ export default React.memo(Child);
 由于 `React.memo` 默认情况下只会对参数进行浅比较，如果我们想控制对比过程，`React.memo` 是支持第二个参数的，我们可以将自定义的比较函数通过第二个参数传入来实现。
 
 ```jsx
-const MyComponent = props => {
+const MyComponent = (props) => {
   /* 使用 props 渲染 */
 };
 const areEqual = (prevProps, nextProps) => {
@@ -107,8 +100,6 @@ export default React.memo(MyComponent, areEqual);
 比较时，我们应当尽可能地做到**精细化比对**。
 
 不过这里需要**注意**：与 `class` 组件中 `shouldComponentUpdate()` 方法不同的是，使用 `React.memo` 时，如果 `props` 相等，`areEqual` 会返回 `true`；如果 `props` 不相等，则返回 `false`。这与 `shouldComponentUpdate` 方法的返回值是相反的。
-
-
 
 #### 2、使用 React.useCallback 缓存引用
 
@@ -129,18 +120,15 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>{title}</h1>
       <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <Child name="陈星星" onClick={print} />
+      <Child name='陈星星' onClick={print} />
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 `Child.js`：
@@ -150,9 +138,7 @@ import React from 'react';
 
 const Child = ({ name, onClick }) => {
   console.log(name);
-  return (
-    <h1>{name}</h1>
-  );
+  return <h1>{name}</h1>;
 };
 
 export default React.memo(Child);
@@ -177,18 +163,15 @@ const App = () => {
   const a = [1];
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>{title}</h1>
       <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <Child name="陈星星" a={a} />
+      <Child name='陈星星' a={a} />
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 `Child.js`：
@@ -198,17 +181,13 @@ import React from 'react';
 
 const Child = ({ name, a }) => {
   console.log(name);
-  return (
-    <h1>{name}</h1>
-  );
+  return <h1>{name}</h1>;
 };
 
 export default React.memo(Child);
 ```
 
 如何解决呢？
-
-
 
 **（1）将函数或者引用变量放在组件的外边**
 
@@ -229,37 +208,29 @@ const App = () => {
   const [title, setTitle] = useState('这是一个 title');
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>{title}</h1>
       <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <Child name="陈星星" onClick={print} a={a} />
+      <Child name='陈星星' onClick={print} a={a} />
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 **对于一些不属于组件的（不涉及到组件的 `props` 或者 `state` 计算的）变量，我们应当将它放在组件的外边。**
 
 可是如果传递的函数需要依赖于组件的 `state` 该怎么办呢？这就需要用到 `React` 提供的 `useCallback` 这个 `API` 了。
 
-
-
-**（2）使用 `useCallback`** 
+**（2）使用 `useCallback`**
 
 `useCallback` 返回一个 `memoized` 回调函数，它接受两个参数，第一个参数是一个函数，第二个参数是一个依赖数组。只有当依赖数组中的值发生了变化，它才会返回一个新函数，否则将会使用之前所**记忆的函数**。
 
 ```javascript
-const memoizedCallback = useCallback(
-  () => {
-    doSomething(a, b);
-  },
-  [a, b],
-);
+const memoizedCallback = useCallback(() => {
+  doSomething(a, b);
+}, [a, b]);
 ```
 
 所以，我们可以改造下 `print` 函数：
@@ -278,20 +249,17 @@ const App = () => {
   }, [subtitle]);
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>{title}</h1>
       <h1>{subtitle}</h1>
       <button onClick={() => setTitle('标题改变了')}>改标题</button>
       <button onClick={() => setSubtitle('副标题改变了')}>改副标题</button>
-      <Child name="陈星星" onClick={print} />
+      <Child name='陈星星' onClick={print} />
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 上面的例子中，只有当 `subtitle` 这个状态改变时，才会重新生成 `print` 函数，子组件才会更新。
@@ -314,20 +282,17 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>{title}</h1>
       <h1>{subtitle}</h1>
       <button onClick={() => setTitle('标题改变了')}>改标题</button>
       <button onClick={() => setSubtitle('副标题改变了')}>改副标题</button>
-      <Child name="陈星星" onClick={print} />
+      <Child name='陈星星' onClick={print} />
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 `Child.js`：
@@ -335,16 +300,12 @@ ReactDOM.render(
 ```jsx
 import React from 'react';
 
-const Child = ({ onClick }) => (
-  <button onClick={onClick}>print</button>
-);
+const Child = ({ onClick }) => <button onClick={onClick}>print</button>;
 
 export default React.memo(Child);
 ```
 
 只能拿到第一次初始化 `title` 的值，这样的结果不是我们需要的。如果需要这样的结果，那么也应该将 `print` 函数放在组件之外。
-
-
 
 #### 3、避免使用匿名函数
 
@@ -353,7 +314,7 @@ export default React.memo(Child);
 ```jsx
 const Main = ({ list }) => (
   <List>
-    {list.map(i => (
+    {list.map((i) => (
       <Item key={i.id} onClick={() => handleDelete(i.id)} value={i.value} />
     ))}
   </List>
@@ -372,15 +333,13 @@ const Main = ({ list }) => {
 
   return (
     <List>
-      {list.map(i => (
+      {list.map((i) => (
         <Item key={i.id} id={i.id} onClick={handleDelete} value={i.value} />
       ))}
     </List>
   );
 };
 ```
-
-
 
 #### 4、避免 React Context 导致的重复渲染
 
@@ -389,7 +348,7 @@ const Main = ({ list }) => {
 `Context.js`：
 
 ```jsx
-import { createContext } from "react";
+import { createContext } from 'react';
 
 const context = createContext();
 
@@ -447,7 +406,7 @@ export default App;
 
 在浏览器中运行的效果如下：
 
-<img src="/ImageHosting/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
 
 如何避免这个问题呢？思路很简单，**需要一个方法去告诉 `Context.Provider`，告诉它子组件没有变化**。
 
@@ -498,10 +457,10 @@ const App = () => {
   console.log('render App');
 
   return (
-      <ThemeProvider>
-        <Header />
-        <Content />
-      </ThemeProvider>
+    <ThemeProvider>
+      <Header />
+      <Content />
+    </ThemeProvider>
   );
 };
 
@@ -511,8 +470,6 @@ export default App;
 这样就避免了重复渲染的问题。
 
 所以，我们在使用 `Context API` 的时候，需要特别谨慎。
-
-
 
 #### 5、避免使用内联对象
 
@@ -544,15 +501,9 @@ const ThemeProvider = (props) => {
 
   const value = useMemo(() => ({ theme, setTheme }), [theme]); // 缓存
 
-  return (
-    <Context.Provider value={value}>
-      {props.children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={value}>{props.children}</Context.Provider>;
 };
 ```
-
-
 
 ### 二、减少计算量
 
@@ -560,8 +511,6 @@ const ThemeProvider = (props) => {
 
 - 一类是减少 `React` 框架本身的计算，例如构建虚拟 `DOM` 的计算，`diff` 的计算；
 - 另一类是减少业务代码的逻辑计算量。
-
-
 
 #### 1、减少不必要的节点嵌套
 
@@ -572,7 +521,7 @@ const ThemeProvider = (props) => {
 所以，**减少不必要的节点嵌套**，是非常有必要的。不需要的元素都应该删减，例如：
 
 ```jsx
-<div className="App">
+<div className='App'>
   <div>
     <h1>count：{num}</h1>
   </div>
@@ -599,8 +548,6 @@ const Main = () => (
 );
 ```
 
-
-
 #### 2、使用 keys
 
 `keys` 可以帮助 `React` 跟踪哪些项目已更改、添加或从列表中删除。`React` 源码中对 `key` 的比较，如果不同则会直接更新。
@@ -612,8 +559,6 @@ const Main = () => (
 1. `react` 会进行报警告提示
 2. 性能下降
 3. `key` 值相同的情况有可能会造成数据更新时，数据的错乱
-
-
 
 #### 3、选择更好的样式处理方案
 
@@ -633,8 +578,6 @@ const Main = () => (
 
 - https://medium.com/@swazza85/use-css-modules-instead-of-inlining-styles-in-react-fea247b97431
 - https://reactjs.org/docs/faq-styling.html#are-inline-styles-bad
-
-
 
 #### 4、使用 useMemo 缓存计算结果
 
@@ -671,17 +614,14 @@ const App = () => {
   const base = expensiveFn();
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>count：{num}</h1>
       <button onClick={() => setNum(num + base)}>+1</button>
     </div>
   );
 };
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 除了初次渲染，每次点击 `button` 的时候，都会重新执行 `expensiveFn` 里的计算，下面使用 `useMemo` 来优化：
@@ -691,8 +631,6 @@ const base = useMemo(expensiveFn, []);
 ```
 
 只在初次渲染的时候执行 `expensiveFn` 并缓存结果，重复点击 `button`，不会再打印 `expensiveFn` 函数的结果，也就是 `expensiveFn` 函数没用再执行了，达到了优化的效果。
-
-
 
 #### 5、缓存子节点
 
@@ -723,21 +661,17 @@ const Parent = ({ a, b }) => {
 - **传给 `useMemo` 的函数应该是在渲染期间运行的**，不要 `useMemo` 中做任何不会在渲染期间做的事，副作用属于 `useEffect`，而不是 `useMemo`；
 - 如果是计算量很小的计算函数，也可以选择不使用 `useMemo`，因为这点优化并不会作为性能瓶颈的要点，反而可能使用错误还会引起一些性能问题。
 
-
-
 #### 6、节流和防抖
 
 > 关于节流和防抖的概念，你可以从这里了解：https://togoblog.cn/javascript-throttle-debounce/
 
-在 `React` 中有一个非常常见的场景：在输入框中输入内容，向后端（假设为  `api/users`）请求数据，并在输入框的下方展示用户列表。
+在 `React` 中有一个非常常见的场景：在输入框中输入内容，向后端（假设为 `api/users`）请求数据，并在输入框的下方展示用户列表。
 
 这里面会有一个问题：我们在输入框中每输入一个字符时，它都会触发异步网络请求，请求 `api/users` 获取要显示的用户列表，并且成功后通过更新 `state` 来更新 `DOM`，这是非常影响性能的。
 
 可能有的时候，我们会为了减轻后端的服务器压力，在内存中维护一个「用户列表」，用以避免频繁的网络请求，但是仍然需要为输入的字符进行昂贵的 `DOM` 更新。
 
 这里我们可以使用函数的节流与防抖来优化性能，推荐使用 [`loadsh`](https://lodash.com/) 库中的函数。
-
-
 
 ### 三、减少渲染的节点、降低渲染量
 
@@ -760,10 +694,10 @@ const App = () => {
   }
 
   return (
-      <>
-        <ContentComponent>content</ContentComponent>
-        <FooterComponent>footer</FooterComponent>
-      </>
+    <>
+      <ContentComponent>content</ContentComponent>
+      <FooterComponent>footer</FooterComponent>
+    </>
   );
 };
 ```
@@ -786,13 +720,11 @@ const App = () => {
 
 当 `name` 不是 `'react'` 时，`React` 在位置 1 处放置 `null`，位置 2 和位置 3 的组件保持不变，由于元素没变，因此组件不会卸载，减少了不必要的操作。
 
-
-
 #### 2、虚拟列表
 
 虚拟列表是常见的「长列表」和「复杂组件树」优化方式，它优化的本质是减少渲染的节点。**虚拟列表只渲染当前可视窗口的可见元素**。如下图：
 
-<img src="/ImageHosting/React/virtualized-render.gif" alt="虚拟列表" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/virtualized-render.gif" alt="虚拟列表" style="zoom: 50%;" />
 
 <p align="center">（图片来自网络）</p>
 
@@ -808,22 +740,15 @@ const App = () => {
 - [react-virtualized](https://github.com/bvaughn/react-virtualized)
 - [react-window](https://github.com/bvaughn/react-window) （更轻量的 `react-virtualized`，作者是同一个人）
 
-下面以 [react-window](https://github.com/bvaughn/react-window)  的一个示例：
+下面以 [react-window](https://github.com/bvaughn/react-window) 的一个示例：
 
 ```jsx
 import { FixedSizeList as List } from 'react-window';
- 
-const Row = ({ index, style }) => (
-  <div style={style}>Row {index}</div>
-);
- 
+
+const Row = ({ index, style }) => <div style={style}>Row {index}</div>;
+
 const Example = () => (
-  <List
-    height={150}
-    itemCount={1000}
-    itemSize={35}
-    width={300}
-  >
+  <List height={150} itemCount={1000} itemSize={35} width={300}>
     {Row}
   </List>
 );
@@ -831,11 +756,9 @@ const Example = () => (
 
 效果：
 
-<img src="/ImageHosting/React/react-window.gif" alt="效果" style="zoom: 50%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/react-window.gif" alt="效果" style="zoom: 50%;" />
 
 关于更多 [react-window](https://github.com/bvaughn/react-window) 的使用方法，可以去官网查看。
-
-
 
 #### 3、懒加载
 
@@ -864,8 +787,6 @@ const Example = () => (
 
 关于使用 `React.lazy` 和 `suspense` 实现懒加载的示例，可以参考：https://github.com/IDeepspace/react-lazy-preload-demo，切换不同的分支查看相关代码。
 
-
-
 #### 4、预加载
 
 前面提到了懒加载，它可以提高页面初次加载时的速度；但是对于大型项目的复杂组件来说，加载一个组件的时间开销很大，这会导致 `loading` 显示的很长，影响用户体验。
@@ -875,7 +796,7 @@ const Example = () => (
 比较流行的库有：
 
 - [react-snap](https://github.com/stereobooster/react-snap)
-- [react-snapshot](https://www.npmjs.com/package/react-snapshot) 
+- [react-snapshot](https://www.npmjs.com/package/react-snapshot)
 
 这两个库也有经由 `React` 官方推荐的。
 
@@ -883,15 +804,13 @@ const Example = () => (
 
 关于使用 `React.lazy` 和 `suspense` 实现预加载的示例，可以参考：https://github.com/IDeepspace/react-lazy-preload-demo，切换不同的分支查看相关代码。
 
-
-
 ### 四、合理设计组件
 
 #### 1、职责单一
 
 是的，合理设计组件也会提高性能。**组件的设计应该严格遵循职责单一原则**。看个例子：
 
-<img src="/ImageHosting/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -899,7 +818,7 @@ const Example = () => (
 
 基于职责单一的原则，我们可以这样来设计：
 
-<img src="/ImageHosting/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
+<img src="https://deepspace.coding.net/p/personal-blog/d/ImageHosting/git/raw/master/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -907,19 +826,13 @@ const Example = () => (
 
 一个比较常见的例子就是列表渲染，应当把列表项抽离出来当作单独的组件。这样一来，当列表项有变动，不会影响到整个大的组件。
 
-
-
 #### 2、合理的 state
 
 不是所有的数据或状态都需要放在组件的 `state` 中，原则是：需要组件响应它的变动或者需要渲染到视图中的数据，才应该放到 `state` 中。这样可以避免不必要的数据变动导致组件重新渲染。
 
-
-
 #### 3、合理的 props
 
 如果一个组件的 `props` 太过于复杂，会变得非常难以维护，影响测试和调试，这也违背了组件的职责单一原则；同时也会影响 `shallowCompare` 效率，降低**组件缓存的命中率**。所以，对于 `props` 复杂的组件，应当更细化的拆解，合理地设计。
-
-
 
 ### 五、拓展
 
@@ -932,8 +845,6 @@ const Example = () => (
 - [Loadable Components](https://github.com/smooth-code/loadable-components)
 - [Next.js](https://github.com/zeit/next.js/#dynamic-import)
 
-
-
 #### 2、使用生产版本
 
 在开发应用时使用开发模式，在为用户部署应用时使用生产模式。
@@ -945,8 +856,6 @@ $ npm run build
 ```
 
 这段命令将在项目下的 `build/` 目录中生成对应的生产版本。只有在生产部署前才需要执行这个命令，正常开发使用 `npm start` 即可。
-
-
 
 ### 六、最后
 
