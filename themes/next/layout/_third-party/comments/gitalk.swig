@@ -14,8 +14,6 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       owner       : '{{ theme.gitalk.github_id }}',
       admin       : ['{{ theme.gitalk.admin_user }}'],
       id          : '{{ gitalk_md5(page.path) }}',
-      createIssueManually: '<%- theme.gitalk.createIssueManually %>',
-      distractionFreeMode: '<%- theme.gitalk.distractionFreeMode %>'  // Facebook-like distraction free mode
       {%- if theme.gitalk.language == '' %}
         language: window.navigator.language || window.navigator.userLanguage,
       {% else %}
