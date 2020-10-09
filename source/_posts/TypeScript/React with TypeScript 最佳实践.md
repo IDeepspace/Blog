@@ -244,13 +244,13 @@ const App: React.FC = () => {
 
 ```jsx
 type User = {
-  email: string,
-  id: number,
-  error?: string,
+  email: string;
+  id: number;
+  error?: string;
 };
 
 const App: React.FC = () => {
-  const [user, setUser] = (useState < User) | (null > null);
+  const [user, setUser] = useState<User | null>(null);
   return (
     <button
       onClick={() => {
@@ -268,4 +268,4 @@ const App: React.FC = () => {
 
 **useReducer**
 
-在使用 useReducer 或者 redux 的时候，联合类型是非常有用的。
+在使用 `useReducer` 或者 `redux` 的时候，联合类型是非常有用的。
