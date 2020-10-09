@@ -139,22 +139,75 @@ module.exports = {
 
 ### 二、最佳实践
 
-#### 1、组件泛型化
+#### 1、组件的书写方式
 
-`props` 类型化
+对于函数式组件，通常有两种书写方式：
 
-以函数式组件为例，可以使用 `type` 关键字来定义 `props`：
+```jsx
+import React from 'react';
 
-```react
-type Props = xxxxxxx;
-const ThisIsFC: React.FC<Props> = props => <div>something</div>;
+// 函数声明式写法
+function Heading(): React.ReactNode {
+  return <h1>My Website Heading</h1>;
+}
+
+// 函数扩展式写法
+const OtherHeading: React.FC = () => <h1>My Website Heading</h1>;
 ```
 
-其中 `Props` 可以分成几个子集，根据使用场景，一般可以分为四类：
+- 第一种写法：使用了函数声明式写法，注明了这个函数的返回值是 `React.ReactNode` 类型；
+- 第二种写法：使用了函数表达式写法，注明了这个函数的返回值是 `React.FC` 类型。
+
+开发时，两种写法都可以，但团队需要保持一致，只采取一种。
+
+#### 2、组件泛型化
+
+在 `TypeScript` 中，我们可以使用 `interface` 或者 `type` 关键字来将类型声明成泛型。
+
+```jsx
+type RowProps<Type> = {
+  input: Type | Type[],
+  onClick: () => void,
+  color?: string,
+};
+
+const Row: React.FC<RowProps<number | string>> = ({
+  input,
+  onClick,
+  color = 'blue',
+}) => {
+  if (Array.isArray(input)) {
+    return (
+      <div>
+        {input.map((i, idx) => (
+          <div key={idx} onClick={onClick}>
+            {i}
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return <div style={{ color }}>{input}</div>;
+};
+
+const Rows = () => {
+  return (
+    <Fragment>
+      <Row input={[1]} onClick={() => {}} />
+      <Row input={1} onClick={() => {}} color={'red'} />
+      <Row input={1} onClick={() => {}} />
+      <Row input='1' onClick={() => {}} />
+      <Row input={['1']} onClick={() => {}} />
+    </Fragment>
+  );
+};
+```
+
+其中 `Props` 可以分成几个子集，根据实际使用场景，一般可以分为以下四类：
 
 - `OwnProps`，直接传递给该组件的属性；
 
-- `StateProps`，通过 `connect` 到 `redux store` 获取的属性；
+- `StateProps`，通过 `connect` 到 `redux` 中的 `store` 获取的属性；
 
 - `DispatchProps`，也是通过 `connect` 到 `redux` 获取的属性；
 
@@ -165,3 +218,54 @@ const ThisIsFC: React.FC<Props> = props => <div>something</div>;
 ```react
 type Props = OwnProps & RouteProps & StateProps & DispatchProps;
 ```
+
+#### 3、在 Hooks 中的使用
+
+**useState**
+
+使用 `useState` 时，`TypeScript` 的类型推断非常好用，它可以自动推断所使用的值：
+
+```jsx
+const App: React.FC = () => {
+  const [value, setValue] = useState('');
+  return (
+    <button
+      onClick={() => {
+        setValue(1); // Error: Argument of type 'number' is not assignable to parameter of type 'SetStateAction<string>'
+      }}
+    >
+      click
+    </button>
+  );
+};
+```
+
+有时候，我们需要初始化带有空值的 `state`，可以使用泛型来传递：
+
+```jsx
+type User = {
+  email: string,
+  id: number,
+  error?: string,
+};
+
+const App: React.FC = () => {
+  const [user, setUser] = (useState < User) | (null > null);
+  return (
+    <button
+      onClick={() => {
+        setUser({
+          email: 'cxin1427@gmail.com',
+          id: 1427,
+        });
+      }}
+    >
+      click
+    </button>
+  );
+};
+```
+
+**useReducer**
+
+在使用 useReducer 或者 redux 的时候，联合类型是非常有用的。
