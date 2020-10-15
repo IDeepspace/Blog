@@ -259,7 +259,7 @@ interface Props extends OwnProps, RouteProps, StateProps, DispatchProps {}
 
 
 
-下面介绍两个限制 `props` 属性的两个常用方法。
+**下面介绍两个限制 `props` 属性的两个常用方法。**
 
 - 使用 `Partial` 将所有的 `props` 属性都变为可选值
 
@@ -316,6 +316,72 @@ const Com: React.FC<Required<IProps>> = ({ onClick, text, color }) => {
 
 const App: React.FC = () => {
   return <Com text="click" color={'blue'} />;
+};
+
+export default App;
+```
+
+
+
+**设置  `Props` 的默认值**
+
+有两种方式设置 `Props` 的默认值。
+
+- 传递 `props` 时，设置默认值
+
+```jsx
+/* eslint-disable react/prop-types */
+import React from 'react';
+
+type IProps = {
+  color?: 'red' | 'blue' | 'yellow';
+  text: string;
+};
+
+// 传递 props 时，设置默认值
+const Com: React.FC<IProps> = ({ text, color = 'red' }) => {
+  return <div style={{ color }}>{text}</div>;
+};
+
+const App: React.FC = () => {
+  return (
+    <div>
+      <Com text="click" />
+      <Com text="click" color="blue" />
+    </div>
+  );
+};
+
+export default App;
+```
+
+- 通过 `defaultProps` 设置默认值
+
+```jsx
+import React from 'react';
+
+type IProps = {
+  color?: 'red' | 'blue' | 'yellow';
+  text?: string;
+};
+
+const Com: React.FC<IProps> = ({ text, color }) => {
+  return <div style={{ color }}>{text}</div>;
+};
+
+// 通过 defaultProps 设置默认值
+Com.defaultProps = {
+  color: 'red',
+  text: 'hello',
+};
+
+const App: React.FC = () => {
+  return (
+    <div>
+      <Com text="hi" />
+      <Com color="blue" />
+    </div>
+  );
 };
 
 export default App;
