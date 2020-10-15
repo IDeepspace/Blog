@@ -308,18 +308,21 @@ const App: React.FC = () => {
 
 
 
+- useEffect 
+
+没有返回值，无需传递类型。
+
+
+
+- useLayoutEffect
+
+没有返回值，无需传递类型。
+
+
+
 - useReducer
 
-`useReducer` 接受两个参数：`reducer` 和 `initialState`，
-
-```jsx
-function useReducer<R extends Reducer<any, any>>(
- reducer: R,
- initialState: ReducerState<R>
-): [ReducerState<R>, Dispatch<ReducerAction<R>>];
-```
-
-在使用 `useReducer` 或者 `redux` 的时候，联合类型是非常有用的。下面以 `useReducer` 为例：
+`useReducer` 接受两个参数：`reducer` 和 `initialState`，只需要对传入 `useReducer` 的 `reducer` 函数的入参 `state` 和 `action` 进行类型约束，就能够推断出类型。在使用 `useReducer` 或者 `redux` 的时候，联合类型是非常有用的。看下面的例子：
 
 ```jsx
 import React, { useReducer } from 'react';
@@ -374,42 +377,66 @@ export function reducer: Reducer<AppState, Action>() {}
 
 - useRef
 
-```jsx
-export const App: React.FC = () => {
-  const myRef = React.useRef<HTMLElement | null>(null);
+`useRef` 传递非空初始值的时候可以推断类型，可以通过传入第一个泛型参数来定义类型，约束 `ref.current` 的类型。
 
-  return (
-    <main className="App" ref={myRef}>
-      <h1>My title</h1>
-    </main>
-  );
+```jsx
+import React, { useLayoutEffect } from 'react';
+
+export const App: React.FC = () => {
+  const h1Ref = React.useRef<HTMLDivElement | null>(null);
+
+  function changeInnerText(el: HTMLDivElement, value: string) {
+    el.innerText = value;
+  }
+
+  useLayoutEffect(() => {
+    if (null !== h1Ref.current) {
+      changeInnerText(h1Ref.current, 'hello world');
+    }
+  }, []);
+
+  return <h1 ref={h1Ref}>My title</h1>;
 };
+
+export default App;
+```
+
+更多 `useRef` 示例：
+
+```jsx
+// <div> reference type
+const divRef = React.useRef<HTMLDivElement | null>(null);
+
+// <button> reference type
+const buttonRef = React.useRef<HTMLButtonElement | null>(null);
+
+// <br /> reference type
+const brRef = React.useRef<HTMLBRElement | null>(null);
+
+// <a> reference type
+const linkRef = React.useRef<HTMLLinkElement | null>(null);
 ```
 
 
 
 - useCallback
 
-`useCallback` 返回一个缓存的回调函数，它接受两个参数，第一个参数是一个函数，第二个参数是一个依赖数组。只有当依赖数组中的值发生了变化，它才会返回一个新函数，否则将会使用之前所**记忆的函数**。
+`useCallback` 无需传递类型，根据函数的返回值就能推断出类型，如果传递类型错误，`TypeScript` 就会直接报错。但是注意函数的入参需要定义类型，不然就推断为 `any` 了。
 
 ```jsx
-type CallbackType = (...args: string[]) => void;
+const multiplier = 2;
 
-const memoizedCallback = React.useCallback<CallbackType>(() => {
-  doSomething(a, b);
-}, [a, b]);
+const multiply = useCallback((value: number) => value * multiplier, [multiplier]);
 ```
-
-这里我们期望接收 `string` 类型的参数，并应返回 `void` 类型的值，在 `useCallback` 上设置该类型之后，如果传递类型错误，`TypeScript` 就会直接报错。
 
 
 
 - useMemo
 
-`useMemo` 的第一个参数就是一个函数，这个函数返回的值会被缓存起来，同时这个值会作为 `useMemo` 的返回值；第二个参数是一个数组依赖，如果数组里面的值有变化，那么就会重新去执行第一个参数里面的函数，并将函数返回的值缓存起来并作为 `useMemo` 的返回值。
+`useMemo` 无需传递类型，根据函数的返回值就能推断出类型。
 
 ```jsx
-const memoizedValue = React.useMemo<string>(() => {
+const memoizedValue = React.useMemo(() => {
   computeExpensiveValue(a, b)
 }, [a, b])
 ```
@@ -577,7 +604,7 @@ import _ from 'loadsh';
 
 
 
-### 三、参考：
+### 三、参考
 
 - [How React and TypeScript Work Together](https://www.sitepoint.com/react-with-typescript-best-practices/)
 - [Type-safe state modeling with TypeScript and React Hooks](https://thoughtbot.com/blog/type-safe-state-modeling-with-typescript-and-react-hooks)
