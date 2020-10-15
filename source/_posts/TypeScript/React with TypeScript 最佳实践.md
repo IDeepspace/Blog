@@ -259,6 +259,70 @@ interface Props extends OwnProps, RouteProps, StateProps, DispatchProps {}
 
 
 
+下面介绍两个限制 `props` 属性的两个常用方法。
+
+- 使用 `Partial` 将所有的 `props` 属性都变为可选值
+
+如果 `props` 所有的属性值都是可选的，我们可以借助 `Partial` 来实现。
+
+```jsx
+import React from 'react';
+import { MouseEvent } from 'react';
+
+type IProps = {
+  color: 'red' | 'blue' | 'yellow';
+  text: string;
+  onClick(event: MouseEvent<HTMLDivElement>): void;
+};
+
+const Com: React.FC<Partial<IProps>> = ({ onClick, text, color }) => {
+  return (
+    <div onClick={onClick} style={{ color }}>
+      {text}
+    </div>
+  );
+};
+
+const App: React.FC = () => {
+  return <Com text="click" color={'blue'} />;
+};
+
+export default App;
+```
+
+
+
+- 使用 `Required` 将所有 `props` 属性都设为必填项
+
+如果 `props` 所有的属性值都是必选的，我们可以借助 `Required` 来实现：
+
+```jsx
+import React from 'react';
+import { MouseEvent } from 'react';
+
+type IProps = {
+  color: 'red' | 'blue' | 'yellow';
+  text: string;
+  onClick(event: MouseEvent<HTMLDivElement>): void;
+};
+
+const Com: React.FC<Required<IProps>> = ({ onClick, text, color }) => {
+  return (
+    <div onClick={onClick} style={{ color }}>
+      {text}
+    </div>
+  );
+};
+
+const App: React.FC = () => {
+  return <Com text="click" color={'blue'} />;
+};
+
+export default App;
+```
+
+
+
 #### 3、在 Hooks 中的使用
 
 - useState
@@ -364,14 +428,6 @@ export default Counter;
 ```
 
 将 `ACTIONTYPE` 设置为联合类型后，联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型。
-
-如果使用的是 `redux`，上面的例子可以变成这样：
-
-```jsx
-import { Reducer } from 'redux';
-
-export function reducer: Reducer<AppState, Action>() {}
-```
 
 
 
@@ -550,6 +606,18 @@ const MyButton: React.FC = () => {
 
 export default MyButton;
 ```
+
+常用 `Event` 事件对象类型有：
+
+- `ClipboardEvent<T = Element>` 剪贴板事件对象
+- `DragEvent<T = Element>` 拖拽事件对象
+- `ChangeEvent<T = Element>`  Change 事件对象
+- `KeyboardEvent<T = Element>` 键盘事件对象
+- `MouseEvent<T = Element>` 鼠标事件对象
+- `TouchEvent<T = Element>`  触摸事件对象
+- `WheelEvent<T = Element>` 滚轮事件对象
+- `AnimationEvent<T = Element>` 动画事件对象
+- `TransitionEvent<T = Element>` 过渡事件对象
 
 
 
