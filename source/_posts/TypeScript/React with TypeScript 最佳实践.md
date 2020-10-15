@@ -247,7 +247,7 @@ const Rows = () => {
 
 多个 `props` 可以使用 `&` 符号连接起来：
 
-```react
+```jsx
 type Props = OwnProps & RouteProps & StateProps & DispatchProps;
 ```
 
