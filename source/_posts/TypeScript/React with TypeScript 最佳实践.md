@@ -26,7 +26,7 @@ $ npx create-react-app my-app --template typescript
 
 - `.tsx`：使用 `TypeScript` 的 `JSX` 文件扩展；
 - `tsconfig.json`：生成的具有默认配置的 `TypeScript` 的配置文件；
-- `react-app-env.d.ts`：`TypeScript` 声明文件， 注释的内容会做为编译器指令使用。
+- `react-app-env.d.ts`：`TypeScript` 声明文件， 注释的内容会作为编译器指令使用。
 
 
 
