@@ -8,6 +8,10 @@ urlname: typescript-react-bset-practice
 
 ## React with TypeScript 最佳实践
 
+本来将介绍在 `React` 项目中使用 `TypeScript` 的一些最佳实践。
+
+
+
 ### 一、项目初始化
 
 #### 1、构建项目
@@ -391,7 +395,7 @@ export default App;
 
 #### 3、在 Hooks 中的使用
 
-- useState
+- `useState`
 
 使用 `useState` 时，`TypeScript` 可以自动推断类型：
 
@@ -438,19 +442,19 @@ const App: React.FC = () => {
 
 
 
-- useEffect 
+- `useEffect` 
 
 没有返回值，无需传递类型。
 
 
 
-- useLayoutEffect
+- `useLayoutEffect`
 
 没有返回值，无需传递类型。
 
 
 
-- useReducer
+- `useReducer`
 
 `useReducer` 接受两个参数：`reducer` 和 `initialState`，只需要对传入 `useReducer` 的 `reducer` 函数的入参 `state` 和 `action` 进行类型约束，就能够推断出类型。在使用 `useReducer` 或者 `redux` 的时候，联合类型是非常有用的。看下面的例子：
 
@@ -497,7 +501,7 @@ export default Counter;
 
 
 
-- useRef
+- `useRef`
 
 `useRef` 传递非空初始值的时候可以推断类型，可以通过传入第一个泛型参数来定义类型，约束 `ref.current` 的类型。
 
@@ -541,7 +545,7 @@ const linkRef = React.useRef<HTMLLinkElement | null>(null);
 
 
 
-- useCallback
+- `useCallback`
 
 `useCallback` 无需传递类型，根据函数的返回值就能推断出类型，如果传递类型错误，`TypeScript` 就会直接报错。但是注意函数的入参需要定义类型，不然就推断为 `any` 了。
 
@@ -553,7 +557,7 @@ const multiply = useCallback((value: number) => value * multiplier, [multiplier]
 
 
 
-- useMemo
+- `useMemo`
 
 `useMemo` 无需传递类型，根据函数的返回值就能推断出类型。
 
@@ -567,7 +571,7 @@ const memoizedValue = React.useMemo(() => {
 
 
 
-- useContext
+- `useContext`
 
 下面是一个例子：
 
