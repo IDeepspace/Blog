@@ -43,12 +43,12 @@ urlname: vue-pass-data-in-components
 </template>
 
 <script>
-  import ChildCom from './ChildCom';
+  import ChildCom from "./ChildCom";
 
   export default {
     data() {
       return {
-        list: ['我是父组件里面的数据', '我来自父组件'],
+        list: ["我是父组件里面的数据", "我来自父组件"],
       };
     },
     components: {
@@ -56,7 +56,7 @@ urlname: vue-pass-data-in-components
     },
     methods: {
       run() {
-        alert('我是父组件里面的方法'); // eslint-disable-line
+        alert("我是父组件里面的方法"); // eslint-disable-line
       },
     },
   };
@@ -99,7 +99,7 @@ urlname: vue-pass-data-in-components
         alert(this.home.run); // eslint-disable-line
       },
     },
-    props: ['list', 'run', 'home'],
+    props: ["list", "run", "home"],
   };
 </script>
 
@@ -126,7 +126,7 @@ urlname: vue-pass-data-in-components
 
 这里我们加了一些样式，在 `App.vue` 中引入父组件 `ParentCom` ，打开浏览器会看到：
 
-![父组件向子组件传递](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-1.png)
+![父组件向子组件传递](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-pass-data-1.png)
 
 这样，在子组件中就拿到了父组件传递下来的数据和方法以及父组件本身，点击按钮就可以查看到父组件传递给子组件的数据。
 
@@ -186,12 +186,12 @@ methods: {
 </template>
 
 <script>
-  import ChildCom from './ChildCom';
+  import ChildCom from "./ChildCom";
 
   export default {
     data() {
       return {
-        list: ['我是父组件里面的数据', '我来自父组件'],
+        list: ["我是父组件里面的数据", "我来自父组件"],
       };
     },
     components: {
@@ -199,7 +199,7 @@ methods: {
     },
     methods: {
       run() {
-        alert('我是父组件里面的方法'); // eslint-disable-line
+        alert("我是父组件里面的方法"); // eslint-disable-line
       },
       addItem(item) {
         this.list.push(item);
@@ -211,7 +211,7 @@ methods: {
 
 在子组件上绑定监听子组件中自定义事件的方法需要使用 `@` 符号，在 `methods` 中添加了 `addItem` 方法。这时候，我们打开浏览器，点击第三个按钮，就会看到子组件向父组件传递的数据了。
 
-![子组件向父组件传递](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-2.gif)
+![子组件向父组件传递](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-pass-data-2.gif)
 
 ##### 2.2 传递 props
 
@@ -266,18 +266,18 @@ methods: {
         alert(this.home.appendToList); // eslint-disable-line
       },
       submit(text) {
-        this.$emit('addItem', text);
+        this.$emit("addItem", text);
       },
     },
     // add this
-    props: ['list', 'run', 'home', 'addItem'],
+    props: ["list", "run", "home", "addItem"],
   };
 </script>
 ```
 
 打开浏览器，点击 `button` :
 
-![子组件向父组件传递](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-3.gif)
+![子组件向父组件传递](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-pass-data-3.gif)
 
 ### 二、兄弟组件之间的通讯
 
@@ -313,15 +313,15 @@ methods: {
 </template>
 
 <script>
-  import BrotherCard from './BrotherCard';
-  import SisterCard from './SisterCard';
+  import BrotherCard from "./BrotherCard";
+  import SisterCard from "./SisterCard";
 
   export default {
-    name: 'ParentCard',
+    name: "ParentCard",
     data() {
       return {
-        messagedaughter: '',
-        messageson: '',
+        messagedaughter: "",
+        messageson: "",
       };
     },
     components: { BrotherCard, SisterCard },
@@ -336,8 +336,8 @@ methods: {
         return this.messagedaughter && this.messageson;
       },
       stopCommunicate() {
-        this.messagedaughter = '';
-        this.messageson = '';
+        this.messagedaughter = "";
+        this.messageson = "";
       },
     },
   };
@@ -377,11 +377,11 @@ methods: {
 
 <script>
   export default {
-    name: 'BrotherCard',
-    props: ['messageSon'],
+    name: "BrotherCard",
+    props: ["messageSon"],
     methods: {
       messageSister() {
-        this.$emit('brotherSaid', 'Hi，妹妹');
+        this.$emit("brotherSaid", "Hi，妹妹");
       },
     },
   };
@@ -403,11 +403,11 @@ methods: {
 
 <script>
   export default {
-    name: 'SisterCard',
-    props: ['messageDaughter'],
+    name: "SisterCard",
+    props: ["messageDaughter"],
     methods: {
       messageBrother() {
-        this.$emit('sisterSaid', 'Hi，哥哥');
+        this.$emit("sisterSaid", "Hi，哥哥");
       },
     },
   };
@@ -416,7 +416,7 @@ methods: {
 
 结果如下：
 
-![兄弟组件之间的通信](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-4.gif)
+![兄弟组件之间的通信](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-pass-data-4.gif)
 
 在学习完父子组件之间的通讯方法之后，通过父组件进行兄弟组件的通讯就很简单了，其实就是把兄弟之间需要共享的数据提升至他们最近的父组件当中进行管理，将他们的父组件作为中间媒介（在 `React` 中把这种方式被称为状态提升）。
 
@@ -433,9 +433,9 @@ methods: {
 首先在 `main.js` 文件中定义一个新的 `eventHub` 对象（`vue` 实例 ）:
 
 ```javascript
-import Vue from 'vue';
-import App from './App';
-import router from './router';
+import Vue from "vue";
+import App from "./App";
+import router from "./router";
 
 Vue.config.productionTip = false;
 
@@ -444,10 +444,10 @@ export const eventHub = new Vue(); // eslint-disable-line
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   components: { App },
-  template: '<App/>',
+  template: "<App/>",
 });
 ```
 
@@ -464,21 +464,21 @@ new Vue({
 </template>
 
 <script>
-  import { eventHub } from '../../main';
+  import { eventHub } from "../../main";
 
   export default {
-    name: 'BrotherCard',
+    name: "BrotherCard",
     data: () => ({
-      fromSister: '',
+      fromSister: "",
     }),
     methods: {
       messageSister() {
-        eventHub.$emit('brotherSaid', 'Hi，妹妹');
+        eventHub.$emit("brotherSaid", "Hi，妹妹");
       },
     },
     /* eslint-disable */
     created() {
-      eventHub.$on('sisterSaid', (message) => {
+      eventHub.$on("sisterSaid", (message) => {
         this.fromSister = message;
       });
     },
@@ -500,21 +500,21 @@ new Vue({
 </template>
 
 <script>
-  import { eventHub } from '../../main';
+  import { eventHub } from "../../main";
 
   export default {
-    name: 'SisterCard',
+    name: "SisterCard",
     data: () => ({
-      fromBrother: '',
+      fromBrother: "",
     }),
     methods: {
       messageBrother() {
-        eventHub.$emit('sisterSaid', 'Hi，哥哥');
+        eventHub.$emit("sisterSaid", "Hi，哥哥");
       },
     },
     /* eslint-disable */
     created() {
-      eventHub.$on('brotherSaid', (message) => {
+      eventHub.$on("brotherSaid", (message) => {
         this.fromBrother = message;
       });
     },
@@ -536,14 +536,14 @@ new Vue({
 </template>
 
 <script>
-  import BrotherCard from './BrotherCard';
-  import SisterCard from './SisterCard';
+  import BrotherCard from "./BrotherCard";
+  import SisterCard from "./SisterCard";
 
   export default {
-    name: 'ParentCard',
+    name: "ParentCard",
     components: {
-      'brother-card': BrotherCard,
-      'sister-card': SisterCard,
+      "brother-card": BrotherCard,
+      "sister-card": SisterCard,
     },
   };
 </script>
@@ -583,10 +583,10 @@ export default store;
 </template>
 
 <script>
-  import store from './store';
+  import store from "./store";
 
   export default {
-    name: 'NumberDisplay',
+    name: "NumberDisplay",
     data() {
       return {
         storeState: store.state,
@@ -607,10 +607,10 @@ export default store;
 </template>
 
 <script>
-  import store from './store';
+  import store from "./store";
 
   export default {
-    name: 'NumberSubmit',
+    name: "NumberSubmit",
     data() {
       return {
         numberInput: 0,
@@ -636,11 +636,11 @@ export default store;
 </template>
 
 <script>
-  import NumberDisplay from '../components/pass-data-3/NumberDisplay';
-  import NumberSubmit from '../components/pass-data-3/NumberSubmit';
+  import NumberDisplay from "../components/pass-data-3/NumberDisplay";
+  import NumberSubmit from "../components/pass-data-3/NumberSubmit";
 
   export default {
-    name: 'GlobalMode',
+    name: "GlobalMode",
     components: { NumberDisplay, NumberSubmit },
   };
 </script>
@@ -648,7 +648,7 @@ export default store;
 
 效果如下：
 
-![全局模式](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-5.gif)
+![全局模式](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-pass-data-5.gif)
 
 可以看到，我们使用这种方式也可以实现组件间的通讯。
 
@@ -656,6 +656,6 @@ export default store;
 
 最后，我们画个图总结一下 `Vue` 组件间的通讯：
 
-![Vue组件间的通讯](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-pass-data-in-components.png)
+![Vue组件间的通讯](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-pass-data-in-components.png)
 
 > 本节内容代码地址：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-component-communication

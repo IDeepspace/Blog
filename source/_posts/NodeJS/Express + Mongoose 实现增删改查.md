@@ -84,11 +84,11 @@ $ npm install ejs --save
 然后在 `app.js` 中将模板引擎修改成 ejs :
 
 ```javascript
-const ejs = require('ejs');
+const ejs = require("ejs");
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.engine('html', ejs.__express);
-app.set('view engine', 'html');
+app.set("views", path.join(__dirname, "views"));
+app.engine("html", ejs.__express);
+app.set("view engine", "html");
 ```
 
 `ejs` 有 3 种常用标签：
@@ -141,21 +141,21 @@ app.set('view engine', 'html');
 在 `app.js` 文件中，已经帮我们设置好了这两个路由：
 
 ```javascript
-var index = require('./routes/index');
-var users = require('./routes/users');
-app.use('/', index);
-app.use('/users', users);
+var index = require("./routes/index");
+var users = require("./routes/users");
+app.use("/", index);
+app.use("/users", users);
 ```
 
 浏览器访问 <http://localhost:3000/users> ，就能访问到 `users` 对应的页面。我们来看看路由里 `users.js` 是怎么写的：
 
 ```javascript
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+router.get("/", function (req, res, next) {
+  res.send("respond with a resource");
 });
 
 module.exports = router;
@@ -164,9 +164,9 @@ module.exports = router;
 `express.Router` 类创建模块化、可挂载的路由句柄。我们修改上面代码来创建用户列表的路由 `users/list` :
 
 ```javascript
-router.get('/list', (req, res, next) => {
-  const list = [{ _id: 1, username: 'Deepspace', email: 'cxin1427@qq.com' }];
-  res.render('UserList', {
+router.get("/list", (req, res, next) => {
+  const list = [{ _id: 1, username: "Deepspace", email: "cxin1427@qq.com" }];
+  res.render("UserList", {
     user: list,
   });
 });
@@ -176,7 +176,7 @@ router.get('/list', (req, res, next) => {
 
 `res.render()` 方法接收两个参数：第一个参数为视图文件名，第二个参数是一个对象，用于向模板中传递数据，`user` 就是在这里传过去的。更改完路由之后我们重启服务器，访问 <http://localhost:3000/users/list> 就可以看到用户列表页面了。
 
-![用户列表](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/express-2.png)
+![用户列表](https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/express-2.png)
 
 但是用户列表中的数据是写死的，我们应该从数据库中获取，下面我们来做这个工作。
 
@@ -202,25 +202,25 @@ $ npm install mongoose --save
 我们根目录下新建一个 `models` 目录，在此目录下创建一个 `db.js` 文件，内容如下：
 
 ```javascript
-const mongoose = require('mongoose'),
-  DB_URL = 'mongodb://localhost:27017/usersdb';
+const mongoose = require("mongoose"),
+  DB_URL = "mongodb://localhost:27017/usersdb";
 
 /*连接*/
 mongoose.connect(DB_URL);
 
 /*连接成功*/
-mongoose.connection.on('connected', function () {
-  console.log('Mongoose connection open to ' + DB_URL);
+mongoose.connection.on("connected", function () {
+  console.log("Mongoose connection open to " + DB_URL);
 });
 
 /*连接异常*/
-mongoose.connection.on('error', function (err) {
-  console.log('Mongoose connection error: ' + err);
+mongoose.connection.on("error", function (err) {
+  console.log("Mongoose connection error: " + err);
 });
 
 /*连接断开*/
-mongoose.connection.on('disconnected', function () {
-  console.log('Mongoose connection disconnected');
+mongoose.connection.on("disconnected", function () {
+  console.log("Mongoose connection disconnected");
 });
 ```
 
@@ -245,7 +245,7 @@ module.exports = mongoose;
 下面我们定义一个 Schema，命名为 `userModel.js` , 内容如下：
 
 ```javascript
-const mongoose = require('./db.js'),
+const mongoose = require("./db.js"),
   Schema = mongoose.Schema;
 
 var userSchema = new Schema({
@@ -258,7 +258,7 @@ var userSchema = new Schema({
 
 **Schema Types 内置类型如下：**
 
-![](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/Schema-Types.png)
+![](https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/Schema-Types.png)
 
 #### 5. 生成 Model
 
@@ -267,7 +267,7 @@ var userSchema = new Schema({
 这里的 `userSchema` 还不能对数据库进行操作，只是定义了数据模型属性 `username` , `email` 为字符串类型。需要将该 Schema 发布为 Model。**Model 是由 Schema 发布生成的模型，可以对数据库的操作。**
 
 ```javascript
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model("user", userSchema);
 ```
 
 ### 五、实现增删改查
@@ -277,14 +277,14 @@ module.exports = mongoose.model('user', userSchema);
 在 `user.js` 路由文件里，我们来引入 `userModel.js` 进行数据库操作。
 
 ```javascript
-const userModel = require('../models/userModel.js');
+const userModel = require("../models/userModel.js");
 
-router.get('/list', function (req, res, next) {
+router.get("/list", function (req, res, next) {
   userModel.find(function (err, data) {
     if (err) {
       return console.log(err);
     }
-    res.render('UserList', {
+    res.render("UserList", {
       user: data,
     });
   });
@@ -317,15 +317,15 @@ router.get('/list', function (req, res, next) {
 在 `user.js` 路由文件里来添加对应视图的路由:
 
 ```javascript
-router.get('/add', function (req, res, next) {
-  res.render('UserAdd');
+router.get("/add", function (req, res, next) {
+  res.render("UserAdd");
 });
 ```
 
 这是渲染视图页面的路由，我们需要添加一个 post 方法的路由，在点击提交按钮的时候，把数据存进数据库里。
 
 ```javascript
-router.post('/add', function (req, res, next) {
+router.post("/add", function (req, res, next) {
   var newUser = new userModel({
     username: req.body.username,
     email: req.body.email,
@@ -334,7 +334,7 @@ router.post('/add', function (req, res, next) {
     if (err) {
       return console.log(err);
     }
-    res.redirect('/users/list');
+    res.redirect("/users/list");
   });
 });
 ```
@@ -365,16 +365,16 @@ router.post('/add', function (req, res, next) {
 添加对应的路由：`/users/edit/:id` 来渲染视图，`/users/update` 来修改数据库数据 :
 
 ```javascript
-router.get('/edit/:id', function (req, res, next) {
+router.get("/edit/:id", function (req, res, next) {
   var id = req.params.id;
   userModel.findOne({ _id: id }, function (err, data) {
-    res.render('UserEdit', {
+    res.render("UserEdit", {
       user: data,
     });
   });
 });
 
-router.post('/update', function (req, res, next) {
+router.post("/update", function (req, res, next) {
   var id = req.body.id;
   userModel.findById(id, function (err, data) {
     if (err) {
@@ -383,7 +383,7 @@ router.post('/update', function (req, res, next) {
     data.username = req.body.username;
     data.email = req.body.email;
     data.save(function (err) {
-      res.redirect('/users/list');
+      res.redirect("/users/list");
     });
   });
 });
@@ -396,13 +396,13 @@ router.post('/update', function (req, res, next) {
 在用户列表中，点击删除按钮，就把该用户从数据库中给删除了，不需要视图，直接写路由。
 
 ```javascript
-router.delete('/del', function (req, res) {
+router.delete("/del", function (req, res) {
   var id = req.query.id;
   userModel.remove({ _id: id }, function (err, data) {
     if (err) {
       return console.log(err);
     }
-    res.json({ code: 200, msg: '删除成功' });
+    res.json({ code: 200, msg: "删除成功" });
   });
 });
 ```
@@ -410,11 +410,11 @@ router.delete('/del', function (req, res) {
 点击按钮，发送删除的请求，那我们可以使用 ajax 来实现。在用户列表页面引入 jquery，方便我们操作。然后添加 ajax 请求.
 
 ```javascript
-$('.del').on('click', function () {
-  var id = $(this).data('id');
+$(".del").on("click", function () {
+  var id = $(this).data("id");
   $.ajax({
-    url: '/users/del?id=' + id,
-    type: 'delete',
+    url: "/users/del?id=" + id,
+    type: "delete",
     success: function (res) {
       console.log(res);
     },

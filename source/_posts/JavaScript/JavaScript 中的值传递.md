@@ -77,12 +77,12 @@ console.log(obj.value); // 1
 我们知道：基本类型值存储于栈内存中，传递的就是当前值，修改不会影响原有变量的值；引用类型值其实也存于栈内存中，只是它的值是指向堆内存当中实际值的一个地址，如下图所示：
 
 ```javascript
-var person1 = { name: '陈星星' };
-var person2 = { name: 'Deepspace' };
-var person3 = { name: '陈鑫' };
+var person1 = { name: "陈星星" };
+var person2 = { name: "Deepspace" };
+var person3 = { name: "陈鑫" };
 ```
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
 
 所以引用传递传的其实是**栈内存当中的引用地址**。回到上面的例子中：
 
@@ -128,9 +128,9 @@ console.log(obj.value); // 1
 
 ```javascript
 function changeObjProperty(o) {
-  o.siteUrl = 'http://www.baidu.com';
+  o.siteUrl = "http://www.baidu.com";
   o = new Object();
-  o.siteUrl = 'http://www.google.com';
+  o.siteUrl = "http://www.google.com";
 }
 
 const webSite = new Object();

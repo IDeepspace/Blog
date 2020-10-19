@@ -232,7 +232,7 @@ $ javac
 
 如下图所示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/java-run-process.png" alt="Java 程序运行过程" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/java-run-process.png" alt="Java 程序运行过程" style="zoom:50%;" />
 
 **`Java` 编译器**
 

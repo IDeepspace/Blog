@@ -37,10 +37,10 @@ urlname: react-virtual-dom-and-diff
 同时，真实的 `DOM` 上的属性是非常多的，一个简单的 `div` 上绑定的属性也很复杂：
 
 ```javascript
-var div = document.createElement('div');
-var str = '';
+var div = document.createElement("div");
+var str = "";
 for (const key in div) {
-  str = str += key + ' ';
+  str = str += key + " ";
 }
 console.log(str);
 ```
@@ -55,16 +55,16 @@ console.log(str);
 
 ```javascript
 const VitrualDOM = {
-  tagName: 'ul', // 节点标签名
+  tagName: "ul", // 节点标签名
   props: {
     // DOM的属性，用一个对象存储键值对
-    id: 'list',
+    id: "list",
   },
   children: [
     // 该节点的子节点
-    { tagName: 'li', props: { class: 'item' }, children: ['1'] },
-    { tagName: 'li', props: { class: 'item' }, children: ['2'] },
-    { tagName: 'li', props: { class: 'item' }, children: ['3'] },
+    { tagName: "li", props: { class: "item" }, children: ["1"] },
+    { tagName: "li", props: { class: "item" }, children: ["2"] },
+    { tagName: "li", props: { class: "item" }, children: ["3"] },
   ],
 };
 ```
@@ -93,13 +93,13 @@ const VitrualDOM = {
 
 在比较的过程中，只比较同级的节点，非同级的节点不在比较范围内，这样既可以满足更新视图的需求，又可以简化算法实现，这样算法复杂度就可以达到 `O(n)`。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-1.png" alt="diff 算法" style="zoom: 75%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/react-diff-1.png" alt="diff 算法" style="zoom: 75%;" />
 
 <p align='center'>（图片来自网络）</p>
 
 比较新旧两棵树的差异时，首先会对树进行遍历。常用的有两种遍历算法，分别是深度优先遍历和广度优先遍历。一般的 `diff` 算法中都采用的是**深度优先遍历**。**对新旧两棵树进行一次深度优先的遍历，这样每个节点就都会有一个唯一的标记。**
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-2.png" alt="diff 算法" style="zoom: 75%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/react-diff-2.png" alt="diff 算法" style="zoom: 75%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -180,7 +180,7 @@ function h(type, props, ...children) {
 然后就可以像下面这样表示：
 
 ```javascript
-h('ul', { class: 'list' }, h('li', {}, 'item 1'), h('li', {}, 'item 2'));
+h("ul", { class: "list" }, h("li", {}, "item 1"), h("li", {}, "item 2"));
 ```
 
 这样看起来清晰了很多，当 `h(...)` 执行之后，将会返回纯的 `JavaScript` 对象，即我们的虚拟 `DOM`。
@@ -198,10 +198,10 @@ h('ul', { class: 'list' }, h('li', {}, 'item 1'), h('li', {}, 'item 2'));
 
 ```javascript
 React.createElement(
-  'ul',
-  { className: 'list' },
-  React.createElement('li', {}, 'item 1'),
-  React.createElement('li', {}, 'item 2')
+  "ul",
+  { className: "list" },
+  React.createElement("li", {}, "item 1"),
+  React.createElement("li", {}, "item 2")
 );
 ```
 
@@ -225,7 +225,7 @@ React.createElement(
 
 ```javascript
 function createElement(node) {
-  if (typeof node === 'string') {
+  if (typeof node === "string") {
     return document.createTextNode(node);
   }
   const $el = document.createElement(node.type);
@@ -250,7 +250,7 @@ function h(type, props, ...children) {
 }
 
 function createElement(node) {
-  if (typeof node === 'string') {
+  if (typeof node === "string") {
     return document.createTextNode(node);
   }
   const $el = document.createElement(node.type);
@@ -259,13 +259,13 @@ function createElement(node) {
 }
 
 const a = (
-  <ul class='list'>
+  <ul class="list">
     <li>item 1</li>
     <li>item 2</li>
   </ul>
 );
 
-const $root = document.getElementById('root');
+const $root = document.getElementById("root");
 $root.appendChild(createElement(a));
 ```
 
@@ -279,7 +279,7 @@ $root.appendChild(createElement(a));
 function changed(node1, node2) {
   return (
     typeof node1 !== typeof node2 ||
-    (typeof node1 === 'string' && node1 !== node2) ||
+    (typeof node1 === "string" && node1 !== node2) ||
     node1.type !== node2.type
   );
 }
@@ -312,7 +312,7 @@ function updateElement($parent, newNode, oldNode, index = 0) {
 
 打开开发人员工具，观察当你按下“重新加载”按钮时，可以看到应用的变化：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/react-diff-3.gif" alt="自己实现虚拟 DOM 树" />
 
 > 实现的例子参考自完整代码：https://jsfiddle.net/cxin1427/cvdgtqup/
 

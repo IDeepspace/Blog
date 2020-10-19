@@ -23,10 +23,10 @@ urlname: vue-lifecycle
 
 ```javascript
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   components: { App },
-  template: '<App/>',
+  template: "<App/>",
 });
 ```
 
@@ -36,7 +36,7 @@ new Vue({
 
 ```javascript
 // 定义一个名为 button-counter 的新组件
-Vue.component('button-counter', {
+Vue.component("button-counter", {
   data: function () {
     return {
       count: 0,
@@ -58,7 +58,7 @@ Vue.component('button-counter', {
 
 **生命周期图示：**
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-lifecycle.png" alt="lifecycle" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-lifecycle.png" alt="lifecycle" style="zoom: 50%;" />
 
 <p align="center">(图片来自网络)</p>
 图中，红色矩形框代表着在生命周期对应阶段的钩子函数。
@@ -85,10 +85,10 @@ Vue.component('button-counter', {
 </template>
 
 <script>
-  const compName = 'single';
+  const compName = "single";
 
   export default {
-    name: 'SingleComLifecycle',
+    name: "SingleComLifecycle",
     data() {
       return {
         dataVar: 1,
@@ -193,9 +193,9 @@ Vue.component('button-counter', {
 </template>
 
 <script>
-  import ChildCom from './ChildCom';
+  import ChildCom from "./ChildCom";
 
-  const COMPONENT_NAME = 'parent';
+  const COMPONENT_NAME = "parent";
   export default {
     data() {
       return {
@@ -203,7 +203,7 @@ Vue.component('button-counter', {
       };
     },
     components: {
-      'child-com': ChildCom,
+      "child-com": ChildCom,
     },
     beforeCreate() {
       console.log(`--${COMPONENT_NAME}--beforeCreate`); // eslint-disable-line
@@ -277,7 +277,7 @@ Vue.component('button-counter', {
     props: {
       compName: {
         type: String,
-        default: 'single',
+        default: "single",
       },
     },
     beforeCreate() {
@@ -397,7 +397,7 @@ Vue.component('button-counter', {
     props: {
       compName: {
         type: String,
-        default: 'single',
+        default: "single",
       },
     },
     beforeCreate() {
@@ -474,9 +474,9 @@ Vue.component('button-counter', {
 </template>
 
 <script>
-  import Single from './Single';
+  import Single from "./Single";
 
-  const COMPONENT_NAME = 'parent';
+  const COMPONENT_NAME = "parent";
   export default {
     data() {
       return {

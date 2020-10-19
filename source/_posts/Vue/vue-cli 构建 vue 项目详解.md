@@ -77,7 +77,7 @@ $ npm run dev
 
 项目默认会在 8080 端口启动，如果端口有占用，会自动调整端口。打开浏览器输入：`http://localhost:8080`，会看到构建的项目的主页：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-init-project.png" alt="vue-init-project" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-init-project.png" alt="vue-init-project" style="zoom: 50%;" />
 
 #### 4、目录结构
 
@@ -125,9 +125,9 @@ $ npm run dev
 
 ```javascript
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname, "../"),
   entry: {
-    app: './src/main.js',
+    app: "./src/main.js",
   },
   // ...
 };
@@ -138,18 +138,18 @@ module.exports = {
 ```javascript
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import App from './App';
-import router from './router';
+import Vue from "vue";
+import App from "./App";
+import router from "./router";
 
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   components: { App },
-  template: '<App/>',
+  template: "<App/>",
 });
 ```
 
@@ -205,17 +205,17 @@ export default {
 #### 3、router/index.js
 
 ```javascript
-import Vue from 'vue';
-import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Vue from "vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
+      path: "/",
+      name: "HelloWorld",
       component: HelloWorld,
     },
   ],
@@ -236,18 +236,18 @@ export default new Router({
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
+      path: "/",
+      name: "HelloWorld",
       component: HelloWorld,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: "/about",
+      name: "about",
       component: About,
     },
     {
-      path: '/vue',
-      name: 'vue',
+      path: "/vue",
+      name: "vue",
       component: Vue,
     },
   ],
@@ -260,26 +260,26 @@ export default new Router({
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
+      path: "/",
+      name: "HelloWorld",
       component: HelloWorld,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: "/about",
+      name: "about",
       component: About,
     },
     {
-      path: '/vue',
-      name: 'vue',
+      path: "/vue",
+      name: "vue",
       component: Vue,
       children: [
         {
-          path: '/demo',
+          path: "/demo",
           component: demo,
         },
         {
-          path: '/project',
+          path: "/project",
           component: project,
         },
       ],
@@ -296,4 +296,4 @@ export default new Router({
 
 ### 三、总结
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-core-structure.png" alt="vue-core-structure" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-core-structure.png" alt="vue-core-structure" style="zoom:50%;" />

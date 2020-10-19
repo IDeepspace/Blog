@@ -16,7 +16,7 @@ urlname: webpack-performance-enhancement
 
 `webpack` 是一种前端资源构建工具，它是一个**静态模块打包器**（`module bundler`）。在 `webpack` 中，前端的所有资源文件（`javascript/json/css/img/less/...`）都会作为模块处理，当 `webpack` 处理应用程序时,它会递归地构建一个依赖关系图（`dependency graph`），其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 `bundle`。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/webpack.png" alt="image-20200511205102019" style="zoom:50%;" />
 
 <p align='center'>（图片来自网络）</p>
 <!-- more -->
@@ -181,11 +181,11 @@ module.exports = {
         oneOf: [
           {
             resourceQuery: /inline/, // foo.css?inline
-            use: 'url-loader',
+            use: "url-loader",
           },
           {
             resourceQuery: /external/, // foo.css?external
-            use: 'file-loader',
+            use: "file-loader",
           },
         ],
       },
@@ -299,7 +299,7 @@ module.exports = {
 externals: {
   // 拒绝jQuery被打包进来
   // 忽略库名 -- npm 包名
-  jquery: 'jQuery';
+  jquery: "jQuery";
 }
 ```
 
@@ -361,8 +361,8 @@ externals: {
 - 懒加载（延迟加载）：当文件需要使用时才加载。
 
   ```javascript
-  document.getElementById('btn').onclick = function () {
-    import(/* webpackChunkName: 'test' */ './test').then(({ mul }) => {
+  document.getElementById("btn").onclick = function () {
+    import(/* webpackChunkName: 'test' */ "./test").then(({ mul }) => {
       console.log(mul(4, 5));
     });
   };
@@ -371,8 +371,8 @@ externals: {
 - 预加载 `prefetch`：会在使用之前，提前加载 `js` 文件，等其他资源加载完毕，浏览器空闲了，再偷偷加载资源（兼容性比较差）。
 
   ```javascript
-  document.getElementById('btn').onclick = function () {
-    import(/* webpackChunkName: 'test', webpackPrefetch: true */ './test').then(
+  document.getElementById("btn").onclick = function () {
+    import(/* webpackChunkName: 'test', webpackPrefetch: true */ "./test").then(
       ({ mul }) => {
         console.log(mul(4, 5));
       }
@@ -403,15 +403,15 @@ new WorkboxWebpackPlugin.GenerateSW({
 2、注册 `serviceWorker`，并处理兼容性问题：
 
 ```javascript
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register('/service-worker.js')
+      .register("/service-worker.js")
       .then(() => {
-        console.log('sw注册成功了~');
+        console.log("sw注册成功了~");
       })
       .catch(() => {
-        console.log('sw注册失败了~');
+        console.log("sw注册失败了~");
       });
   });
 }

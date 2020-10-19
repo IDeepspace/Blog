@@ -10,7 +10,7 @@ urlname: svelte-begin
 
 [Svelte](https://svelte.dev/)（发音：[svelt]）是一个类似于 `React` 和 `Vue` 的前端框架，作者是 [Rich Harris](https://github.com/Rich-Harris)，同时也是 [Rollup](https://rollupjs.org/guide/en/) 的作者。
 
-### 编译器而非框架（无运行时）
+### 一、编译器而非框架（无运行时）
 
 说 `Svelte` 是框架是不合适的，它其实是一个编译器，而不是像 `React` 和 `Vue` 这样的依赖项。
 
@@ -22,7 +22,7 @@ urlname: svelte-begin
 
 因为没有运行时，所以使用 `Svelte` 开发的组件编译后不需要额外的依赖，**可以单独使用**，在 `React`、`Vue` 项目中可以非常方便地直接引入使用。
 
-### 如何做到高性能
+### 二、如何做到高性能
 
 `React` 和 `Vue` 这类框架都采用了虚拟 `DOM`，我们知道 `Virtual DOM` 在很多场景下会提高应用性能，那没有 `Virtual DOM` 的 `Svelte` 是如何做到高性能的呢？
 
@@ -90,7 +90,7 @@ function renderMainFragment(root, component, target) {
 
 注意，这里提到的重新渲染（`Re-render`）并不是说原生 `DOM` 被重新渲染了，而是指自定义的类组件的 `render` 方法或者组件函数被重新执行。组件被重新渲染是因为**虚拟 `DOM` 是建立在 `diff` 算法上的**，而如果要有 `diff`，就一定要将组件重新渲染，生成一棵新的虚拟 `DOM` 树（`React` 会在内存中维护两棵虚拟 `DOM` 树），这样才能知道组件的新状态和旧状态相比有没有发生改变，进而计算出哪些 `DOM` 节点需要被更新。
 
-![1597306267239-412d18d3-b1d1-47ff-a017-5270f9f815b6.png](D:\personal\ImageHosting\Svelte\react-virtual-dom-work.png)
+![1597306267239-412d18d3-b1d1-47ff-a017-5270f9f815b6.png](https://gitee.com/IDeepspace/image-hosting/raw/master/Svelte/react-virtual-dom-work.png)
 
 <p align="center">（图片来源：https://www.youtube.com/watch?v=AdNJ3fydeao）</p>
 
@@ -105,23 +105,23 @@ function renderMainFragment(root, component, target) {
 
 `Svelte` 使用**位掩码（`bitMask`）**的技术来跟踪哪些数据是**脏**的 —— 即自组件最后一次更新以来，哪些数据发生了哪些更改。举个例子，假设有 `A`、`B`、`C`、`D` 四个值，那么二进制 `0000 0001` 表示第一个值 `A` 发生了改变，`0000 0010` 表示第二个值 `B` 发生了改变，以此类推。这种表示方法可以最大程度利用空间，比如十进制数字 `3` （转变为二进制 `0000 0011`）就可以表示 `A`、`B` 两个数据是脏数据，其余数据都是干净的。
 
-![image.png](D:\personal\ImageHosting\Svelte\svelte-work-1.png)
+![image.png](https://gitee.com/IDeepspace/image-hosting/raw/master/Svelte/svelte-work-1.png)
 
 但是，`JavaScript` 中的二进制有 `31` 位限制（`32`位，减去 `1` 位用来存放正负符号），如果采用二进制位存储的方法，那么一个 `Svelte` 组件中最多只能存放 `31` 个数据。所以，`Svelte` 采用数组（在 `Svelte` 中这个数组被叫作 `component.?.dirty`）来存放，数组中一项是二进制 `31` 位的比特位。假如超出 `31` 个数据了，超出的部分放到数组中的下一项。
 
-![image.png](D:\personal\ImageHosting\Svelte\svelte-work-2.png)
+![image.png](https://gitee.com/IDeepspace/image-hosting/raw/master/Svelte/svelte-work-2.png)
 
 所以，设置脏数据，就是把 `component.?.dirty` 数组二进制对应的比特位设置为 `1`。这个时候，`Svelte` 其实就已经保存好了**数据与真实 `DOM` 节点之间的对应关系**。`Svelte` 会走入不同的 if 体内直接更新对应的 `DOM` 节点，而不需要复杂虚拟 `DOM` 的 `diff` 算出需要更新哪些 `DOM` 节点。并且，在 `Svelte` 编译时，就已经分析好了数据与真实 `DOM` 节点之间的对应关系，在数据发生改变时，可以非常高效地调用更新 `DOM` 的方法来更新节点。
 
-### 构建产物体积非常小
+### 三、构建产物体积非常小
 
 得益于无运行时的特性，并且对于特定功能，在编译时，如果一个功能没用到，对应的代码就根本不会被编译到结果里，所以，`Svelte` 应用的最终代码打包体积非常小。
 
-![image.png](D:\personal\ImageHosting\Svelte\svelte-compare.png)
+![image.png](https://gitee.com/IDeepspace/image-hosting/raw/master/Svelte/svelte-compare.png)
 
 > 对比结果来源：https://www.freecodecamp.org/news/a-realworld-comparison-of-front-end-frameworks-with-benchmarks-2019-update-4be0d3c78075/
 
-### 真正的响应式编程
+### 四、真正的响应式编程
 
 响应式编程，是指不直接进行目标操作，而是通过**代理**的方式达到目标操作的目的。举个例子：
 
@@ -164,7 +164,7 @@ console.log(b); // 30
 
 当 `Svelte` 看到任何带有 `$:` 前缀的语句时，它就知道要将右边的变量赋值给左边的变量，而不需要使用 `let` 将一个变量的值绑定到另一个变量；并且 `Svelte` 可以以响应式的方式运行任何语句，如上面的例子，在 `count` 变化时，也可以用通过响应式的 if 语句来记录并响应它的改变。
 
-![image](D:\personal\ImageHosting\Svelte\svelte-$.gif)
+![image](https://gitee.com/IDeepspace/image-hosting/raw/master/Svelte/svelte-$.gif)
 
 但是要**注意**：`Svelte` 的响应是基于赋值操作的，数组的 `push`、`splice` 等操作不会触发响应式更新。例如：
 
@@ -189,7 +189,7 @@ numbers = [...numbers, numbers.length + 1];
 ...
 ```
 
-### 自动订阅的 Store
+### 五、自动订阅的 Store
 
 `Svelte` 内置了一套状态管理功能，响应式的 `store` 在组件之间共享状态非常方便。使用的时候，`store` 放在单独的 `JS` 文件里，只需用 `writable` 封装一个值就可以创建了。
 
@@ -248,27 +248,27 @@ export const count = writable(0);
 
 相比于 `redux`，`Svelte` 的 `store` 功能用起来非常简洁。
 
-### 支持 TypeScript
+### 六、支持 TypeScript
 
 `Svelte3` 开始支持 `TypeScript`：https://svelte.dev/blog/svelte-and-typescript
 
-### Scoped style
+### 七、Scoped style
 
 和组件相关的样式代码会放在 `style` 标签里，这里的 `CSS` 是局部生效的（`scope`），不会影响到其它组件。
 
-### 语法简洁
+### 八、语法简洁
 
 `Svelte` 的语法相当简洁，官方的 `REPL`（`Read Eval Print Loop`：交互式解释器）非常好用。
 
 通过官方提供的教程，可以快速学习 `Svelte` 的语法：https://svelte.dev/tutorial/basics
 
-### 劣势
+### 九、劣势
 
 #### 1、路由
 
 目前官方的路由工具 `Sapper` 还并不完善，处于早期开发阶段，且一些 `API` 在未来 `1.0` 正式版中可能会发生一些变化。对于正式的交付项目来说，这是一个不小的隐患。
 
-![1597374939437-b97c970c-8b0d-4802-ba75-ffd8ba1c25f9.png](D:\personal\ImageHosting\Svelte\sapper.png)
+![1597374939437-b97c970c-8b0d-4802-ba75-ffd8ba1c25f9.png](https://gitee.com/IDeepspace/image-hosting/raw/master/Svelte/sapper.png)
 
 也有一些第三方的路由工具可以选择，目前相对完善一些的有：
 
@@ -318,7 +318,7 @@ function increment() {
 
 因为是新兴前端框架，没有多少企业在一些大型项目中投入使用，最终的 `Svelte` 性能表现还有待验证。
 
-### 参考文章
+### 十、参考文章
 
 - [Svelte 更新渲染原理](https://juejin.im/post/6844904100656594957)
 - [如何看待 svelte 这个前端框架？](https://www.zhihu.com/question/53150351)

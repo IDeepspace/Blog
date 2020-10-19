@@ -34,7 +34,7 @@ $ npm start
 
 执行完上述命令之后，你可以直接打开 http://localhost:3000，即可以看到你 `React APP` 的运行效果：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/create-react-app.png" alt="create-react-app" style="zoom: 25%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/create-react-app.png" alt="create-react-app" style="zoom: 25%;" />
 
 **目录结构：**
 
@@ -61,7 +61,7 @@ my-app
 一个简单 `Hello World` 的例子：
 
 ```jsx
-ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('root'));
+ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 ```
 
 ### 二、JSX 简介
@@ -73,18 +73,18 @@ ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const user = {
-  firstName: 'React',
-  lastName: 'Hello',
+  firstName: "React",
+  lastName: "Hello",
 };
 
 const formatName = (user) => `${user.firstName}  ${user.lastName}`;
 const element = <h1>Hello, {formatName(user)}</h1>;
 
-ReactDOM.render(element, document.getElementById('root'));
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 推荐在 `JSX` 代码的外面扩上一个小括号，这样可以防止 [分号自动插入](http://stackoverflow.com/q/2846283) 的 `bug`。
@@ -96,12 +96,12 @@ ReactDOM.render(element, document.getElementById('root'));
 `index.js`：
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const user = {
-  firstName: 'E2E',
-  lastName: 'team',
+  firstName: "E2E",
+  lastName: "team",
 };
 
 const formatName = (user) => `${user.firstName}  ${user.lastName}`;
@@ -115,7 +115,7 @@ const getGreeting = (user) => {
 
 const element = <div>{getGreeting(user)}!</div>;
 
-ReactDOM.render(element, document.getElementById('root'));
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 #### 3、JSX 嵌套
@@ -144,7 +144,7 @@ const element = (
 - 可以使用引号来定义以字符串为值的属性：
 
 ```jsx
-const element = <div tabIndex='0' />;
+const element = <div tabIndex="0" />;
 ```
 
 注意：由于相对`HTML` 而言，`JSX` 更加类似于`JavaScript`，`React DOM` 使用驼峰命名代替 `HTML` 中的属性名。
@@ -182,14 +182,14 @@ const element = <div dangerouslySetInnerHTML={{ __html: content }} />;
 下面两种代码的作用是完全相同的：
 
 ```jsx
-const element = <h1 className='greeting'>Hello, world!</h1>;
+const element = <h1 className="greeting">Hello, world!</h1>;
 ```
 
 ```jsx
 const element = React.createElement(
-  'h1',
-  { className: 'greeting' },
-  'Hello, world!'
+  "h1",
+  { className: "greeting" },
+  "Hello, world!"
 );
 ```
 
@@ -198,10 +198,10 @@ const element = React.createElement(
 ```jsx
 // 注意: 以下示例是简化过的（不代表在 React 源码中是这样）
 const element = {
-  type: 'h1',
+  type: "h1",
   props: {
-    className: 'greeting',
-    children: 'Hello, world',
+    className: "greeting",
+    children: "Hello, world",
   },
 };
 ```
@@ -217,12 +217,12 @@ const element = {
 `index.js`
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const element = <h1>Hello, world</h1>;
 
-ReactDOM.render(element, document.getElementById('root'));
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 这里 `element` 就是一个元素， 元素描述了我们在屏幕上会看到什么。`React` 元素不是组件，组件由元素构成。
@@ -236,8 +236,8 @@ ReactDOM.render(element, document.getElementById('root'));
 `Index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const tick = () => {
   const element = (
@@ -246,13 +246,13 @@ const tick = () => {
       <h2>It is {new Date().toLocaleTimeString()}.</h2>
     </div>
   );
-  ReactDOM.render(element, document.getElementById('root'));
+  ReactDOM.render(element, document.getElementById("root"));
 };
 
 setInterval(tick, 1000);
 ```
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/granular-dom-updates.gif" alt="更新必要部分" style="zoom: 67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/granular-dom-updates.gif" alt="更新必要部分" style="zoom: 67%;" />
 
 ### 四、组件&Props
 
@@ -265,15 +265,15 @@ setInterval(tick, 1000);
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const Welcome = (props) => {
   return <h1>Hello, {props.name}</h1>;
 };
-const element = <Welcome name='Sara' />;
+const element = <Welcome name="Sara" />;
 
-ReactDOM.render(element, document.getElementById('root'));
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 这个函数就是一个完整的 `React` 组件，因为它接收一个 `props` 对象作为参数，返回一个 `React` 元素。这样的组件叫做函数式组件。
@@ -285,8 +285,8 @@ ReactDOM.render(element, document.getElementById('root'));
 `index.js`：
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Welcome extends React.Component {
   render() {
@@ -294,9 +294,9 @@ class Welcome extends React.Component {
   }
 }
 
-const element = <Welcome name='Sara' />;
+const element = <Welcome name="Sara" />;
 
-ReactDOM.render(element, document.getElementById('root'));
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 从 `React` 的角度，上面两个组件是等价的。不过 `class` 式组件功能会多一些。
@@ -310,8 +310,8 @@ ReactDOM.render(element, document.getElementById('root'));
 `index.js`：
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Welcome extends React.Component {
   render() {
@@ -322,14 +322,14 @@ class Welcome extends React.Component {
 const App = () => {
   return (
     <div>
-      <Welcome name='Sara' />
-      <Welcome name='Cahal' />
-      <Welcome name='Edite' />
+      <Welcome name="Sara" />
+      <Welcome name="Cahal" />
+      <Welcome name="Edite" />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 浏览器中，显示了三个 `Welcome` 。
@@ -343,8 +343,8 @@ ReactDOM.render(<App />, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Clock extends React.Component {
   constructor(props) {
@@ -362,7 +362,7 @@ class Clock extends React.Component {
 }
 const element = <Clock />;
 
-ReactDOM.render(element, document.getElementById('root'));
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 `Clock` 是一个 `class` 式组件。里面初始化了 `state` 值。然后 `render` 函数中，显示出了这个 `state` 值。
@@ -376,8 +376,8 @@ ReactDOM.render(element, document.getElementById('root'));
 `index.js`：
 
 ```jsx
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 class Clock extends Component {
   constructor(props) {
@@ -409,7 +409,7 @@ class Clock extends Component {
   }
 }
 
-ReactDOM.render(<Clock />, document.getElementById('root'));
+ReactDOM.render(<Clock />, document.getElementById("root"));
 ```
 
 组件初次渲染之后，会自动执行 `componentDidMount` 这个生命周期方法，这里面我们设置一个定时器，每秒钟执行一下 `tick` 方法。这里把定时器 `id` 赋值给了 `this.timerID` 。
@@ -432,8 +432,8 @@ ReactDOM.render(<Clock />, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 class Toggle extends Component {
   constructor(props) {
@@ -453,13 +453,13 @@ class Toggle extends Component {
   render() {
     return (
       <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
+        {this.state.isToggleOn ? "ON" : "OFF"}
       </button>
     );
   }
 }
 
-ReactDOM.render(<Toggle />, document.getElementById('root'));
+ReactDOM.render(<Toggle />, document.getElementById("root"));
 ```
 
 **注意**：类的方法默认是不会[绑定](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind) `this` 的。可以将 `handleClick` 直接赋值为一个 `es6` 箭头函数，这样的好处是里面直接使用 `this` 而无需绑定。由于 `this.setState` 的异步性，所以参数不能传入对象，而要传入一个函数，才能稳妥的基于之前的状态来获得最新状态值。
@@ -471,8 +471,8 @@ ReactDOM.render(<Toggle />, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 class List extends React.Component {
   deleteRow = (id) => {
@@ -484,7 +484,7 @@ class List extends React.Component {
   }
 }
 
-ReactDOM.render(<List />, document.getElementById('root'));
+ReactDOM.render(<List />, document.getElementById("root"));
 ```
 
 比如有一个列表，这里封装成 List 组件。里面 `deleteRow` 需要接受行号，这里就是 id ，才能知道要删除哪一行的内容。
@@ -514,8 +514,8 @@ ReactDOM.render(<List />, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const UserGreeting = () => <h1>Welcome back!</h1>;
 const GuestGreeting = () => <h1>Please sign up.</h1>;
@@ -530,7 +530,7 @@ const Greeting = (props) => {
 
 ReactDOM.render(
   <Greeting isLoggedIn={true} />,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -545,8 +545,8 @@ ReactDOM.render(
 `index.js` :
 
 ```jsx
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 const UserGreeting = () => <h1>Welcome Back</h1>;
 const GuestGreeting = () => <h1>Please Sign Up</h1>;
@@ -595,7 +595,7 @@ class LoginControl extends Component {
   }
 }
 
-ReactDOM.render(<LoginControl />, document.getElementById('root'));
+ReactDOM.render(<LoginControl />, document.getElementById("root"));
 ```
 
 添加两个按钮组件进来，一个是登录，一个是登出。创建一个 `LoginControl` 组件，初始化 `isLoggedIn` ，添加登录和登出对应的处理函数，里面对 `isLoggedIn` 状态值进行了修改。
@@ -607,8 +607,8 @@ ReactDOM.render(<LoginControl />, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const Mailbox = (props) => {
   const { unreadMessages } = props;
@@ -622,10 +622,10 @@ const Mailbox = (props) => {
   );
 };
 
-const messages = ['React', 'Re: React', 'Re:Re: React'];
+const messages = ["React", "Re: React", "Re:Re: React"];
 ReactDOM.render(
   <Mailbox unreadMessages={messages} />,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -670,15 +670,15 @@ render() {
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const WarningBanner = (props) => {
   if (!props.warn) {
     return null;
   }
 
-  return <div className='warning'>Warning!</div>;
+  return <div className="warning">Warning!</div>;
 };
 
 class Page extends React.Component {
@@ -698,14 +698,14 @@ class Page extends React.Component {
       <div>
         <WarningBanner warn={this.state.showWarning} />
         <button onClick={this.handleToggleClick}>
-          {this.state.showWarning ? 'Hide' : 'Show'}
+          {this.state.showWarning ? "Hide" : "Show"}
         </button>
       </div>
     );
   }
 }
 
-ReactDOM.render(<Page />, document.getElementById('root'));
+ReactDOM.render(<Page />, document.getElementById("root"));
 ```
 
 ### 八、列表 & Keys
@@ -727,10 +727,10 @@ console.log(doubled);
 `index.js` :
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-const messages = ['hello', 'hi', 'how are you'];
+const messages = ["hello", "hi", "how are you"];
 
 const List = (props) => {
   const { messages } = props;
@@ -739,7 +739,7 @@ const List = (props) => {
   return <ul>{list}</ul>;
 };
 
-ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
+ReactDOM.render(<List messages={messages} />, document.getElementById("root"));
 ```
 
 注：此时打开浏览器控制台会有报错信息：`Warning: Each child in an array or iterator should have a unique "key" prop.` 。原因是每一个列表条目都应该有一个独一无二的 `key` 。
@@ -751,21 +751,21 @@ ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 `index.js` ：
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const messages = [
   {
     id: 1,
-    text: 'React',
+    text: "React",
   },
   {
     id: 2,
-    text: 'Re: React',
+    text: "Re: React",
   },
   {
     id: 3,
-    text: 'Re:Re: React',
+    text: "Re:Re: React",
   },
 ];
 
@@ -776,7 +776,7 @@ const List = (props) => {
   return <ul>{list}</ul>;
 };
 
-ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
+ReactDOM.render(<List messages={messages} />, document.getElementById("root"));
 ```
 
 一个元素的 `key` 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用来自数据的 `id` 作为元素的 `key`。
@@ -798,13 +798,13 @@ ReactDOM.render(<List messages={messages} />, document.getElementById('root'));
 `index.js` :
 
 ```jsx
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '' };
+    this.state = { username: "" };
   }
 
   handleChange = (e) => {
@@ -823,7 +823,7 @@ class Form extends Component {
       <div>
         username:
         <input
-          type='text'
+          type="text"
           value={this.state.username}
           onChange={this.handleChange}
         />
@@ -833,7 +833,7 @@ class Form extends Component {
   }
 }
 
-ReactDOM.render(<Form />, document.getElementById('root'));
+ReactDOM.render(<Form />, document.getElementById("root"));
 ```
 
 由于 `value` 属性是在我们的表单元素上设置的，因此显示的值将始终为 `React` 数据源上`this.state.value` 的值。由于每次按键都会触发 `handleChange` 来更新当前 `React` 中的 `state`，所展示的值也会随着不同用户的输入而更新。
@@ -843,13 +843,13 @@ ReactDOM.render(<Form />, document.getElementById('root'));
 你有处理多个受控的 `input` 元素时，你可以通过给每个元素添加一个 `name` 属性，来让处理函数根据 `event.target.name` 的值来选择做什么。
 
 ```jsx
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', email: '' };
+    this.state = { username: "", email: "" };
   }
 
   handleChange = (event) => {
@@ -870,16 +870,16 @@ class Form extends Component {
       <div>
         Username:
         <input
-          name='username'
-          type='text'
+          name="username"
+          type="text"
           value={this.state.username}
           onChange={this.handleChange}
         />
         <br />
         Email:
         <input
-          name='email'
-          type='text'
+          name="email"
+          type="text"
           value={this.state.email}
           onChange={this.handleChange}
         />
@@ -890,5 +890,5 @@ class Form extends Component {
   }
 }
 
-ReactDOM.render(<Form />, document.getElementById('root'));
+ReactDOM.render(<Form />, document.getElementById("root"));
 ```

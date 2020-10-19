@@ -54,9 +54,9 @@ urlname: javascript-this
 
 ```javascript
 const person = {
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
-  phone: '1234567890',
+  phone: "1234567890",
   sayHi: function () {
     // ...
   },
@@ -77,9 +77,9 @@ const person = {
 
 ```javascript
 const person = {
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
-  phone: '1234567890',
+  phone: "1234567890",
   sayHi: function (name, age) {
     console.log(`你好，我是 ${name}，今年 ${age} 岁。`);
   },
@@ -102,9 +102,9 @@ person.sayBye(person.name, person.phone);
 
 ```javascript
 const person = {
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
-  phone: '1234567890',
+  phone: "1234567890",
   sayHi: function (self) {
     console.log(`你好，我是 ${self.name}，今年 ${self.age} 岁。`);
   },
@@ -167,9 +167,9 @@ my_dog.roll_over()
 
 ```javascript
 const person = {
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
-  phone: '1234567890',
+  phone: "1234567890",
   sayHi: function () {
     console.log(`你好，我是 ${this.name}，今年 ${this.age} 岁。`);
   },
@@ -211,7 +211,7 @@ defaultBind(); // true
 所以，如果我们在全局环境初始化一个变量，在独立函数中可以使用 `this` 来获取到该全局变量：
 
 ```javascript
-var name = 'Deepspace';
+var name = "Deepspace";
 
 function box() {
   console.log(this.name);
@@ -246,7 +246,7 @@ box(); // Deepspace
 >
 > 在全局作用域中，用 `let` 和 `const` 声明的全局变量并没有在全局对象中，只是一个块级作用域（`Script`）中（可以在浏览器中设置断点查看）。
 >
-> ![let debug](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/let-const-debug.png)
+> ![let debug](https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/let-const-debug.png)
 >
 > 所以，要想访问用 `let` 和 `const` 声明的全局变量，就不可以使用 `window`。所以在上面演示 `this` 的默认绑定的时候，使用 `var` 来初始化变量。
 
@@ -291,10 +291,10 @@ obj.box(); // true
 例如：
 
 ```javascript
-var name = 'globe name';
+var name = "globe name";
 
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: function () {
     console.log(this.name);
   },
@@ -306,14 +306,14 @@ obj.sayHi(); // Deepspace
 我们再看另一段代码：
 
 ```javascript
-var name = 'globe name';
+var name = "globe name";
 
 function sayHi() {
   console.log(this.name);
 }
 
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: sayHi,
 };
 
@@ -326,13 +326,13 @@ obj.sayHi(); // Deepspace
 
 ```javascript
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: function () {
     console.log(this.name);
   },
 };
 
-var name = 'globe name';
+var name = "globe name";
 const hello = obj.sayHi;
 
 hello(); // globe name
@@ -349,10 +349,10 @@ hello(); // globe name
 再看个复杂点的例子：
 
 ```javascript
-var name = 'globe name';
+var name = "globe name";
 
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: function () {
     console.log(this.name);
   },
@@ -410,13 +410,13 @@ fn.call(object);
 
 ```javascript
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: function () {
     console.log(this.name);
   },
 };
 
-var name = 'globe name';
+var name = "globe name";
 const hello = obj.sayHi;
 
 hello(); // globe name
@@ -428,13 +428,13 @@ hello.call(obj); // Deepspace
 
 ```javascript
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: function () {
     console.log(this.name);
   },
 };
 
-var name = 'globe name';
+var name = "globe name";
 const hello = obj.sayHi;
 
 hello(); // globe name
@@ -455,13 +455,13 @@ greet(); // Deepspace
 
 ```javascript
 const obj = {
-  name: 'Deepspace',
+  name: "Deepspace",
   sayHi: function () {
     console.log(this.name);
   },
 };
 
-var name = 'globe name';
+var name = "globe name";
 const hello = obj.sayHi;
 
 hello(); // globe name
@@ -483,7 +483,7 @@ function getAge(gap) {
 }
 
 var chenxingxing = {
-  name: '陈星星',
+  name: "陈星星",
   birth: 1995,
   age: getAge,
 };
@@ -611,7 +611,7 @@ function a() {
   function b() {
     console.log(this);
     function c() {
-      'use strict';
+      "use strict";
       console.log(this);
     }
     c();
@@ -629,14 +629,14 @@ a();
 数组的 `map ` 和 `foreach` 方法，允许提供一个函数作为参数。这个函数内部不应该使用 `this`。
 
 ```javascript
-var v = 'global v';
+var v = "global v";
 
 const o = {
-  v: 'hello',
-  p: ['a1', 'a2'],
+  v: "hello",
+  p: ["a1", "a2"],
   f: function f() {
     this.p.forEach(function (item) {
-      console.log(this.v + ' ----- ' + item);
+      console.log(this.v + " ----- " + item);
     });
   },
 };
@@ -651,15 +651,15 @@ o.f();
 解决这个问题的一种方法，就是前面提到的，使用中间变量固定 `this`：
 
 ```javascript
-var v = 'global v';
+var v = "global v";
 
 const o = {
-  v: 'hello',
-  p: ['a1', 'a2'],
+  v: "hello",
+  p: ["a1", "a2"],
   f: function f() {
     const that = this;
     this.p.forEach(function (item) {
-      console.log(that.v + ' ---- ' + item);
+      console.log(that.v + " ---- " + item);
     });
   },
 };
@@ -681,7 +681,7 @@ o.f = function () {
 };
 
 // jQuery 的写法
-$('#button').on('click', o.f); // false
+$("#button").on("click", o.f); // false
 ```
 
 上面代码中，点击按钮以后，控制台会显示 `false` 。原因是此时 `this` 不再指向 `o` 对象，而是指向按钮的 `DOM` 对象，因为 `f` 方法是在按钮对象的环境中被调用的。
@@ -691,10 +691,10 @@ $('#button').on('click', o.f); // false
 最后来演练一下 `this` 的指向吧：
 
 ```javascript
-var name = '小红';
+var name = "小红";
 
 function a() {
-  const name = '小白';
+  const name = "小白";
   console.log(this.name);
 }
 
@@ -703,7 +703,7 @@ function d(i) {
 }
 
 const b = {
-  name: '小黄',
+  name: "小黄",
   detail: function () {
     console.log(this.name);
   },
@@ -714,10 +714,10 @@ const b = {
   },
 };
 
-var nickname = 'The Window';
+var nickname = "The Window";
 
 var object = {
-  nickname: 'My Object',
+  nickname: "My Object",
 
   getNameFunc: function () {
     var that = this;

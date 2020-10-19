@@ -32,23 +32,23 @@ urlname: react-functional-component-performance-enhancement
 `index.js`：
 
 ```jsx
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import Child from './Child';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Child from "./Child";
 
 const App = () => {
-  const [title, setTitle] = useState('这是一个 title');
+  const [title, setTitle] = useState("这是一个 title");
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>{title}</h1>
-      <button onClick={() => setTitle('title 已经改变')}>改名字</button>
-      <Child name='陈星星' />
+      <button onClick={() => setTitle("title 已经改变")}>改名字</button>
+      <Child name="陈星星" />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 其中包含了一个子组件 `Child`。
@@ -56,7 +56,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 `Child.js`：
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 const Child = ({ name }) => {
   console.log(name);
@@ -108,33 +108,33 @@ export default React.memo(MyComponent, areEqual);
 `App.js`：
 
 ```jsx
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import Child from './Child';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Child from "./Child";
 
 const App = () => {
-  const [title, setTitle] = useState('这是一个 title');
+  const [title, setTitle] = useState("这是一个 title");
 
   const print = () => {
-    console.log('I am a function props');
+    console.log("I am a function props");
   };
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>{title}</h1>
-      <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <Child name='陈星星' onClick={print} />
+      <button onClick={() => setTitle("标题改变了")}>改标题</button>
+      <Child name="陈星星" onClick={print} />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 `Child.js`：
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 const Child = ({ name, onClick }) => {
   console.log(name);
@@ -153,31 +153,31 @@ export default React.memo(Child);
 `App.js`：
 
 ```jsx
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import Child from './Child';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Child from "./Child";
 
 const App = () => {
-  const [title, setTitle] = useState('这是一个 title');
+  const [title, setTitle] = useState("这是一个 title");
 
   const a = [1];
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>{title}</h1>
-      <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <Child name='陈星星' a={a} />
+      <button onClick={() => setTitle("标题改变了")}>改标题</button>
+      <Child name="陈星星" a={a} />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 `Child.js`：
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 const Child = ({ name, a }) => {
   console.log(name);
@@ -194,29 +194,29 @@ export default React.memo(Child);
 我们把传递的函数 `props` 放在组件的外边不就就行了吗？是的，这样可以避免子组件重复渲染的问题：
 
 ```jsx
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import Child from './Child';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Child from "./Child";
 
 const print = () => {
-  console.log('I am a function props');
+  console.log("I am a function props");
 };
 
 const a = [1];
 
 const App = () => {
-  const [title, setTitle] = useState('这是一个 title');
+  const [title, setTitle] = useState("这是一个 title");
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>{title}</h1>
-      <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <Child name='陈星星' onClick={print} a={a} />
+      <button onClick={() => setTitle("标题改变了")}>改标题</button>
+      <Child name="陈星星" onClick={print} a={a} />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 **对于一些不属于组件的（不涉及到组件的 `props` 或者 `state` 计算的）变量，我们应当将它放在组件的外边。**
@@ -236,30 +236,30 @@ const memoizedCallback = useCallback(() => {
 所以，我们可以改造下 `print` 函数：
 
 ```jsx
-import React, { useState, useCallback } from 'react';
-import ReactDOM from 'react-dom';
-import Child from './Child';
+import React, { useState, useCallback } from "react";
+import ReactDOM from "react-dom";
+import Child from "./Child";
 
 const App = () => {
-  const [title, setTitle] = useState('这是一个 title');
-  const [subtitle, setSubtitle] = useState('这是一个 subtitle');
+  const [title, setTitle] = useState("这是一个 title");
+  const [subtitle, setSubtitle] = useState("这是一个 subtitle");
 
   const print = useCallback(() => {
-    console.log('I am a function props');
+    console.log("I am a function props");
   }, [subtitle]);
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>{title}</h1>
       <h1>{subtitle}</h1>
-      <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <button onClick={() => setSubtitle('副标题改变了')}>改副标题</button>
-      <Child name='陈星星' onClick={print} />
+      <button onClick={() => setTitle("标题改变了")}>改标题</button>
+      <button onClick={() => setSubtitle("副标题改变了")}>改副标题</button>
+      <Child name="陈星星" onClick={print} />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 上面的例子中，只有当 `subtitle` 这个状态改变时，才会重新生成 `print` 函数，子组件才会更新。
@@ -269,36 +269,36 @@ ReactDOM.render(<App />, document.getElementById('root'));
 `App.js`：
 
 ```jsx
-import React, { useState, useCallback } from 'react';
-import ReactDOM from 'react-dom';
-import Child from './Child';
+import React, { useState, useCallback } from "react";
+import ReactDOM from "react-dom";
+import Child from "./Child";
 
 const App = () => {
-  const [title, setTitle] = useState('这是一个 title');
-  const [subtitle, setSubtitle] = useState('这是一个 subtitle');
+  const [title, setTitle] = useState("这是一个 title");
+  const [subtitle, setSubtitle] = useState("这是一个 subtitle");
 
   const print = useCallback(() => {
     console.log(`title: ${title}`);
   }, []);
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>{title}</h1>
       <h1>{subtitle}</h1>
-      <button onClick={() => setTitle('标题改变了')}>改标题</button>
-      <button onClick={() => setSubtitle('副标题改变了')}>改副标题</button>
-      <Child name='陈星星' onClick={print} />
+      <button onClick={() => setTitle("标题改变了")}>改标题</button>
+      <button onClick={() => setSubtitle("副标题改变了")}>改副标题</button>
+      <Child name="陈星星" onClick={print} />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 `Child.js`：
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 const Child = ({ onClick }) => <button onClick={onClick}>print</button>;
 
@@ -348,7 +348,7 @@ const Main = ({ list }) => {
 `Context.js`：
 
 ```jsx
-import { createContext } from 'react';
+import { createContext } from "react";
 
 const context = createContext();
 
@@ -358,15 +358,15 @@ export default context;
 `App.js`：
 
 ```jsx
-import React, { useContext, useState } from 'react';
-import Context from './Context';
+import React, { useContext, useState } from "react";
+import Context from "./Context";
 
 const redTheme = {
-  color: 'red',
+  color: "red",
 };
 
 const greenTheme = {
-  color: 'green',
+  color: "green",
 };
 
 const Content = () => {
@@ -382,14 +382,14 @@ const Content = () => {
 };
 
 const Header = () => {
-  console.log('render Header');
+  console.log("render Header");
   return <h1>Hello CodeSandbox</h1>;
 };
 
 const App = () => {
   const [theme, setTheme] = useState(redTheme);
 
-  console.log('render App');
+  console.log("render App");
 
   return (
     <Context.Provider value={{ theme, switchTheme: setTheme }}>
@@ -406,7 +406,7 @@ export default App;
 
 在浏览器中运行的效果如下：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/context-api-re-render.gif" alt="context api 重复渲染" style="zoom: 50%;" />
 
 如何避免这个问题呢？思路很简单，**需要一个方法去告诉 `Context.Provider`，告诉它子组件没有变化**。
 
@@ -415,15 +415,15 @@ export default App;
 改进后的代码为：
 
 ```jsx
-import React, { useContext, useState } from 'react';
-import Context from './Context';
+import React, { useContext, useState } from "react";
+import Context from "./Context";
 
 const redTheme = {
-  color: 'red',
+  color: "red",
 };
 
 const greenTheme = {
-  color: 'green',
+  color: "green",
 };
 
 const Content = () => {
@@ -439,7 +439,7 @@ const Content = () => {
 };
 
 const Header = () => {
-  console.log('render Header');
+  console.log("render Header");
   return <h1>Hello CodeSandbox</h1>;
 };
 
@@ -454,7 +454,7 @@ const ThemeProvider = (props) => {
 };
 
 const App = () => {
-  console.log('render App');
+  console.log("render App");
 
   return (
     <ThemeProvider>
@@ -521,7 +521,7 @@ const ThemeProvider = (props) => {
 所以，**减少不必要的节点嵌套**，是非常有必要的。不需要的元素都应该删减，例如：
 
 ```jsx
-<div className='App'>
+<div className="App">
   <div>
     <h1>count：{num}</h1>
   </div>
@@ -594,8 +594,8 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 看个例子：
 
 ```jsx
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
 const App = () => {
   const [num, setNum] = useState(0);
@@ -614,14 +614,14 @@ const App = () => {
   const base = expensiveFn();
 
   return (
-    <div className='App'>
+    <div className="App">
       <h1>count：{num}</h1>
       <button onClick={() => setNum(num + base)}>+1</button>
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 除了初次渲染，每次点击 `button` 的时候，都会重新执行 `expensiveFn` 里的计算，下面使用 `useMemo` 来优化：
@@ -681,9 +681,9 @@ const Parent = ({ a, b }) => {
 
 ```jsx
 const App = () => {
-  const [name, setName] = useState('react');
+  const [name, setName] = useState("react");
 
-  if (name === 'react') {
+  if (name === "react") {
     return (
       <>
         <HeaderComponent>header</HeaderComponent>
@@ -712,7 +712,7 @@ const App = () => {
 
 ```jsx
 <>
-  {name === 'react' && <HeaderComponent>header</HeaderComponent>}
+  {name === "react" && <HeaderComponent>header</HeaderComponent>}
   <ContentComponent>content</ContentComponent>
   <FooterComponent>footer</FooterComponent>
 </>
@@ -724,7 +724,7 @@ const App = () => {
 
 虚拟列表是常见的「长列表」和「复杂组件树」优化方式，它优化的本质是减少渲染的节点。**虚拟列表只渲染当前可视窗口的可见元素**。如下图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/virtualized-render.gif" alt="虚拟列表" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/virtualized-render.gif" alt="虚拟列表" style="zoom: 50%;" />
 
 <p align="center">（图片来自网络）</p>
 
@@ -743,7 +743,7 @@ const App = () => {
 下面以 [react-window](https://github.com/bvaughn/react-window) 的一个示例：
 
 ```jsx
-import { FixedSizeList as List } from 'react-window';
+import { FixedSizeList as List } from "react-window";
 
 const Row = ({ index, style }) => <div style={style}>Row {index}</div>;
 
@@ -756,7 +756,7 @@ const Example = () => (
 
 效果：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react-window.gif" alt="效果" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/react-window.gif" alt="效果" style="zoom: 50%;" />
 
 关于更多 [react-window](https://github.com/bvaughn/react-window) 的使用方法，可以去官网查看。
 
@@ -810,7 +810,7 @@ const Example = () => (
 
 是的，合理设计组件也会提高性能。**组件的设计应该严格遵循职责单一原则**。看个例子：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/design-component-2.jpg" alt="组件设计" style="zoom: 45%;" />
 
 <p align='center'>（图片来自网络）</p>
 
@@ -818,7 +818,7 @@ const Example = () => (
 
 基于职责单一的原则，我们可以这样来设计：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/design-component-1.jpg" alt="组件设计" style="zoom: 45%;" />
 
 <p align='center'>（图片来自网络）</p>
 

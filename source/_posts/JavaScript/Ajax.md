@@ -34,7 +34,7 @@ urlname: javascript-ajax
 
 在 `Ajax` 出现之前，网页想要和服务器通信，最常用的方式是使用 `form` 表单。工作方式如下图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/no-ajax.jpg" alt="no ajax" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/no-ajax.jpg" alt="no ajax" />
 
 <p align="center">(图片来自网络)</p>
 举个邮箱注册页面的例子。
@@ -117,7 +117,7 @@ xhr.onload = function () {
 
 xhr.onerror = function () {
   // only triggers if the request couldn't be made at all
-  console.log('Network Error');
+  console.log("Network Error");
 };
 
 xhr.onprogress = function (event) {
@@ -134,13 +134,13 @@ xhr.onprogress = function (event) {
 下面是一个完整的例子，从知乎的 `public api` 中请求一个 `biancheng` 话题的信息：
 
 ```javascript
-let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // 1. Create a new XMLHttpRequest object
 let xhr = new XMLHttpRequest();
 
 // 2. Configure it: GET-request for the URL
-xhr.open('GET', 'https://zhuanlan.zhihu.com/api/columns/biancheng/articles');
+xhr.open("GET", "https://zhuanlan.zhihu.com/api/columns/biancheng/articles");
 
 // 3. Send the request over the network
 xhr.send();
@@ -158,7 +158,7 @@ xhr.onload = function () {
 
 // 5. if the network is down or other errors
 xhr.onerror = function () {
-  console.log('Request failed');
+  console.log("Request failed");
 };
 ```
 
@@ -194,15 +194,15 @@ xhr.timeout = 1000; // timeout in ms, 1 seconds
 如果在 `open` 方法中将第三个参数 `async` 设置为 `false`，则同步发出请求。换句话说，`JavaScript` 在 `send()` 处执行暂停，并在收到响应时恢复执行。
 
 ```javascript
-let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // 1. Create a new XMLHttpRequest object
 let xhr = new XMLHttpRequest();
 
 // 2. Configure it: GET-request for the URL
 xhr.open(
-  'GET',
-  'https://zhuanlan.zhihu.com/api/columns/biancheng/articles',
+  "GET",
+  "https://zhuanlan.zhihu.com/api/columns/biancheng/articles",
   false
 );
 
@@ -215,7 +215,7 @@ try {
   }
 } catch (err) {
   // instead of onerror
-  console.log('Request failed');
+  console.log("Request failed");
 }
 ```
 

@@ -14,18 +14,18 @@ urlname: event-loop-in-nodejs
 
 ```javascript
 setTimeout(() => {
-  console.log('timer1');
+  console.log("timer1");
 
   Promise.resolve().then(function () {
-    console.log('promise1');
+    console.log("promise1");
   });
 }, 0);
 
 setTimeout(() => {
-  console.log('timer2');
+  console.log("timer2");
 
   Promise.resolve().then(function () {
-    console.log('promise2');
+    console.log("promise2");
   });
 }, 0);
 ```
@@ -63,7 +63,7 @@ promise2;
 
 把 `Node.js` 拆分到组件，看看它们的关键作用是什么、如何交互协作。 `Node.js` 运行时环境图示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-architecture.png" alt="node.js 架构图" style="zoom:67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/nodejs-architecture.png" alt="node.js 架构图" style="zoom:67%;" />
 
 <p align="center">(图片来自网络)</p>
 
@@ -87,7 +87,7 @@ promise2;
 
 在 `Node.js` 中，也是单线程的事件循环。`Nodejs` 的事件循环会分为 6 个阶段，它们会按照顺序反复运行。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
 
 每个阶段的作用如下:
 
@@ -113,11 +113,11 @@ promise2;
 
 ```javascript
 setTimeout(() => {
-  console.log('timeout');
+  console.log("timeout");
 }, 0);
 
 setImmediate(() => {
-  console.log('immediate');
+  console.log("immediate");
 });
 ```
 
@@ -150,15 +150,15 @@ setImmediate(() => {
 看个 `demo` :
 
 ```javascript
-const fs = require('fs');
+const fs = require("fs");
 
-fs.readFile('test.txt', () => {
-  console.log('readFile');
+fs.readFile("test.txt", () => {
+  console.log("readFile");
   setTimeout(() => {
-    console.log('timeout');
+    console.log("timeout");
   }, 0);
   setImmediate(() => {
-    console.log('immediate');
+    console.log("immediate");
   });
 });
 ```
@@ -179,17 +179,17 @@ timeout
 
 浏览器环境下，`microtask` 的任务队列是每个 `macrotask ` 执行完之后执行。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/eventLoop-browser-2.png" alt="事件循环" style="zoom:87%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/eventLoop-browser-2.png" alt="事件循环" style="zoom:87%;" />
 
 <p align="center">(图片来自网络)</p>
 
 而在 `Node.js` 中，**`microtask` 会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行 `microtask` 队列的任务。**
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/nodejs-eventloop-structure.jpg" alt="NodeJS事件循环" style="zoom: 50%;" />
 
 文章最开始的 `demo`，在 `Node.js` 环境中，全局脚本 `main()` 执行，将 2 个 `timer` 依次放入 `timer` 队列，`main()` 执行完毕，执行栈空闲，任务队列开始执行：
 
-![NodeJS事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/node-excute-animate.gif)
+![NodeJS事件循环](https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/node-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
 
@@ -199,7 +199,7 @@ timeout
 
 **对比浏览器端的处理过程：**
 
-![事件循环](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/NodeJS/browser-event-loop-excute-animate.gif)
+![事件循环](https://gitee.com/IDeepspace/image-hosting/raw/master/NodeJS/browser-event-loop-excute-animate.gif)
 
 <p align="center">(图片来自网络)</p>
 
@@ -212,13 +212,13 @@ timeout
 比如下面例子的 `readFile` 已经完成，但它的回调一直无法执行：
 
 ```javascript
-const fs = require('fs');
+const fs = require("fs");
 const starttime = Date.now();
 let endtime;
 
-fs.readFile('text.txt', () => {
+fs.readFile("text.txt", () => {
   endtime = Date.now();
-  console.log('finish reading time: ', endtime - starttime);
+  console.log("finish reading time: ", endtime - starttime);
 });
 
 let index = 0;

@@ -16,7 +16,7 @@ urlname: javascript-function-context
 
 ```javascript
 console.log(username); // undefined
-var username = 'JavaScript';
+var username = "JavaScript";
 ```
 
 上面的代码会正常输出 `undefined` 而不是报错 `Uncaught ReferenceError: a is not defined`。就是因为声明提升（`declaration hoisting`）。
@@ -92,7 +92,7 @@ var sum = function (num1, num2) {
 `Function` 构造函数可以接收任意数量的参数， 但最后一个参数始终都被看成是函数体，而前面的参数则枚举出了新函数的参数。如：
 
 ```javascript
-var sum = new Function('num1', 'num2', 'return num1 + num2');
+var sum = new Function("num1", "num2", "return num1 + num2");
 ```
 
 从技术角度讲，这是一个函数表达式。但是，不推荐使用这种方法定义函数，因为这种语法会导致解析两次代码：第一次是解析常规 `ECMAScript` 代码，第二次是解析传入构造函数中的字符串，这样会影响性能。
@@ -151,11 +151,11 @@ var a = true;
 
 if (a) {
   function foo() {
-    console.log('a');
+    console.log("a");
   }
 } else {
   function foo() {
-    console.log('b');
+    console.log("b");
   }
 }
 ```
@@ -286,7 +286,7 @@ console.log(addSomeNumber(100)); //300
 - **最外层函数和在最外层函数外面定义的变量拥有全局作用域；**
 
 ```javascript
-var globalVariable = 'haha';
+var globalVariable = "haha";
 
 function sum(num1, num2) {
   return num1 + num2;
@@ -318,8 +318,8 @@ console.log(b); // 1
 
 ```javascript
 function test() {
-  variable = '未定义直接赋值的变量';
-  var inVariable2 = '内层变量2';
+  variable = "未定义直接赋值的变量";
+  var inVariable2 = "内层变量2";
   func = function () {
     return 1;
   };
@@ -347,7 +347,7 @@ console.log(func); // [Function: func]
 
 ```javascript
 function getUsername() {
-  var username = '陈星星';
+  var username = "陈星星";
   function innerFunc() {
     console.log(username);
   }
@@ -361,10 +361,10 @@ console.log(username); // ReferenceError: username is not defined
 **函数作用域是分层的，内层作用域可以访问外层作用域的变量，反之则不行。**
 
 ```javascript
-var color = 'blue';
+var color = "blue";
 
 function changeColor() {
-  var anotherColor = 'red';
+  var anotherColor = "red";
 
   function swapColor() {
     // 这里可以访问color, anotherColor, 和 tempColor
@@ -381,12 +381,12 @@ function changeColor() {
 changeColor();
 
 // 这里只能访问color
-console.log('Color is now ' + color);
+console.log("Color is now " + color);
 ```
 
 上面代码的作用域链简单图示如下：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-function-declaration-hoisting.jpg" alt="javascript-function-declaration-hoisting" style="zoom:67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/javascript-function-declaration-hoisting.jpg" alt="javascript-function-declaration-hoisting" style="zoom:67%;" />
 
 ### 七、作用域链和代码优化
 
@@ -396,8 +396,8 @@ console.log('Color is now ' + color);
 
 ```javascript
 function changeColor() {
-  document.getElementById('btnChange').onclick = function () {
-    document.getElementById('targetCanvas').style.backgroundColor = 'red';
+  document.getElementById("btnChange").onclick = function () {
+    document.getElementById("targetCanvas").style.backgroundColor = "red";
   };
 }
 ```
@@ -407,8 +407,8 @@ function changeColor() {
 ```javascript
 function changeColor() {
   var doc = document;
-  doc.getElementById('btnChange').onclick = function () {
-    doc.getElementById('targetCanvas').style.backgroundColor = 'red';
+  doc.getElementById("btnChange").onclick = function () {
+    doc.getElementById("targetCanvas").style.backgroundColor = "red";
   };
 }
 ```
@@ -424,7 +424,7 @@ function changeColor() {
 ```javascript
 function A() {
   function B() {
-    console.log('Hello Closure!');
+    console.log("Hello Closure!");
   }
   return B;
 }
@@ -499,7 +499,7 @@ function Person(name) {
   };
 }
 
-var p1 = new Person('陈星星');
+var p1 = new Person("陈星星");
 p1.setAge(18);
 console.log(p1.getAge()); // 18
 ```
@@ -517,7 +517,7 @@ console.log(p1.getAge()); // 18
   var viewport;
   var obj = {
     init: function (id) {
-      viewport = document.querySelector('#' + id);
+      viewport = document.querySelector("#" + id);
     },
     addChild: function (child) {
       viewport.appendChild(child);
@@ -538,7 +538,7 @@ var f = function (document) {
 
   var obj = {
     init: function (id) {
-      viewport = document.querySelector('#' + id);
+      viewport = document.querySelector("#" + id);
     },
     addChild: function (child) {
       viewport.appendChild(child);
@@ -585,10 +585,10 @@ f = null; // 回收闭包
 最后，为了检验自己是否理解了闭包，看看下面两道题（如果你不清楚 `this`，请看这里：https://togoblog.cn/javascript-this/）：
 
 ```javascript
-var name = 'The Window';
+var name = "The Window";
 
 var object = {
-  name: 'My Object',
+  name: "My Object",
 
   getNameFunc: function () {
     return function () {
@@ -601,10 +601,10 @@ console.log(object.getNameFunc()()); // 'The Window' (浏览器环境下)
 ```
 
 ```javascript
-var name = 'The Window';
+var name = "The Window";
 
 var object = {
-  name: 'My Object',
+  name: "My Object",
 
   getNameFunc: function () {
     var that = this;
@@ -644,9 +644,9 @@ outputNumbers(5);
 (function () {
   var now = new Date();
   if (now.getMonth() === 0 && now.getDate() === 1) {
-    console.log('Happy new year!');
+    console.log("Happy new year!");
   } else {
-    console.log('Happy!');
+    console.log("Happy!");
   }
 })();
 ```

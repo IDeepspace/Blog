@@ -26,10 +26,10 @@ urlname: vue-basic
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        msg: "Welcome to Your Vue.js App",
       };
     },
   };
@@ -73,17 +73,17 @@ urlname: vue-basic
 现在的文件中，是在路由 `router/index.js` 中引入的 `HelloWorld` 组件：
 
 ```javascript
-import Vue from 'vue';
-import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Vue from "vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
+      path: "/",
+      name: "HelloWorld",
       component: HelloWorld,
     },
   ],
@@ -101,10 +101,10 @@ export default new Router({
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld';
+  import HelloWorld from "./components/HelloWorld";
 
   export default {
-    name: 'App',
+    name: "App",
     components: { HelloWorld },
   };
 </script>
@@ -132,13 +132,13 @@ export default new Router({
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld';
-  import Demo from './components/Demo';
+  import HelloWorld from "./components/HelloWorld";
+  import Demo from "./components/Demo";
 
   export default {
-    name: 'App',
+    name: "App",
     components: {
-      'hello-world': HelloWorld,
+      "hello-world": HelloWorld,
       demo: Demo,
     },
   };
@@ -170,7 +170,7 @@ export default new Router({
     // ...
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        msg: "Welcome to Your Vue.js App",
       };
     },
   };
@@ -196,7 +196,7 @@ export default new Router({
     // ...
     data() {
       return {
-        name: 'Vue',
+        name: "Vue",
         btnState: true, // Add this
       };
     },
@@ -244,9 +244,9 @@ export default new Router({
     data() {
       return {
         todos: [
-          { text: '学习 JavaScript' },
-          { text: '学习 Vue' },
-          { text: '学习 前端' },
+          { text: "学习 JavaScript" },
+          { text: "学习 Vue" },
+          { text: "学习 前端" },
         ],
       };
     },
@@ -297,7 +297,7 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
         counter: 0,
@@ -321,7 +321,7 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
         counter: 0,
@@ -391,10 +391,10 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        todo: '',
+        todo: "",
       };
     },
   };
@@ -432,10 +432,10 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        picked: '',
+        picked: "",
       };
     },
   };
@@ -458,10 +458,10 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        checked: '',
+        checked: "",
       };
     },
   };
@@ -488,7 +488,7 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
         checkedNames: [],
@@ -517,10 +517,10 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        selected: '',
+        selected: "",
       };
     },
   };
@@ -544,7 +544,7 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
         selected: [],
@@ -576,14 +576,14 @@ export default new Router({
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        selected: 'A',
+        selected: "A",
         options: [
-          { text: 'One', value: 'A' },
-          { text: 'Two', value: 'B' },
-          { text: 'Three', value: 'C' },
+          { text: "One", value: "A" },
+          { text: "Two", value: "B" },
+          { text: "Three", value: "C" },
         ],
       };
     },
@@ -710,9 +710,9 @@ export default new Router({
   export default {
     data() {
       return {
-        bgColor: 'yellow',
-        bgWidth: '100%',
-        bgHeight: '30px',
+        bgColor: "yellow",
+        bgWidth: "100%",
+        bgHeight: "30px",
       };
     },
   };
@@ -733,9 +733,9 @@ export default new Router({
     data() {
       return {
         styleObject: {
-          backgroundColor: 'yellow',
-          width: '100%',
-          height: '30px',
+          backgroundColor: "yellow",
+          width: "100%",
+          height: "30px",
         },
       };
     },
@@ -749,6 +749,6 @@ export default new Router({
 
 学习完 `Vue` 的基础语法，我们可以写一个 `Todolist` 来检验一下自己：
 
-![vue-todolist](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-todolist.png)
+![vue-todolist](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-todolist.png)
 
 > 代码可参考：https://github.com/IDeepspace/Hello-Vue/tree/master/vue-todolist

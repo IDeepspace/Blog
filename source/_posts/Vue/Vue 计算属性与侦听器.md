@@ -59,18 +59,18 @@ methods: {
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        message: 'Welcome to Your Vue.js App',
+        message: "Welcome to Your Vue.js App",
       };
     },
     // add this
     filters: {
       reverseString(val) {
         let value = val;
-        if (!value) return '';
-        value = value.split('').reverse().join('');
+        if (!value) return "";
+        value = value.split("").reverse().join("");
         return value;
       },
     },
@@ -102,29 +102,29 @@ methods: {
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     data() {
       return {
-        message: 'Welcome to Your Vue.js App',
+        message: "Welcome to Your Vue.js App",
       };
     },
     filters: {
       reverseString(val) {
         let value = val;
-        if (!value) return '';
-        value = value.split('').reverse().join('');
+        if (!value) return "";
+        value = value.split("").reverse().join("");
         return value;
       },
     },
     // add this
     computed: {
       reversedMessage() {
-        return this.message.split('').reverse().join('');
+        return this.message.split("").reverse().join("");
       },
     },
     methods: {
       reversedMessageMethod() {
-        return this.message.split('').reverse().join('');
+        return this.message.split("").reverse().join("");
       },
     },
   };
@@ -158,7 +158,7 @@ methods: {
     data() {
       return {
         totalcount: 200, // 总共只给输入200字
-        content: '',
+        content: "",
       };
     },
     computed: {
@@ -178,7 +178,7 @@ methods: {
 
 **效果 ：**
 
-![match](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Vue/vue-computed.gif)
+![match](https://gitee.com/IDeepspace/image-hosting/raw/master/Vue/vue-computed.gif)
 
 **代码：**
 
@@ -223,18 +223,18 @@ methods: {
       result() {
         if (this.time < 90) {
           if (this.team.china > this.team.korea) {
-            return '中国队领先';
+            return "中国队领先";
           } else if (this.team.china < this.team.korea) {
-            return '韩国队领先';
+            return "韩国队领先";
           }
-          return '双方僵持';
+          return "双方僵持";
         }
         if (this.team.china > this.team.korea) {
-          return '中国队赢';
+          return "中国队赢";
         } else if (this.team.china < this.team.korea) {
-          return '韩国队赢';
+          return "韩国队赢";
         }
-        return '平局';
+        return "平局";
       },
     },
   };
@@ -296,36 +296,36 @@ methods: {
         // eslint-disable-line
         if (value < 90) {
           if (this.team.china > this.team.korea) {
-            this.result = '中国队领先';
+            this.result = "中国队领先";
           } else if (this.team.china < this.team.korea) {
-            this.result = '韩国队领先';
+            this.result = "韩国队领先";
           } else {
-            this.result = '双方僵持';
+            this.result = "双方僵持";
           }
         } else if (this.team.china > this.team.korea) {
-          this.result = '中国队赢';
+          this.result = "中国队赢";
         } else if (this.team.china < this.team.korea) {
-          this.result = '韩国队赢';
+          this.result = "韩国队赢";
         } else {
-          this.result = '平局';
+          this.result = "平局";
         }
       },
       team(value, oldval) {
         // eslint-disable-line
         if (this.time < 90) {
           if (value.china > value.korea) {
-            this.result = '中国队领先';
+            this.result = "中国队领先";
           } else if (value.china < value.korea) {
-            this.result = '韩国队领先';
+            this.result = "韩国队领先";
           } else {
-            this.result = '双方僵持';
+            this.result = "双方僵持";
           }
         } else if (value.china > value.korea) {
-          this.result = '中国队赢';
+          this.result = "中国队赢";
         } else if (value.china < value.korea) {
-          this.result = '韩国队赢';
+          this.result = "韩国队赢";
         } else {
-          this.result = '平局';
+          this.result = "平局";
         }
       },
     },
@@ -368,14 +368,14 @@ methods: {
       };
     },
     mounted() {
-      const imgs = document.querySelectorAll('img');
+      const imgs = document.querySelectorAll("img");
       console.log(imgs); // eslint-disable-line
       Array.from(imgs).forEach((item) => {
         const img = new Image();
         img.onload = () => {
           this.count = this.count + 1;
         };
-        img.src = item.getAttribute('src');
+        img.src = item.getAttribute("src");
       });
     },
     watch: {
@@ -383,7 +383,7 @@ methods: {
         // eslint-disable-line
         if (val === 4) {
           this.show = true;
-          alert('加载完毕'); // eslint-disable-line
+          alert("加载完毕"); // eslint-disable-line
           // 然后可以对后台发送一些ajax操作
         }
       },

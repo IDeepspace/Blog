@@ -20,7 +20,7 @@ urlname: javascript-object-oriented-programming-1
 const num = new Number(1);
 console.log(typeof num); // object
 
-const str = new String('hello');
+const str = new String("hello");
 console.log(typeof str); // object
 
 const d = new Array();
@@ -70,9 +70,9 @@ const o = {
 ```javascript
 const person = new Object();
 
-person.name = 'Deepspace';
+person.name = "Deepspace";
 person.age = 23;
-person.job = 'Software Engineer';
+person.job = "Software Engineer";
 person.sayName = function () {
   console.log(this.name);
 };
@@ -89,17 +89,17 @@ person.sayName = function () {
 ```javascript
 const personOne = new Object();
 
-personOne.name = 'Deepspace';
+personOne.name = "Deepspace";
 personOne.age = 24;
-personOne.job = 'Software Engineer';
+personOne.job = "Software Engineer";
 personOne.sayName = function () {
   console.log(this.name);
 };
 
 const personTwo = new Object();
-personTwo.name = 'chenxingxing';
+personTwo.name = "chenxingxing";
 personTwo.age = 23;
-personTwo.job = 'Teacher';
+personTwo.job = "Teacher";
 personTwo.sayName = function () {
   console.log(this.name);
 };
@@ -121,8 +121,8 @@ function createPerson(name, age, job) {
   return o;
 }
 
-const person1 = createPerson('Deepspace', 24, 'Software Engineer');
-const person2 = createPerson('chenxingxing', 23, 'Teacher');
+const person1 = createPerson("Deepspace", 24, "Software Engineer");
+const person2 = createPerson("chenxingxing", 23, "Teacher");
 
 console.log(person1);
 // { name: 'Deepspace', age: 24, job: 'Software Engineer', sayName: [Function] }
@@ -156,8 +156,8 @@ function createPerson(name, age, job) {
   return o;
 }
 
-const person1 = createPerson('Deepspace', 24, 'Software Engineer');
-const person2 = createPerson('chenxingxing', 23, 'Teacher');
+const person1 = createPerson("Deepspace", 24, "Software Engineer");
+const person2 = createPerson("chenxingxing", 23, "Teacher");
 
 console.log(person1 === person2); // false
 console.log(person1.sayName === person2.sayName); // false
@@ -184,8 +184,8 @@ function Person(name, age) {
   };
 }
 
-const person1 = new Person('Deepspace', 23);
-const person2 = new Person('chenxingxing', 24);
+const person1 = new Person("Deepspace", 23);
+const person2 = new Person("chenxingxing", 24);
 
 console.log(person1); // Person { name: 'Deepspace', age: 23, sayName: [Function] }
 console.log(person2); // Person { name: 'chenxingxing', age: 24, sayName: [Function] }
@@ -222,8 +222,8 @@ function Cat(name, age) {
   this.age = age;
 }
 
-const person1 = new Person('Deepspace', 23);
-const person2 = new Person('chenxingxing', 24);
+const person1 = new Person("Deepspace", 23);
+const person2 = new Person("chenxingxing", 24);
 
 console.log(person1.constructor === Person); // true
 console.log(person2.constructor === Person); // true
@@ -281,7 +281,7 @@ function Person(name, age) {
   };
 }
 
-const person1 = Person('Deepspace', 23);
+const person1 = Person("Deepspace", 23);
 
 window.name; // Deepspace
 window.sayName(); // 23
@@ -300,8 +300,8 @@ function Person(name, age) {
   };
 }
 
-const person1 = new Person('Deepspace', 23);
-const person2 = new Person('chenxingxing', 24);
+const person1 = new Person("Deepspace", 23);
+const person2 = new Person("chenxingxing", 24);
 
 console.log(person1.sayName === person2.sayName); // false
 ```
@@ -319,8 +319,8 @@ function sayName() {
   console.log(this.name);
 }
 
-const person1 = new Person('Deepspace', 23);
-const person2 = new Person('chenxingxing', 24);
+const person1 = new Person("Deepspace", 23);
+const person2 = new Person("chenxingxing", 24);
 
 console.log(person1.sayName === person2.sayName); // true
 ```
@@ -339,7 +339,7 @@ console.log(person1.sayName === person2.sayName); // true
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 
 const person1 = new Person();
 const person2 = new Person();
@@ -357,9 +357,9 @@ console.log(person2.name); // Deepspace
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -382,9 +382,9 @@ console.log(person1.sayName === person2.sayName); // true
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -392,7 +392,7 @@ Person.prototype.sayName = function () {
 const person1 = new Person();
 const person2 = new Person();
 
-person1.name = 'chenxingxing';
+person1.name = "chenxingxing";
 
 console.log(person1.name); // chenxingxing -- 来自实例
 console.log(person2.name); // Deepspace -- 来自原型
@@ -403,9 +403,9 @@ console.log(person2.name); // Deepspace -- 来自原型
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -413,7 +413,7 @@ Person.prototype.sayName = function () {
 const person1 = new Person();
 const person2 = new Person();
 
-person1.name = 'chenxingxing';
+person1.name = "chenxingxing";
 
 console.log(person1.name); // chenxingxing -- 来自实例
 console.log(person2.name); // Deepspace -- 来自原型
@@ -431,9 +431,9 @@ console.log(person1.name); // Deepspace -- 恢复访问原型属性
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -441,13 +441,13 @@ Person.prototype.sayName = function () {
 const person1 = new Person();
 const person2 = new Person();
 
-person1.name = 'chenxingxing';
+person1.name = "chenxingxing";
 
-console.log(person1.hasOwnProperty('name')); // true
-console.log(peson2.hasOwnProperty('name')); // false
+console.log(person1.hasOwnProperty("name")); // true
+console.log(peson2.hasOwnProperty("name")); // false
 
 delete person1.name;
-console.log(person1.hasOwnProperty('name')); // false 恢复访问原型属性
+console.log(person1.hasOwnProperty("name")); // false 恢复访问原型属性
 ```
 
 #### 3、原型模式的缺点
@@ -459,10 +459,10 @@ console.log(person1.hasOwnProperty('name')); // false 恢复访问原型属性
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
-Person.prototype.friends = ['xiaoming'];
+Person.prototype.job = "Software Engineer";
+Person.prototype.friends = ["xiaoming"];
 
 const person1 = new Person();
 const person2 = new Person();
@@ -470,7 +470,7 @@ const person2 = new Person();
 console.log(person1.friends); // [ 'xiaoming' ]
 console.log(person2.friends); // [ 'xiaoming' ]
 
-person1.friends.push('daming');
+person1.friends.push("daming");
 
 console.log(person1.friends); // [ 'xiaoming', 'daming' ]
 console.log(person2.friends); // [ 'xiaoming', 'daming' ]
@@ -490,7 +490,7 @@ console.log(person2.friends); // [ 'xiaoming', 'daming' ]
 function Person() {}
 
 Person.prototype = {
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
   sayName: function () {
     console.log(this.name);
@@ -509,7 +509,7 @@ console.log(person1.age); // 23
 function Person() {}
 
 Person.prototype = {
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
   sayName: function () {
     console.log(this.name);
@@ -533,7 +533,7 @@ function Person() {}
 
 Person.prototype = {
   constructor: Person, // <---
-  name: 'Deepspace',
+  name: "Deepspace",
   age: 23,
   sayName: function () {
     console.log(this.name);
@@ -561,9 +561,9 @@ const friend = new Person();
 
 Person.prototype = {
   constructor: Person,
-  name: 'Nicholas',
+  name: "Nicholas",
   age: 29,
-  job: 'Software Engineer',
+  job: "Software Engineer",
   sayName: function () {
     console.log(this.name);
   },
@@ -579,7 +579,7 @@ friend.sayName(); // TypeError: friend.sayName is not a function
 
 前面我们介绍 `prototype` 的时候提到过，`prototype` 指向的是原型，而不是构造函数。而把原型修改为另外一个对象就等于切断了构造函数与最初原型之间的联系。因为 `person1` 指向的原型中不包含 `name` 和 `sayName`，所以会报错。如下图所示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/oo.png" style="zoom: 67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/oo.png" style="zoom: 67%;" />
 
 重写原型对象切断了现有原型与任何之前已经存在的对象实例之间的联系，实例引用的仍然是最初的原型。那怎么解决这个问题呢？很简单，把调用构造函数的代码放在往 `prototype` 上添加属性和方法的后面就可以了：
 
@@ -588,9 +588,9 @@ function Person() {}
 
 Person.prototype = {
   constructor: Person,
-  name: 'Nicholas',
+  name: "Nicholas",
   age: 29,
-  job: 'Software Engineer',
+  job: "Software Engineer",
   sayName: function () {
     console.log(this.name);
   },
@@ -616,19 +616,19 @@ friend.sayName(); // Nicholas
 function Person(name, age) {
   this.name = name;
   this.age = age;
-  this.friends = ['xiaoming', 'daming'];
+  this.friends = ["xiaoming", "daming"];
 }
 
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
 
-const person1 = new Person('xiaobai', 29);
-const person2 = new Person('dabai', 27);
+const person1 = new Person("xiaobai", 29);
+const person2 = new Person("dabai", 27);
 
-person1.friends.push('chenxingxing');
+person1.friends.push("chenxingxing");
 
 console.log(person1.friends); // [ 'xiaoming', 'daming', 'chenxingxing' ]
 console.log(person2.friends); // [ 'xiaoming', 'daming' ]
@@ -659,14 +659,14 @@ function Person(name, age, job) {
   this.age = age;
   this.job = job;
   //方法
-  if (typeof this.sayName !== 'function') {
+  if (typeof this.sayName !== "function") {
     Person.prototype.sayName = function () {
       console.log(this.name);
     };
   }
 }
 
-const person1 = new Person('Deepspace', 29, 'Software Engineer');
+const person1 = new Person("Deepspace", 29, "Software Engineer");
 person1.sayName(); // Deepspace
 ```
 
@@ -685,7 +685,7 @@ console.log(person1 instanceof Person); // true
 ```javascript
 function Person(name) {
   this.name = name;
-  if (typeof this.sayName !== 'function') {
+  if (typeof this.sayName !== "function") {
     Person.prototype = {
       constructor: Person,
       sayName: function () {
@@ -695,8 +695,8 @@ function Person(name) {
   }
 }
 
-const person1 = new Person('Deepspace');
-const person2 = new Person('chenxingxing');
+const person1 = new Person("Deepspace");
+const person2 = new Person("chenxingxing");
 
 person1.sayName(); // TypeError: person1.sayName is not a function
 // 注释掉上面的代码，下面这行代码是可以运行的
@@ -714,10 +714,10 @@ person2.sayName(); // chenxingxing
 可以简化成下面的例子来理解：
 
 ```javascript
-let obj = { name: 'Deepspace' };
+let obj = { name: "Deepspace" };
 const c = obj;
 
-obj = { name: 'chenxingxing' };
+obj = { name: "chenxingxing" };
 
 console.log(c); // { name: 'Deepspace' }
 console.log(obj); // { name: 'chenxingxing' }
@@ -728,7 +728,7 @@ console.log(obj); // { name: 'chenxingxing' }
 ```javascript
 function Person(name) {
   this.name = name;
-  if (typeof this.sayName !== 'function') {
+  if (typeof this.sayName !== "function") {
     Person.prototype = {
       constructor: Person,
       sayName: function () {
@@ -739,8 +739,8 @@ function Person(name) {
   }
 }
 
-const person1 = new Person('Deepspace');
-const person2 = new Person('chenxingxing');
+const person1 = new Person("Deepspace");
+const person2 = new Person("chenxingxing");
 
 person1.sayName(); // Deepspace
 person2.sayName(); // chenxingxing
@@ -760,7 +760,7 @@ function Person(name, age, job) {
   return o;
 }
 
-const person1 = new Person('Deepspace', 24, 'Software Engineer');
+const person1 = new Person("Deepspace", 24, "Software Engineer");
 
 console.log(person1);
 // { name: 'Deepspace', age: 24, job: 'Software Engineer', sayName: [Function] }
@@ -782,13 +782,13 @@ function SpecialArray() {
   }
 
   values.toPipedString = function () {
-    return this.join('|');
+    return this.join("|");
   };
   return values;
 }
 
-const colors = new SpecialArray('red', 'blue', 'green');
-const colors2 = SpecialArray('red2', 'blue2', 'green2');
+const colors = new SpecialArray("red", "blue", "green");
+const colors2 = SpecialArray("red2", "blue2", "green2");
 
 console.log(colors); // [ 'red', 'blue', 'green', toPipedString: [Function] ]
 console.log(colors.toPipedString()); // red|blue|green
@@ -810,11 +810,11 @@ function person(name) {
   return o;
 }
 
-const person1 = person('Deepspace');
+const person1 = person("Deepspace");
 
 person1.sayName(); // Deepspace
 
-person1.name = 'chenxingxing';
+person1.name = "chenxingxing";
 
 person1.sayName(); // Deepspace
 
@@ -872,7 +872,7 @@ const me = Object.create(person);
 
 console.log(me.__proto__ === person); // true
 
-me.name = 'Deepspace'; // name 属性被设置在新对象 me 上，而不是现有对象 person 上
+me.name = "Deepspace"; // name 属性被设置在新对象 me 上，而不是现有对象 person 上
 me.isHuman = true; // 继承的属性可以被重写
 
 me.printIntroduction(); // My name is Deepspace. Am I human? true
@@ -903,13 +903,13 @@ o.f = function () {
 };
 //a、b、c 皆为数据属性
 
-console.log(Object.getOwnPropertyDescriptor(o, 'a'));
+console.log(Object.getOwnPropertyDescriptor(o, "a"));
 // { value: 1, writable: true, enumerable: true, configurable: true }
 
-console.log(Object.getOwnPropertyDescriptor(o, 'b'));
+console.log(Object.getOwnPropertyDescriptor(o, "b"));
 // { value: 2, writable: true, enumerable: true, configurable: true }
 
-console.log(Object.getOwnPropertyDescriptor(o, 'f'));
+console.log(Object.getOwnPropertyDescriptor(o, "f"));
 /* {
   value: [Function],
     writable: true,

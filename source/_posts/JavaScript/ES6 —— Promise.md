@@ -16,7 +16,7 @@ urlname: es6-promise
 
 学习一个东西，得先知道它是什么。我们先在浏览器中使用 `console.dir(Promise)` 打印出 `Promise` 对象的所的属性和方法。
 
-![Promise](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/promise.png)
+![Promise](https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/promise.png)
 
 从打印结果可以看出，`Promise` 是一个构造函数，它自己本身有 `all`、`reject`、`resolve` 等方法，原型上有 `catch`、`finally`、`then` 等方法。所以 `new` 出来的 `Promise` 对象也就自然拥有 `catch`、`finally`、`then` 这些方法。从上图中可以看到，`then ` 方法返回的是一个新的 `Promise` 实例（注意，不是原来那个 `Promise` 实例）。因此可以采用链式写法，即 `then` 方法后面再调用另一个 `then` 方法。
 
@@ -44,8 +44,8 @@ urlname: es6-promise
 const p = new Promise(function (resolve, reject) {
   //Do some Async
   setTimeout(function () {
-    console.log('执行完成');
-    resolve('数据');
+    console.log("执行完成");
+    resolve("数据");
   }, 2000);
 });
 ```
@@ -62,8 +62,8 @@ function runAsync() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成');
-      resolve('数据');
+      console.log("执行完成");
+      resolve("数据");
     }, 2000);
   });
   return p;
@@ -78,8 +78,8 @@ function runAsync() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成');
-      resolve('数据');
+      console.log("执行完成");
+      resolve("数据");
     }, 2000);
   });
   return p;
@@ -151,7 +151,7 @@ doF();
 ```javascript
 request(url, function (err, res, body) {
   if (err) handleError(err);
-  fs.writeFile('1.txt', body, function (err) {
+  fs.writeFile("1.txt", body, function (err) {
     request(url2, function (err, res, body) {
       if (err) handleError(err);
     });
@@ -164,7 +164,7 @@ request(url, function (err, res, body) {
 ```javascript
 request(url)
   .then(function (result) {
-    return writeFileAsynv('1.txt', result);
+    return writeFileAsynv("1.txt", result);
   })
   .then(function (result) {
     return request(url2);
@@ -183,11 +183,11 @@ request(url)
 ```javascript
 runAsync()
   .then(function (data) {
-    console.log('resolved');
+    console.log("resolved");
     console.log(data);
   })
   .catch(function (error) {
-    console.log('rejected');
+    console.log("rejected");
     console.log(error);
   });
 ```
@@ -197,12 +197,12 @@ runAsync()
 ```javascript
 runAsync()
   .then(function (data) {
-    console.log('resolved');
+    console.log("resolved");
     console.log(data);
     console.log(somedata); //此处的somedata未定义
   })
   .catch(function (error) {
-    console.log('rejected');
+    console.log("rejected");
     console.log(error);
   });
 
@@ -230,8 +230,8 @@ function runAsync1() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成1');
-      resolve('数据1');
+      console.log("执行完成1");
+      resolve("数据1");
     }, 2000);
   });
   return p;
@@ -241,8 +241,8 @@ function runAsync2() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成2');
-      resolve('数据2');
+      console.log("执行完成2");
+      resolve("数据2");
     }, 2000);
   });
   return p;
@@ -252,8 +252,8 @@ function runAsync3() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成3');
-      resolve('数据3');
+      console.log("执行完成3");
+      resolve("数据3");
     }, 2000);
   });
   return p;
@@ -302,13 +302,13 @@ Promise.race([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 
 ```javascript
 function red() {
-  console.log('red');
+  console.log("red");
 }
 function green() {
-  console.log('green');
+  console.log("green");
 }
 function yellow() {
-  console.log('yellow');
+  console.log("yellow");
 }
 ```
 
@@ -316,13 +316,13 @@ function yellow() {
 
 ```javascript
 function red() {
-  console.log('red');
+  console.log("red");
 }
 function green() {
-  console.log('green');
+  console.log("green");
 }
 function yellow() {
-  console.log('yellow');
+  console.log("yellow");
 }
 
 const light = function (timmer, color) {

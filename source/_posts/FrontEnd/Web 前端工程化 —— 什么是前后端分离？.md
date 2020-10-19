@@ -13,7 +13,7 @@ tags:
 
 如果在一个比较高的抽象层面来看待这个问题的话，**`Web` 开发就是在处理客户端请求及服务端响应这两件事**。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/web-development.jpg" alt="Web 开发" style="zoom:58%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/web-development.jpg" alt="Web 开发" style="zoom:58%;" />
 
 当然，这是抽象。在实际的 `Web` 开发中，我们会有很多东西需要关注。
 
@@ -30,7 +30,7 @@ tags:
 
 后端主要做的事情是从数据库中拉取数据，在 `Server` 端生成 `html` 模板，然后将生成的模板发送到客户端。客户端收到模板后，在客户端注入 `js` 和 `css`，生成 `dom` 树，然后渲染成页面呈现给用户。如下图示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/traditional-web-development.jpg" alt="Web 传统开发模式" style="zoom: 50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/traditional-web-development.jpg" alt="Web 传统开发模式" style="zoom: 50%;" />
 
 这种开发模式被称为**传统开发模式**或者**前后端混合开发模式**，现在也有一些企业的 `Web` 应用依然在使用这种开发模式。
 
@@ -50,7 +50,7 @@ tags:
 
 前后端分离的开发模式图示如下：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/frontend-backend-development.jpg" alt="前后端分离开发模式" style="zoom:55%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/frontend-backend-development.jpg" alt="前后端分离开发模式" style="zoom:55%;" />
 
 **在前后端分离的开发模式下，`Server` 端从数据库拿到元数据后，经过处理直接吐出数据（而不是页面模板），`Client` 端拿到数据后，在客户端进行模板渲染生成页面，最终呈现给用户。**
 
@@ -74,7 +74,7 @@ tags:
 
 这里贴上淘宝前端团队提出的中途岛 （`Midway Framework`）架构图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/taobao-midway-framework.png" alt="Midway Framework" style="zoom: 67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/taobao-midway-framework.png" alt="Midway Framework" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
 不同的需求，架构也需要做不同程度的相应的调整。
@@ -83,7 +83,7 @@ tags:
 
 不管是瀑布模式的前后端分离，还是敏捷模式下的前后端分离，都需要从业务逻辑出发，从业务的角度来说，`Web` 应用的前后端是一个整体，它们无法独立运行。于是，我们的开发模式（也可以说是交互形式）就变成了下面这样：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/FrontEnd/fe-be-alternate.jpg" alt="前后端交互" style="zoom:45%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/FrontEnd/fe-be-alternate.jpg" alt="前后端交互" style="zoom:45%;" />
 
 图中的 `API` 文档，可以是一个模拟后端接口的 `JSON API`，也可以是文档编写的 `API` 。在这个过程中，前后端需要根据业务逻辑需要展示的内容，一起细致化接口的每个字段名，直至接口确认完毕，当各种开发完成时，需要在测试环境进行集成。如果遇到 `API` 变更，我们需要重复这个过程。
 

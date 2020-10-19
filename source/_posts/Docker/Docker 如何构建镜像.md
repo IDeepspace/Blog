@@ -53,7 +53,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 这条命令会拉取一个 `nginx` 镜像，并基于镜像启动一个容器，命名为 `webserver`，并且映射了 `80` 端口，这样我们可以用浏览器去访问这个 `nginx` 服务器。`-d` 的作用是让容器可以保持后台运行，并返回容器 `ID`。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Docker/docker-welcome-to-nginx.png" alt="docker-welcome-to-nginx" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Docker/docker-welcome-to-nginx.png" alt="docker-welcome-to-nginx" style="zoom:50%;" />
 
 直接用浏览器访问的 http://localhost:80， 我们会看到默认的 `Nginx` 欢迎页面。
 
@@ -144,7 +144,7 @@ $ docker run --name webserver2 -d -p 81:80 nginx:v2
 74dd9866b7ba14998f539f3c91da976cf4f5631d3c1b84bb1b6e00348a437258
 ```
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Docker/docker-welcome-to-nginx-1.png" alt="docker-welcome-to-nginx-1" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Docker/docker-welcome-to-nginx-1.png" alt="docker-welcome-to-nginx-1" style="zoom:50%;" />
 
 访问 [http://localhost:81](http://localhost:81/) 看到结果，其内容和之前修改后的 `webserver` 是一样的。
 
@@ -443,11 +443,11 @@ $ npm install express --save
 创建 `server.js` 文件，写入以下内容：
 
 ```javascript
-const express = require('express');
+const express = require("express");
 const port = 30010;
 
 const app = express();
-app.get('/', (req, res) => res.send('Hello Docker!'));
+app.get("/", (req, res) => res.send("Hello Docker!"));
 
 app.listen(port, () => console.log(`Running on http://localhost:${port}`));
 ```

@@ -158,7 +158,7 @@ class ErrorBoundary extends Component {
       return (
         <div>
           <h2>Something went wrong.</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
+          <details style={{ whiteSpace: "pre-wrap" }}>
             {this.state.error && this.state.error.toString()}
             <br />
             {this.state.errorInfo.componentStack}
@@ -191,7 +191,7 @@ class BuggyCounter extends Component {
   render() {
     if (this.state.counter === 5) {
       // Simulate a JS error
-      throw new Error('I crashed!');
+      throw new Error("I crashed!");
     }
     return <h1 onClick={this.handleClick}>{this.state.counter}</h1>;
   }
@@ -255,7 +255,7 @@ function App() {
 ```jsx
 <div>
   <div> ... </div>
-  <div class='dialog'>Dialog Content</div>
+  <div class="dialog">Dialog Content</div>
 </div>
 ```
 
@@ -271,18 +271,18 @@ function App() {
 
 ```jsx
 <body>
-  <div id='root'></div>
-  <div id='modal-root'></div>
+  <div id="root"></div>
+  <div id="modal-root"></div>
 </body>
 ```
 
 通过 `createPortal Api` 创建一个 "传送门"：
 
 ```jsx
-import { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Component } from "react";
+import ReactDOM from "react-dom";
 
-const modalRoot = document.getElementById('modal-root');
+const modalRoot = document.getElementById("modal-root");
 
 class Modal extends Component {
   constructor(props) {
@@ -290,7 +290,7 @@ class Modal extends Component {
     // Create a div that we'll render the modal into. Because each
     // Modal component has its own element, we can render multiple
     // modal components into the modal container.
-    this.el = document.createElement('div');
+    this.el = document.createElement("div");
   }
 
   componentDidMount() {
@@ -320,9 +320,9 @@ export default Modal;
 使用 `Modal` :
 
 ```jsx
-import React, { Component } from 'react';
-import Modal from './Modal';
-import './style.css';
+import React, { Component } from "react";
+import Modal from "./Modal";
+import "./style.css";
 
 class App extends Component {
   constructor(props) {
@@ -353,7 +353,7 @@ class App extends Component {
     // for accessibility!)
     const modal = this.state.showModal ? (
       <Modal>
-        <div className='modal'>
+        <div className="modal">
           <button onClick={this.handleHide}>Hide modal</button>
           <button onClick={this.handleClick}>Click</button>
         </div>
@@ -361,7 +361,7 @@ class App extends Component {
     ) : null;
 
     return (
-      <div className='app'>
+      <div className="app">
         <p>Number of clicks: {this.state.clicks}</p>
         This div has overflow: hidden.
         <button onClick={this.handleShow}>Show modal</button>
@@ -388,7 +388,7 @@ export default App;
 
 我们先看看 `React 16` 之前的生命周期图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/react15-lifecycle.png" alt="Reactv15生命周期图" style="zoom:77%;" />
 
 <p align="center">(图片来自网络)</p>
 如上图所示，可以把组件的生命周期大致分为三个阶段：
@@ -490,7 +490,7 @@ export default App;
 
 再来看下 `React v16.4` 的生命周期图：
 
-![Reactv16.4生命周期图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/reactv16.4-lifecycle.jpg)
+![Reactv16.4生命周期图](https://gitee.com/IDeepspace/image-hosting/raw/master/React/reactv16.4-lifecycle.jpg)
 
 <p align="center">(图片来自网络)</p>
 `React16` 废弃的三个生命周期函数：
@@ -562,7 +562,7 @@ export default App;
 一个简单的例子：
 
 ```jsx
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class A extends Component {
   constructor(props) {
@@ -578,9 +578,9 @@ class A extends Component {
   // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('Being called');
+    console.log("Being called");
     if (nextProps.name !== prevState.name) {
-      console.log('Running A.getDerivedStateFromProps()');
+      console.log("Running A.getDerivedStateFromProps()");
       return {
         name: nextProps.name,
       };
@@ -596,7 +596,7 @@ class A extends Component {
   };
 
   render() {
-    console.log('A.render()');
+    console.log("A.render()");
     return (
       <div>
         <div>Hello {this.state.name}</div>
@@ -613,7 +613,7 @@ class B extends Component {
   }
 
   render() {
-    return <A name='World' />;
+    return <A name="World" />;
   }
 
   componentDidMount() {

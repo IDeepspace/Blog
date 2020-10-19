@@ -27,13 +27,13 @@ urlname: javascript-object-oriented-programming-2
 
 如下图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
 
 ### 二、原型链
 
 那么，假如我们让原型对象等于另一个类型的实例，结果会怎么样呢？显然，此时的原型对象将包含一个指向另一个原型的指针（`__proto__`）；相应地，另一个原型中也包含着一个指向另一个构造函数的指针（`constructor`）。假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓原型链的基本概念。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype5.png" alt="原型链示意图" style="zoom:80%;" />
 
 图中蓝色的线条就是原型链。
 
@@ -46,7 +46,7 @@ urlname: javascript-object-oriented-programming-2
 ```javascript
 // 超类型
 function SuperType() {
-  this.superValue = 'superValue';
+  this.superValue = "superValue";
 }
 
 SuperType.prototype.getSuperValue = function () {
@@ -66,7 +66,7 @@ console.log(instance.getSuperValue()); // 'superValue' --- 继承自 SuperType �
 
 ```javascript
 function SuperType() {
-  this.superValue = 'superValue';
+  this.superValue = "superValue";
 }
 
 SuperType.prototype.getSuperValue = function () {
@@ -74,7 +74,7 @@ SuperType.prototype.getSuperValue = function () {
 };
 
 function SubType() {
-  this.subValue = 'subValue';
+  this.subValue = "subValue";
 }
 
 // 继承了 SuperType
@@ -96,7 +96,7 @@ console.log(instance.getSuperValue()); // 'superValue' --- 继承自 SuperType �
 
 ```javascript
 function SuperType() {
-  this.superValue = 'superValue';
+  this.superValue = "superValue";
 }
 
 SuperType.prototype.getSuperValue = function () {
@@ -104,7 +104,7 @@ SuperType.prototype.getSuperValue = function () {
 };
 
 function SubType() {
-  this.subValue = 'subValue';
+  this.subValue = "subValue";
 }
 
 // 继承了 SuperType
@@ -117,7 +117,7 @@ SubType.prototype.getSubValue = function () {
 
 // 重写超类型中的方法
 SubType.prototype.getSuperValue = function () {
-  return 'newValue';
+  return "newValue";
 };
 
 const instance = new SubType();
@@ -133,7 +133,7 @@ console.log(instance.getSuperValue()); // 'newValue' --- 重写了 SuperType 的
 
 ```javascript
 function SuperType() {
-  this.superValue = 'superValue';
+  this.superValue = "superValue";
 }
 
 SuperType.prototype.getSuperValue = function () {
@@ -141,7 +141,7 @@ SuperType.prototype.getSuperValue = function () {
 };
 
 function SubType() {
-  this.subValue = 'subValue';
+  this.subValue = "subValue";
 }
 
 // 继承了 SuperType
@@ -154,7 +154,7 @@ SubType.prototype = {
     return this.subValue;
   },
   someOtherMethod: function () {
-    return 'something';
+    return "something";
   },
 };
 
@@ -175,7 +175,7 @@ console.log(instance.getSuperValue()); // TypeError: instance.getSuperValue is n
 
 ```javascript
 function SuperType() {
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 function SubType() {}
@@ -184,7 +184,7 @@ function SubType() {}
 SubType.prototype = new SuperType();
 
 const instance1 = new SubType();
-instance1.colors.push('black');
+instance1.colors.push("black");
 console.log(instance1.colors); // [ 'red', 'blue', 'green', 'black' ]
 
 const instance2 = new SubType();
@@ -211,7 +211,7 @@ console.log(instance2.colors); // [ 'red', 'blue', 'green', 'black' ]
 
 ```javascript
 function SuperType() {
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 function SubType() {
@@ -220,7 +220,7 @@ function SubType() {
 }
 
 const instance1 = new SubType();
-instance1.colors.push('black');
+instance1.colors.push("black");
 console.log(instance1.colors); // [ 'red', 'blue', 'green', 'black' ]
 
 const instance2 = new SubType();
@@ -239,7 +239,7 @@ function SuperType(name) {
 }
 function SubType() {
   // 继承了 SuperType，同时还传递了参数
-  SuperType.call(this, 'Deepspace');
+  SuperType.call(this, "Deepspace");
   // 实例属性
   this.age = 29;
 }
@@ -264,7 +264,7 @@ console.log(instance.age); //29
 ```javascript
 function SuperType(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 SuperType.prototype.sayName = function () {
@@ -284,13 +284,13 @@ SubType.prototype.sayAge = function () {
   console.log(this.age);
 };
 
-const instance1 = new SubType('Deepspace', 29);
-instance1.colors.push('black');
+const instance1 = new SubType("Deepspace", 29);
+instance1.colors.push("black");
 console.log(instance1.colors); // [ 'red', 'blue', 'green', 'black' ]
 instance1.sayName(); // Deepspace
 instance1.sayAge(); // 29
 
-const instance2 = new SubType('chenxingxing', 27);
+const instance2 = new SubType("chenxingxing", 27);
 console.log(instance2.colors); // [ 'red', 'blue', 'green' ]
 instance2.sayName(); // chenxingxing
 instance2.sayAge(); // 27
@@ -336,18 +336,18 @@ function createObj(o) {
 }
 
 const person = {
-  name: 'Deepspace',
-  friends: ['chenxingxing'],
+  name: "Deepspace",
+  friends: ["chenxingxing"],
 };
 
 const anotherPerson = createObj(person);
 console.log(anotherPerson.name); // Deepspace
 console.log(anotherPerson.friends); // [ 'chenxingxing' ]
 
-anotherPerson.name = 'Greg';
+anotherPerson.name = "Greg";
 console.log(anotherPerson.name); // Greg
 
-anotherPerson.friends.push('Bob');
+anotherPerson.friends.push("Bob");
 console.log(person.friends); // [ 'chenxingxing', 'Bob' ]
 console.log(anotherPerson.friends); // [ 'chenxingxing', 'Bob' ]
 ```
@@ -357,11 +357,11 @@ console.log(anotherPerson.friends); // [ 'chenxingxing', 'Bob' ]
 ```javascript
 const yetAnotherPerson = createObj(person);
 
-yetAnotherPerson.name = 'Linda';
+yetAnotherPerson.name = "Linda";
 console.log(yetAnotherPerson.name); // Linda
 console.log(yetAnotherPerson.friends); // [ 'chenxingxing', 'Bob' ]
 
-yetAnotherPerson.friends.push('Barbie');
+yetAnotherPerson.friends.push("Barbie");
 console.log(person.friends); // [ 'chenxingxing', 'Bob', 'Barbie' ]
 console.log(anotherPerson.friends); // [ 'chenxingxing', 'Bob', 'Barbie' ]
 console.log(yetAnotherPerson.friends); // [ 'chenxingxing', 'Bob', 'Barbie' ]
@@ -378,14 +378,14 @@ function createAnother(original) {
   const clone = Object.create(original); // 通过调用函数创建一个新对象
   clone.sayHi = function () {
     // 以某种方式来增强这个对象
-    console.log('hi');
+    console.log("hi");
   };
   return clone; // 返回这个对象
 }
 
 const person = {
-  name: 'Deepspace',
-  friends: ['xiaohong', 'xiaobai'],
+  name: "Deepspace",
+  friends: ["xiaohong", "xiaobai"],
 };
 
 const anotherPerson = createAnother(person);
@@ -397,7 +397,7 @@ anotherPerson.sayHi(); // 'hi'
 const yetAnotherPerson = createAnother(person);
 console.log(yetAnotherPerson.sayHi === anotherPerson.sayHi); // false
 
-anotherPerson.friends.push('xiaohuang');
+anotherPerson.friends.push("xiaohuang");
 
 console.log(person.friends); // [ 'xiaohong', 'xiaobai', 'xiaohuang' ]
 console.log(anotherPerson.friends); // [ 'xiaohong', 'xiaobai', 'xiaohuang' ]
@@ -412,7 +412,7 @@ console.log(anotherPerson.friends); // [ 'xiaohong', 'xiaobai', 'xiaohuang' ]
 ```javascript
 function SuperType(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 SuperType.prototype.sayName = function () {
@@ -430,7 +430,7 @@ SubType.prototype.sayAge = function () {
   console.log(this.age);
 };
 
-const instance1 = new SubType('Deepspace', 29); // 调用SubType构造函数
+const instance1 = new SubType("Deepspace", 29); // 调用SubType构造函数
 ```
 
 但是组合继承也是有自己的缺点的：**会调用两次超类型构造函数。**
@@ -447,7 +447,7 @@ const instance1 = new SubType('Deepspace', 29); // 调用SubType构造函数
 ```javascript
 function SuperType(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 SuperType.prototype.sayName = function () {
@@ -469,13 +469,13 @@ SubType.prototype.sayAge = function () {
   console.log(this.age);
 };
 
-const instance1 = new SubType('Deepspace', 29);
-instance1.colors.push('black');
+const instance1 = new SubType("Deepspace", 29);
+instance1.colors.push("black");
 console.log(instance1.colors); // [ 'red', 'blue', 'green', 'black' ]
 instance1.sayName(); // Deepspace
 instance1.sayAge(); // 29
 
-const instance2 = new SubType('chenxingxing', 27);
+const instance2 = new SubType("chenxingxing", 27);
 console.log(instance2.colors); // [ 'red', 'blue', 'green' ]
 instance2.sayName(); // chenxingxing
 instance2.sayAge(); // 27
@@ -498,7 +498,7 @@ function inheritPrototype(subType, superType) {
 
 function SuperType(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 SuperType.prototype.sayName = function () {
@@ -518,13 +518,13 @@ SubType.prototype.sayAge = function () {
   console.log(this.age);
 };
 
-const instance1 = new SubType('Deepspace', 29);
-instance1.colors.push('black');
+const instance1 = new SubType("Deepspace", 29);
+instance1.colors.push("black");
 console.log(instance1.colors); // [ 'red', 'blue', 'green', 'black' ]
 instance1.sayName(); // Deepspace
 instance1.sayAge(); // 29
 
-const instance2 = new SubType('chenxingxing', 27);
+const instance2 = new SubType("chenxingxing", 27);
 console.log(instance2.colors); // [ 'red', 'blue', 'green' ]
 instance2.sayName(); // chenxingxing
 instance2.sayAge(); // 27

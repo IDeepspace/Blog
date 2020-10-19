@@ -65,7 +65,7 @@ $ sudo touch docker-compose.yml
 编辑 `docker-compose.yml` ，将如下内容保存在里面：
 
 ```yml
-version: '3.3'
+version: "3.3"
 
 services:
   db:
@@ -84,7 +84,7 @@ services:
       - db
     image: wordpress:latest
     ports:
-      - '8000:80'
+      - "8000:80"
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -142,7 +142,7 @@ e70ea0b4e610        mysql:5.7           "docker-entrypoint.s…"   28 seconds ag
 
 我们在浏览器中访问地址：http://localhost:8000/，会出现安装 `WordPress` 的界面：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Docker/docker-compose-wordpress.png" alt="docker-compose-wordpress" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Docker/docker-compose-wordpress.png" alt="docker-compose-wordpress" style="zoom:50%;" />
 
 ### 四、Compose 常用服务配置
 

@@ -179,7 +179,7 @@ Iterator<String> namesIterator = names.iterator();
 
 可以用下面的图来表示 `nameIterator` ：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator1.png" alt="迭代器1" style="zoom:60%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/iterator1.png" alt="迭代器1" style="zoom:60%;" />
 
 这里，`Iterator` 的 `Cursor` （光标）指向 `List` 的第一个元素之前。
 
@@ -192,7 +192,7 @@ namesIterator.next();
 
 这个时候，`Iterator` 的 `Cursor` 指向 `List` 中的第一个元素，如下图所示：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator2.png" alt="迭代器2" style="zoom:60%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/iterator2.png" alt="迭代器2" style="zoom:60%;" />
 
 我们再运行一下刚才的两行代码：
 
@@ -203,19 +203,19 @@ namesIterator.next();
 
 `Iterator` 的 `Cursor` 会指向 `List` 中的第二个元素：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator3.png" alt="迭代器3" style="zoom:60%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/iterator3.png" alt="迭代器3" style="zoom:60%;" />
 
 以此类推，重复执行此过程，可将 `Iterator` 的 `Cursor` 指向 `List` 中的最后一个元素。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator4.png" alt="迭代器4" style="zoom:60%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/iterator4.png" alt="迭代器4" style="zoom:60%;" />
 
 当读取最后一个元素后，如果继续运行上面的代码片段，它将返回 `false` 。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator5.png" alt="迭代器5" style="zoom:60%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/iterator5.png" alt="迭代器5" style="zoom:60%;" />
 
 从上面的描述可以看出，`Java` 迭代器只支持如下图所示的**前进方向迭代**。
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/Java/iterator6.png" alt="迭代器6" style="zoom:60%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/Java/iterator6.png" alt="迭代器6" style="zoom:60%;" />
 
 所以在一些地方迭代器也称为单向光标。
 

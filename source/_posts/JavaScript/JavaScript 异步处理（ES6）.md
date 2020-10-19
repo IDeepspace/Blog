@@ -16,7 +16,7 @@ urlname: javascript-async
 
 我们先看看 `Promise` 是什么。先在浏览器中使用 `console.dir(Promise)` 打印出 `Promise` 对象的所的属性和方法：
 
-![Promise](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/promise.png)
+![Promise](https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/promise.png)
 
 从打印结果可以看出，`Promise` 是一个构造函数，它自己本身有 `all`、`reject`、`resolve` 等方法，原型上有 `catch`、`finally`、`then` 等方法。所以 `new` 出来的 `Promise` 对象也就自然拥有 `catch`、`finally`、`then` 这些方法。从上图中可以看到，`then` 方法返回的是一个新的 `Promise` 实例（注意，不是原来那个 `Promise` 实例）。因此可以采用链式写法，即 `then` 方法后面再调用另一个 `then` 方法。
 
@@ -57,8 +57,8 @@ urlname: javascript-async
 const p = new Promise(function (resolve, reject) {
   //Do some Async
   setTimeout(function () {
-    console.log('执行完成');
-    resolve('数据');
+    console.log("执行完成");
+    resolve("数据");
   }, 2000);
 });
 ```
@@ -77,8 +77,8 @@ function runAsync() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成');
-      resolve('数据');
+      console.log("执行完成");
+      resolve("数据");
     }, 2000);
   });
   return p;
@@ -93,8 +93,8 @@ function runAsync() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成');
-      resolve('数据');
+      console.log("执行完成");
+      resolve("数据");
       // reject('数据');
     }, 2000);
   });
@@ -167,7 +167,7 @@ doF();
 ```javascript
 request(url, function (err, res, body) {
   if (err) handleError(err);
-  fs.writeFile('1.txt', body, function (err) {
+  fs.writeFile("1.txt", body, function (err) {
     request(url2, function (err, res, body) {
       if (err) handleError(err);
     });
@@ -180,7 +180,7 @@ request(url, function (err, res, body) {
 ```javascript
 request(url)
   .then(function (result) {
-    return writeFileAsynv('1.txt', result);
+    return writeFileAsynv("1.txt", result);
   })
   .then(function (result) {
     return request(url2);
@@ -201,11 +201,11 @@ request(url)
 ```javascript
 runAsync()
   .then(function (data) {
-    console.log('resolved');
+    console.log("resolved");
     console.log(data);
   })
   .catch(function (error) {
-    console.log('rejected');
+    console.log("rejected");
     console.log(error);
   });
 ```
@@ -218,7 +218,7 @@ runAsync()
 runAsync()
   .then(
     function (data) {
-      console.log('resolved');
+      console.log("resolved");
       console.log(data);
       console.log(somedata); //此处的somedata未定义
     },
@@ -227,7 +227,7 @@ runAsync()
     }
   )
   .catch(function (error) {
-    console.log('rejected');
+    console.log("rejected");
     console.log(error);
   });
 
@@ -255,8 +255,8 @@ function runAsync1() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成1');
-      resolve('数据1');
+      console.log("执行完成1");
+      resolve("数据1");
     }, 2000);
   });
   return p;
@@ -266,8 +266,8 @@ function runAsync2() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成2');
-      resolve('数据2');
+      console.log("执行完成2");
+      resolve("数据2");
     }, 5000);
   });
   return p;
@@ -277,8 +277,8 @@ function runAsync3() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成3');
-      resolve('数据3');
+      console.log("执行完成3");
+      resolve("数据3");
     }, 1000);
   });
   return p;
@@ -307,16 +307,16 @@ function runAsync1() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成1');
+      console.log("执行完成1");
       // 改成了 reject
-      reject('数据1');
+      reject("数据1");
     }, 2000);
   });
   return p;
 }
 
 Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
-  console.log('results' + results);
+  console.log("results" + results);
 });
 ```
 
@@ -336,10 +336,10 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function (results) {
 ```javascript
 Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(
   function (results) {
-    console.log('results' + results);
+    console.log("results" + results);
   },
   function (error) {
-    console.log('error' + error);
+    console.log("error" + error);
   }
 );
 
@@ -354,10 +354,10 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(
 ```javascript
 Promise.all([runAsync1(), runAsync2(), runAsync3()])
   .then(function (results) {
-    console.log('results' + results);
+    console.log("results" + results);
   })
   .catch((err) => {
-    console.log('catch' + err);
+    console.log("catch" + err);
   });
 
 // 执行完成3
@@ -392,8 +392,8 @@ function runAsync1() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成1');
-      reject('数据1');
+      console.log("执行完成1");
+      reject("数据1");
     }, 1000);
   });
   return p;
@@ -403,8 +403,8 @@ function runAsync2() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成2');
-      resolve('数据2');
+      console.log("执行完成2");
+      resolve("数据2");
     }, 2000);
   });
   return p;
@@ -414,8 +414,8 @@ function runAsync3() {
   const p = new Promise(function (resolve, reject) {
     //Do some Async
     setTimeout(function () {
-      console.log('执行完成3');
-      resolve('数据3');
+      console.log("执行完成3");
+      resolve("数据3");
     }, 2000);
   });
   return p;
@@ -447,13 +447,13 @@ Promise.race([runAsync1(), runAsync2(), runAsync3()])
 
 ```javascript
 function red() {
-  console.log('red');
+  console.log("red");
 }
 function green() {
-  console.log('green');
+  console.log("green");
 }
 function yellow() {
-  console.log('yellow');
+  console.log("yellow");
 }
 ```
 
@@ -461,13 +461,13 @@ function yellow() {
 
 ```javascript
 function red() {
-  console.log('red');
+  console.log("red");
 }
 function green() {
-  console.log('green');
+  console.log("green");
 }
 function yellow() {
-  console.log('yellow');
+  console.log("yellow");
 }
 
 const light = function (timmer, color) {
@@ -505,7 +505,7 @@ step();
 下面是一个 `Generator` 函数，依次读取两个文件：
 
 ```javascript
-const fs = require('fs');
+const fs = require("fs");
 
 const readFile = function (fileName) {
   return new Promise(function (resolve, reject) {
@@ -517,9 +517,9 @@ const readFile = function (fileName) {
 };
 
 function* ascReadFile() {
-  yield readFile('./a.txt');
-  yield readFile('./b.txt');
-  yield readFile('./c.txt');
+  yield readFile("./a.txt");
+  yield readFile("./b.txt");
+  yield readFile("./c.txt");
 }
 
 let g = ascReadFile();
@@ -541,9 +541,9 @@ g.next()
 
 ```javascript
 const asyncReadFile = async function () {
-  const f1 = await readFile('./a.txt');
-  const f2 = await readFile('./b.txt');
-  const f3 = await readFile('./c.txt');
+  const f1 = await readFile("./a.txt");
+  const f2 = await readFile("./b.txt");
+  const f3 = await readFile("./c.txt");
   console.log(f1.toString());
   console.log(f2.toString());
   console.log(f3.toString());
@@ -566,7 +566,7 @@ asyncReadFile();
 
 ```javascript
 async function testAsync() {
-  return 'hello async';
+  return "hello async";
 }
 
 const result = testAsync();
@@ -586,7 +586,7 @@ Promise { 'hello async' }
 
 ```javascript
 async function testAsync() {
-  return 'hello async';
+  return "hello async";
 }
 
 testAsync().then((v) => {
@@ -610,11 +610,11 @@ testAsync().then((v) => {
 
 ```javascript
 function getSomething() {
-  return 'something';
+  return "something";
 }
 
 async function testAsync() {
-  return Promise.resolve('hello async');
+  return Promise.resolve("hello async");
 }
 
 async function test() {
@@ -772,7 +772,7 @@ const makeRequest = () => {
     .then(() => callAPromise())
     .then(() => callAPromise())
     .then(() => {
-      throw new Error('oops');
+      throw new Error("oops");
     });
 };
 
@@ -794,7 +794,7 @@ const makeRequest = async () => {
   await callAPromise();
   await callAPromise();
   await callAPromise();
-  throw new Error('oops');
+  throw new Error("oops");
 };
 
 makeRequest().catch((err) => {
@@ -820,7 +820,7 @@ const makeRequest = () => {
     .then(() => callAPromise())
     .then(() => callAPromise())
     .then(() => {
-      throw new Error('oops');
+      throw new Error("oops");
     });
 };
 ```
@@ -854,8 +854,8 @@ const makeRequest = async () => {
 我们调用一个知乎的 `api` ：
 
 ```javascript
-const fetch = require('node-fetch');
-const bluebird = require('bluebird');
+const fetch = require("node-fetch");
+const bluebird = require("bluebird");
 
 const getZhihuColumn = async (id) => {
   await bluebird.delay(1000);
@@ -869,9 +869,9 @@ const getZhihuColumn = async (id) => {
 
 ```javascript
 const showColumnInfo = async () => {
-  console.time('showColumnInfo');
+  console.time("showColumnInfo");
 
-  const names = ['feweekly', 'toolingtips'];
+  const names = ["feweekly", "toolingtips"];
 
   for (const name of names) {
     const column = await getZhihuColumn(name);
@@ -879,7 +879,7 @@ const showColumnInfo = async () => {
     console.log(`Intro: ${column.intro} `);
   }
 
-  console.timeEnd('showColumnInfo');
+  console.timeEnd("showColumnInfo");
 };
 
 showColumnInfo();
@@ -899,9 +899,9 @@ showColumnInfo: 2446.938ms
 
 ```javascript
 const showColumnInfo = async () => {
-  console.time('showColumnInfo');
+  console.time("showColumnInfo");
 
-  const names = ['feweekly', 'toolingtips'];
+  const names = ["feweekly", "toolingtips"];
 
   const promises = names.map((name) => getZhihuColumn(name));
 
@@ -911,7 +911,7 @@ const showColumnInfo = async () => {
     console.log(`Intro: ${column.intro} `);
   }
 
-  console.timeEnd('showColumnInfo');
+  console.timeEnd("showColumnInfo");
 };
 
 showColumnInfo();
@@ -952,7 +952,7 @@ const doMulti = (num) => {
       if (num) {
         resolve(num * num);
       } else {
-        reject(new Error('num not specified'));
+        reject(new Error("num not specified"));
       }
     }, 2000);
   });
@@ -960,13 +960,13 @@ const doMulti = (num) => {
 
 // 主函数
 const main = async () => {
-  console.log('start');
+  console.log("start");
   const nums = [1, 2, 3];
   nums.forEach(async (x) => {
     const res = await doMulti(x);
     console.log(res);
   });
-  console.log('end');
+  console.log("end");
 };
 
 // 执行
@@ -981,13 +981,13 @@ main();
 
 ```javascript
 const main = async () => {
-  console.log('start');
+  console.log("start");
   const nums = await getNumbers();
   for (const x of nums) {
     const res = await doMulti(x);
     console.log(res);
   }
-  console.log('end');
+  console.log("end");
 };
 ```
 
@@ -1005,7 +1005,7 @@ if (!Array.prototype.forEach) {
     var T, k;
 
     if (this == null) {
-      throw new TypeError(' this is null or not defined');
+      throw new TypeError(" this is null or not defined");
     }
 
     // 1. Let O be the result of calling toObject() passing the
@@ -1019,8 +1019,8 @@ if (!Array.prototype.forEach) {
 
     // 4. If isCallable(callback) is false, throw a TypeError exception.
     // See: http://es5.github.com/#x9.11
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + " is not a function");
     }
 
     // 5. If thisArg was supplied, let T be thisArg; else let
@@ -1075,7 +1075,7 @@ Array.prototype.forEach = function (callback) {
 
 ```javascript
 const main = async () => {
-  console.log('start');
+  console.log("start");
   const nums = await getNumbers();
   // nums.forEach(async (x) => {
   //   const res = await doMulti(x);
@@ -1087,7 +1087,7 @@ const main = async () => {
       console.log(res);
     })(nums[index]);
   }
-  console.log('end');
+  console.log("end");
 };
 ```
 
@@ -1103,13 +1103,13 @@ const asyncForEach = async (array, callback) => {
 };
 
 const main = async () => {
-  console.log('start');
+  console.log("start");
   const nums = await getNumbers();
   await asyncForEach(nums, async (x) => {
     const res = await doMulti(x);
     console.log(res);
   });
-  console.log('end');
+  console.log("end");
 };
 
 main();

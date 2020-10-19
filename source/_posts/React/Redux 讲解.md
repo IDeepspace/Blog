@@ -29,7 +29,7 @@ urlname: redux-basic
 `store` 就是存放数据的地方，可以把它看作是一个容器。 `Redux` 应用只有一个单一的 `store`。`redux` 提供 `createStore` 函数来生成 `store`，函数参数是 `reducer`（后面介绍）。
 
 ```javascript
-import { createStore } from 'redux';
+import { createStore } from "redux";
 const store = createStore(reducer);
 ```
 
@@ -47,7 +47,7 @@ const state = store.getState();
 
 ```javascript
 const action = {
-  type: 'ADD_ONE',
+  type: "ADD_ONE",
   num: 1,
 };
 ```
@@ -56,7 +56,7 @@ const action = {
 
 ```javascript
 const action = {
-  type: 'ADD_ONE',
+  type: "ADD_ONE",
   num: 1,
 };
 store.dispatch(action);
@@ -67,14 +67,14 @@ store.dispatch(action);
 `store` 收到 `action` 以后，必须给出一个新的 `state`，这样 `view` 才会发生变化。这种 `state` 的计算过程就叫做 `reducer`。它接受 `action` 和当前 `state` 作为参数，返回一个新的 `state` 。
 
 ```javascript
-import { createStore } from 'redux';
+import { createStore } from "redux";
 const store = createStore(reducer);
 ```
 
 ```javascript
 const reducer = (state = 10, action) => {
   switch (action.type) {
-    case 'ADD_ONE':
+    case "ADD_ONE":
       return state + action.num;
     default:
       return state;
@@ -89,15 +89,15 @@ const reducer = (state = 10, action) => {
 ```javascript
 //第一步，创建action
 const addOne = {
-  type: 'ADD',
+  type: "ADD",
   num: 1,
 };
 const addTwo = {
-  type: 'ADD',
+  type: "ADD",
   num: 2,
 };
 const square = {
-  type: 'SQUARE',
+  type: "SQUARE",
 };
 
 //第二步，创建reducer
@@ -113,7 +113,7 @@ let math = (state = 10, action) => {
 };
 
 //第三步，创建store
-import { createStore } from 'redux';
+import { createStore } from "redux";
 const store = createStore(math);
 
 //第四步，测试，通过dispatch发出action，并通过getState()取得当前state值
@@ -131,7 +131,7 @@ console.log(store.getState()); //当前值为121+2=123
 
 ### 三、Redux 工作流
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/redux-flow.jpg" alt="Redux工作流" style="zoom: 67%;" />
 
 <p align="center">(图片来自网络)</p>
 
@@ -165,15 +165,15 @@ console.log(store.getState()); //当前值为121+2=123
 
 ```javascript
 // constants/ActionTypes.js
-export const ADD = 'ADD';
-export const SQUARE = 'SQUARE';
+export const ADD = "ADD";
+export const SQUARE = "SQUARE";
 ```
 
 2、可以将 `addOne` 对象和 `addTwo` 对象整合成 `add` 函数的形式
 
 ```javascript
 // action/math.js
-import { ADD, SQUARE } from '../constants/ActionTypes';
+import { ADD, SQUARE } from "../constants/ActionTypes";
 
 export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
@@ -183,7 +183,7 @@ export const square = { type: SQUARE };
 
 ```javascript
 // reducer/math.js
-import { ADD, SQUARE } from '../constants/ActionTypes';
+import { ADD, SQUARE } from "../constants/ActionTypes";
 
 const math = (state = 10, action) => {
   switch (action.type) {
@@ -200,8 +200,8 @@ export default math;
 
 ```javascript
 // reducer/index.js
-import { combineReducers } from 'redux';
-import math from './math';
+import { combineReducers } from "redux";
+import math from "./math";
 
 const rootReducer = combineReducers({
   math,
@@ -213,8 +213,8 @@ export default rootReducer;
 
 ```javascript
 // store/index.js
-import { createStore } from 'redux';
-import rootReducer from '../reducer';
+import { createStore } from "redux";
+import rootReducer from "../reducer";
 
 export default createStore(rootReducer);
 ```
@@ -222,8 +222,8 @@ export default createStore(rootReducer);
 5、最终，根路径下的 `index.js` 内容如下所示
 
 ```javascript
-import store from './store';
-import { add, square } from './action/math';
+import store from "./store";
+import { add, square } from "./action/math";
 
 console.log(store.getState()); //默认值为10
 
@@ -239,26 +239,26 @@ console.log(store.getState()); //当前值为121+2=123
 
 最终的目录结构：
 
-![目录结构](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-directory-structure.png)
+![目录结构](https://gitee.com/IDeepspace/image-hosting/raw/master/React/redux-directory-structure.png)
 
 ### 四、UI 层
 
 前面的示例中，只是 `redux` 的状态改变，下面利用 `UI` 层来建立 `view` 和 `state` 的联系，将根目录下的`index.js` 的内容更改如下:
 
 ```jsx
-import store from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { add, square } from './action/math';
+import store from "./store";
+import React from "react";
+import ReactDOM from "react-dom";
+import { add, square } from "./action/math";
 
 ReactDOM.render(
   <div store={store}>
     <p>{store.getState().math}</p>
-    <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
-    <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
-    <input type='button' onClick={() => store.dispatch(square)} value='乘方' />
+    <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
+    <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
+    <input type="button" onClick={() => store.dispatch(square)} value="乘方" />
   </div>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -271,24 +271,24 @@ ReactDOM.render(
 下面将示例代码更改如下：
 
 ```jsx
-import store from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { add, square } from './action/math';
+import store from "./store";
+import React from "react";
+import ReactDOM from "react-dom";
+import { add, square } from "./action/math";
 
 const render = () =>
   ReactDOM.render(
     <div store={store}>
       <p>{store.getState().math}</p>
-      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
-      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
+      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
+      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
       <input
-        type='button'
+        type="button"
         onClick={() => store.dispatch(square)}
-        value='乘方'
+        value="乘方"
       />
     </div>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
 
 render();
@@ -318,18 +318,18 @@ https://jsonplaceholder.typicode.com/posts/2
 
 ```javascript
 // constants/ActionTypes.js
-export const ADD = 'ADD';
-export const SQUARE = 'SQUARE';
-export const SET = 'SET';
+export const ADD = "ADD";
+export const SQUARE = "SQUARE";
+export const SET = "SET";
 
 // action/math.js
-import { ADD, SQUARE, SET } from '../constants/ActionTypes';
+import { ADD, SQUARE, SET } from "../constants/ActionTypes";
 export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
 export const setNum = (num) => ({ type: SET, num });
 
 // reduce/math.js
-import { ADD, SQUARE, SET } from '../constants/ActionTypes';
+import { ADD, SQUARE, SET } from "../constants/ActionTypes";
 const math = (state = 10, action) => {
   switch (action.type) {
     case ADD:
@@ -345,34 +345,34 @@ const math = (state = 10, action) => {
 export default math;
 
 // index.js
-import store from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { add, square, setNum } from './action/math';
-import axios from 'axios';
-let uri = 'https://jsonplaceholder.typicode.com/posts/2';
+import store from "./store";
+import React from "react";
+import ReactDOM from "react-dom";
+import { add, square, setNum } from "./action/math";
+import axios from "axios";
+let uri = "https://jsonplaceholder.typicode.com/posts/2";
 const render = () =>
   ReactDOM.render(
     <div store={store}>
       <p>{store.getState().math}</p>
       <input
-        type='button'
+        type="button"
         onClick={() => {
           axios.get(uri).then((res) => {
             store.dispatch(setNum(res.data.id));
           });
         }}
-        value='设置Num'
+        value="设置Num"
       />
-      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
-      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
+      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
+      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
       <input
-        type='button'
+        type="button"
         onClick={() => store.dispatch(square)}
-        value='乘方'
+        value="乘方"
       />
     </div>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
 render();
 store.subscribe(render);
@@ -393,9 +393,9 @@ $ npm install --save redux-thunk
 然后，使用 `applyMiddleware` 来使用 `thunk` 中间件:
 
 ```javascript
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from '../reducer';
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "../reducer";
 export default createStore(rootReducer, applyMiddleware(thunk));
 ```
 
@@ -405,9 +405,9 @@ export default createStore(rootReducer, applyMiddleware(thunk));
 
 ```javascript
 // action/math.js
-import { ADD, SQUARE, SET } from '../constants/ActionTypes';
-import axios from 'axios';
-const uri = 'https://jsonplaceholder.typicode.com/posts/2';
+import { ADD, SQUARE, SET } from "../constants/ActionTypes";
+import axios from "axios";
+const uri = "https://jsonplaceholder.typicode.com/posts/2";
 export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
 export const setNum = () => (dispatch, getState) => {
@@ -420,28 +420,28 @@ export const setNum = () => (dispatch, getState) => {
 };
 
 // index.js
-import store from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { add, square, setNum } from './action/math';
+import store from "./store";
+import React from "react";
+import ReactDOM from "react-dom";
+import { add, square, setNum } from "./action/math";
 const render = () =>
   ReactDOM.render(
     <div store={store}>
       <p>{store.getState().math}</p>
       <input
-        type='button'
+        type="button"
         onClick={() => store.dispatch(setNum())}
-        value='设置Num'
+        value="设置Num"
       />
-      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
-      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
+      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
+      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
       <input
-        type='button'
+        type="button"
         onClick={() => store.dispatch(square)}
-        value='乘方'
+        value="乘方"
       />
     </div>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
 render();
 store.subscribe(render);
@@ -456,25 +456,25 @@ store.subscribe(render);
 import {
   SET_FETCH_MESSAGE,
   HIDE_FETCH_MESSAGE,
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 export const startFetch = {
   type: SET_FETCH_MESSAGE,
-  message: '开始发送异步请求',
+  message: "开始发送异步请求",
 };
 export const successFetch = {
   type: SET_FETCH_MESSAGE,
-  message: '成功接收数据',
+  message: "成功接收数据",
 };
-export const failFetch = { type: SET_FETCH_MESSAGE, message: '接收数据失败' };
+export const failFetch = { type: SET_FETCH_MESSAGE, message: "接收数据失败" };
 export const hideFetchMessage = { type: HIDE_FETCH_MESSAGE };
 ```
 
 ```javascript
 // action/math.js
-import { ADD, SQUARE, SET } from '../constants/ActionTypes';
-import { startFetch, successFetch, failFetch, hideFetchMessage } from './fetch';
-import axios from 'axios';
-const uri = 'https://jsonplaceholder.typicode.com/posts/2';
+import { ADD, SQUARE, SET } from "../constants/ActionTypes";
+import { startFetch, successFetch, failFetch, hideFetchMessage } from "./fetch";
+import axios from "axios";
+const uri = "https://jsonplaceholder.typicode.com/posts/2";
 export const add = (num) => ({ type: ADD, num });
 export const square = { type: SQUARE };
 export const setNum = () => (dispatch, getState) => {
@@ -504,11 +504,11 @@ export const setNum = () => (dispatch, getState) => {
 
 ```javascript
 // constants/ActionTypes.js
-export const ADD = 'ADD';
-export const SQUARE = 'SQUARE';
-export const SET = 'SET';
-export const SET_FETCH_MESSAGE = 'SET_FETCH_MESSAGE';
-export const HIDE_FETCH_MESSAGE = 'HIDE_FETCH_MESSAGE';
+export const ADD = "ADD";
+export const SQUARE = "SQUARE";
+export const SET = "SET";
+export const SET_FETCH_MESSAGE = "SET_FETCH_MESSAGE";
+export const HIDE_FETCH_MESSAGE = "HIDE_FETCH_MESSAGE";
 ```
 
 ```javascript
@@ -516,9 +516,9 @@ export const HIDE_FETCH_MESSAGE = 'HIDE_FETCH_MESSAGE';
 import {
   SET_FETCH_MESSAGE,
   HIDE_FETCH_MESSAGE,
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 const initState = {
-  message: '',
+  message: "",
   isShow: false,
 };
 const fetch = (state = initState, action) => {
@@ -526,7 +526,7 @@ const fetch = (state = initState, action) => {
     case SET_FETCH_MESSAGE:
       return { isShow: true, message: action.message };
     case HIDE_FETCH_MESSAGE:
-      return { isShow: false, message: '' };
+      return { isShow: false, message: "" };
     default:
       return state;
   }
@@ -536,29 +536,29 @@ export default fetch;
 
 ```javascript
 // index.js
-import store from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { add, square, setNum } from './action/math';
+import store from "./store";
+import React from "react";
+import ReactDOM from "react-dom";
+import { add, square, setNum } from "./action/math";
 const render = () =>
   ReactDOM.render(
     <div store={store}>
       <p>{store.getState().math}</p>
       <input
-        type='button'
+        type="button"
         onClick={() => store.dispatch(setNum())}
-        value='设置Num'
+        value="设置Num"
       />
-      <input type='button' onClick={() => store.dispatch(add(1))} value='+1' />
-      <input type='button' onClick={() => store.dispatch(add(2))} value='+2' />
+      <input type="button" onClick={() => store.dispatch(add(1))} value="+1" />
+      <input type="button" onClick={() => store.dispatch(add(2))} value="+2" />
       <input
-        type='button'
+        type="button"
         onClick={() => store.dispatch(square)}
-        value='乘方'
+        value="乘方"
       />
       {store.getState().fetch.isShow && <p>{store.getState().fetch.message}</p>}
     </div>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
 render();
 store.subscribe(render);
@@ -578,16 +578,16 @@ store.subscribe(render);
 
 ```javascript
 // index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import store from './store';
-import MathContainer from './container/MathContainer';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import store from "./store";
+import MathContainer from "./container/MathContainer";
+import { Provider } from "react-redux";
 ReactDOM.render(
   <Provider store={store}>
     <MathContainer />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -598,7 +598,7 @@ ReactDOM.render(
 `react-redux` 提供 `connect` 方法，用于从展示组件生成容器组件。`connect` 的意思就是将这两种组件(容器组件和展示组件)连接起来：
 
 ```javascript
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 const MathContainer = connect()(Math);
 ```
 
@@ -613,7 +613,7 @@ const MathContainer = connect()(Math);
 因此，`connect` 方法的完整 `API` 如下:
 
 ```javascript
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 const MathContainer = connect(mapStateToProps, mapDispatchToProps)(Math);
 ```
 
@@ -671,4 +671,4 @@ const mapDispatchToProps = {
 
 所以，最终的目录结构就变成下面这个样子（你也可以把 `store.js` 放在单独的 `store` 文件夹里面）：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/React/redux-folder-structure.png" alt="目录结构" style="zoom:67%;" />

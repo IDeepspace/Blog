@@ -16,9 +16,9 @@ urlname: javascript-prototypes-and-prototype-chains
 ```javascript
 const person = new Object();
 
-person.name = 'Deepspace';
+person.name = "Deepspace";
 person.age = 23;
-person.job = 'Software Engineer';
+person.job = "Software Engineer";
 person.sayName = function () {
   console.log(this.name);
 };
@@ -72,7 +72,7 @@ function Person(name, age) {
   this.age = age;
 }
 
-const person1 = new Person('Deepspace', 23);
+const person1 = new Person("Deepspace", 23);
 ```
 
 构造函数中的 `this` 关键字代表了新创建的实例对象，也就是 `person1`。
@@ -90,11 +90,11 @@ function Person(name, age) {
   };
 }
 
-const person1 = new Person('Deepspace', 23);
-const person2 = new Person('chenxingxing', 24);
+const person1 = new Person("Deepspace", 23);
+const person2 = new Person("chenxingxing", 24);
 
 console.log(person1 === person2); // false
-person1.name = 'JavaScript';
+person1.name = "JavaScript";
 console.log(person1.name); // JavaScript
 console.log(person2.name); // chenxingxing
 
@@ -120,11 +120,11 @@ function Person(name) {
 
 Person.prototype.age = 18;
 Person.prototype.sayHello = function () {
-  console.log('hello');
+  console.log("hello");
 };
 
-const person1 = new Person('Deepspace');
-const person2 = new Person('chenxingxing');
+const person1 = new Person("Deepspace");
+const person2 = new Person("chenxingxing");
 
 console.log(person1.name); // Deepspace
 console.log(person2.name); // chenxingxing
@@ -142,7 +142,7 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 下面用一张图表示构造函数和实例原型之间的关系：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype1.png" alt="构造函数和实例原型的关系图" style="zoom:88%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype1.png" alt="构造函数和实例原型的关系图" style="zoom:88%;" />
 
 重复一遍前面开头的描述，加深理解：
 
@@ -160,7 +160,7 @@ console.log(person1.sayHello === person2.sayHello); // true
 
 所以，我们可以把上面的图更新成下面这样：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype2.png" alt="实例与实例原型的关系图" style="zoom:88%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype2.png" alt="实例与实例原型的关系图" style="zoom:88%;" />
 
 问题来了，既然实例对象（`person`）和构造函数（`Person`）都可以指向原型（`Person.prototype`），那原型（`Person.prototype`）是否有属性指向构造函数（`Person`）或者实例（`person`）呢？
 
@@ -186,7 +186,7 @@ console.log(Person === Person.prototype.constructor); // true
 
 所以，我们可以再更新一下上面的图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype3.png" alt="实例原型与构造函数的关系图" style="zoom:88%;" />
 
 这个图可以用代码描述如下：
 
@@ -223,7 +223,7 @@ console.log(Dog.prototype.isPrototypeOf(person1)); // false
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 
 const person = new Person();
 
@@ -237,9 +237,9 @@ console.log(person.name); // 原型上的属性 Deepspace
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -247,7 +247,7 @@ Person.prototype.sayName = function () {
 const person1 = new Person();
 const person2 = new Person();
 
-person1.name = 'chenxingxing';
+person1.name = "chenxingxing";
 
 console.log(person1.name); // chenxingxing -- 来自实例
 console.log(person2.name); // Deepspace -- 来自原型
@@ -258,9 +258,9 @@ console.log(person2.name); // Deepspace -- 来自原型
 ```javascript
 function Person() {}
 
-Person.prototype.name = 'Deepspace';
+Person.prototype.name = "Deepspace";
 Person.prototype.age = 29;
-Person.prototype.job = 'Software Engineer';
+Person.prototype.job = "Software Engineer";
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -268,7 +268,7 @@ Person.prototype.sayName = function () {
 const person1 = new Person();
 const person2 = new Person();
 
-person1.name = 'chenxingxing';
+person1.name = "chenxingxing";
 
 console.log(person1.name); // chenxingxing -- 来自实例
 console.log(person2.name); // Deepspace -- 来自原型
@@ -285,7 +285,7 @@ console.log(person1.name); // Deepspace -- 恢复访问原型属性
 
 ```javascript
 const obj = new Object();
-obj.name = 'Deepspace';
+obj.name = "Deepspace";
 console.log(obj.name); // Deepspace
 ```
 
@@ -295,7 +295,7 @@ console.log(obj.name); // Deepspace
 
 我们可以把图更新成下面这样：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype4.png" alt="原型的原型关系图" style="zoom:88%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype4.png" alt="原型的原型关系图" style="zoom:88%;" />
 
 问题又来了，原型的原型还有原型吗？也就是 `Object.prototype` 的原型是什么呢？
 
@@ -307,7 +307,7 @@ console.log(Object.prototype.__proto__ === null); // true
 
 我们可以再更新一下图：
 
-![原型链示意图](https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/prototype5.png)
+![原型链示意图](https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/prototype5.png)
 
 ### 九、原型链
 
@@ -321,7 +321,7 @@ console.log(Object.prototype.__proto__ === null); // true
 
 ```javascript
 const obj = new Object();
-obj.name = 'Deepspace';
+obj.name = "Deepspace";
 
 console.log(obj.valueOf());
 ```

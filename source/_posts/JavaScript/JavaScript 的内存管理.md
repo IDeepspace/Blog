@@ -40,7 +40,7 @@ urlname: javascript-memory-management
 
 **程序执行的时候内存空间会分为代码区和数据区，数据区又可以分为静态存储区和动态存储区，动态存储区又可以分为堆区和栈区。** 如下图：
 
-<img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-memory-management.jpg" alt="javascript-memory-management.png" style="zoom:50%;" />
+<img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/javascript-memory-management.jpg" alt="javascript-memory-management.png" style="zoom:50%;" />
 
 以下面的代码为例，分别对几个名字做一下简单介绍：
 
@@ -56,7 +56,7 @@ for (let i = 0; i < 10; i++) {
 
 function fun() {
   // 字符串数据分配在栈区
-  let str = '';
+  let str = "";
   // 数组数据分配在堆区，数据的地址变量 arr 分配在栈区
   let arr = [];
   // 对象数据分配在堆区，数据的地址变量 obj 分配在栈区
@@ -89,12 +89,12 @@ function fun() {
   - 示意图：
 
     ```javascript
-    var name = '陈星星';
+    var name = "陈星星";
     var age = 18;
-    var city = 'Wuhan';
+    var city = "Wuhan";
     ```
 
-    <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
+    <img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/javascript-memory-management-stack.jpg" alt="img" style="zoom:50%;" />
 
 - 堆
 
@@ -117,12 +117,12 @@ function fun() {
   - 示意图：
 
     ```javascript
-    var person1 = { name: '陈星星' };
-    var person2 = { name: 'Deepspace' };
-    var person3 = { name: '陈鑫' };
+    var person1 = { name: "陈星星" };
+    var person2 = { name: "Deepspace" };
+    var person3 = { name: "陈鑫" };
     ```
 
-    <img src="https://raw.githubusercontent.com/IDeepspace/ImageHosting/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
+    <img src="https://gitee.com/IDeepspace/image-hosting/raw/master/JavaScript/javascript-memory-management-heap.jpg" alt="img" style="zoom:50%;" />
 
 看下面的示例代码，比较基本类型数据与引用类型的数据有什么区别。
 
@@ -136,7 +136,7 @@ function fun() {
   const b = a;
   // 变量a原来的值10被覆盖重新更改为20，b的值不受影响
   a = 20;
-  console.log('a:' + a, 'b:' + b);
+  console.log("a:" + a, "b:" + b);
   // 声明数组存放在堆区，数组地址存放在栈区
   let arr1 = [];
   // 声明一个变量 arr2 存储在栈区，作为一个指针，和 arr1 一样指向同一个数组
