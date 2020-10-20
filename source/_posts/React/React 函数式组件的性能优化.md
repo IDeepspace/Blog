@@ -327,14 +327,17 @@ const Main = ({ list }) => (
 
 ```jsx
 const Main = ({ list }) => {
-  const handleDelete = useCallback((id: string) => {
-    // ...
-  }, []);
+  const handleDelete = useCallback(
+    (id) => () => {
+      // ...
+    },
+    []
+  );
 
   return (
     <List>
       {list.map((i) => (
-        <Item key={i.id} id={i.id} onClick={handleDelete} value={i.value} />
+        <Item key={i.id} id={i.id} onClick={handleDelete(id)} value={i.value} />
       ))}
     </List>
   );
